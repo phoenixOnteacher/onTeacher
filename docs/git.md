@@ -136,6 +136,12 @@ body
 
    - 반드시 **본인이 수정한 파일만** add할 것
 
+     - 특정 파일 add 취소
+
+       ```bash
+       $ git reset HEAD (해당 파일)
+       ```
+
    - add 하기 전에 pull 받아, 최신 파일에 자신의 코드를 반영시킬 것
 
    - status로 변경 사항 확인 후 add 권장
@@ -153,7 +159,15 @@ body
    ```
 
    - 위의 [Commit message convention](#Commit-Message)을 지킬 것
+
+   - commit message 변경
+
+     ```bash
+     $ git commit --amend
+     ```
+
    - 최대한 나눠서 커밋 권장
+
    - 날짜는 깃에 기록되니 넣지 않아요
 
 5. **Push**
