@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <mappers>
+   <mapper resource="mybatis/mappers/admin.xml"/>
+   <mapper resource="mybatis/mappers/course.xml"/>
+   <mapper resource="mybatis/mappers/courseManage.xml"/>
+   <mapper resource="mybatis/mappers/myCourse.xml"/>
+   <mapper resource="mybatis/mappers/student.xml"/>
+   <mapper resource="mybatis/mappers/teacher.xml"/>
+ </mappers>
+</configuration>

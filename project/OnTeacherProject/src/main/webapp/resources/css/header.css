@@ -1,0 +1,111 @@
+@charset "UTF-8";
+/* 공통 */
+/* 폰트 */
+@font-face {
+	font-family: 'S-CoreDream-5Medium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+#h_wrap {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/* 글로벌 네비게이션바 */
+.navbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 200px;
+	font-family: 'S-CoreDream-5Medium';
+	transition: background-color 0.5s ease 0s;
+}
+
+.fixed-top {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+}
+
+#logo img {
+	width: 130px;
+	height: auto;
+}
+
+#navbar_menu {
+	text-align: center;
+	margin: 0;
+	margin-top: 35px;
+	padding: 0;
+}
+
+#navbar_menu li {
+	list-style-type: none;
+	display: inline;
+}
+
+#navbar_menu li a {
+	color: black;
+}
+
+#navbar_menu li:not(:last-child) {
+	padding-right: 12px;
+}
+
+/* 회원가입버튼 */
+#btnJoin {
+	cursor: pointer;
+}
+
+#up {
+	display: none;
+}
+
+#down {
+	display: inline-block;
+}
+
+/* 회원가입 서브메뉴 시작 */
+#joinsub {
+	display: none;
+	position: relative;
+}
+
+#submenu {
+	position: absolute;
+	right: 0;
+	padding: 0;
+	margin-top: 6px;
+	width: 80px;
+	height: 60px;
+	background-color: #ffffff;
+	line-height: 0.6rem;
+	border: 2px solid #fedec3;
+}
+
+#submenu li a {
+	display: block;
+	text-align: right;
+	font-size: 0.9rem;
+	padding-right: 5px;
+	padding-bottom: 10px;
+}
+
+/* 학생가입버튼만 적용 */
+#submenu li:first-child a {
+	padding-top: 10px;
+	border-bottom: 2px solid #fedec3;
+}
+
+/* 글로벌 네비게이션바 효과 */
+.navbareffect {
+	background-color: #FBFAF1;
+	border-bottom: 0.2px solid #FEDEC3;
+}

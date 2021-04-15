@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* 공통 */
+#i_wrap {
+	margin: 0 auto;
+	align-items: center;
+}
+
+/* 바디 */
+#i_content {
+	text-align: center;
+	align-items: center;
+}
+
+#i_content img {
+	width: 800px;
+	height: auto;
+}

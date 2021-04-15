@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/* 공통 */
+/* 폰트 */
+@font-face {
+     font-family: 'S-CoreDream-4Regular';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
+#f_wrap {
+	margin: 0;
+	height: 150px;
+	background-color: #FBAD38;
+}
+
+/* 글자 */
+#copyright {
+	text-align: center;
+	line-height: 150px;
+	color: #ffffff;
+	font-size: 0.825rem;
+	font-family: 'S-CoreDream-4Regular';
+}
+
+#copyright p {
+	margin: 0;
+}
