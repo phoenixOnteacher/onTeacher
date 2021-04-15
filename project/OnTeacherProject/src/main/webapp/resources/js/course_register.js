@@ -2,9 +2,9 @@ $(function() {
 	var select = '<option value="">선택해주세요</option>';
 	
 	$("#highcategory").change(function() {
-		$("#lowcategory").empty();
+		$("#lowcategory").empty().append(select);
 		if($("#hightcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
-			$("#lowcategory").end.append(select);
+			$("#lowcategory").append(select);
 		} else {
 			comboChange($(this).val());
 		}
@@ -22,7 +22,6 @@ $(function() {
 				if(data.length == 0) {
 					$("#lowcategory").append('<option value="">선택해주세요</option>');
 				} else {
-					$("#lowcategory").append('<option value="">선택해주세요</option>');
 					$(data).each(function(i, item) {
 						$("#lowcategory").append("<option value='"+item.id+"'>"+item.name+"</option>");
 					});
