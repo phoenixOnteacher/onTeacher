@@ -37,7 +37,7 @@
 
 ### ERD
 
-![image-20210413151408124](docs/readme_img/ERD_v1.png)
+![image-20210413151408124](docs/readme_img/ERD_v2.png)
 
 ### Class Diagram
 
