@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository("courseManageDAO")
 public interface CourseManageDAO {
-
+	
 }

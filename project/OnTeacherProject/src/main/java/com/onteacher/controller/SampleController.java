@@ -16,10 +16,4 @@ public class SampleController {
 		model.addAttribute("page", "index");
 		return "template";
 	}
-	
-	@RequestMapping(value="/courseregister.do", method=RequestMethod.GET)  // 주소: localhost:8090/sample/class.do 로 들어가면 확인가능
-	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("page", "course_register");
-		return "template";
-	}
 }

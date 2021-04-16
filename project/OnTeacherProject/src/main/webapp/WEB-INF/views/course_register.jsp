@@ -10,7 +10,7 @@
 	<form action="#" method="post" id="courseRegForm">
 		<table border="1">
 			<tr>
-				<td>수업 카테고리</td>
+				<td><label for="hightcategory">수업 카테고리</label></td>
 				<td><select required="required" id="highcategory">
 						<option value="">선택해주세요</option>
 						<option value="주요과목" >주요과목</option>
