@@ -6,7 +6,7 @@
 
 ------
 
-<img src="../../../git/onTeacher/docs/docs_img/image-20210414214206547.png" alt="image-20210414214206547" style="zoom: 80%;" />
+<img src="docs_img/image-20210414214206547.png" alt="image-20210414214206547" style="zoom: 80%;" />
 
 
 
@@ -45,7 +45,7 @@
 
 - workspace의 encoding 변경 (UTF-8)  반드시 !
 
-<img src="../../../git/onTeacher/docs/docs_img/image-20210416003205204.png" alt="image-20210416003205204" style="zoom: 67%;" />
+<img src="docs_img/image-20210416003205204.png" alt="image-20210416003205204" style="zoom: 67%;" />
 
 - application.properties 한글 주석이 깨짐 해결
 
