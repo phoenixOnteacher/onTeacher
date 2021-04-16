@@ -79,3 +79,41 @@ DROP TABLE student CASCADE CONSTRAINTS;
 ```
 
 `CASCADE CONSTRAINTS`는 자신의 키를 참조하는 테이블의 제약조건을 삭제하고 명령을 실행함
+
+
+
+## Sequene
+
+> 순차적으로 자동 증가하는 번호
+
+Admin, Student, Teacher, Course, HighCategory, LowCategory, CourseReview, StudentReview, Homework, Notification 테이블의 id값을 1부터 순차적으로 주기로 함
+
+### create sequnce
+
+```sql
+create sequence (시퀀스 이름);
+```
+
+뒤에 여러 옵션을 덧붙일 수 있는데, 우리는 시퀀스 생성이 시작되는 값을 설정하기 위해 `start with`을 이용함
+
+User 계정은 Admin, Student, Teacher로 나뉘지만, 구분할 수 있게 하기 위해 Admin은 100000, Student는 200000, Teacher는 300000부터 시작
+
+```sql
+create sequence AdminIdSeq
+start with 100000;
+
+create sequence StudentIdSeq
+start with 200000;
+
+create sequence TeacherIdSeq
+start with 300000;
+```
+
+### nextval
+
+데이터 생성할 때 SQL문은 시퀀스의 `nextval`을 이용해 아래와 같이 작성
+
+```sql
+insert into 테이블이름 values ((해당 시퀀스이름).nextval, 값1, 값2, ...);
+```
+
