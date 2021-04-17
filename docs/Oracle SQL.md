@@ -82,13 +82,32 @@ DROP TABLE student CASCADE CONSTRAINTS;
 
 
 
+### 제약조건 추가
+
+테이블이 생성된 후 제약조건을 추가하고 싶을 때, 아래와 같이 작성하여 실행
+
+```sql
+ALTER TABLE (테이블 이름)
+ADD [CONSTRAINT (제약조건 이름)]
+(제약조건) (필드 이름);
+```
+
+학생이 게시물을 올리고, 선생님이 댓글을 다는 방식의 게시판을 만들기로 결정하여, 이미 생성된 Article, Reply 테이블에 FK 설정을 추가함
+
+```sql
+alter table Article add constraint FK_STUDENT_TO_ARTICLE foreign key(user_id) references Student(id);
+alter table Reply add constraint FK_TEACHER_TO_REPLY foreign key(user_id) references Teacher(id);
+```
+
+
+
 ## Sequene
 
 > 순차적으로 자동 증가하는 번호
 
 Admin, Student, Teacher, Course, HighCategory, LowCategory, CourseReview, StudentReview, Homework, Notification 테이블의 id값을 순차적으로 주기로 함
 
-### create sequnce
+### create sequence
 
 ```sql
 create sequence (시퀀스 이름);
