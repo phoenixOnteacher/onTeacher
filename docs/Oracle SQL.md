@@ -86,7 +86,7 @@ DROP TABLE student CASCADE CONSTRAINTS;
 
 > 순차적으로 자동 증가하는 번호
 
-Admin, Student, Teacher, Course, HighCategory, LowCategory, CourseReview, StudentReview, Homework, Notification 테이블의 id값을 1부터 순차적으로 주기로 함
+Admin, Student, Teacher, Course, HighCategory, LowCategory, CourseReview, StudentReview, Homework, Notification 테이블의 id값을 순차적으로 주기로 함
 
 ### create sequnce
 
@@ -117,3 +117,23 @@ start with 300000;
 insert into 테이블이름 values ((해당 시퀀스이름).nextval, 값1, 값2, ...);
 ```
 
+:eyes: ​​예시
+
+```sql
+insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '국어');
+```
+
+- LowCategory의 필드는 id, high_category_id(HighCategory의 id), name로 구성되어 있음
+- LowCategoryIdSeq는 1부터 시작하는 시퀀스
+
+
+
+## :bulb: 문제 해결
+
+### 테이블이 존재하지 않음
+
+1. 문제 발생 : insert 하려고 하니, 테이블이 존재하지 않는다고 함
+2. 문제가 발생한 이유
+   - ERDCloud에서 SQL을 가져올 때, 테이블명과 필드명에 큰따옴표가 붙어있었고, 큰따옴표를 붙이면 대소문자 구분이 됨
+   - select나 insert 등 명령어를 실행할 때 테이블에 큰따옴표를 붙이지 않아, 테이블이 존재하지 않는다는 에러가 발생했고, 큰따옴표를 붙이면 제대로 실행됨
+3. 해결 : 테이블 전부 수정 (선생님의 조언에 따라 테이블명과 필드명에서 큰따옴표 제거)
