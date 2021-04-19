@@ -2,6 +2,20 @@
 
 > DB 구축을 위한 SQL 파일을 만들면서 알게 된 것들을 정리합니다
 
+## DDL
+
+### alter table
+
+#### 컬럼 수정
+
+- 컬럼의 `타입` 변경
+
+  ```sql
+  alter table teacher modify message varchar2(100);
+  ```
+
+  teacher 테이블의 message 필드의 타입을 varchar2(100)으로 바꿈
+
 
 
 ## Constraint (제약조건)
@@ -98,6 +112,19 @@ ADD [CONSTRAINT (제약조건 이름)]
 alter table Article add constraint FK_STUDENT_TO_ARTICLE foreign key(user_id) references Student(id);
 alter table Reply add constraint FK_TEACHER_TO_REPLY foreign key(user_id) references Teacher(id);
 ```
+
+
+
+### 제약조건 변경
+
+제약조건을 변경할 수는 없고, **삭제한 후 새로 추가**해야 함
+
+```sql
+alter table teacher drop constraint TEACHER_GENDER_CK;
+alter table teacher add constraint TEACHER_GENDER_CK check (gender in ('남','여'));
+```
+
+
 
 
 
