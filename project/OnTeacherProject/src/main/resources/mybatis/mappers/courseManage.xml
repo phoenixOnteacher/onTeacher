@@ -2,6 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseManageDAO">
-	
-		
+	<select id="selectHighCategory" resultType="highCategory">
+		<![CDATA[select * from highcategory]]>
+	</select>
+	<select id="selectLowCategory" parameterType="int"
+		resultType="lowCategory">
+		<![CDATA[select * from lowcategory where high_category_id = #{high_category_id}]]>
+	</select>
 </mapper>

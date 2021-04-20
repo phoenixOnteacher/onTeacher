@@ -10,14 +10,12 @@
 	<form action="#" method="post" id="courseRegForm">
 		<table border="1">
 			<tr>
-				<td><label for="hightcategory">수업 카테고리</label></td>
+				<td><label for="highcategory">수업 카테고리</label></td>
 				<td><select required="required" id="highcategory">
 						<option value="">선택해주세요</option>
-						<option value="주요과목" >주요과목</option>
-						<option value="예체능">예체능</option>
-						<option value="상담">상담</option>
-						<option value="어학">어학</option>
-						<option value="대회 및 자격증">대회 및 자격증</option>
+						<c:forEach var="high" items="${highCategory }">
+							<option value="${high.id }">${high.name }</option>
+						</c:forEach>
 				</select> <select required="required" id="lowcategory">
 						<!-- jquery에서 option 동적생성 처리 -->
 						<option value="">선택해주세요</option>
