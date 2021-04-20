@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.AdminDAO">
+	<insert id="insertAdmin" parameterType="admin">
+		<![CDATA[
+		insert into admin(id,email,name)
+		values(AdminIdSeq.nextval,#{email},#{name})
+		]]>
+	</insert>
+	<select id="selectAdmin" resultType="admin" parameterType="String">
+		<![CDATA[
+		select * from admin
+		where
+		email=#{email}
+		]]>
+		</select>
+</mapper>

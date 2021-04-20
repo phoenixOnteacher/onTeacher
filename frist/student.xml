@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.StudentDAO">
+	<insert id="insertStudent" parameterType="student">
+		<![CDATA[
+		insert into student(id,email,name,password,phone_number,grade,address,birthday,gender,profile_img,introduction)
+		values(StudentIdSeq.nextval,#{email},#{name},#{password},#{phone_number},#{grade},#{address},#{birthday},#{gender},#{profile_img},#{introduction})
+		]]>
+	</insert>
+	<select id="selectStudent" resultType="student" parameterType="String">
+		<![CDATA[
+		select * from student
+		where
+		email=#{email}
+		]]>
+		</select>
+</mapper>
