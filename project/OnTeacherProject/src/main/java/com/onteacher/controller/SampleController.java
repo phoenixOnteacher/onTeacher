@@ -33,13 +33,13 @@ public class SampleController {
 		String src = mtfRequest.getParameter("src");
 		System.out.println("src value : " + src);
 		MultipartFile mf = mtfRequest.getFile("file");
-		String path="c:\\img\\";
-		String originFileName = mf.getOriginalFilename(); // 원본 파일 명
-		String safeFile = path + originFileName;
+		String path="c:\\img\\";							// 이미지 파일 저장 경로
+		String originFileName = mf.getOriginalFilename(); 	// 이미지 파일 이름 저장
+		String safeFile = path + originFileName;			// 파일 저장 경로 + 파일 이름 safeFile 변수에 저장
 
 		try {
 			mf.transferTo(new File(safeFile));
-			model.addAttribute("page", "ocrInsertSuccess");
+			model.addAttribute("page", "ocrInsertSuccess");	
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

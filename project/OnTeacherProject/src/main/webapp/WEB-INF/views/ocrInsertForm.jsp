@@ -20,7 +20,7 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" value="그림 파일 읽기"></td>
+			<td colspan="2"><input type="submit" value="파일 업로드"></td>
 		</tr>
 		<tr><td></td></tr>
 		<tr>
