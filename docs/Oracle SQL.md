@@ -2,6 +2,20 @@
 
 > DB 구축을 위한 SQL 파일을 만들면서 알게 된 것들을 정리합니다
 
+## DDL
+
+### alter table
+
+#### 컬럼 수정
+
+- 컬럼의 `타입` 변경
+
+  ```sql
+  alter table teacher modify message varchar2(100);
+  ```
+
+  teacher 테이블의 message 필드의 타입을 varchar2(100)으로 바꿈
+
 
 
 ## Constraint (제약조건)
@@ -79,3 +93,93 @@ DROP TABLE student CASCADE CONSTRAINTS;
 ```
 
 `CASCADE CONSTRAINTS`는 자신의 키를 참조하는 테이블의 제약조건을 삭제하고 명령을 실행함
+
+
+
+### 제약조건 추가
+
+테이블이 생성된 후 제약조건을 추가하고 싶을 때, 아래와 같이 작성하여 실행
+
+```sql
+ALTER TABLE (테이블 이름)
+ADD [CONSTRAINT (제약조건 이름)]
+(제약조건) (필드 이름);
+```
+
+학생이 게시물을 올리고, 선생님이 댓글을 다는 방식의 게시판을 만들기로 결정하여, 이미 생성된 Article, Reply 테이블에 FK 설정을 추가함
+
+```sql
+alter table Article add constraint FK_STUDENT_TO_ARTICLE foreign key(user_id) references Student(id);
+alter table Reply add constraint FK_TEACHER_TO_REPLY foreign key(user_id) references Teacher(id);
+```
+
+
+
+### 제약조건 변경
+
+제약조건을 변경할 수는 없고, **삭제한 후 새로 추가**해야 함
+
+```sql
+alter table teacher drop constraint TEACHER_GENDER_CK;
+alter table teacher add constraint TEACHER_GENDER_CK check (gender in ('남','여'));
+```
+
+
+
+
+
+## Sequene
+
+> 순차적으로 자동 증가하는 번호
+
+Admin, Student, Teacher, Course, HighCategory, LowCategory, CourseReview, StudentReview, Homework, Notification 테이블의 id값을 순차적으로 주기로 함
+
+### create sequence
+
+```sql
+create sequence (시퀀스 이름);
+```
+
+뒤에 여러 옵션을 덧붙일 수 있는데, 우리는 시퀀스 생성이 시작되는 값을 설정하기 위해 `start with`을 이용함
+
+User 계정은 Admin, Student, Teacher로 나뉘지만, 구분할 수 있게 하기 위해 Admin은 100000, Student는 200000, Teacher는 300000부터 시작
+
+```sql
+create sequence AdminIdSeq
+start with 100000;
+
+create sequence StudentIdSeq
+start with 200000;
+
+create sequence TeacherIdSeq
+start with 300000;
+```
+
+### nextval
+
+데이터 생성할 때 SQL문은 시퀀스의 `nextval`을 이용해 아래와 같이 작성
+
+```sql
+insert into 테이블이름 values ((해당 시퀀스이름).nextval, 값1, 값2, ...);
+```
+
+:eyes: ​​예시
+
+```sql
+insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '국어');
+```
+
+- LowCategory의 필드는 id, high_category_id(HighCategory의 id), name로 구성되어 있음
+- LowCategoryIdSeq는 1부터 시작하는 시퀀스
+
+
+
+## :bulb: 문제 해결
+
+### 테이블이 존재하지 않음
+
+1. 문제 발생 : insert 하려고 하니, 테이블이 존재하지 않는다고 함
+2. 문제가 발생한 이유
+   - ERDCloud에서 SQL을 가져올 때, 테이블명과 필드명에 큰따옴표가 붙어있었고, 큰따옴표를 붙이면 대소문자 구분이 됨
+   - select나 insert 등 명령어를 실행할 때 테이블에 큰따옴표를 붙이지 않아, 테이블이 존재하지 않는다는 에러가 발생했고, 큰따옴표를 붙이면 제대로 실행됨
+3. 해결 : 테이블 전부 수정 (선생님의 조언에 따라 테이블명과 필드명에서 큰따옴표 제거)
