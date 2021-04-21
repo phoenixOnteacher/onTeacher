@@ -60,15 +60,38 @@
 				<td><label for="isonline">수업 방식</label></td>
 				<td><input type="radio" name="isonline" value="online"
 					id="isonline">온라인 <input type="radio" name="isonline"
-					value="offline" id="isonline">오프라인</td>
+					value="offline" id="isonline">오프라인 <select
+					required="required" name="sido" disabled="disabled">
+						<option value="">시/도 선택</option>
+						<option value="seoul">서울</option>
+						<option value="busan">부산</option>
+						<option value="deagu">대구</option>
+						<option value="incheon">인천</option>
+						<option value="gwangju">광주</option>
+						<option value="daejeon">대전</option>
+						<option value="ulsan">울산</option>
+						<option value="sejong">세종</option>
+						<option value="gyeonggi">경기</option>
+						<option value="gangwon">강원</option>
+						<option value="chungbuk">충북</option>
+						<option value="chungnam">충남</option>
+						<option value="jeonbuk">전북</option>
+						<option value="jeonnam">전남</option>
+						<option value="gyeongbuk">경북</option>
+						<option value="gyeongnam">경남</option>
+						<option value="jeju">제주</option>
+				</select> <select required="required" name="sigungu" disabled="disabled">
+						<!-- jquery에서 option 동적생성 처리 -->
+						<option value="">시/군/구 선택</option>
+				</select></td>
 			</tr>
 			<tr>
 				<td><label for="isgroup">참여인원</label></td>
 				<td><input type="radio" name="isgroup" value="onetoone"
 					id="isgroup">1:1수업 <input type="radio" name="isgroup"
 					value="group" id="isgroup">그룹수업<input name="mingroup"
-					type="number" id="mingroup" min="2" /> <input name="maxgroup"
-					type="number" id="maxgroup" min="2" /></td>
+					type="number" min="2" disabled="disabled" /> <input name="maxgroup"
+					type="number" min="2" disabled="disabled" /></td>
 			</tr>
 			<tr>
 				<td><label for="title">제목</label></td>
