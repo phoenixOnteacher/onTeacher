@@ -17,11 +17,11 @@
 			</div>
 			<div class="mb-3">
 			  <label for="homeworkDeadline" class="form-label">제출 기간</label>
-			  <input class="form-control" type="date" id="homeworkDeadline" name="deadLine">
+			  <input class="form-control" type="date" id="homeworkDeadline" name="deadline">
 			</div>
 			<div class="mb-3">
 			  <label for="homeworkFile" class="form-label">첨부 파일</label>
-			  <input class="form-control" type="file" id="homeworkFile" name="fileName">
+			  <input class="form-control" type="file" id="homeworkFile" name="filename">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>

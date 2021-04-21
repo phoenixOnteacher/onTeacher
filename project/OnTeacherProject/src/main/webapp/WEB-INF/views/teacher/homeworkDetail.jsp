@@ -8,6 +8,6 @@
 		<h1>Homework Detail</h1>
 		${homework.title }
 		${homework.content }
-		${homework.deadLine }
+		${homework.deadline }
 	</div>
 </div>
