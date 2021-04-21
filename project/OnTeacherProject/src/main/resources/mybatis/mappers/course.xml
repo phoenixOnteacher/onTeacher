@@ -29,4 +29,8 @@
 		where id=#{id}
 		]]>
 	</delete>
+	<insert id="selectLowCategory" parameterType="course">
+		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file)
+		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacher_id}, #{high_category_id}, #{low_category_id}, #{target}, #{is_oneday}, #{start_date}, #{end_date}, #{studyday}, #{studytime}, #{is_online}, #{location}, #{is_group}, #{min_student}, #{max_student}, #{title}, #{classinfo_file})]]>
+	</insert>
 </mapper>

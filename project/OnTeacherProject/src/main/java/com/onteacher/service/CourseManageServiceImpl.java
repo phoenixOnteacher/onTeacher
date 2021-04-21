@@ -1,5 +1,7 @@
 package com.onteacher.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -11,20 +13,30 @@ import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.StudentReview;
+import com.onteacher.dao.HighCategoryDAO;
+import com.onteacher.dao.LowCategoryDAO;
+import com.onteacher.vo.HighCategory;
+import com.onteacher.vo.LowCategory;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public class CourseManageServiceImpl implements CourseManageService {
 
 	@Autowired
-	HomeworkDAO homeworkDAO;
+	private HomeworkDAO homeworkDAO;
 	
 	@Autowired
-	StudentReviewDAO studentReviewDAO;
+	private StudentReviewDAO studentReviewDAO;
 	
 	@Autowired
-	CourseDAO courseDAO;
+	private CourseDAO courseDAO;
 	
+	@Autowired
+	private HighCategoryDAO highCategoryDAO;
+	
+	@Autowired
+	private LowCategoryDAO lowCategoryDAO;
+
 	@Override
 	public void setHomework(Homework hw) throws Exception {
 		homeworkDAO.insertHomework(hw);
@@ -61,5 +73,15 @@ public class CourseManageServiceImpl implements CourseManageService {
 		if (c.getTeacherId()==course.getTeacherId()) {
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("선생님만 수업 취소 가능");
+	}
+
+	@Override
+	public List<HighCategory> getHighCategory() throws Exception {
+		return highCategoryDAO.selectHighCategory();
+	}
+
+	@Override
+	public List<LowCategory> getLowCategory(int high_category_id) throws Exception {
+		return lowCategoryDAO.selectLowCategory(high_category_id);
 	}
 }

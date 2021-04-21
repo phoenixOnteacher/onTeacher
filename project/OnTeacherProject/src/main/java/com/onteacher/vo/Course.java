@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 @Component("course")
 public class Course {
-	
 	private int id; //PK
 	private String target;
 	private boolean isOneday;

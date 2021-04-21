@@ -1,7 +1,11 @@
 package com.onteacher.service;
 
+import java.util.List;
+
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.StudentReview;
 
 public interface CourseManageService {
@@ -11,4 +15,6 @@ public interface CourseManageService {
 	public void startCourse(int courseId) throws Exception;
 	public void extendCourse(int courseId, String date) throws Exception;
 	public void cancelCourse(Course c) throws Exception;
+	public List<HighCategory> getHighCategory() throws Exception;
+	public List<LowCategory> getLowCategory(int high_category_id) throws Exception;
 }
