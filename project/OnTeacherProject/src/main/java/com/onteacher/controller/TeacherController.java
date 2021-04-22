@@ -157,6 +157,18 @@ public class TeacherController {
 //		return "template";
 	}
 
+	/* Registering course start */
+	@RequestMapping(value="/courseregister.do", method=RequestMethod.GET)
+	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			model.addAttribute("highCategory", courseManageService.getHighCategory());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("page", "course_register");
+		return "template";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="/highcategory", method=RequestMethod.GET)
 	public void subcategory(HttpServletResponse res, @RequestParam(value = "high_category_id", required = true) Integer high_category_id) {
@@ -181,16 +193,5 @@ public class TeacherController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	@RequestMapping(value="/courseregister.do", method=RequestMethod.GET)
-	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
-		try {
-			model.addAttribute("highCategory", courseManageService.getHighCategory());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		model.addAttribute("page", "course_register");
-		return "template";
 	}
 }
