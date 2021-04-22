@@ -1,6 +1,6 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,14 @@ public class Course {
 	private int teacherId; //FK
 	private int highCategoryId; //FK
 	private int lowCategoryId; //FK
+	private List<Student> studentList;
 	
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
+	}
 	public int getId() {
 		return id;
 	}
@@ -148,6 +155,6 @@ public class Course {
 				+ isOnline + ", location=" + location + ", isGroup=" + isGroup + ", minStudent=" + minStudent
 				+ ", maxStudent=" + maxStudent + ", title=" + title + ", curriculum=" + curriculum + ", curriculumFile="
 				+ curriculumFile + ", status=" + status + ", teacherId=" + teacherId + ", highCategoryId="
-				+ highCategoryId + ", lowCategoryId=" + lowCategoryId + "]";
+				+ highCategoryId + ", lowCategoryId=" + lowCategoryId + ", studentList=" + studentList + "]";
 	}
 }

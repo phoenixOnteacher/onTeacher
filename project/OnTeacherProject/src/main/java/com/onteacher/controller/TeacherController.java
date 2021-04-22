@@ -136,7 +136,7 @@ public class TeacherController {
 	// 수업 취소
 	@ResponseBody
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
-	public String cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
+	public void cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
 		int teacher_id = 1;
@@ -145,13 +145,12 @@ public class TeacherController {
 			Course course = new Course();
 			course.setId(c_id);
 			course.setTeacherId(teacher_id);
+			System.out.println(course.toString());
 			courseManageService.cancelCourse(course);
 //			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
-			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
-			return "error";
 		}
 //		model.addAttribute("page", "index");
 //		return "template";
