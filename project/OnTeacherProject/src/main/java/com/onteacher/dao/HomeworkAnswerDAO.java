@@ -6,7 +6,7 @@ import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 
 @Mapper
-@Repository("homeworkDAO")
+@Repository("homeworkAnswerDAO")
 public interface HomeworkAnswerDAO {
 	public void insertHomeworkAnswer(HomeworkAnswer ha) throws Exception;
 //	public Homework selectHomeworkById(int id) throws Exception;
