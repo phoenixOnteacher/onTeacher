@@ -36,10 +36,28 @@ public class TeacherController {
 	@Autowired
 	TeacherService teacherService;
 	
-	// °úÁ¦ ³»±â
+	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
+	public String courseManage(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
+		int teacherId = 1;
+		// ë¦¬ìŠ¤íŠ¸ ë¶ˆëŸ¬ì˜¤ê¸°
+		try {
+			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(teacherId));
+			model.addAttribute("matchingList", courseManageService.queryMatchingCourseList(teacherId));
+			model.addAttribute("matchedList", courseManageService.queryMatchedCourseList(teacherId));
+			model.addAttribute("endList", courseManageService.queryEndCourseList(teacherId));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("page", "teacher/courseManage");
+		return "template";
+	}
+	
+	// ê³¼ì œ ë‚´ê¸°
 	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(Model model, @PathVariable String course_id) {
-		// request user°¡ ¼±»ı´ÔÀÌ ¸Â´ÂÁö È®ÀÎ ÈÄ Æû ³Ñ±â´Â ÄÚµå Ãß°¡
+		// request userê°€ ì„ ìƒë‹˜ì´ ë§ëŠ”ì§€ í™•ì¸ í›„ í¼ ë„˜ê¸°ëŠ” ì½”ë“œ ì¶”ê°€
 		model.addAttribute("course_id", Integer.parseInt(course_id));
 		model.addAttribute("page", "teacher/homeworkForm");
 		return "template";
@@ -58,10 +76,10 @@ public class TeacherController {
 		return "template";
 	}
 
-	// ÇĞ»ı ÈÄ±â ÀÛ¼º
+	// í•™ìƒ í›„ê¸° ì‘ì„±
 	@RequestMapping(value="/{course_id}/review/{student_id}", method=RequestMethod.GET)
 	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
-		// request user°¡ ¼±»ı´ÔÀÎÁö È®ÀÎÇÏ°í ÆûÀ¸·Î ÀÌµ¿ÇÏ´Â ·ÎÁ÷ Ãß°¡
+		// request userê°€ ì„ ìƒë‹˜ì¸ì§€ í™•ì¸í•˜ê³  í¼ìœ¼ë¡œ ì´ë™í•˜ëŠ” ë¡œì§ ì¶”ê°€
 		model.addAttribute("page", "teacher/studentReviewForm");
 		return "template";
 	}
@@ -84,13 +102,13 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// ¼ö¾÷ ½ÃÀÛ
+	// ìˆ˜ì—… ì‹œì‘
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
 	public String startCourse(Model model, @PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
 			courseManageService.startCourse(c_id);
-//			model.addAttribute("page", ""); // ¼ö¾÷ °ü¸® ¸Ş´º ÆäÀÌÁö
+//			model.addAttribute("page", ""); // ìˆ˜ì—… ê´€ë¦¬ ë©”ë‰´ í˜ì´ì§€
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
@@ -99,14 +117,14 @@ public class TeacherController {
 		return "template";
 	}
 
-	// ¼ö¾÷ ¿¬Àå
-	// ¸ğ´Ş·Î Æû º¸¿©ÁÖ¸é GET ÇÊ¿ä ¾øÀ» µí
+	// ìˆ˜ì—… ì—°ì¥
+	// ëª¨ë‹¬ë¡œ í¼ ë³´ì—¬ì£¼ë©´ GET í•„ìš” ì—†ì„ ë“¯
 	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
 	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model, @PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
 			courseManageService.extendCourse(c_id, extendDate);
-//			model.addAttribute("page", ""); // ¼ö¾÷ »ó¼¼ ÆäÀÌÁö
+//			model.addAttribute("page", ""); // ìˆ˜ì—… ìƒì„¸ í˜ì´ì§€
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
@@ -115,7 +133,8 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// ¼ö¾÷ Ãë¼Ò
+	// ìˆ˜ì—… ì·¨ì†Œ
+	@ResponseBody
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
 	public String cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
@@ -127,13 +146,15 @@ public class TeacherController {
 			course.setId(c_id);
 			course.setTeacherId(teacher_id);
 			courseManageService.cancelCourse(course);
-//			model.addAttribute("page", ""); // ¼ö¾÷ °ü¸® ¸Ş´º ÆäÀÌÁö
+//			model.addAttribute("page", ""); // ìˆ˜ì—… ê´€ë¦¬ ë©”ë‰´ í˜ì´ì§€
+			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
+			return "error";
 		}
-		model.addAttribute("page", "index");
-		return "template";
+//		model.addAttribute("page", "index");
+//		return "template";
 	}
 
 	@ResponseBody
