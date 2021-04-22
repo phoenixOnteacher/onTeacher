@@ -7,7 +7,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/course_register.js"></script>
 <div id="cr_wrap">
-	<form action="#" method="post" id="courseRegForm">
+	<form action="./upload" method="post" id="courseRegForm" enctype="multipart/form-data">
 		<table border="1">
 			<tr>
 				<td><label for="highcategory">수업 카테고리</label></td>
@@ -99,13 +99,13 @@
 					required="required" /></td>
 			</tr>
 			<tr>
-				<td><label for="classintro">수업 소개</label></td>
-				<td><textarea id="classintro" name="classintro" cols="40"
+				<td><label for="courseintro">수업 소개</label></td>
+				<td><textarea id="courseintro" name="courseintro" cols="40"
 						rows="15" required="required"></textarea></td>
 			</tr>
 			<tr>
-				<td><label for="classinfofile">참고자료</label></td>
-				<td><input name="classinfofile" type="file" id="classinfofile" /></td>
+				<td><label for="courseinfofile">참고자료</label></td>
+				<td><input name="courseinfofile" type="file" id="courseinfofile" /></td>
 			</tr>
 			<tr>
 				<td><button type="submit">등록하기</button></td>
