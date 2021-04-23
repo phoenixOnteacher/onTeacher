@@ -209,7 +209,8 @@ public class TeacherController {
 		 * request.getSession();
 		 */
 
-		MultipartFile origFile = multi.getFile("file");
+		MultipartFile origFile = course.getFile();
+		System.out.println(origFile);
 		if (origFile.isEmpty() == false) {
 			String path = multi.getServletContext().getRealPath("/courseupload/"); // 파일 저장 경로
 			File dir = new File(path);    // 지정된 directory가 없을 때 directory 만들어주기

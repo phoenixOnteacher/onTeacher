@@ -109,7 +109,7 @@
 			<tr>
 				<td>참고자료</td>
 				<td><input name="file" type="file"
-					id="curriculumFile" /></td>
+					id="file" /></td>
 			</tr>
 			<tr>
 				<td><button type="submit">등록하기</button></td>

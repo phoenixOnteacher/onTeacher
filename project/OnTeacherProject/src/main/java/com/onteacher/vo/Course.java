@@ -3,6 +3,7 @@ package com.onteacher.vo;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component("course")
 public class Course {
@@ -20,6 +21,7 @@ public class Course {
 	private int maxStudent;
 	private String title;
 	private String curriculum;
+	private MultipartFile file;
 	private String curriculumFile;
 	private String status;
 	private int teacherId; //FK
@@ -116,6 +118,12 @@ public class Course {
 	}
 	public void setCurriculum(String curriculum) {
 		this.curriculum = curriculum;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public String getCurriculumFile() {
 		return curriculumFile;
