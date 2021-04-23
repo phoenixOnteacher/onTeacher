@@ -2,6 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.StudentDAO">
-	
-		
+	<resultMap id="studentResult" type="student">
+		<id column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="grade" property="grade" />
+		<result column="address" property="address" />
+		<result column="birthday" property="birthday" />
+		<result column="gender" property="gender" />
+		<result column="profile_img" property="profileImg" />
+		<result column="introduction" property="introduction" />
+	</resultMap>
+	<select id="selectMatchingStudentByCourseId" resultType="student" parameterType="int">
+		<![CDATA[
+		select s.*
+		from matching m join student s
+		on m.student_id=s.id
+		where m.course_id=#{courseId}
+		]]>
+	</select>
 </mapper>
