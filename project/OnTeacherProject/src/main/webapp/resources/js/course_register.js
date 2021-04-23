@@ -32,13 +32,13 @@ $(function() {
 	}
 
 	/* 오프라인 주소 선택 */
-	$('input[id=isonline]').change(function() {
-		if ($(this).val() == 'online') {
-			$('select[name=sido]').attr('disabled', 'disabled');
-			$('select[name=sigungu]').attr('disabled', 'disabled');
+	$('input[id=isOnline]').change(function() {
+		if ($(this).val() == '0') {
+			$('select[id=sido]').attr('disabled', 'disabled');
+			$('select[id=sigungu]').attr('disabled', 'disabled');
 		} else {
-			$('select[name=sido]').removeAttr('disabled');
-			$('select[name=sigungu]').removeAttr('disabled');
+			$('select[id=sido]').removeAttr('disabled');
+			$('select[id=sigungu]').removeAttr('disabled');
 		}
 	});
 
@@ -62,14 +62,14 @@ $(function() {
 
 	var sel = '<option value="">시/군/구 선택</option>';
 
-	$("select[name=sido]").change(function() {
+	$("select[id=sido]").change(function() {
 		var area = "area" + $("option", $(this)).index($("option:selected", $(this)));
 		var sigungu = $(this).next(); // 선택영역 군구 객체
 
-		$("select[name=sigungu]").empty().append(sel);
+		$("select[id=sigungu]").empty().append(sel);
 
 		if ($(this).val() == "") {
-			$("select[name=sigungu]").append();
+			$("select[id=sigungu]").append();
 		} else {
 			$.each(eval(area), function() {
 				sigungu.append("<option value='" + this + "'>" + this + "</option>");
@@ -78,13 +78,13 @@ $(function() {
 	});
 	
 	/* 참여인원 선택 */
-	$('input[id=isgroup]').change(function() {
-		if ($(this).val() == 'onetoone') {
-			$('input[name=mingroup]').attr('disabled', 'disabled');
-			$('input[name=maxgroup]').attr('disabled', 'disabled');
+	$('input[id=isGroup]').change(function() {
+		if ($(this).val() == '1') {
+			$('input[name=minStudent]').attr('disabled', 'disabled');
+			$('input[name=maxStudent]').attr('disabled', 'disabled');
 		} else {
-			$('input[name=mingroup]').removeAttr('disabled');
-			$('input[name=maxgroup]').removeAttr('disabled');
+			$('input[name=minStudent]').removeAttr('disabled');
+			$('input[name=maxStudent]').removeAttr('disabled');
 		}
 	});
 });

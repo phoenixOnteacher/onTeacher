@@ -9,14 +9,14 @@ public class Course {
 	
 	private int id; //PK
 	private String target;
-	private boolean isOneday;
+	private char isOneday;
 	private String startDate; //Date
 	private String endDate; //Date
 	private String studyDay;
 	private String studyTime;
-	private boolean isOnline;
+	private char isOnline;
 	private String location;
-	private boolean isGroup;
+	private char isGroup;
 	private int minStudent;
 	private int maxStudent;
 	private String title;
@@ -39,11 +39,11 @@ public class Course {
 	public void setTarget(String target) {
 		this.target = target;
 	}
-	public boolean isOneday() {
-		return isOneday;
+	public char getIsGroup() {
+		return isGroup;
 	}
-	public void setOneday(boolean isOneday) {
-		this.isOneday = isOneday;
+	public void setIsGroup(char isGroup) {
+		this.isGroup = isGroup;
 	}
 	public String getStartDate() {
 		return startDate;
@@ -69,11 +69,11 @@ public class Course {
 	public void setStudyTime(String studyTime) {
 		this.studyTime = studyTime;
 	}
-	public boolean isOnline() {
-		return isOnline;
+	public char getIsOneday() {
+		return isOneday;
 	}
-	public void setOnline(boolean isOnline) {
-		this.isOnline = isOnline;
+	public void setIsOneday(char isOneday) {
+		this.isOneday = isOneday;
 	}
 	public String getLocation() {
 		return location;
@@ -81,11 +81,11 @@ public class Course {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public boolean isGroup() {
-		return isGroup;
+	public char getIsOnline() {
+		return isOnline;
 	}
-	public void setGroup(boolean isGroup) {
-		this.isGroup = isGroup;
+	public void setIsOnline(char isOnline) {
+		this.isOnline = isOnline;
 	}
 	public int getMinStudent() {
 		return minStudent;
@@ -141,6 +141,7 @@ public class Course {
 	public void setLowCategoryId(int lowCategoryId) {
 		this.lowCategoryId = lowCategoryId;
 	}
-		
+	
+	
 	
 }
