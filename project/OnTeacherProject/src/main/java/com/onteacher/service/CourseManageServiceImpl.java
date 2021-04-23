@@ -17,6 +17,7 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Student;
 import com.onteacher.vo.StudentReview;
 
 @Service
@@ -73,7 +74,6 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void cancelCourse(Course c) throws Exception {
 		Course course = courseDAO.selectCourseById(c.getId());
-		System.out.println(course.toString());
 		if (c.getTeacherId()==course.getTeacherId()) {
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("해당 수업의 선생님만 취소 가능");
@@ -121,6 +121,16 @@ public class CourseManageServiceImpl implements CourseManageService {
 			course.setEndDate(course.getEndDate().substring(0,10));
 		}
 		return courseList;
+	}
+	
+	@Override
+	public List<Student> queryMatchingStudentList(int courseId) throws Exception {
+		List<Student> studentList = studentDAO.selectMatchingStudentByCourseId(courseId);
+		for (Student student : studentList) {
+			String phoneNum = student.getPhoneNumber();
+			student.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
+		}
+		return studentList;
 	}
 	
 	@Override

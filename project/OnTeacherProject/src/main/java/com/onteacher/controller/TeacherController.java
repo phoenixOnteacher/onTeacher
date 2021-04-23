@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.onteacher.service.CourseManageService;
+import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
@@ -36,6 +37,9 @@ public class TeacherController {
 	@Autowired
 	TeacherService teacherService;
 	
+	@Autowired
+	CourseService courseService;
+	
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
@@ -51,6 +55,25 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		model.addAttribute("page", "teacher/courseManage");
+		return "template";
+	}
+	
+	// 특정 수업 관리
+	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
+	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
+		int teacherId = 1;
+		int courseId = Integer.parseInt(course_id);
+		// 리스트 불러오기
+		try {
+			model.addAttribute("course", courseService.queryCourseById(courseId));
+			model.addAttribute("studentList", courseManageService.queryMatchingStudentList(courseId));
+			model.addAttribute("page", "teacher/studentList");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page","index");
+		}
 		return "template";
 	}
 	
@@ -118,7 +141,6 @@ public class TeacherController {
 	}
 
 	// 수업 연장
-	// 모달로 폼 보여주면 GET 필요 없을 듯
 	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
 	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model, @PathVariable String course_id) {
 		try {
