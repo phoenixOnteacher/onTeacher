@@ -2,24 +2,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseDAO">
-	<resultMap type="course" id="courseMap">
+	<resultMap id="courseResult" type="course">
 		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
-		<result property="teacherId" column="teacher_id" />
-		<result property="isOneday" column="is_oneday" />
-		<result property="startDate" column="start_date" />
-		<result property="endDate" column="end_date" />
-		<result property="studyDay" column="studyday" />
-		<result property="studyTime" column="studytime" />
-		<result property="isOnline" column="is_online" />
-		<result property="isGroup" column="is_group" />
-		<result property="minStudent" column="min_student" />
-		<result property="maxStudent" column="max_student" />
-		<result property="curriculum" column="classinfo" />
-		<result property="curriculumFile" column="classinfo_file" />
-		<result property="highCategoryId" column="high_category_id" />
-		<result property="LowCategoryId" column="low_category_id" />
+		<id column="id" property="id" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="high_category_id" property="highCategoryId" />
+		<result column="low_category_id" property="lowCategoryId" />
+		<result column="target" property="target" />
+		<result column="is_oneday" property="isOneday" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="studyday" property="studyDay" />
+		<result column="studytime" property="studyTime" />
+		<result column="is_online" property="isOnline" />
+		<result column="location" property="location" />
+		<result column="is_group" property="isGroup" />
+		<result column="min_student" property="minStudent" />
+		<result column="max_student" property="maxStudent" />
+		<result column="title" property="title" />
+		<result column="classinfo" property="curriculum" />
+		<result column="classinfo_file" property="curriculumFile" />
+		<result column="status" property="status" />
 	</resultMap>
-
+	<update id="updateCourseStatus" parameterType="course">
+		<![CDATA[
+		update course
+		set status=#{status}
+		where id=#{id}
+		]]>
+	</update>
+	<select id="selectCourseById" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select * from course
+		where id=#{id}
+		]]>
+	</select>
+	<update id="updateCourseEndDate" parameterType="course">
+		<![CDATA[
+		update course
+		set end_date=#{endDate}
+		where id=#{id}
+		]]>
+	</update>
+	<delete id="deleteCourse" parameterType="int">
+		<![CDATA[
+		delete from course
+		where id=#{id}
+		]]>
+	</delete>
+	<select id="selectStudyingCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select * from course
+		where teacher_id=#{teacherId} and status='studying'
+		]]>
+	</select>
+	<select id="selectEndCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select * from course
+		where teacher_id=#{teacherId} and status='end'
+		]]>
+	</select>
+	<select id="selectMatchingCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select *
+		from course
+		where teacher_id=#{teacherId} and status='matching'
+		]]>
+	</select>
+	<select id="selectMatchedCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select * from course
+		where teacher_id=#{teacherId} and status='matched'
+		]]>
+	</select>
+	<!-- 수업등록 -->
 	<insert id="insertCourse" parameterType="course">
 		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
 		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, #{location, jdbcType=VARCHAR}, #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>

@@ -16,7 +16,7 @@
 		</div>
 		<ul id="navbar_menu">
 			<li><a href="#">수업검색</a></li>
-			<li><a href="#">수업관리</a></li>
+			<li><a href="/teacher/course-manage">수업관리</a></li>
 			<li><a href="#">질문게시판</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">

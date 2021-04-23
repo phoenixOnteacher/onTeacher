@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.HomeworkDAO">
-	
-		
+	<insert id="insertHomework" parameterType="homework">
+		<![CDATA[
+		insert into homework(id,title,content,filename,deadline,course_id)
+		values(HomeworkIdSeq.nextval,#{title},#{content},#{filename},#{deadline},#{courseId})
+		]]>
+	</insert>
+	<select id="selectHomeworkById" resultType="homework" parameterType="int">
+		select *
+		from homework
+		where id=#{id}
+	</select>
 </mapper>
