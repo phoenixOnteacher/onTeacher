@@ -14,7 +14,7 @@ $(function() {
 	function comboChange(highcategoryid) {
 		$.ajax({
 			type: "GET",
-			url: "http://localhost:8090/highcategory",
+			url: "http://localhost:8090/teacher/highcategory",
 			dataType: "json",
 			data: { high_category_id: highcategoryid },
 			contentType: "application/json; charset=UTF-8",
