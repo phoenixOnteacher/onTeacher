@@ -7,8 +7,9 @@
 <title>OCR Test</title>
 </head>
 <body>
-
-<b> 요청하신 그림 파일이 전송되었습니다.</b>
-
-</body>
+	<h3> 이미지 파일이 업로드 되었습니다.</h3>
+  	<span>
+  		<a href="./filedownload?filename=${file.originalFilename}"> ${file.originalFilename}</a>
+  	</span>
+ 	<br/>  
 </html>
