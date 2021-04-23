@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.onteacher.service.OcrService;
+
 
 @Controller("sampleController")
 @RequestMapping("/sample")
@@ -53,7 +55,7 @@ public class SampleController {
 	}
 
 	@RequestMapping(value = "/filedownload", method = RequestMethod.GET)
-	public void imageDownload(@RequestParam(value = "filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+	public void textRecognize(@RequestParam(value = "filename") String filename, HttpServletRequest request, HttpServletResponse response) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
 		File file = new File(saveDir + filename);
 		System.out.println(file);
@@ -86,5 +88,8 @@ public class SampleController {
 				}
 			}
 		} // try end;
+		
+		OcrService.ImageRecognize();
+		
 	}
 }	

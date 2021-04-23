@@ -71,9 +71,8 @@ public class OcrService {
 			}
 			br.close();
 
-	        // 이미지내 텍스트 인식 결과인 response 를 c:\img\ocr.json 으로 저장한다. 
-			// 저장 경로옆에 True는 덮어쓰기를 설정하는 파라메터임. 
-			BufferedWriter out = new BufferedWriter(new FileWriter("c:\\img\\ocr.json", true));
+	      			// 저장 경로옆에 True는 덮어쓰기를 설정하는 파라메터임. 
+			BufferedWriter out = new BufferedWriter(new FileWriter("/OnTeacherProject/src/main/webapp/upload/ocr.json", true));
 	        out.write(response.toString());
 	        out.newLine();
 			out.close();
