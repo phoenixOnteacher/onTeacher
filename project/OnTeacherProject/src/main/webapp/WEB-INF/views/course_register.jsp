@@ -3,9 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <%-- <link rel="stylesheet" href="${path}/resources/css/index.css" /> --%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/course_register.js"></script>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<!-- include summernote css/js -->
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <div id="cr_wrap">
 	<form action="./upload" method="post" id="courseRegForm"
 		enctype="multipart/form-data">
@@ -103,8 +109,7 @@
 			</tr>
 			<tr>
 				<td><label for="curriculum">수업 소개</label></td>
-				<td><textarea id="curriculum" name="curriculum" cols="40"
-						rows="15" required="required"></textarea></td>
+				<td><textarea id="summernote" name="curriculum" required="required"></textarea></td>
 			</tr>
 			<tr>
 				<td>참고자료</td>
