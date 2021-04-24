@@ -68,8 +68,9 @@ public class TeacherController {
 		// 리스트 불러오기
 		try {
 			model.addAttribute("course", courseService.queryCourseById(courseId));
-			model.addAttribute("studentList", courseManageService.queryMatchingStudentList(courseId));
-			model.addAttribute("page", "teacher/studentList");
+			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
+			model.addAttribute("homeworks", courseManageService.queryHomeworkList(courseId));
+			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("page","index");
@@ -85,6 +86,7 @@ public class TeacherController {
 		model.addAttribute("page", "teacher/homeworkForm");
 		return "template";
 	}
+	
 	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.POST)
 	public String homework(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		hw.setCourseId(Integer.parseInt(course_id));
@@ -167,7 +169,6 @@ public class TeacherController {
 			Course course = new Course();
 			course.setId(c_id);
 			course.setTeacherId(teacher_id);
-			System.out.println(course.toString());
 			courseManageService.cancelCourse(course);
 //			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
 		} catch (Exception e) {

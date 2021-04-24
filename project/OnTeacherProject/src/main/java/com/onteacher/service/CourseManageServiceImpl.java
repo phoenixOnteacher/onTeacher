@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.HighCategoryDAO;
@@ -132,6 +135,11 @@ public class CourseManageServiceImpl implements CourseManageService {
 			student.setBirthday(student.getBirthday().substring(0,10));
 		}
 		return studentList;
+	}
+	
+	@Override
+	public List<Homework> queryHomeworkList(int courseId) throws Exception {
+		return homeworkDAO.selectHomeworkListByCourseId(courseId);
 	}
 	
 	@Override

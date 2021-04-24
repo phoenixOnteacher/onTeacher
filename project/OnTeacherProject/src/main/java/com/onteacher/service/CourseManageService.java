@@ -21,6 +21,7 @@ public interface CourseManageService {
 	public List<Course> queryMatchedCourseList(int teacherId) throws Exception;
 	public List<Course> queryEndCourseList(int teacherId) throws Exception;
 	public List<Student> queryMatchingStudentList(int courseId) throws Exception;
+	public List<Homework> queryHomeworkList(int courseId) throws Exception;
 	public List<HighCategory> getHighCategory() throws Exception;
 	public List<LowCategory> getLowCategory(int high_category_id) throws Exception;
 }
