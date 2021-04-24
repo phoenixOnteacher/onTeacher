@@ -6,10 +6,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
+import com.onteacher.vo.Course;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	CourseDAO courseDAO;
+	
+	@Override
+	public Course queryCourseById(int courseId) throws Exception {
+		return courseDAO.selectCourseById(courseId);
+	}
 }
