@@ -24,4 +24,5 @@ public interface CourseManageService {
 	public List<Homework> queryHomeworkList(int courseId) throws Exception;
 	public List<HighCategory> getHighCategory() throws Exception;
 	public List<LowCategory> getLowCategory(int high_category_id) throws Exception;
+	public void registerCourse(Course course) throws Exception;
 }

@@ -10,6 +10,7 @@ import com.onteacher.vo.Course;
 @Mapper
 @Repository("courseDAO")
 public interface CourseDAO {
+	public void insertCourse(Course course) throws Exception;
 	public Course selectCourseById(int id) throws Exception;
 	public void updateCourseStatus(Course c) throws Exception;
 	public void deleteCourse(int id) throws Exception;
