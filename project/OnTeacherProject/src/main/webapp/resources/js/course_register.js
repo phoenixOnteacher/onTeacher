@@ -1,5 +1,5 @@
 $(function() {
-	var select = '<option value="">선택해주세요</option>';
+	var select = '<option value="">하위 분류 선택</option>';
 
 	/* 수업 카테고리 선택 */
 	$("#highcategory").change(function() {
@@ -21,7 +21,7 @@ $(function() {
 			success: function(data) {
 				//alert(data);
 				if (data.length == 0) {
-					$("#lowcategory").append('<option value="">선택해주세요</option>');
+					$("#lowcategory").append('<option value="">하위 분류 선택</option>');
 				} else {
 					$(data).each(function(i, item) {
 						$("#lowcategory").append("<option value='" + item.id + "'>" + item.name + "</option>");
@@ -91,11 +91,10 @@ $(function() {
 	/* summernote text editor */
 	$('#summernote').summernote({
 		tabsize: 2,
+		width: 750,
 		height: 400,
 		minHeight: 400,
 		maxHeight: 400,
-		lang: "ko-KR",
-		focus: true,
 		toolbar: [
 		    // 글꼴 설정
 		    ['fontname', ['fontname']],
@@ -109,15 +108,13 @@ $(function() {
 		    ['table', ['table']],
 		    // 글머리 기호, 번호매기기, 문단정렬
 		    ['para', ['ul', 'ol', 'paragraph']],
-		    // 줄간격
-		    ['height', ['height']],
 		    // 그림첨부, 링크만들기, 동영상첨부
-		    ['insert',['picture','link','video']],
+		    ['insert',['link','video']],
 		    // 코드보기, 확대해서보기, 도움말
-		    ['view', ['codeview','fullscreen', 'help']]
+		    ['view', ['codeview']]
 		  ],
 		  // 추가한 글꼴
-		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+		fontNames: ['Arial', 'Arial Black', '맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
 		 // 추가한 폰트사이즈
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
