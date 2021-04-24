@@ -16,6 +16,7 @@ body {
 	width: 100%;
 	margin: 0 auto;
 	max-height: 100%;
+	margin-bottom: 100px;
 }
 
 /* header는 글로벌 네비게이션바 부분 고정이므로 되도록 건드리지 말 것 */
