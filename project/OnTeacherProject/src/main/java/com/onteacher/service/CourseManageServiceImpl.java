@@ -129,6 +129,7 @@ public class CourseManageServiceImpl implements CourseManageService {
 		for (Student student : studentList) {
 			String phoneNum = student.getPhoneNumber();
 			student.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
+			student.setBirthday(student.getBirthday().substring(0,10));
 		}
 		return studentList;
 	}
