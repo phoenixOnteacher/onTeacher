@@ -5,7 +5,14 @@
 <script src="${path }/resources/js/course_list.js"></script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
-		<h1>수업 관리<span class="my-3 text-secondary h4">${course.title }</span></h1>
+		<a href="." class="text-secondary h5 text-decoration-none">수업 관리 <i class="fas fa-chevron-right"></i></a>
+		<h2>${course.title }</h2>
+		<div class="d-flex justify-content-start align-items-center">
+			<a href="././." class="text-secondary h5 text-decoration-none">수업 관리</a>
+			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+			<a href="./." class="text-secondary h5 text-decoration-none">${course.title }</a>
+			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+		</div>
 		<div class="row mt-3">
 			<nav class="nav flex-column col-3">
 			  <a class="nav-link active in text-reset" aria-current="page" href="#student" data-toggle="tab" data-load="true">학생 관리</a>
@@ -36,6 +43,7 @@
 					<h1>상세 페이지</h1>
 				</div>
 				<div class="tab-pane fade" id="homework">
+					<a href="${course.id }/homework" class="btn btn-primary float-end">과제 내기</a>
 					<table class="table table-hover">
 					  <thead>
 					    <tr>
@@ -50,7 +58,7 @@
 						      <th scope="row">${status.count} </th>
 						      <td>
 						      	<div class="position-relative p-0">
-						      		<a href="./homeworkDetail/${homework.id }" class="text-decoration-none text-reset stretched-link p-3">
+						      		<a href="/homework/${homework.id }" class="text-decoration-none text-reset stretched-link p-3">
 						      			${homework.title }
 						      		</a>
 					      		</div>

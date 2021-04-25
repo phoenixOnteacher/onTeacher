@@ -52,11 +52,6 @@ public class CourseManageServiceImpl implements CourseManageService {
 	}
 	
 	@Override
-	public Homework queryHomework(int id) throws Exception {
-		return homeworkDAO.selectHomeworkById(id);
-	}
-	
-	@Override
 	public void writeStudentReview(StudentReview sr) throws Exception {
 		studentReviewDAO.insertStudentReview(sr);
 	}
@@ -136,11 +131,6 @@ public class CourseManageServiceImpl implements CourseManageService {
 			student.setBirthday(student.getBirthday().substring(0,10));
 		}
 		return studentList;
-	}
-	
-	@Override
-	public List<Homework> queryHomeworkList(int courseId) throws Exception {
-		return homeworkDAO.selectHomeworkListByCourseId(courseId);
 	}
 	
 	@Override

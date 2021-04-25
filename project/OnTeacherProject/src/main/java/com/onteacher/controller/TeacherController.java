@@ -74,7 +74,7 @@ public class TeacherController {
 		try {
 			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
-			model.addAttribute("homeworks", courseManageService.queryHomeworkList(courseId));
+			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
 			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,15 +84,26 @@ public class TeacherController {
 	}
 	
 	// 과제 내기
-	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.GET)
-	public String homeworkForm(Model model, @PathVariable String course_id) {
-		// request user가 선생님이 맞는지 확인 후 폼 넘기는 코드 추가
-		model.addAttribute("course_id", Integer.parseInt(course_id));
-		model.addAttribute("page", "teacher/homeworkForm");
+	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
+	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
+		int teacherId = 1;
+		int courseId = Integer.parseInt(course_id);
+		try {
+			Course course = courseService.queryCourseById(courseId);
+			if (course.getTeacherId() == teacherId) {
+				model.addAttribute("course", course);
+				model.addAttribute("page", "teacher/homeworkForm");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page", "index");
+		}
 		return "template";
 	}
 	
-	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.POST)
+	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
 	public String homework(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		hw.setCourseId(Integer.parseInt(course_id));
 		try {
@@ -175,13 +186,9 @@ public class TeacherController {
 			course.setId(c_id);
 			course.setTeacherId(teacher_id);
 			courseManageService.cancelCourse(course);
-//			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
-//		model.addAttribute("page", "index");
-//		return "template";
 	}
 
 	/* Registering course start */

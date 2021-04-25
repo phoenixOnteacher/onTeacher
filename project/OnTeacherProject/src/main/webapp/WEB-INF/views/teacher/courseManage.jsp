@@ -19,7 +19,7 @@
 				  	<c:forEach var="course" items="${studyingList }">
 						<div class="card m-2">
 						  <h5 class="card-header py-3">
-						  	<a href="./course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
+						  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
 					    	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelCourseBtn" value="${course.id }">수업 취소</button>
 						    <button type="button" class="btn btn-primary btn-sm float-end mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
 							  수업 연장
@@ -59,7 +59,7 @@
 					<c:forEach var="course" items="${matchingList }">
 						<div class="card m-2">
 						  <h5 class="card-header p-3">
-						  	<a href="./course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
+						  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
 						  	<small class="btn btn-primary float-end btn-sm">매칭 대기</small>
 					  	  </h5>
 						  <div class="card-body">
@@ -75,7 +75,7 @@
 				  	<c:forEach var="course" items="${matchedList }">
 						<div class="card m-2">
 						  <h5 class="card-header p-3">
-						  	<a href="./course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
+						  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
 						  	<small class="btn btn-secondary float-end btn-sm">매칭 완료</small>
 						  </h5>
 						  <div class="card-body">
@@ -92,7 +92,7 @@
 				<div class="tab-pane fade" id="end">
 					<c:forEach var="course" items="${endList }">
 						<div class="card m-2">
-						  <h5 class="card-header p-3"><a href="./course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a></h5>
+						  <h5 class="card-header p-3"><a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a></h5>
 						  <div class="card-body">
 						    <h5 class="card-title">${course.status }</h5>
 						    <c:forEach var="student" items="${course.studentList }">
