@@ -43,7 +43,7 @@ td.tbody {
 }
 
 td.thead, td.tbody {
-	height: 35px;
+	height: 50px;
 	align-items: center;
 }
 
@@ -79,6 +79,18 @@ input#minStudent.form-control, input#maxStudent.form-control, input#studyDate {
 	display: inline-block;
 }
 
+#startday {
+	width: 162px;
+}
+
+#startday, #endday {
+	margin: 0;
+	display: inline-block;
+	font-size: 9px;
+	font-weight: 700;
+	padding-left: 5px;
+}
+
 div.panel {
 	margin-bottom: 0;
 }
@@ -88,4 +100,16 @@ div.panel {
 	margin: 0 auto;
 	text-align: right;
 	margin-top: 12px;
+	font-family: 'S-CoreDream-5Medium';
+}
+
+button.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FFCD4A;
 }

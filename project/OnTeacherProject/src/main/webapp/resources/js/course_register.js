@@ -96,8 +96,6 @@ $(function() {
 		minHeight: 400,
 		maxHeight: 400,
 		toolbar: [
-		    // 글꼴 설정
-		    ['fontname', ['fontname']],
 		    // 글자 크기 설정
 		    ['fontsize', ['fontsize']],
 		    // 굵기, 기울임꼴, 밑줄,취소 선, 서식지우기
@@ -113,9 +111,16 @@ $(function() {
 		    // 코드보기, 확대해서보기, 도움말
 		    ['view', ['codeview']]
 		  ],
-		  // 추가한 글꼴
-		fontNames: ['Arial', 'Arial Black', '맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
 		 // 추가한 폰트사이즈
 		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
+	
+	/* 등록버튼 클릭 시 입력필수 필드 확인 */
+	$('#submit_btn').on('click', function() {
+		if ($('#summernote').val() == "") {
+			alert('내용을 입력해주세요');
+			$('#summernote').summernote('focus');
+			return false;
+		}
+	})
 });
