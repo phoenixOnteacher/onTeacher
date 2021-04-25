@@ -2,25 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.StudentDAO">
-	<resultMap id="studentResult" type="student">
-		<id column="id" property="id" />
-		<result column="email" property="email" />
-		<result column="name" property="name" />
-		<result column="password" property="password" />
-		<result column="phone_number" property="phoneNumber" />
-		<result column="grade" property="grade" />
-		<result column="address" property="address" />
-		<result column="birthday" property="birthday" />
-		<result column="gender" property="gender" />
-		<result column="profile_img" property="profileImg" />
-		<result column="introduction" property="introduction" />
-	</resultMap>
-	<select id="selectMatchingStudentByCourseId" resultMap="studentResult" parameterType="int">
+	<insert id="insertStudent" parameterType="student">
 		<![CDATA[
-		select s.*
-		from matching m join student s
-		on m.student_id=s.id
-		where m.course_id=#{courseId}
+		insert into student(id,email,name,password,phone_number,grade,address,birthday,gender,profile_img,introduction)
+		values(StudentIdSeq.nextval,#{email},#{name},#{password},#{phone_number},#{grade},#{address},#{birthday},#{gender},#{profile_img,jdbcType=VARCHAR},#{introduction})
 		]]>
-	</select>
+	</insert>
+	<select id="selectStudent" resultType="student" parameterType="String">
+		<![CDATA[
+		select * from student
+		where
+		email=#{email}
+		]]>
+		</select>
 </mapper>
