@@ -3,5 +3,12 @@
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.MatchingDAO">
 	
+	<delete id="deleteMatchingData" parameterType="int">
+		<![CDATA[
+		delete from matching
+		where student_id = #{studentId}
+		and course_id = #{courseId}
+		]]>
+	</delete>
 		
 </mapper>

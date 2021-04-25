@@ -2,6 +2,62 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseDAO">
-	
-		
+	<!-- 2. CourseVO안에 TeacherVO를 넣어서 JOIN한 형태 -->
+
+	<!--column : DB에 들어가있는 column의 형태 property : VO에 들어가있는 변수 그 둘을 매핑 시켜주는 것 -->
+
+	<!-- 2-1. Course(VO)를 매핑해주고 2-2. Course안에있는 Teacher(VO)를 매핑 -->
+	<!-- 2-1. -->
+	<resultMap type="course" id="courseMap">
+		<result column="course_id" property="id" />
+		<result column="title" property="title" />
+		<result column="status" property="status" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+
+		<!-- 2-2. -->
+		<association javaType="teacher" property="teacher">
+			<result column="teacher_id" property="id" />
+			<result column="name" property="name" />
+			<result column="profile_img" property="profileImg" />
+		</association>
+	</resultMap>
+
+	<select id="selectCourseWaitingList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, c.start_date, c.end_date, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status in ('matching', 'matched')
+		]]>
+	</select>
+	<select id="selectCourseStudyingList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='studying'
+		]]>
+	</select>
+	<select id="selectCourseEndList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status='end'
+		]]>
+	</select>
+
 </mapper>
