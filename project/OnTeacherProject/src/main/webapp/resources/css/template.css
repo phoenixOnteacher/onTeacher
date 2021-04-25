@@ -1,9 +1,24 @@
 @charset "UTF-8";
 
 /* 프론트엔드 지침서 확인해주세요! */
-
-
 /* 공통 */
+/* 폰트 */
+@font-face {
+	font-family: 'S-CoreDream-5Medium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+     font-family: 'S-CoreDream-4Regular';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+}
+
 a {
 	text-decoration: none;
 }
