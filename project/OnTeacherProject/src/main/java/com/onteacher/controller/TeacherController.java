@@ -191,7 +191,7 @@ public class TeacherController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("page", "course_register");
+		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
 
@@ -211,8 +211,6 @@ public class TeacherController {
 				jsonObj.put("name", lowcategory.get(i).getName());
 				jsonArray.put(jsonObj);
 			}
-
-			System.out.println(jsonArray.toString());
 			PrintWriter pw = res.getWriter();
 			pw.print(jsonArray.toString());
 			pw.flush();
@@ -241,7 +239,6 @@ public class TeacherController {
 			}
 			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
 			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
-			System.out.println(saveFile);
 			try {
 				origFile.transferTo(new File(saveFile));
 				course.setCurriculumFile(origFileName);
@@ -253,7 +250,7 @@ public class TeacherController {
 			}
 		}
 		courseManageService.registerCourse(course);
-		model.addAttribute("page", "course_register");
+		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
 }
