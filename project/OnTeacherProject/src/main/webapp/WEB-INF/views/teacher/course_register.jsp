@@ -55,38 +55,42 @@
 			<tr>
 				<td class="thead"><label for="isOneday">수업 형태</label></td>
 				<td class="tbody"><input type="radio" name="isOneday" value="0"
-					id="isOneday">1일 특강 <input type="radio" name="isOneday"
-					value="1" id="isOneday">다회차 수업</td>
+					id="isOneday" required>&nbsp;1일
+					특강&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="isOneday" value="1" id="isOneday">&nbsp;다회차
+					수업</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="studyDate">수업 일정</label></td>
-				<td class="tbody"><input type="date" id="studyDate"
+				<td class="tbody"><p id="startday">시작일</p><p id="endday">종료일</p><br><input type="date" id="studyDate"
 					name="startDate" min="2000-01-01" max="2999-12-31" required
-					pattern="\d{2}-\d{2}-\d{2}" class="form-control"> <input type="date"
-					id="studyDate" name="endDate" min="2000-01-01" max="2999-12-31"
-					required pattern="\d{2}-\d{2}-\d{2}" class="form-control"></td>
+					pattern="\d{2}-\d{2}-\d{2}" class="form-control"
+					required="required"> <input type="date" id="studyDate"
+					name="endDate" min="2000-01-01" max="2999-12-31" required
+					pattern="\d{2}-\d{2}-\d{2}" class="form-control"
+					required="required"></td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="studyDay">수업 요일</label></td>
 				<td class="tbody"><input type="radio" name="studyDay"
-					id="studyDay" value="weekdays">주중 <input type="radio"
-					name="studyDay" id="studyDay" value="weekend">주말 <input
-					type="radio" name="studyDay" id="studyDay" value="anytime">주중+주말</td>
+					id="studyDay" value="weekdays" required>&nbsp;주중&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyDay" id="studyDay" value="weekend">&nbsp;주말&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyDay" id="studyDay" value="anytime">&nbsp;주중+주말</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="studyTime">수업 시간</label></td>
 				<td class="tbody"><input type="radio" name="studyTime"
-					id="studyTime" value="morning">오전 <input type="radio"
-					name="studyTime" id="studyTime" value="afternoon">오후 <input
-					type="radio" name="studyTime" id="studyTime" value="discuss">협의</td>
+					id="studyTime" value="morning" required>&nbsp;오전&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyTime" id="studyTime" value="afternoon">&nbsp;오후&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyTime" id="studyTime" value="discuss">&nbsp;협의</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="isOnline">수업 방식</label></td>
 				<td class="tbody"><input type="radio" name="isOnline" value="0"
-					id="isOnline">온라인 <input type="radio" name="isOnline"
-					value="1" id="isOnline">오프라인 <label for="location"></label><select
-					required="required" name="location" disabled="disabled" id="sido"
-					class="form-select form-select-sm">
+					id="isOnline" required>&nbsp;온라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="isOnline" value="1" id="isOnline">&nbsp;오프라인&nbsp;&nbsp;<label
+					for="location"></label><select required="required" name="location"
+					disabled="disabled" id="sido" class="form-select form-select-sm">
 						<option value="">시/도 선택</option>
 						<option value="서울">서울</option>
 						<option value="부산">부산</option>
@@ -114,11 +118,12 @@
 			<tr>
 				<td class="thead"><label for="isGroup">참여인원</label></td>
 				<td class="tbody"><input type="radio" name="isGroup" value="1"
-					id="isGroup">1:1수업 <input type="radio" name="isGroup"
-					value="0" id="isGroup">그룹수업 <input name="minStudent"
-					type="number" min="2" disabled="disabled" id="minStudent"
-					class="form-control" /> <input name="maxStudent" type="number"
-					min="2" disabled="disabled" id="maxStudent" class="form-control" /></td>
+					id="isGroup" required>&nbsp;1:1수업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="isGroup" value="0" id="isGroup">&nbsp;그룹수업&nbsp;&nbsp;<input
+					name="minStudent" type="number" min="2" disabled="disabled"
+					id="minStudent" class="form-control" placeholder="최소 인원" /> <input
+					name="maxStudent" type="number" min="2" disabled="disabled"
+					id="maxStudent" class="form-control" placeholder="최대 인원" /></td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="title">제목</label></td>
