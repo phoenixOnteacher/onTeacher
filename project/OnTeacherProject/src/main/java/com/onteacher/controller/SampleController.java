@@ -2,6 +2,7 @@ package com.onteacher.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
@@ -49,12 +50,21 @@ public class SampleController {
 		File destFile = new File(path + orgfile.getOriginalFilename());
 		System.out.println(destFile.getPath());
 		orgfile.transferTo(destFile);
-		model.addAttribute("page", "ocrInsertSuccess");
-		model.addAttribute("file", orgfile);
+		
+		String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename()); 
+		File convertFile = new File(path + "result.txt");
+		FileWriter writer = new FileWriter(convertFile);
+		writer.write(res);
+		writer.close();
+		
+		System.out.println(res);
+		
+		model.addAttribute("page", "ocrRecognize");
+		model.addAttribute("file", "result.txt");
 		return "template";
 	}
 
-	@RequestMapping(value = "/filedownload", method = RequestMethod.GET)
+	@RequestMapping(value = "/ocrRecognize", method = RequestMethod.GET)
 	public void textRecognize(@RequestParam(value = "filename") String filename, HttpServletRequest request, HttpServletResponse response) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
 		File file = new File(saveDir + filename);
@@ -87,9 +97,6 @@ public class SampleController {
 					} catch (Exception e) {
 				}
 			}
-		} // try end;
-		
-		OcrService.ImageRecognize();
-		
+		} 
 	}
 }	

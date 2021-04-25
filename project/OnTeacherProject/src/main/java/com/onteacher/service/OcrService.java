@@ -1,31 +1,26 @@
 package com.onteacher.service;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 public class OcrService {
 
-	public static void ImageRecognize() {
+	public static String ImageRecognize(String imageFile) {
+				
 		String apiURL = "https://71d215e8c41a403d87510748a25daa51.apigw.ntruss.com/custom/v1/6492/cb74be10737afe8cdc992beb83a3e67e3ae317cc0ca43f809606345088150cc9/general";
 		String secretKey = "cFJMRFRKSUZTZWZVaWl0VXlvYU5lYlpISmF6aEtpYVI=";
-		String imageFile = "C:\\img\\2021_CSAT_Kor_20.jpg"; // 하드코딩되는 것이 아니라 사용자가 입력한 이미지를 지정해야 함. 
-
+		String resultString = "";
+		
 		try {
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
@@ -70,20 +65,16 @@ public class OcrService {
 				response.append(inputLine);
 			}
 			br.close();
-
-	      			// 저장 경로옆에 True는 덮어쓰기를 설정하는 파라메터임. 
-			BufferedWriter out = new BufferedWriter(new FileWriter("/OnTeacherProject/src/main/webapp/upload/ocr.json", true));
-	        out.write(response.toString());
-	        out.newLine();
-			out.close();
+		
+			resultString=jsonParse(response.toString());
+			// resultString에 Jason으로 변환한 스트링을 저장한다. 
 			
-			// 텍스트 인식 결과를 확인하기 위해서 콘솔에 출력한다. 
-			System.out.println(response);
-			
+			System.out.println(response.toString());			
 			
 		} catch (Exception e) {
 			System.out.println(e);
-		}
+		} 
+		return resultString;
 	}
 
 	private static void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws
@@ -121,16 +112,9 @@ public class OcrService {
 		out.flush();
 	}
 	
-		public static void jsonParse() {
-			
-			String resourceName = "c:\\img\\ocr.json";
-			InputStream is = OcrService.class.getResourceAsStream(resourceName);
-			if (is == null) {
-				throw new NullPointerException("Cannot find resource file " + resourceName);
-			}
+		public static String jsonParse(String jsonStr) {
 			StringBuffer str = new StringBuffer();
-			JSONTokener tokener = new JSONTokener(is);
-	        JSONObject result = new JSONObject(tokener);
+			JSONObject result = new JSONObject(jsonStr);
 	        JSONArray images= (JSONArray)result.getJSONArray("images");
 	        for(int i=0; i<images.length(); i++) {
 	        	JSONObject image = images.getJSONObject(i);
@@ -141,6 +125,7 @@ public class OcrService {
 	        		str.append(inferText+" ");
 	        		}
 	        	}
-	        System.out.println(str.toString());
+	        return str.toString(); 
 		}
+	
 	}

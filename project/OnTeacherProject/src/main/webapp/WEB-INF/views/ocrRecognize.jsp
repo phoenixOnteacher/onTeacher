@@ -7,9 +7,9 @@
 <title>OCR Test</title>
 </head>
 <body>
-	<h3> 이미지 파일이 업로드 되었습니다.</h3>
+	<h3> 이미지 파일을 텍스트로 변환한 결과는 아래 파일을 이용하세요.</h3>
   	<span>
-  		<a href="./filedownload?filename=${file.originalFilename}"> ${file.originalFilename}</a>
+  		<a href="./ocrRecognize?filename=${file}"> ${file}</a>
   	</span>
  	<br/>  
 </html>
