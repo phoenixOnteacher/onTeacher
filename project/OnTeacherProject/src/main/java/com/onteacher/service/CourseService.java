@@ -16,4 +16,6 @@ public interface CourseService {
 	public List<Course> courseEndList(int studentId);
 
 	public Course queryCourseById(int courseId) throws Exception;
+	
+	public void cancleMatching(int studentId, int courseId);
 }

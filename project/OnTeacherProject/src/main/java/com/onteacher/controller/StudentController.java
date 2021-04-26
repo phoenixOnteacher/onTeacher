@@ -112,7 +112,7 @@ public class StudentController {
 		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
 		int studentId = getStudentIdBySessionEmail(request);
 		//2. db에서 delete문 실행
-		myCourseService.applyCancle(studentId,courseId);
+		courseService.cancleMatching(studentId,courseId);
 		//3. view 정의. 대기중인 수업 목록 조회 화면 그대로.
 		List<Course> courses = courseService.courseWaitingList(studentId);
 		modelAndView.addObject("courses", courses);

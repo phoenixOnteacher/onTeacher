@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
+import com.onteacher.dao.MatchingDAO;
 import com.onteacher.vo.Course;
 
 @Service
@@ -15,6 +16,9 @@ import com.onteacher.vo.Course;
 public class CourseServiceImpl implements CourseService {
 	@Autowired
 	CourseDAO courseDAO;
+	
+	@Autowired
+	MatchingDAO matchingDAO;
 
 	@Override
 	public List<Course> courseWaitingList(int studentId) {
@@ -36,5 +40,10 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public Course queryCourseById(int courseId) throws Exception {
 		return courseDAO.selectCourseById(courseId);
+	}
+	
+	@Override
+	public void cancleMatching(int studentId, int courseId) {
+		matchingDAO.deleteMatchingData(studentId,courseId);
 	}
 }

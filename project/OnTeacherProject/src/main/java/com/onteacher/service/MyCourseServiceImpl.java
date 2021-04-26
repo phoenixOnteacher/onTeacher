@@ -14,9 +14,6 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Autowired
 	MatchingDAO matchingDAO;
 	
-	@Override
-	public void applyCancle(int studentId, int courseId) {
-		matchingDAO.deleteMatchingData(studentId,courseId);
-	}
+
 
 }
