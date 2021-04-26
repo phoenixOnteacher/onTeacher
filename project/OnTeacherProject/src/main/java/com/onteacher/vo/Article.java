@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component("article")
 public class Article {
 	
-	private int id; //PK
+	private int articleNO; //PK
 	private String title;
 	private String content;
 	private String file;

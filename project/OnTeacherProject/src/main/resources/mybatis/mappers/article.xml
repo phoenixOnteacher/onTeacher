@@ -3,5 +3,63 @@
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.ArticleDAO">
 	
+	
+	 <!-- VO에 있는걸 그대로 적는것인가?? ========================================================================= -->
+	
+	<resultMap id="articleNO" type="articleNO">
+    <result property="title" column="title" />
+    <result property="content" column="content" />
+    <result property="file" column="file" />
+    <result property="createdAt" column="createdAt" />
+    <result property="hit" column="hit" />
+    <result property="userId" column="userId" />
+  </resultMap> 
 		
+		
+	
+	<select id="selectAllArticlesList" parameterType="">
+		<![CDATA[
+		select * from Q_board
+		order by articleNO
+		]]>
+	</select>
+	
+	
+	<insert id="insertNewArticle" parameterType="">
+	 <selectKey resultType="String" keyProperty="boardNO" order="BEFORE">
+            SELECT IFNULL(MAX(boardNO),0)+1 FROM Q_BOARD
+     </selectKey>
+	 <![CDATA[
+		 INSERT INTO Q_board(articleNO,title,content,file,createdAt,hit,userId)
+         VALUES (#{articleNO}, #{title}, #{content}, #{file}, NOW(), 0, #{userId} )
+		]]>
+	</insert>
+	
+	
+	<select id="selectArticle" parameterType="">
+		<![CDATA[
+		SELECT * from Q_board
+        where articleNO = #{articleNO}	
+		]]>
+	</select>
+	
+	    
+	<update id="updateArticle" parameterType="">
+		<![CDATA[
+		update Q_board
+		set title=#{title}
+          , content=#{content}
+          , file=#{file}
+		where articleNO=#{articleNO}
+		]]>
+	</update>
+	
+	
+	<delete id="deleteArticle" parameterType="">
+		<![CDATA[
+		delete * from Q_board
+		where articleNO=#{articleNO}
+		]]>
+	</delete>
+	
 </mapper>

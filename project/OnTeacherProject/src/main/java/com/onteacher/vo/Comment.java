@@ -11,7 +11,7 @@ public class Comment {
 	private String content;
 	private String createdAt; //Date
 	private int userId; //FK
-	private int articleId; //FK
+	private int articleNO; //FK
 	
 	
 }

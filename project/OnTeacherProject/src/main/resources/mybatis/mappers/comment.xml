@@ -2,4 +2,60 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CommentDAO">
+
+
+	<resultMap id="id" type="id">
+    <result property="content" column="content" />
+    <result property="createdAt" column="createdAt" />
+    <result property="userId" column="userId" />
+    <result property="articleNO" column="articleNO" />
+  </resultMap> 
+  
+  
+	 <!-- 경민님 파일 참조함 =============================================================================== -->
+	
+	<select id="selectCommentListByUserId" parameterType="">
+		<![CDATA[
+		select * from Q_comment
+		where userid=#{userid}
+		]]>
+	</select>
+	<insert id="insertComment" parameterType="">
+		<![CDATA[
+		insert into Q_comment(id,content,createdAt,userId,articleNO)
+		values(#{id},#{content}, now(),#{userId},#{articleNO})
+		]]>
+	</insert>
+	 <!-- 경민님 파일 참조함 =============================================================================== -->
+	 
+	 <!-- comment 추가로 참고해볼것  =============================================================================== -->
+    <select id="selectAllCommentList" resultType="com.onteacher.CommentVO" parameterType="String">
+        SELECT id,content,createdAt,userId,articleNO
+          FROM Q_comment
+         WHERE articleNO=#{articleNO}
+         ORDER BY id
+    </select>
+        
+    <insert id="insertNewComment" parameterType="com.onteacher.CommentVO" >
+        <selectKey resultType="String" keyProperty="id" order="BEFORE">
+            SELECT IFNULL(MAX(id),0)+1 FROM Q_comment
+        </selectKey>
+            
+        INSERT INTO Q_comment(id,content,createdAt,userId,articleNO)
+        VALUES (#{id}, #{content}, now(), #{userId}, #{articleNO})
+    </insert>
+
+    <update id="deleteComment" parameterType="String"> 
+        delete * from Q_Comment          
+        WHERE id=#{id}       
+    </update> 
+
+    <update id="updateComment" parameterType="com.onteacher.CommentVO">
+        UPDATE Q_Comment
+           SET content=#{content} 
+         WHERE id=#{id}
+    </update> 
+    
+
+	 
 </mapper>
