@@ -11,4 +11,8 @@
 		]]>
 	</delete>
 		
+	<resultMap id="matchingResult" type="matching">
+		<result column="student_id" property="studentId" />
+		<result column="course_id" property="courseId" />
+	</resultMap>
 </mapper>

@@ -1,5 +1,7 @@
 package com.onteacher.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,4 +13,5 @@ public interface StudentDAO {
 
 	public Student selectStdentByEmail(String email);
 
+	public List<Student> selectMatchingStudentByCourseId(int courseId) throws Exception;
 }

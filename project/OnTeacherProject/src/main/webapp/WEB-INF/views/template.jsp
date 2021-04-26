@@ -11,6 +11,7 @@ String id = request.getParameter("page");
 <title>ON TEACHER</title>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/template.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div id="wrap">
@@ -22,6 +23,7 @@ String id = request.getParameter("page");
 	<div id="footer">
 		<jsp:include page="footer.jsp" />
 	</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js""></script>
 </body>
 </html>
 

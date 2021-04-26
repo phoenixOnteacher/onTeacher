@@ -12,13 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.onteacher.service.CourseService;
 import com.onteacher.service.MyCourseService;
 import com.onteacher.service.StudentService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.Student;
+import com.onteacher.vo.Homework;
 
+//@Controller
 @Controller("studentController")
 @RequestMapping("/student")
 public class StudentController {
@@ -98,7 +104,6 @@ public class StudentController {
 		return modelAndView;
 	}
 	
-
 	//대기중인 수업 - 신청 취소
 	@RequestMapping(value="/applyCancle", method=RequestMethod.GET)
 	public ModelAndView applyCancle(@RequestParam(value = "courseId",required = true)int courseId,
@@ -117,4 +122,17 @@ public class StudentController {
 		
 	}
 	
+	@RequestMapping(value="/{course_id}/homeworkanswer", method=RequestMethod.POST)
+	public String homeworkAnswer(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+		hw.setCourseId(Integer.parseInt(course_id));
+		try {
+//			myCourseService.setHomework(hw);
+			model.addAttribute("homework", hw);
+			model.addAttribute("page", "homeworkDetail");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page", "index");
+		}
+		return "template";
+	}
 }

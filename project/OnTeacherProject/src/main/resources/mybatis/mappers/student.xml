@@ -25,4 +25,25 @@
 		]]>
 	</select>
 
+	<resultMap id="studentResult" type="student">
+		<id column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="grade" property="grade" />
+		<result column="address" property="address" />
+		<result column="birthday" property="birthday" />
+		<result column="gender" property="gender" />
+		<result column="profile_img" property="profileImg" />
+		<result column="introduction" property="introduction" />
+	</resultMap>
+	<select id="selectMatchingStudentByCourseId" resultMap="studentResult" parameterType="int">
+		<![CDATA[
+		select s.*
+		from matching m join student s
+		on m.student_id=s.id
+		where m.course_id=#{courseId}
+		]]>
+	</select>
 </mapper>

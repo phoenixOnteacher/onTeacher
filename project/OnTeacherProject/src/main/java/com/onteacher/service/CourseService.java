@@ -15,4 +15,5 @@ public interface CourseService {
 	//종료된 수업 목록 조회
 	public List<Course> courseEndList(int studentId);
 
+	public Course queryCourseById(int courseId) throws Exception;
 }

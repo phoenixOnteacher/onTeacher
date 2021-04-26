@@ -32,4 +32,9 @@ public class CourseServiceImpl implements CourseService {
 	public List<Course> courseEndList(int studentId) {
 		return courseDAO.selectCourseEndList(studentId);
 	}
+	
+	@Override
+	public Course queryCourseById(int courseId) throws Exception {
+		return courseDAO.selectCourseById(courseId);
+	}
 }

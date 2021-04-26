@@ -17,6 +17,13 @@ public interface CourseDAO {
 
 	public List<Course> selectCourseEndList(int studentId);
 
-	
-
+	public void insertCourse(Course course) throws Exception;
+	public Course selectCourseById(int id) throws Exception;
+	public void updateCourseStatus(Course c) throws Exception;
+	public void deleteCourse(int id) throws Exception;
+	public void updateCourseEndDate(Course c) throws Exception;
+	public List<Course> selectStudyingCourseList(int teacherId) throws Exception;
+	public List<Course> selectMatchingCourseList(int teacherId) throws Exception;
+	public List<Course> selectMatchedCourseList(int teacherId) throws Exception;
+	public List<Course> selectEndCourseList(int teacherId) throws Exception;
 }
