@@ -6,11 +6,9 @@
 <script src="${path }/resources/js/matching.js"></script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
-		<div class="d-flex justify-content-start align-items-center">
-			<a href="././." class="text-secondary h5 text-decoration-none">수업 관리</a>
-			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
-			<a href="./." class="text-secondary h5 text-decoration-none">${course.title }</a>
-			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+		<div class="d-flex justify-content-start align-items-center text-secondary">
+			<a href="././." class="h5 text-decoration-none">수업 관리</a>
+			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
 		<h2>${course.title }</h2>
 		<div class="row mt-3">
