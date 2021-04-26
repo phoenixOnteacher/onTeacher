@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
-<script src="${path }/resources/js/course_list.js"></script>
+<script src="${path }/resources/js/course_tab.js"></script>
 <script src="${path }/resources/js/course_cancel.js"></script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<h1>수업 관리</h1>
 		<div class="row mt-3">
-			<nav class="nav flex-column col-3">
+			<nav class="nav flex-column col-3" id="classNav">
 			  <a class="nav-link active in text-reset" aria-current="page" href="#studying" data-toggle="tab" data-load="true">진행 중인 수업</a>
 			  <a class="nav-link text-reset" href="#match" data-toggle="tab" data-load="false">대기 중인 수업</a>
 			  <a class="nav-link text-reset" href="#end" data-toggle="tab" data-load="false">종료된 수업</a>
@@ -24,7 +24,8 @@
 						    <button type="button" class="btn btn-primary btn-sm float-end mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
 							  수업 연장
 							</button>
-							<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						  </h5>
+						  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog">
 							    <div class="modal-content">
 							      <div class="modal-header">
@@ -43,8 +44,7 @@
 							      </div>
 							    </div>
 							  </div>
-						    </div>
-						  </h5>
+						  </div>
 						  <div class="card-body">
 						    <h5 class="card-title">${course.status }</h5>
 						    <c:forEach var="student" items="${course.studentList }">
