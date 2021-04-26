@@ -1,15 +1,5 @@
 @charset "UTF-8";
 /* 공통 */
-/* 폰트 */
-@font-face {
-	font-family: 'S-CoreDream-5Medium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
 #h_wrap {
 	margin: 0;
 	padding: 0;
@@ -17,16 +7,20 @@
 }
 
 /* 글로벌 네비게이션바 */
-.navbar {
+nav.navbar {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
 	padding: 0 200px;
+	margin: 0;
+	border: 0;
 	font-family: 'S-CoreDream-5Medium';
 	transition: background-color 0.5s ease 0s;
+	font-size: 16px;
+	font-family: 'S-CoreDream-5Medium';
 }
 
-.fixed-top {
+nav.fixed-top {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -42,7 +36,6 @@
 #navbar_menu {
 	text-align: center;
 	margin: 0;
-	margin-top: 35px;
 	padding: 0;
 }
 
@@ -57,6 +50,15 @@
 
 #navbar_menu li:not(:last-child) {
 	padding-right: 12px;
+}
+
+nav.navbar:before, nav.navbar:after {
+	display: table;
+	content: none;
+}
+
+nav.navbar:after {
+	clear: both;
 }
 
 /* 회원가입버튼 */
@@ -93,8 +95,9 @@
 #submenu li a {
 	display: block;
 	text-align: right;
-	font-size: 0.9rem;
-	padding-right: 5px;
+	font-size: 14.4px;
+	padding-right: 3px;
+	padding-top: 5px;
 	padding-bottom: 10px;
 }
 
@@ -105,7 +108,7 @@
 }
 
 /* 글로벌 네비게이션바 효과 */
-.navbareffect {
+nav.navbareffect {
 	background-color: #FBFAF1;
 	border-bottom: 0.2px solid #FEDEC3;
 }

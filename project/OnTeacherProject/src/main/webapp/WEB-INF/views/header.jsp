@@ -6,8 +6,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css" />
 <script src="https://kit.fontawesome.com/0b88962ca7.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/header.js"></script>
 <div id="h_wrap">
 	<nav class="navbar fixed-top" id="g_navbar">
