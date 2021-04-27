@@ -43,31 +43,32 @@ public class OcrController {
 		}
 		MultipartFile orgfile = mtfRequest.getFile("file");
 		File destFile = new File(path + orgfile.getOriginalFilename());
+
 		System.out.println(destFile.getPath());
-		orgfile.transferTo(destFile);
-		
+		orgfile.transferTo(destFile);		
 		String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename()); 
 		// OcrService의 ImageRecognize 메소드를 처리한 후 res 변수에 저장한다. 
-		File convertFile = new File(path + "result.txt");
-		FileWriter writer = new FileWriter(convertFile);
-		writer.write(res);
-		writer.close();
-		
+				
 		System.out.println(res);
 		
 		model.addAttribute("page", "ocr/ocrRecognize");
-		model.addAttribute("file", "result.txt");
+		model.addAttribute("text", res);
 		return "template";
 	}
 
-	@RequestMapping(value = "/ocrRecognize", method = RequestMethod.GET)
-	public void textRecognize(@RequestParam(value = "filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
-		File file = new File(saveDir + filename);
-		System.out.println(file);
+	@RequestMapping(value = "/savefile", method = RequestMethod.POST)
+	public void saveFile(@RequestParam(value="txtSave") String txtSave, @RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+
+		String path = request.getServletContext().getRealPath("/upload/");		
+		File file = new File(path + filename);		
 		String sfilename = null;
 		FileInputStream fis = null;
+		
 		try {
+		
+			FileWriter writer = new FileWriter(file);
+			writer.write(txtSave);
+			writer.close();		
 			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
@@ -84,7 +85,8 @@ public class OcrController {
 			fis = new FileInputStream(file);
 			FileCopyUtils.copy(fis, out);
 			out.flush();
-		} catch (Exception e) {
+			
+		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			if (fis != null) {
@@ -93,6 +95,6 @@ public class OcrController {
 					} catch (Exception e) {
 				}
 			}
-		} 
+		}
 	}
 }	

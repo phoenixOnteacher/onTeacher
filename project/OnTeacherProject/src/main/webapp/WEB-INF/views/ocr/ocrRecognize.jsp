@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>OCR Test</title>
+<title>OCR Recognize</title>
 </head>
 <body>
-	<h3> 이미지 파일을 텍스트로 변환한 결과는 아래 파일을 이용하세요.</h3>
-  	<span>
-  		<a href="./ocrRecognize?filename=${file}"> ${file}</a>
-  	</span>
+	<h3> 이미지 파일 인식결과 화면 </h3>
+  	<form action="/ocr/savefile" method="POST">  		
+ 
+  		<textarea rows="10" cols="100" name="txtSave" >${text}</textarea><br/>
+  		<label>파일명:</label>
+  		<input type="text" name="filename">
+  		<input type="submit" value="저장"> </br> 
+  	</form>
  	<br/>  
 </html>
