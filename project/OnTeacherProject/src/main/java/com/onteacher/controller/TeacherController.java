@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
@@ -31,9 +31,10 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.StudentReview;
+import com.onteacher.vo.Teacher;
 
 @Controller
-@RequestMapping("/teacher")
+@RequestMapping
 public class TeacherController {
 
 	@Autowired
@@ -45,12 +46,32 @@ public class TeacherController {
 	@Autowired
 	CourseService courseService;
 	
+	@RequestMapping(value = "/thjoin", method = RequestMethod.GET)
+	public String thjoin(Model model) {
+		model.addAttribute("page", "thjoin_form");
+		return "template";
+	}
+	@RequestMapping(value = "/thjoin", method = RequestMethod.POST)
+	public ModelAndView thjoin(@ModelAttribute Teacher teacher) {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			teacherService.thjoin(teacher);
+			modelAndView.addObject("page", "login_form");
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelAndView.addObject("err", "회원가입 오류");
+			modelAndView.addObject("page", "err");
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+	}
+	
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 //		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
 		int teacherId = 1;
-		// 리스트 불러오기
+		// 由ъ뒪�듃 遺덈윭�삤湲�
 		try {
 			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(teacherId));
 			model.addAttribute("matchingList", courseManageService.queryMatchingCourseList(teacherId));
@@ -63,14 +84,14 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// 특정 수업 관리
+	// �듅�젙 �닔�뾽 愿�由�
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
 		int teacherId = 1;
 		int courseId = Integer.parseInt(course_id);
-		// 리스트 불러오기
+		// 由ъ뒪�듃 遺덈윭�삤湲�
 		try {
 			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
@@ -83,7 +104,7 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// 과제 내기
+	// 怨쇱젣 �궡湲�
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
@@ -117,10 +138,10 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 학생 후기 작성
+	// �븰�깮 �썑湲� �옉�꽦
 	@RequestMapping(value="/{course_id}/review/{student_id}", method=RequestMethod.GET)
 	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
-		// request user가 선생님인지 확인하고 폼으로 이동하는 로직 추가
+		// request user媛� �꽑�깮�떂�씤吏� �솗�씤�븯怨� �뤌�쑝濡� �씠�룞�븯�뒗 濡쒖쭅 異붽�
 		model.addAttribute("page", "teacher/studentReviewForm");
 		return "template";
 	}
@@ -143,13 +164,13 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// 수업 시작
+	// �닔�뾽 �떆�옉
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
 	public String startCourse(Model model, @PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
 			courseManageService.startCourse(c_id);
-//			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
+//			model.addAttribute("page", ""); // �닔�뾽 愿�由� 硫붾돱 �럹�씠吏�
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
@@ -158,13 +179,13 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 수업 연장
+	// �닔�뾽 �뿰�옣
 	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
 	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model, @PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
 			courseManageService.extendCourse(c_id, extendDate);
-//			model.addAttribute("page", ""); // 수업 상세 페이지
+//			model.addAttribute("page", ""); // �닔�뾽 �긽�꽭 �럹�씠吏�
 		} catch (Exception e) {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
@@ -173,7 +194,7 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// 수업 취소
+	// �닔�뾽 痍⑥냼
 	@ResponseBody
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
@@ -240,13 +261,13 @@ public class TeacherController {
 		MultipartFile origFile = course.getFile();
 		System.out.println(origFile);
 		if (origFile.isEmpty() == false) {
-			String path = multi.getServletContext().getRealPath("/courseupload/"); // 파일 저장 경로
-			File dir = new File(path);    // 지정된 directory가 없을 때 directory 만들어주기
+			String path = multi.getServletContext().getRealPath("/courseupload/"); // �뙆�씪 ���옣 寃쎈줈
+			File dir = new File(path);    // 吏��젙�맂 directory媛� �뾾�쓣 �븣 directory 留뚮뱾�뼱二쇨린
 			if(!dir.isDirectory()) {
 				dir.mkdir();
 			}
-			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
-			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			String origFileName = origFile.getOriginalFilename(); // �뙆�씪 �씠由� ���옣
+			String saveFile = path + origFileName; // �뙆�씪 ���옣 寃쎈줈 + �뙆�씪 �씠由� saveFile 蹂��닔�뿉 ���옣
 			try {
 				origFile.transferTo(new File(saveFile));
 				course.setCurriculumFile(origFileName);

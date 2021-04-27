@@ -23,4 +23,19 @@
 		where m.course_id=#{courseId}
 		]]>
 	</select>
+	
+	<insert id="insertStudent" parameterType="student">
+		<![CDATA[
+		insert into student(id,email,name,password,phone_number,grade,address,birthday,gender,profile_img,introduction)
+		values(StudentIdSeq.nextval,#{email},#{name},#{password},#{phone_number},#{grade},#{address},#{birthday},#{gender},#{profile_img,jdbcType=VARCHAR},#{introduction})
+		]]>
+	</insert>
+	<select id="selectStudent" resultType="student" parameterType="String">
+		<![CDATA[
+		select * 
+		from ((select email from student) union (select email from teacher) union (select email from admin))
+		where
+		email=#{email}
+		]]>
+		</select>
 </mapper>
