@@ -77,8 +77,8 @@ public class OcrService {
 		return resultString;
 	}
 
-	private static void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary) throws
-		IOException {
+	private static void writeMultiPart(OutputStream out, String jsonMessage, File file, String boundary)
+			throws IOException {
 		StringBuilder sb = new StringBuilder();
 		sb.append("--").append(boundary).append("\r\n");
 		sb.append("Content-Disposition:form-data; name=\"message\"\r\n\r\n");
@@ -91,8 +91,7 @@ public class OcrService {
 		if (file != null && file.isFile()) {
 			out.write(("--" + boundary + "\r\n").getBytes("UTF-8"));
 			StringBuilder fileString = new StringBuilder();
-			fileString
-				.append("Content-Disposition:form-data; name=\"file\"; filename=");
+			fileString.append("Content-Disposition:form-data; name=\"file\"; filename=");
 			fileString.append("\"" + file.getName() + "\"\r\n");
 			fileString.append("Content-Type: application/octet-stream\r\n\r\n");
 			out.write(fileString.toString().getBytes("UTF-8"));
@@ -111,21 +110,21 @@ public class OcrService {
 		}
 		out.flush();
 	}
-	
-		public static String jsonParse(String jsonStr) {
-			StringBuffer str = new StringBuffer();
-			JSONObject result = new JSONObject(jsonStr);
-	        JSONArray images= (JSONArray)result.getJSONArray("images");
-	        for(int i=0; i<images.length(); i++) {
-	        	JSONObject image = images.getJSONObject(i);
-	        	JSONArray fileds = image.getJSONArray("fields");
-	        	for(int j=0; j<fileds.length(); j++) {
-	        		JSONObject field = fileds.getJSONObject(j);
-	        		String inferText = field.getString("inferText");
-	        		str.append(inferText+" ");
-	        		}
-	        	}
-	        return str.toString(); 
+
+	public static String jsonParse(String jsonStr) {
+		//Json 파싱 메소드, inferText만 추출하여 텍스트로 변환함. 
+		StringBuffer str = new StringBuffer();
+		JSONObject result = new JSONObject(jsonStr);
+		JSONArray images = (JSONArray) result.getJSONArray("images");
+		for (int i = 0; i < images.length(); i++) {
+			JSONObject image = images.getJSONObject(i);
+			JSONArray fileds = image.getJSONArray("fields");
+			for (int j = 0; j < fileds.length(); j++) {
+				JSONObject field = fileds.getJSONObject(j);
+				String inferText = field.getString("inferText");
+				str.append(inferText + " ");
+			}
 		}
-	
+		return str.toString();
 	}
+}
