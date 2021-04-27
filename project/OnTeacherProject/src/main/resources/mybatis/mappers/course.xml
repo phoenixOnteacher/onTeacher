@@ -2,6 +2,27 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseDAO">
+	<resultMap type="course" id="indexMap">
+		<id column="id" property="id" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="title" property="title" />
+		<result column="classinfo" property="curriculum" />
+		
+		<!-- teacher table join -->
+		<association javaType="teacher" property="teacher">
+			<id column="id" property="id" />
+			<result column="profile_img" property="profileImg" />
+		</association>
+	</resultMap>
+	<!-- index에 넣을 최신 수업 4개 -->
+	<select id="selectCourseForIndex" resultMap="indexMap">
+		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		order by c.id desc)
+		where rownum <= 4]]>
+	</select>
+	
 	<resultMap id="courseResult" type="course">
 		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
 		<id column="id" property="id" />
