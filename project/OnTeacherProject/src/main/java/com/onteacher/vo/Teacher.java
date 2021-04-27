@@ -22,6 +22,7 @@ public class Teacher {
 	private String description;
 	private String status;
 	private String message;
+
 	public int getId() {
 		return id;
 	}
@@ -112,6 +113,4 @@ public class Teacher {
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-
-		
 }

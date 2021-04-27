@@ -18,6 +18,7 @@ public class Student {
 	private String gender;
 	private String profileImg;
 	private String introduction;
+	
 	public int getId() {
 		return id;
 	}

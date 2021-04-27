@@ -13,6 +13,7 @@ public class CourseReview {
 	private int courseId; //FK
 	private int teacherId; //FK
 	private int studentId; //FK
+
 	public int getId() {
 		return id;
 	}

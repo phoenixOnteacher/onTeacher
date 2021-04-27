@@ -14,6 +14,7 @@ public class Article {
 	private String createdAt; //Date
 	private int hit;
 	private int userId; //FK
+
 	public int getId() {
 		return id;
 	}

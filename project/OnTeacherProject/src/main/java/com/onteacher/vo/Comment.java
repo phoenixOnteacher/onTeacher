@@ -12,6 +12,7 @@ public class Comment {
 	private String createdAt; //Date
 	private int userId; //FK
 	private int articleId; //FK
+	
 	public int getId() {
 		return id;
 	}
@@ -42,7 +43,5 @@ public class Comment {
 	public void setArticleId(int articleId) {
 		this.articleId = articleId;
 	}
-	
-	
 	
 }

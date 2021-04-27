@@ -7,6 +7,7 @@ public class Matching {
 	
 	private int studentId; //PK, FK
 	private int courseId; //PK, FK
+
 	public int getStudentId() {
 		return studentId;
 	}

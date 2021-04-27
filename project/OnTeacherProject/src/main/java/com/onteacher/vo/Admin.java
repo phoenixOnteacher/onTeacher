@@ -8,6 +8,7 @@ public class Admin {
 	private int id; //PK
 	private String email; 
 	private String password;
+	
 	public int getId() {
 		return id;
 	}
@@ -26,5 +27,5 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-		
+	
 }
