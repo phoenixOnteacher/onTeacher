@@ -11,6 +11,7 @@ public class Homework {
 	private String filename;
 	private String deadline; //Date
 	private int courseId; //FK
+	
 	public int getId() {
 		return id;
 	}
