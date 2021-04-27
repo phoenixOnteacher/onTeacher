@@ -15,7 +15,7 @@
 		<result column="profile_img" property="profileImg" />
 		<result column="introduction" property="introduction" />
 	</resultMap>
-	<select id="selectMatchingStudentByCourseId" resultType="student" parameterType="int">
+	<select id="selectMatchingStudentByCourseId" resultMap="studentResult" parameterType="int">
 		<![CDATA[
 		select s.*
 		from matching m join student s

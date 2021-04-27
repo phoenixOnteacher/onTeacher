@@ -1,5 +1,7 @@
 package com.onteacher.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -13,13 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.onteacher.service.CourseManageService;
+import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
@@ -29,12 +35,15 @@ import com.onteacher.vo.StudentReview;
 @Controller
 @RequestMapping("/teacher")
 public class TeacherController {
-	
+
 	@Autowired
 	CourseManageService courseManageService;
-	
+
 	@Autowired
 	TeacherService teacherService;
+	
+	@Autowired
+	CourseService courseService;
 	
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
@@ -54,15 +63,47 @@ public class TeacherController {
 		return "template";
 	}
 	
-	// 과제 내기
-	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.GET)
-	public String homeworkForm(Model model, @PathVariable String course_id) {
-		// request user가 선생님이 맞는지 확인 후 폼 넘기는 코드 추가
-		model.addAttribute("course_id", Integer.parseInt(course_id));
-		model.addAttribute("page", "teacher/homeworkForm");
+	// 특정 수업 관리
+	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
+	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
+		int teacherId = 1;
+		int courseId = Integer.parseInt(course_id);
+		// 리스트 불러오기
+		try {
+			model.addAttribute("course", courseService.queryCourseById(courseId));
+			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
+			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
+			model.addAttribute("page", "teacher/courseManageDetail");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page","index");
+		}
 		return "template";
 	}
-	@RequestMapping(value="/{course_id}/homework", method=RequestMethod.POST)
+	
+	// 과제 내기
+	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
+	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
+		int teacherId = 1;
+		int courseId = Integer.parseInt(course_id);
+		try {
+			Course course = courseService.queryCourseById(courseId);
+			if (course.getTeacherId() == teacherId) {
+				model.addAttribute("course", course);
+				model.addAttribute("page", "teacher/homeworkForm");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page", "index");
+		}
+		return "template";
+	}
+	
+	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
 	public String homework(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		hw.setCourseId(Integer.parseInt(course_id));
 		try {
@@ -118,7 +159,6 @@ public class TeacherController {
 	}
 
 	// 수업 연장
-	// 모달로 폼 보여주면 GET 필요 없을 듯
 	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
 	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model, @PathVariable String course_id) {
 		try {
@@ -145,52 +185,80 @@ public class TeacherController {
 			Course course = new Course();
 			course.setId(c_id);
 			course.setTeacherId(teacher_id);
-			System.out.println(course.toString());
 			courseManageService.cancelCourse(course);
-//			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
-//		model.addAttribute("page", "index");
-//		return "template";
 	}
 
 	/* Registering course start */
-	@RequestMapping(value="/courseregister.do", method=RequestMethod.GET)
+	@RequestMapping(value = "/courseregister.do", method = RequestMethod.GET)
 	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
 		try {
 			model.addAttribute("highCategory", courseManageService.getHighCategory());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		model.addAttribute("page", "course_register");
+		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
-	
+
 	@ResponseBody
-	@RequestMapping(value="/highcategory", method=RequestMethod.GET)
-	public void subcategory(HttpServletResponse res, @RequestParam(value = "high_category_id", required = true) Integer high_category_id) {
+	@RequestMapping(value = "/highcategory", method = RequestMethod.GET)
+	public void subcategory(HttpServletResponse res,
+			@RequestParam(value = "high_category_id", required = true) Integer high_category_id) {
 		res.setCharacterEncoding("UTF-8");
 		List<LowCategory> lowcategory;
 		try {
 			lowcategory = courseManageService.getLowCategory(high_category_id);
-			
-			JSONArray jsonArray = new JSONArray();
-	        for (int i = 0; i < lowcategory.size(); i++) {
-	        	JSONObject jsonObj = new JSONObject();
-	        	jsonObj.put("id", lowcategory.get(i).getId());
-	        	jsonObj.put("name", lowcategory.get(i).getName());
-	            jsonArray.put(jsonObj);
-	        }
 
-	        System.out.println(jsonArray.toString());
-	        PrintWriter pw = res.getWriter();
-	        pw.print(jsonArray.toString());
-	        pw.flush();
-	        pw.close();
+			JSONArray jsonArray = new JSONArray();
+			for (int i = 0; i < lowcategory.size(); i++) {
+				JSONObject jsonObj = new JSONObject();
+				jsonObj.put("id", lowcategory.get(i).getId());
+				jsonObj.put("name", lowcategory.get(i).getName());
+				jsonArray.put(jsonObj);
+			}
+			PrintWriter pw = res.getWriter();
+			pw.print(jsonArray.toString());
+			pw.flush();
+			pw.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/* toss data to database including attachments */
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String upload(@ModelAttribute Course course, MultipartHttpServletRequest multi, Model model) throws Exception {
+
+		/*
+		 * String id = request.getParameter("id"); HttpSession session =
+		 * request.getSession();
+		 */
+
+		MultipartFile origFile = course.getFile();
+		System.out.println(origFile);
+		if (origFile.isEmpty() == false) {
+			String path = multi.getServletContext().getRealPath("/courseupload/"); // 파일 저장 경로
+			File dir = new File(path);    // 지정된 directory가 없을 때 directory 만들어주기
+			if(!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
+			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			try {
+				origFile.transferTo(new File(saveFile));
+				course.setCurriculumFile(origFileName);
+				System.out.println(course.getCurriculumFile());
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		courseManageService.registerCourse(course);
+		model.addAttribute("page", "teacher/course_register");
+		return "template";
 	}
 }
