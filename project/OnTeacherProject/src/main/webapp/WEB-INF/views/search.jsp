@@ -114,9 +114,28 @@
 </table>
 </div>
 
-
-
-
+<!--  
+<table id="list_table">
+	<thead>
+		<tr>
+			<td class="number" id="thead">#</td>
+			<td class="title" id="thead">제목</td>
+			<td class="writer" id="thead">작성자</td>
+			<td class="date" id="thead">작성일</td>
+		</tr>
+	</thead>
+	<c:forEach var="article" items="${articles }">
+		<tr>
+			<td class="number">${article.board_no }</td>
+			<td class="duration">${article.j_days }일</td>
+			<td><a href="./articledetail?board_no=${article.board_no}">
+					${article.title} </a></td>
+			<td class="writer">${article.writer }</td>
+			<td class="date"><fmt:formatDate value="${article.w_date }" pattern="yy.MM.dd" /></td>
+		</tr>
+	</c:forEach>
+</table>
+-->
 
 
 </body>
