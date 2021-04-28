@@ -1,18 +1,91 @@
 @charset "UTF-8";
 
 /* 공통 */
+body {
+	font-size: 0.975rem;
+}
+
 #i_wrap {
 	margin: 0 auto;
 	align-items: center;
+	max-width: 1024px;
+	font-family: 'S-CoreDream-4Regular';
 }
 
 /* 바디 */
+/* 슬라이드쇼 */
 #i_content {
-	text-align: center;
 	align-items: center;
 }
 
 #i_content img {
-	width: 800px;
+	width: 100%;
 	height: auto;
+}
+
+/* 로그인 바로가기 */
+#loginblock {
+	background-color: #F1F1F0;
+	height: 100px;
+	text-align: center;
+	margin-top: 60px;
+}
+
+#loginbtndiv {
+	display: inline;
+	padding: 0 200px;
+}
+
+#logintext {
+	width: 250px;
+	display: inline;
+	line-height: 95px;
+	padding-right: 70px;
+}
+
+a.btn-primary {
+	background-color: #FBEFAB;
+	border-color: #FAE24A;
+	color: #000000;
+	width: 180px;
+	height: 40px;
+}
+
+a.btn-primary:hover {
+	background-color: #F9E56E;
+	border-color: #FAE24A;
+	color: #000000;
+}
+
+/* 수업 썸네일 */
+#mainthumbblock {
+	background-color: #ffffff;
+	height: 70px;
+	margin-top: 20px;
+}
+
+#mainthumbtext {
+	display: flex;
+	justify-content: space-between;
+	line-height: 90px;
+	font-size: 22px;
+	font-weight: 800;
+	padding-left: 14px;
+	overflow: hidden;
+}
+
+#mainthumbtext p {
+	margin: 0;
+}
+
+#gotosearch {
+	text-decoration: none;
+	font-size: 1rem;
+	font-weight: 600;
+	padding-right: 14px;
+	color: #692D03;
+}
+
+h5.card-title {
+	font-size: 1.2rem;
 }

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
@@ -31,6 +32,7 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.StudentReview;
+import com.onteacher.vo.Teacher;
 
 @Controller
 @RequestMapping("/teacher")
@@ -44,6 +46,26 @@ public class TeacherController {
 	
 	@Autowired
 	CourseService courseService;
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String thjoin(Model model) {
+		model.addAttribute("page", "thjoin_form");
+		return "template";
+	}
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public ModelAndView thjoin(@ModelAttribute Teacher teacher) {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			teacherService.thjoin(teacher);
+			modelAndView.addObject("page", "login_form");
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelAndView.addObject("err", "회원가입 오류");
+			modelAndView.addObject("page", "err");
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
@@ -191,6 +213,7 @@ public class TeacherController {
 		}
 	}
 	
+	/* 매칭하기 */
 	@ResponseBody
 	@RequestMapping(value="/{course_id}/match", method=RequestMethod.POST)
 	public void match(HttpServletRequest request, @RequestBody List<String> selectedStudents, Model model, @PathVariable String course_id) {
@@ -217,7 +240,36 @@ public class TeacherController {
 			e.printStackTrace();
 //			model.addAttribute("page", "index");
 		}
-//		return "template";
+	}
+	
+	/* 매칭 취소 */
+	@ResponseBody
+	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
+	public void cancelMatching(HttpServletRequest request, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
+		int teacher_id = 1;
+		try {
+			int c_id = Integer.parseInt(course_id);
+			Course course = new Course();
+			course.setId(c_id);
+			course.setTeacherId(teacher_id);
+			courseManageService.cancelCourse(course);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/* Registering course start */
+	@RequestMapping(value = "/courseregister.do", method = RequestMethod.GET)
+	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			model.addAttribute("highCategory", courseManageService.getHighCategory());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("page", "teacher/course_register");
+		return "template";
 	}
 
 	@ResponseBody
@@ -236,8 +288,6 @@ public class TeacherController {
 				jsonObj.put("name", lowcategory.get(i).getName());
 				jsonArray.put(jsonObj);
 			}
-
-			System.out.println(jsonArray.toString());
 			PrintWriter pw = res.getWriter();
 			pw.print(jsonArray.toString());
 			pw.flush();
@@ -266,7 +316,6 @@ public class TeacherController {
 			}
 			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
 			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
-			System.out.println(saveFile);
 			try {
 				origFile.transferTo(new File(saveFile));
 				course.setCurriculumFile(origFileName);
@@ -278,7 +327,7 @@ public class TeacherController {
 			}
 		}
 		courseManageService.registerCourse(course);
-		model.addAttribute("page", "course_register");
+		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
 }

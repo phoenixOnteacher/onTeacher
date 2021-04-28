@@ -1,0 +1,115 @@
+@charset "UTF-8";
+
+#cr_wrap {
+	align-items: center;
+	width: 100%;
+}
+
+#courseRegForm {
+	margin: 0 auto;
+}
+
+#cr_title_wrap {
+	max-width: 992px;
+	margin: 0 auto;
+}
+
+#cr_title {
+	width: 200px;
+	padding-left: 14px;
+	padding-top: 1rem;
+	padding-bottom: 1.5rem;
+	font-size: 2.6rem;
+	font-weight: 800;
+	font-family: 'S-CoreDream-5Medium';
+}
+
+#cr_table {
+	margin: 0 auto;
+	font-family: 'S-CoreDream-4Regular';
+}
+
+td.thead {
+	font-weight: 700;
+	width: 10%;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	padding-right: 20px;
+}
+
+td.tbody {
+	width: 90%;
+}
+
+td.thead, td.tbody {
+	height: 50px;
+	align-items: center;
+}
+
+form label {
+	margin-bottom: 0;
+}
+
+.form-select-sm {
+	padding: 0;
+	padding-top: .2rem;
+	padding-bottom: .2rem;
+	padding-left: .5rem;
+	font-size: .875rem;
+}
+
+.form-select {
+	display: inline-block;
+	width: 160px;
+	font-size: 14px;
+}
+
+.dropdown-toggle::after {
+	content: none;
+}
+
+input.form-control {
+    height: 27px;
+    padding: 4px 7px;
+}
+
+input#minStudent.form-control, input#maxStudent.form-control, input#studyDate {
+	width: 160px;
+	display: inline-block;
+}
+
+#startday {
+	width: 162px;
+}
+
+#startday, #endday {
+	margin: 0;
+	display: inline-block;
+	font-size: 9px;
+	font-weight: 700;
+	padding-left: 5px;
+}
+
+div.panel {
+	margin-bottom: 0;
+}
+
+#submit_btn {
+	width: 833px;
+	margin: 0 auto;
+	text-align: right;
+	margin-top: 12px;
+	font-family: 'S-CoreDream-5Medium';
+}
+
+button.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FFCD4A;
+}

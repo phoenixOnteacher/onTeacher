@@ -19,4 +19,5 @@ public interface CourseDAO {
 	public List<Course> selectMatchingCourseList(int teacherId) throws Exception;
 	public List<Course> selectMatchedCourseList(int teacherId) throws Exception;
 	public List<Course> selectEndCourseList(int teacherId) throws Exception;
+	public List<Course> selectCourseForIndex();
 }

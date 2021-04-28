@@ -1,14 +1,15 @@
 package com.onteacher.vo;
 
+
+
 import org.springframework.stereotype.Component;
 
-@Component("admin")
-public class Admin {
+@Component("user")
+public class User {
 	
 	private int id; //PK
-	private String email; 
+	private String email;
 	private String password;
-	
 	public int getId() {
 		return id;
 	}
@@ -27,5 +28,4 @@ public class Admin {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }
