@@ -41,15 +41,23 @@ $(function(){
       </li>
     </ul>
   </div>
-  <div class="course-list">
+  <div class="course-list">	
 <c:forEach var="course" items="${courses}"> <!-- 여기서 course가 아니라 조인한 새로운 vo 가 나올 수 있어 그러면 수정. -->
     <div class="course-table-div">
 		<table class="table table-borderless">
 		  <tbody>
 		    <tr>
-		      <td rowspan="3" ><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
-		      <td><a href="">${course.title}</a></td>
-		      <td><a href="./applyCancle?courseId=${course.id}" id="${course.id}"></a><input type="button" value="신청취소" class="cancle_button ${course.id}"></td>
+		      <td rowspan="3" ><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
+		      <td><a href="/student/courseStudyingDetail?courseId=${course.id}">${course.title}</a></td>
+		      	<c:set var="status" value="${course.status}"/>
+		      	<c:choose>
+		      		<c:when	test="${status eq 'matching'}">
+				      <td><a href="./applyCancle?courseId=${course.id}" id="${course.id}"></a><input type="button" value="신청취소" class="cancle_button ${course.id}"></td>
+		      		</c:when>
+		      		<c:when	test="${status eq 'match	ed'}">
+					  <td><button disabled="disabled">신청취소</button></td>		      		
+		      		</c:when>
+		      	</c:choose>
 		      <td>${course.status}</td>
 		    </tr>
 		    <tr>

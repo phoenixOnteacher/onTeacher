@@ -8,10 +8,16 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
+import com.onteacher.dao.HighCategoryDAO;
 import com.onteacher.dao.MatchingDAO;
+import com.onteacher.dao.TeacherDAO;
 import com.onteacher.dao.HomeworkDAO;
+import com.onteacher.dao.LowCategoryDAO;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Teacher;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -25,6 +31,15 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Autowired
 	MatchingDAO matchingDAO;
+	
+	@Autowired
+	HighCategoryDAO highCategoryDAO;
+	
+	@Autowired
+	LowCategoryDAO lowCategoryDAO;
+	
+	@Autowired
+	TeacherDAO teacherDAO;
 
 	@Override
 	public List<Course> courseWaitingList(int studentId) {
@@ -65,5 +80,24 @@ public class CourseServiceImpl implements CourseService {
 			homework.setDeadline(homework.getDeadline().substring(0,10));
 		}
 		return homeworkList;
+	}
+
+
+	@Override
+	public HighCategory queryHighCategoryById(int highCategoryId) {
+		return highCategoryDAO.selectHighCategoryById(highCategoryId);
+	}
+
+
+	@Override
+	public LowCategory queryLowCategoryById(int lowCategoryId) {
+		return lowCategoryDAO.selectLowCategoryById(lowCategoryId);
+	}
+
+
+	@Override
+	public Teacher queryTeacherById(int teacherId) {
+		// TODO Auto-generated method stub
+		return teacherDAO.selectTeacherById(teacherId);
 	}
 }

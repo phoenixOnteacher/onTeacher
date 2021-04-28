@@ -31,7 +31,7 @@
 		<table class="table table-borderless">
 		  <tbody>
 		    <tr>
-		      <td rowspan="3" ><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
+		      <td rowspan="3" ><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
 		      <td><a href="">${course.title}</a> </td>
 		      <td><a href="">신청취소</a></td>
 		      <td>${course.status}</td>

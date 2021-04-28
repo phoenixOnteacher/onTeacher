@@ -3,7 +3,10 @@ package com.onteacher.service;
 import java.util.List;
 
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Teacher;
 
 public interface CourseService {
 
@@ -23,4 +26,10 @@ public interface CourseService {
 	public Homework queryHomework(int id) throws Exception;
 	
 	public List<Homework> queryHomeworkList(int courseId) throws Exception;
+
+	public HighCategory queryHighCategoryById(int highCategoryId);
+
+	public LowCategory queryLowCategoryById(int lowCategoryId);
+
+	public Teacher queryTeacherById(int teacherId);
 }

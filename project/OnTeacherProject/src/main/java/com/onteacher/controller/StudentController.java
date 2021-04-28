@@ -21,8 +21,11 @@ import com.onteacher.service.CourseService;
 import com.onteacher.service.MyCourseService;
 import com.onteacher.service.StudentService;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Student;
+import com.onteacher.vo.Teacher;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.LowCategory;
 
 //@Controller
 @Controller("studentController")
@@ -64,7 +67,7 @@ public class StudentController {
 	public int getStudentIdBySessionEmail(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("email");
-		Student student = studentService.queryStudentByEmail(email);
+		Student student = studentService.queryStudentByEmail(email); //여기서 못가져와
 		return student.getId();
 	}
 	
@@ -120,6 +123,30 @@ public class StudentController {
 		modelAndView.setViewName("template");
 		return modelAndView;
 		
+	}
+	
+	@RequestMapping(value="/courseStudyingDetail", method=RequestMethod.GET)
+	public ModelAndView courseStudyingDetail(@RequestParam(value = "courseId",required = true)int courseId,
+									HttpServletRequest request) {
+		ModelAndView modelAndView= new ModelAndView();
+		try {
+			Course course = courseService.queryCourseById(courseId);
+			int highCategoryId = course.getHighCategoryId();
+			int lowCategoryId = course.getLowCategoryId();
+			int teacherId = course.getTeacherId();
+			HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
+			LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
+			Teacher teacher = courseService.queryTeacherById(teacherId);
+			modelAndView.addObject("course", course);
+			modelAndView.addObject("highCategory", highCategory);
+			modelAndView.addObject("lowCategory", lowCategory);
+			modelAndView.addObject("teacher", teacher);
+			modelAndView.addObject("page","student/courseStudyingDetail");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
 	}
 	
 	@RequestMapping(value="/{course_id}/homeworkanswer", method=RequestMethod.POST)
