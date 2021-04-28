@@ -35,7 +35,7 @@
 		<div id="loginblock">
 			<div id="loginbtndiv">
 				<div id="logintext">교육봉사 참여 / 수업 신청하려면?</div>
-				<a id="loginbtn" class="btn btn-primary" href="#">로그인하러 가기</a>
+				<a id="loginbtn" class="btn btn-primary" href="/login">로그인하러 가기</a>
 			</div>
 		</div>
 		<div id="mainthumbblock">
@@ -48,7 +48,7 @@
 			<c:forEach var="course" items="${courses }">
 				<div class="col">
 					<div class="card">
-						<img src="${path}/티처프로필이미지폴더명/${course.teacher.profileImg}" class="card-img-top">
+						<img src="${path}/thprofileupload/${course.teacher.profileImg}" class="card-img-top">
 						<div class="card-body">
 							<h5 class="card-title">${course.title }</h5>
 							<p class="card-text">${course.curriculum }</p>
