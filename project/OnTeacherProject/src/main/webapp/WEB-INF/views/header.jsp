@@ -16,7 +16,9 @@
 		<ul id="navbar_menu">
 			<li><a href="#">수업검색</a></li>
 			<li><a href="/teacher/course-manage">수업관리</a></li>
+			<li><a href="/ocr/ocr-main">OCR 인식</a></li>
 			<li><a href="#">질문게시판</a></li>
+			
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="#">로그인</a></li>
@@ -25,6 +27,7 @@
 					<li><a href="#">로그아웃</a></li>
 				</c:otherwise>
 			</c:choose>
+			
 			<li id="btnJoin">회원가입
 				<div id="down">
 					<i class="fas fa-caret-down"></i>
