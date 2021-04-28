@@ -35,7 +35,7 @@
 		<div id="loginblock">
 			<div id="loginbtndiv">
 				<div id="logintext">교육봉사 참여 / 수업 신청하려면?</div>
-				<a id="loginbtn" class="btn btn-primary" href="#">로그인하러 가기</a>
+				<a id="loginbtn" class="btn btn-primary" href="/login">로그인하러 가기</a>
 			</div>
 		</div>
 		<div id="mainthumbblock">
