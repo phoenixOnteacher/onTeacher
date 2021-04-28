@@ -7,7 +7,7 @@
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
-			<a href="././." class="h5 text-decoration-none text-reset">수업 관리</a>
+			<a href="/teacher/course-manage" class="h5 text-decoration-none text-reset">수업 관리</a>
 			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
 		<h2>${course.title }</h2>
@@ -19,11 +19,11 @@
 				  <a class="nav-link text-reset" href="#studyingStudent" data-toggle="tab" data-load="false">학생 관리</a>
 				  <a class="nav-link text-reset" href="#homework" data-toggle="tab" data-load="false">과제</a>
 			  	</c:when>
-			  	<c:when test="${course.status=='matching'}">
-			  	  <a class="nav-link text-reset" href="#matchingStudent" data-toggle="tab" data-load="false">신청한 학생</a>
+			  	<c:when test="${course.status=='end'}">
+			  	  <a class="nav-link text-reset" href="#endStudent" data-toggle="tab" data-load="false">수강한 학생</a>
 			  	</c:when>
 			  	<c:otherwise>
-			  	  <a class="nav-link text-reset" href="#matchedStudent" data-toggle="tab" data-load="false">수강한 학생</a>
+			  	  <a class="nav-link text-reset" href="#matchingStudent" data-toggle="tab" data-load="false">신청한 학생</a>
 			  	</c:otherwise>
 			  </c:choose>
 			</nav>
@@ -57,10 +57,19 @@
 					    <div class="col-md-8">
 					      <div class="card-body">
 					        <div class="card-title h4 mb-3">${student.name } 학생
-						        <div class="form-check float-end">
-								  <input type="checkbox" class="btn-check" name="selectedStudent" value="${student.id }" id="btn-check-${student.id }" autocomplete="off">
-								  <label class="btn btn-outline-primary btn-sm" for="btn-check-${student.id }">선택</label>
-								</div>
+					        	<c:choose>
+					        		<c:when test="${course.status=='matching' }">
+								        <div class="form-check float-end">
+										  <input type="checkbox" class="btn-check" name="selectedStudent" value="${student.id }" id="btn-check-${student.id }" autocomplete="off">
+										  <label class="btn btn-outline-primary btn-sm" for="btn-check-${student.id }">선택</label>
+										</div>
+					        		</c:when>
+					        		<c:otherwise>
+					        			<div class="form-check float-end">
+								        	<button id="matchingCancelBtn" class="btn btn-danger btn-sm" value="${student.id }">매칭 취소</button>
+										</div>
+					        		</c:otherwise>
+					        	</c:choose>
 					        </div>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>
 					        <p class="card-text"><i class="fas fa-envelope"></i> ${student.email }</p>
@@ -70,9 +79,11 @@
 					  </div>
 					</div>
 		    	</c:forEach>
-	    		<div class="d-flex justify-content-center"><button id="matchingBtn" class="btn btn-primary" value="${course.id }">매칭하기</button></div>
+		    	<c:if test="${course.status=='matching' }">
+		    		<div class="d-flex justify-content-center"><button id="matchingBtn" class="btn btn-primary" value="${course.id }">매칭하기</button></div>
+		    	</c:if>
 			  </div>
-			  <div class="tab-pane fade" id="matchedStudent">
+			  <div class="tab-pane fade" id="endStudent">
 			  	<c:forEach var="student" items="${students }">
 			    	<div class="card mb-3 mx-auto" style="max-width: 40vw;">
 					  <div class="row g-0">
@@ -83,7 +94,7 @@
 					      <div class="card-body">
 					        <div class="card-title h4 mb-3">${student.name } 학생
 						        <div class="form-check float-end">
-						        	<button id="matchingCancelBtn" class="btn btn-danger btn-sm" value="${student.id }">매칭 취소</button>
+						        	<button id="writeReviewBtn" class="btn btn-success btn-sm" value="${student.id }">후기 작성</button>
 								</div>
 					        </div>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>
