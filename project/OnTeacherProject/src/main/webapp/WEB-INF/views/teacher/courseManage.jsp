@@ -68,7 +68,6 @@
 						    	<p class="card-text">${student.name } 학생</p>
 						    </c:forEach>
 						    <p>${course.startDate } ~ ${course.endDate }</p>
-						    <a href="#" class="btn btn-primary">Go somewhere</a>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -76,7 +75,8 @@
 						<div class="card m-2">
 						  <h5 class="card-header p-3">
 						  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title } <i class="fas fa-chevron-right"></i></a>
-						  	<small class="btn btn-secondary float-end btn-sm">매칭 완료</small>
+						  	<small class="btn btn-secondary float-end btn-sm mx-2">매칭 완료</small>
+						  	<small class="btn btn-success float-end btn-sm mx-2">수업 시작</small>
 						  </h5>
 						  <div class="card-body">
 						    <h5 class="card-title">${course.status }</h5>
@@ -84,7 +84,6 @@
 						    	<p class="card-text">${student.name } 학생</p>
 						    </c:forEach>
 						    <p>${course.startDate } ~ ${course.endDate }</p>
-						    <a href="#" class="btn btn-primary">Go somewhere</a>
 						  </div>
 						</div>
 				  	</c:forEach>

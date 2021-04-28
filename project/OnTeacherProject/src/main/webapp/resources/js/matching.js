@@ -18,17 +18,19 @@ $(function(){
 			$("input[name='selectedStudent']:checked").each(function() {
 				selectedStudents.push($(this).val());
 			});
+			jQuery.ajaxSettings.traditional = true;
 			$.ajax({
 				type: "POST",
-				url: "http://localhost:8090/teacher/"+$(this).val()+"/match",
+				url: "http://localhost:8090/teacher/"+$(this).val()+"/matching",
 				dataType: "json",
-				data: { selectedStudents: selectedStudents },
+				data: JSON.stringify({
+					"selectedStudents": selectedStudents
+				}),
 				contentType: "application/json; charset=UTF-8",
-				success: function() {
+				complete: function() {
+					console.log("success");
 					location.reload();
-				},
-				error: function(e) {
-					console.err(e);
+					console.log("reload");
 				}
 			})
 		}

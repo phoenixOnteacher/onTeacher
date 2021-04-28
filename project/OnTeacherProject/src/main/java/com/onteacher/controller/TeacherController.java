@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -198,7 +199,7 @@ public class TeacherController {
 	// 수업 취소
 	@ResponseBody
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
-	public void cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
+	public void cancelCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
 		int teacher_id = 1;
@@ -215,9 +216,10 @@ public class TeacherController {
 	
 	/* 매칭하기 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}/match", method=RequestMethod.POST)
-	public void match(HttpServletRequest request, @RequestBody List<String> selectedStudents, Model model, @PathVariable String course_id) {
+	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.POST)
+	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
+		List<String> selectedStudents = reqData.get("selectedStudents");
 //		int user_id = Integer.parseInt((String) session.getAttribute("id"));
 		int user_id = 1;
 		int courseId = Integer.parseInt(course_id);
@@ -227,25 +229,16 @@ public class TeacherController {
 			Course course = courseService.queryCourseById(courseId);
 			if (!course.getStatus().equals("matching")) throw new Exception("매칭 대기 중인 수업만 매칭 가능");
 			if (course.getTeacherId()!=user_id) throw new Exception("해당 수업의 선생님만 매칭 가능");
-
 			courseManageService.match(courseId, selectedStudents);
-			course.setStatus("matched");
-//			
-//			// 수업 상세 관리 페이지로 이동
-//			model.addAttribute("course", course);
-//			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
-//			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
-//			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
 	}
 	
 	/* 매칭 취소 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
-	public void cancelMatching(HttpServletRequest request, Model model, @PathVariable String course_id) {
+	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
+	public void cancelMatching(HttpServletRequest request, @RequestParam(value="student_id", required = true) int student_id, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
 		int teacher_id = 1;

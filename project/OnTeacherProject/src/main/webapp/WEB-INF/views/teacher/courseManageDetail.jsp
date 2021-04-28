@@ -23,7 +23,7 @@
 			  	  <a class="nav-link text-reset" href="#matchingStudent" data-toggle="tab" data-load="false">신청한 학생</a>
 			  	</c:when>
 			  	<c:otherwise>
-			  	  <a class="nav-link text-reset" href="#matchedStudent" data-toggle="tab" data-load="false">신청한 학생</a>
+			  	  <a class="nav-link text-reset" href="#matchedStudent" data-toggle="tab" data-load="false">수강한 학생</a>
 			  	</c:otherwise>
 			  </c:choose>
 			</nav>
@@ -83,7 +83,7 @@
 					      <div class="card-body">
 					        <div class="card-title h4 mb-3">${student.name } 학생
 						        <div class="form-check float-end">
-						        	<button id="matchingCancelBtn" class="btn btn-danger btn-sm" value="${course.id }">매칭 취소</button>
+						        	<button id="matchingCancelBtn" class="btn btn-danger btn-sm" value="${student.id }">매칭 취소</button>
 								</div>
 					        </div>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>

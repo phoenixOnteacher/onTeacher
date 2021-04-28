@@ -97,6 +97,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 				matchingDAO.deleteMatching(matching);
 			}
 		}
+		Course course = courseDAO.selectCourseById(courseId);
+		course.setStatus("matched");
+		courseDAO.updateCourseStatus(course);
 	}
 	
 	@Override
