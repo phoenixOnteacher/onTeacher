@@ -29,7 +29,7 @@ public class CommonController {
 	@Autowired
 	UserService userService;
 	
-	@RequestMapping(value="/main", method=RequestMethod.GET)
+	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("courses", courseService.selectCourseForIndex());
 		model.addAttribute("page", "index");
@@ -52,12 +52,12 @@ public class CommonController {
 				throw new Exception("비밀번호 오류");
 			request.getSession().setAttribute("id", id);
 			
-			modelAndView.addObject("page", "index");
+			modelAndView.setViewName("redirect:/main");;
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelAndView.addObject("page", "login_form");
+			modelAndView.setViewName("template");
 		} 
-		modelAndView.setViewName("template");
 		return modelAndView;
 	}
 	
