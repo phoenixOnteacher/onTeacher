@@ -82,7 +82,6 @@ public class CourseServiceImpl implements CourseService {
 		return homeworkList;
 	}
 
-
 	@Override
 	public HighCategory queryHighCategoryById(int highCategoryId) {
 		return highCategoryDAO.selectHighCategoryById(highCategoryId);
@@ -99,5 +98,10 @@ public class CourseServiceImpl implements CourseService {
 	public Teacher queryTeacherById(int teacherId) {
 		// TODO Auto-generated method stub
 		return teacherDAO.selectTeacherById(teacherId);
+	}
+
+	@Override
+	public List<Course> selectCourseForIndex() {
+		return courseDAO.selectCourseForIndex();
 	}
 }

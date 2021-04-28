@@ -17,6 +17,23 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public Student queryStudentByEmail(String email) {
-		return studentDAO.selectStdentByEmail(email);
+		return studentDAO.selectStudentByEmail(email);
+	}
+	
+	@Override
+	public void stjoin(Student student) throws Exception {
+		Student sstudent = studentDAO.selectStudent(student.getEmail());
+		if(sstudent!=null) throw new Exception("이메일 중복");
+		studentDAO.insertStudent(student);
+	}
+
+	@Override
+	public boolean login(String email, String password) throws Exception {
+		Student student = studentDAO.selectStudent(email);
+		if(student==null) throw new Exception("아이디 오류");
+		if(student.getPassword().equals(password)) {
+			return true;
+		}
+		return false;
 	}
 }

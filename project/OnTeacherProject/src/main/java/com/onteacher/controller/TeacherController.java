@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,14 +16,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
@@ -31,6 +33,7 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.StudentReview;
+import com.onteacher.vo.Teacher;
 
 @Controller
 @RequestMapping("/teacher")
@@ -41,11 +44,73 @@ public class TeacherController {
 
 	@Autowired
 	TeacherService teacherService;
-	
+
 	@Autowired
 	CourseService courseService;
-	
-	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String thjoin(Model model) {
+		model.addAttribute("page", "thjoin_form");
+		return "template";
+	}
+
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public ModelAndView thjoin(@RequestPart("file") List<MultipartFile> files, @ModelAttribute Teacher teacher,
+			MultipartHttpServletRequest multi) {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+
+			if (!files.isEmpty()) {
+				if (files.get(0).getContentType().split("/")[0].equals("image")) {    // 이미지 파일인지 체크
+					String path = multi.getServletContext().getRealPath("/thprofileupload/"); // 파일 저장 경로
+					File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+					if (!dir.isDirectory()) {
+						dir.mkdir();
+					}
+					String origFileName = files.get(0).getOriginalFilename(); // 파일 이름 저장
+					String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+					File targetfile = new File(saveFile);
+
+					try {
+						files.get(0).transferTo(targetfile);
+						teacher.setProfileImg(origFileName);
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+				if (!files.get(1).isEmpty()) {
+					String path = multi.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
+					File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+					if (!dir.isDirectory()) {
+						dir.mkdir();
+					}
+					String origFileName = files.get(1).getOriginalFilename(); // 파일 이름 저장
+					String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+
+					try {
+						files.get(1).transferTo(new File(saveFile));
+						teacher.setFileName(origFileName);
+
+					} catch (IllegalStateException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+
+			}
+			teacherService.thjoin(teacher);
+			modelAndView.addObject("page", "login_form");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/course-manage", method = RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 //		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
@@ -62,9 +127,9 @@ public class TeacherController {
 		model.addAttribute("page", "teacher/courseManage");
 		return "template";
 	}
-	
+
 	// 특정 수업 관리
-	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/course-manage/{course_id}", method = RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
@@ -78,13 +143,13 @@ public class TeacherController {
 			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("page","index");
+			model.addAttribute("page", "index");
 		}
 		return "template";
 	}
-	
+
 	// 과제 내기
-	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
+	@RequestMapping(value = "/course-manage/{course_id}/homework", method = RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
@@ -102,8 +167,8 @@ public class TeacherController {
 		}
 		return "template";
 	}
-	
-	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/course-manage/{course_id}/homework", method = RequestMethod.POST)
 	public String homework(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		hw.setCourseId(Integer.parseInt(course_id));
 		try {
@@ -118,14 +183,16 @@ public class TeacherController {
 	}
 
 	// 학생 후기 작성
-	@RequestMapping(value="/{course_id}/review/{student_id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/{course_id}/review/{student_id}", method = RequestMethod.GET)
 	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
 		// request user가 선생님인지 확인하고 폼으로 이동하는 로직 추가
 		model.addAttribute("page", "teacher/studentReviewForm");
 		return "template";
 	}
-	@RequestMapping(value="/{course_id}/review/{student_id}", method=RequestMethod.POST)
-	public String writeReview(HttpServletRequest request, @ModelAttribute StudentReview sr, Model model, @PathVariable String course_id, @PathVariable String student_id) {
+
+	@RequestMapping(value = "/{course_id}/review/{student_id}", method = RequestMethod.POST)
+	public String writeReview(HttpServletRequest request, @ModelAttribute StudentReview sr, Model model,
+			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
 //		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
 		int teacher_id = 1;
@@ -142,9 +209,9 @@ public class TeacherController {
 		}
 		return "template";
 	}
-	
+
 	// 수업 시작
-	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
+	@RequestMapping(value = "/{course_id}/start", method = RequestMethod.POST)
 	public String startCourse(Model model, @PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
@@ -159,8 +226,9 @@ public class TeacherController {
 	}
 
 	// 수업 연장
-	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
-	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model, @PathVariable String course_id) {
+	@RequestMapping(value = "/{course_id}/extend", method = RequestMethod.POST)
+	public String extendCourse(@RequestParam(value = "extendDate", required = true) String extendDate, Model model,
+			@PathVariable String course_id) {
 		try {
 			int c_id = Integer.parseInt(course_id);
 			courseManageService.extendCourse(c_id, extendDate);
@@ -172,10 +240,10 @@ public class TeacherController {
 		model.addAttribute("page", "index");
 		return "template";
 	}
-	
+
 	// 수업 취소
 	@ResponseBody
-	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/{course_id}", method = RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
@@ -192,13 +260,18 @@ public class TeacherController {
 	}
 
 	/* Registering course start */
-	@RequestMapping(value = "/courseregister.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/courseregister", method = RequestMethod.GET)
 	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		HttpSession session = request.getSession();
+		session.setAttribute("teacher_id", id);
+
 		try {
 			model.addAttribute("highCategory", courseManageService.getHighCategory());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("teacher_id", id);
 		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
@@ -230,19 +303,22 @@ public class TeacherController {
 
 	/* toss data to database including attachments */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public String upload(@ModelAttribute Course course, MultipartHttpServletRequest multi, Model model) throws Exception {
+	public String upload(@ModelAttribute Course course, MultipartHttpServletRequest multi, Model model,
+			HttpServletRequest request) throws Exception {
 
 		/*
 		 * String id = request.getParameter("id"); HttpSession session =
-		 * request.getSession();
+		 * request.getSession(); session.setAttribute("teacher_id", id); int teacher_id
+		 * = (int) session.getAttribute("teacher_id");
 		 */
+		int teacher_id = 300003;
 
 		MultipartFile origFile = course.getFile();
-		System.out.println(origFile);
-		if (origFile.isEmpty() == false) {
+
+		if (!origFile.isEmpty()) {
 			String path = multi.getServletContext().getRealPath("/courseupload/"); // 파일 저장 경로
-			File dir = new File(path);    // 지정된 directory가 없을 때 directory 만들어주기
-			if(!dir.isDirectory()) {
+			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+			if (!dir.isDirectory()) {
 				dir.mkdir();
 			}
 			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
@@ -257,6 +333,7 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
+		course.setTeacherId(teacher_id);
 		courseManageService.registerCourse(course);
 		model.addAttribute("page", "teacher/course_register");
 		return "template";

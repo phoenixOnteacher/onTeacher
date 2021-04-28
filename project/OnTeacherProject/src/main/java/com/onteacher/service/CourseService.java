@@ -32,4 +32,6 @@ public interface CourseService {
 	public LowCategory queryLowCategoryById(int lowCategoryId);
 
 	public Teacher queryTeacherById(int teacherId);
+	
+	public List<Course> selectCourseForIndex();
 }

@@ -34,7 +34,7 @@
 		  </tbody>
 		</table>
 		<c:if test="${fn:substring(user_id,0,1)}=='2'">
-			<jsp:include page="../student/homeworkAnswer.jsp"/>
+			<%-- <jsp:include page="../student/homeworkAnswer.jsp"/> --%>
 		</c:if>
 		<c:if test="${fn:substring(user_id,0,1)}=='3'">
 	  		<div class="card" style="width: 18rem;">

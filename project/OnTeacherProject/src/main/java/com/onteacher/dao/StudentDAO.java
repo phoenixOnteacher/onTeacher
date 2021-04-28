@@ -11,7 +11,9 @@ import com.onteacher.vo.Student;
 @Repository("studentDAO")
 public interface StudentDAO {
 
-	public Student selectStdentByEmail(String email);
+	public Student selectStudentByEmail(String email);
 
 	public List<Student> selectMatchingStudentByCourseId(int courseId) throws Exception;
+	public void insertStudent(Student std) throws Exception;
+	public Student selectStudent(String email) throws Exception;
 }

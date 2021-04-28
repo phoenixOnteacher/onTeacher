@@ -1,8 +1,11 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
+
+
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component("teacher")
 public class Teacher {
@@ -113,8 +116,4 @@ public class Teacher {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-	
-	
 }
