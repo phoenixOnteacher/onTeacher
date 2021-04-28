@@ -11,18 +11,18 @@ public class Teacher {
 	private String email;
 	private String name;
 	private String password;
-	private String phonenumber;
+	private String phoneNumber;
 	private String address;
 	private String birthday; //Date
 	private String gender;
-	private String profileimg;
+	private String profileImg;
 	private String introduction;
 	private boolean active;
-	private String filename;
+	private String fileName;
 	private String description;
 	private String status;
 	private String message;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -47,6 +47,12 @@ public class Teacher {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 	public String getAddress() {
 		return address;
 	}
@@ -65,6 +71,12 @@ public class Teacher {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public String getProfileImg() {
+		return profileImg;
+	}
+	public void setProfileImg(String profileImg) {
+		this.profileImg = profileImg;
+	}
 	public String getIntroduction() {
 		return introduction;
 	}
@@ -76,6 +88,12 @@ public class Teacher {
 	}
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	public String getFileName() {
+		return fileName;
+	}
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 	public String getDescription() {
 		return description;
@@ -94,23 +112,5 @@ public class Teacher {
 	}
 	public void setMessage(String message) {
 		this.message = message;
-	}
-	public String getFilename() {
-		return filename;
-	}
-	public void setFilename(String filename) {
-		this.filename = filename;
-	}
-	public String getPhonenumber() {
-		return phonenumber;
-	}
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
-	}
-	public String getProfileimg() {
-		return profileimg;
-	}
-	public void setProfileimg(String profileimg) {
-		this.profileimg = profileimg;
 	}
 }
