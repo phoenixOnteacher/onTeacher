@@ -1,6 +1,6 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
+
 
 import org.springframework.stereotype.Component;
 
@@ -113,7 +113,4 @@ public class Teacher {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
-	
 }
