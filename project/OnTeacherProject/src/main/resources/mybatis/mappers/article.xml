@@ -4,61 +4,60 @@
 <mapper namespace="com.onteacher.dao.ArticleDAO">
 	
 	
-	 <!-- VO에 있는걸 그대로 적는것인가?? ========================================================================= -->
 	
-	<resultMap id="articleNO" type="articleNO">
-    <result property="title" column="title" />
-    <result property="content" column="content" />
-    <result property="file" column="file" />
-    <result property="createdAt" column="createdAt" />
-    <result property="hit" column="hit" />
-    <result property="userId" column="userId" />
-  </resultMap> 
-		
 		
 	
-	<select id="selectAllArticlesList" parameterType="">
+	<select id="selectAllArticlesList" resultType="article">
 		<![CDATA[
-		select * from Q_board
-		order by articleNO
+		  select id,title,created_at,hits,user_id
+		 	 from(select row_number() over (order by id desc) num, a.*
+         	 from article a order by id desc)
+          where num between #{s_row} and #{e_row}
+
 		]]>
 	</select>
 	
+	<select id="selectMaxArticleNO" resultType="int"> 
+	<![CDATA[
+		select max(id) from article
+	]]>
+	</select>
 	
-	<insert id="insertNewArticle" parameterType="">
-	 <selectKey resultType="String" keyProperty="boardNO" order="BEFORE">
-            SELECT IFNULL(MAX(boardNO),0)+1 FROM Q_BOARD
-     </selectKey>
+	
+	
+	
+	<insert id="insertArticle" parameterType="article">
+
 	 <![CDATA[
-		 INSERT INTO Q_board(articleNO,title,content,file,createdAt,hit,userId)
-         VALUES (#{articleNO}, #{title}, #{content}, #{file}, NOW(), 0, #{userId} )
+		 INSERT INTO article(id,title,content,filename,created_at,hits,user_id)
+         VALUES (#{id}, #{title}, #{content}, #{filename}, sysdate, 0, #{user_id} )
 		]]>
 	</insert>
 	
 	
-	<select id="selectArticle" parameterType="">
+	<select id="selectArticle" resultType="article" parameterType="int">
 		<![CDATA[
-		SELECT * from Q_board
-        where articleNO = #{articleNO}	
+		SELECT * from article
+        where id = #{id}	
 		]]>
 	</select>
 	
 	    
-	<update id="updateArticle" parameterType="">
+	<update id="updateArticle" parameterType="article">
 		<![CDATA[
-		update Q_board
+		update article
 		set title=#{title}
           , content=#{content}
-          , file=#{file}
-		where articleNO=#{articleNO}
+          , filename=#{filename}
+		where id=#{id}
 		]]>
 	</update>
 	
 	
-	<delete id="deleteArticle" parameterType="">
+	<delete id="deleteArticle" parameterType="int">
 		<![CDATA[
-		delete * from Q_board
-		where articleNO=#{articleNO}
+		delete * from article
+		where id=#{id}
 		]]>
 	</delete>
 	

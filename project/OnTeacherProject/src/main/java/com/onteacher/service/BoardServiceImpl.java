@@ -2,15 +2,13 @@ package com.onteacher.service;
 
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import com.onteacher.dao.BoardDAO;
+import com.onteacher.dao.ArticleDAO;
 import com.onteacher.vo.Article;
 
 
@@ -18,38 +16,39 @@ import com.onteacher.vo.Article;
 @Transactional(propagation = Propagation.REQUIRED)
 public class BoardServiceImpl  implements BoardService{
 	@Autowired
-	BoardDAO boardDAO;
-	
-	public List<Article> listArticles() throws Exception{
-		List<Article> articlesList =  boardDAO.selectAllArticlesList();
-        return articlesList;
+	ArticleDAO articleDAO;
+
+	@Override
+	public List<Article> listArticles(Article article) throws Exception {
+		
+		return articleDAO.selectAllArticlesList(article);
 	}
 
-	
-	
 	@Override
-	public int addNewArticle(Map articleMap) throws Exception{
-		return boardDAO.insertNewArticle(articleMap);
+	public int addArticle(Article article) throws Exception {
+		int no=articleDAO.selectMaxArticleNO()+1;
+		article.setId(no);
+		articleDAO.insertArticle(article);
+		return 0;
 	}
-	
-	
-	@Override
-	public Article viewArticle(int articleNO) throws Exception {
-		Article articleVO = boardDAO.selectArticle(articleNO);
-		return articleVO;
-	}
-	
-	
-	@Override
-	public void modArticle(Map articleMap) throws Exception {
-		boardDAO.updateArticle(articleMap);
-	}
-	
-	@Override
-	public void removeArticle(int articleNO) throws Exception {
-		boardDAO.deleteArticle(articleNO);
-	}
-	
 
+	@Override
+	public Article viewArticle(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return articleDAO.selectArticle(id);
+	}
+
+	@Override
+	public void modArticle(Article article) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeArticle(int id) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 }

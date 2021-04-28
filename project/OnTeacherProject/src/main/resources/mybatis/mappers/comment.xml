@@ -7,7 +7,7 @@
 	<resultMap id="id" type="id">
     <result property="content" column="content" />
     <result property="createdAt" column="createdAt" />
-    <result property="userId" column="userId" />
+    <result property="user_id" column="userId" />
     <result property="articleNO" column="articleNO" />
   </resultMap> 
   
@@ -28,7 +28,7 @@
 	</insert>
 	 <!-- 경민님 파일 참조함 =============================================================================== -->
 	 
-	 <!-- comment 추가로 참고해볼것  =============================================================================== -->
+	 <!-- comment 추가  =============================================================================== -->
     <select id="selectAllCommentList" resultType="com.onteacher.CommentVO" parameterType="String">
         SELECT id,content,createdAt,userId,articleNO
           FROM Q_comment

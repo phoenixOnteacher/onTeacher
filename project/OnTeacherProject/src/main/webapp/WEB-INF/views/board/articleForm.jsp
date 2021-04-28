@@ -8,9 +8,58 @@
   request.setCharacterEncoding("UTF-8");
 %> 
 
-<!--  view폼은 책에있는 예제 복사 -->
+<!-- >
+글 쓰기
+http://localhost:8090/articleForm -->
 
 <head>
+<meta charset="UTF-8">
+<title>글쓰기창</title>
+
+
+
+ <title>글쓰기창</title>
+</head>
+<body>
+<h1 style="text-align:center">글쓰기</h1>
+  <form action="/addArticle" method="post" enctype="multipart/form-data"  >
+  <input type="hidden" name="user_id" value="11111">
+    <table border="0" align="center">
+      <tr>
+					<td align="right"> 작성자</td>
+					<td colspan=2  align="left"><input type="text" size="20" maxlength="100"  value="${student.name }" readonly/> </td>
+			</tr>
+	     <tr>
+			   <td align="right">글제목: </td>
+			   <td colspan="2"><input type="text" size="67"  maxlength="500" name="title" /></td>
+		 </tr>
+	 		<tr>
+				<td align="right" valign="top"><br>글내용: </td>
+				<td colspan=2><textarea name="content" rows="10" cols="65" maxlength="4000"></textarea> </td>
+     </tr>
+     <tr>
+			  <td align="right">파일 첨부:  </td>
+			  <td> <input type="file" name="file"  onchange="readURL(this);" /></td>
+			 
+			  
+			
+	   </tr>
+	 
+	    <tr>
+	      <td align="right"> </td>
+	      <td colspan="2">
+	       <input type="submit" value="글쓰기" />
+	       <input type=button value="목록보기" onClick="backToList(this.form)" />
+	      </td>
+     </tr>
+    </table>
+  </form>
+</body>
+</html>
+
+<!------------------------------------------------------------------->
+
+<!--  <head>
 <meta charset="UTF-8">
 <title>글쓰기창</title>
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -79,3 +128,4 @@
   </form>
 </body>
 </html>
+-->

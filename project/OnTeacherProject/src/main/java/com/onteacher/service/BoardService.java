@@ -8,9 +8,9 @@ import com.onteacher.vo.Article;
 
 
 public interface BoardService {
-	public List<Article> listArticles() throws Exception;
-	public int addNewArticle(Map articleMap) throws Exception;
-	public Article viewArticle(int articleNO) throws Exception;
-	public void modArticle(Map articleMap) throws Exception;
-	public void removeArticle(int articleNO) throws Exception;
+	public List<Article> listArticles(Article article) throws Exception;
+	public int addArticle(Article article) throws Exception;
+	public Article viewArticle(int id) throws Exception;
+	public void modArticle(Article article) throws Exception;
+	public void removeArticle(int id) throws Exception;
 }
