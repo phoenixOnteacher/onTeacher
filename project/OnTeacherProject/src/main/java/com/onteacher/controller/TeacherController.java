@@ -15,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -190,17 +190,34 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
-
-	/* Registering course start */
-	@RequestMapping(value = "/courseregister.do", method = RequestMethod.GET)
-	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
+	
+	@ResponseBody
+	@RequestMapping(value="/{course_id}/match", method=RequestMethod.POST)
+	public void match(HttpServletRequest request, @RequestBody List<String> selectedStudents, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int user_id = Integer.parseInt((String) session.getAttribute("id"));
+		int user_id = 1;
+		int courseId = Integer.parseInt(course_id);
 		try {
-			model.addAttribute("highCategory", courseManageService.getHighCategory());
+			if (selectedStudents.size()==0) throw new Exception("선택된 학생이 없음");
+			
+			Course course = courseService.queryCourseById(courseId);
+			if (!course.getStatus().equals("matching")) throw new Exception("매칭 대기 중인 수업만 매칭 가능");
+			if (course.getTeacherId()!=user_id) throw new Exception("해당 수업의 선생님만 매칭 가능");
+
+			courseManageService.match(courseId, selectedStudents);
+			course.setStatus("matched");
+//			
+//			// 수업 상세 관리 페이지로 이동
+//			model.addAttribute("course", course);
+//			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
+//			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
+//			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
+//			model.addAttribute("page", "index");
 		}
-		model.addAttribute("page", "course_register");
-		return "template";
+//		return "template";
 	}
 
 	@ResponseBody
