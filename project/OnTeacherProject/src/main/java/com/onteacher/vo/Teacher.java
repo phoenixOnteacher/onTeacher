@@ -11,11 +11,11 @@ public class Teacher {
 	private String email;
 	private String name;
 	private String password;
-	private String phone_number;
+	private String phonenumber;
 	private String address;
 	private String birthday; //Date
 	private String gender;
-	private String profile_img;
+	private String profileimg;
 	private String introduction;
 	private boolean active;
 	private String filename;
@@ -95,22 +95,22 @@ public class Teacher {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public String getPhone_number() {
-		return phone_number;
-	}
-	public void setPhone_number(String phone_number) {
-		this.phone_number = phone_number;
-	}
-	public String getProfile_img() {
-		return profile_img;
-	}
-	public void setProfile_img(String profile_img) {
-		this.profile_img = profile_img;
-	}
 	public String getFilename() {
 		return filename;
 	}
 	public void setFilename(String filename) {
 		this.filename = filename;
+	}
+	public String getPhonenumber() {
+		return phonenumber;
+	}
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
+	}
+	public String getProfileimg() {
+		return profileimg;
+	}
+	public void setProfileimg(String profileimg) {
+		this.profileimg = profileimg;
 	}
 }

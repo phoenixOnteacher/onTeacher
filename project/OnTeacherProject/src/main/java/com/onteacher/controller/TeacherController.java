@@ -34,7 +34,7 @@ import com.onteacher.vo.StudentReview;
 import com.onteacher.vo.Teacher;
 
 @Controller
-@RequestMapping
+@RequestMapping("/teacher")
 public class TeacherController {
 
 	@Autowired
@@ -46,12 +46,12 @@ public class TeacherController {
 	@Autowired
 	CourseService courseService;
 	
-	@RequestMapping(value = "/thjoin", method = RequestMethod.GET)
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String thjoin(Model model) {
 		model.addAttribute("page", "thjoin_form");
 		return "template";
 	}
-	@RequestMapping(value = "/thjoin", method = RequestMethod.POST)
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
 	public ModelAndView thjoin(@ModelAttribute Teacher teacher) {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
