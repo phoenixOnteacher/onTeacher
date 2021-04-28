@@ -28,6 +28,7 @@ public class Course {
 	private int highCategoryId; //FK
 	private int lowCategoryId; //FK
 	private List<Student> studentList;
+	private Teacher teacher;
 	
 	public int getId() {
 		return id;

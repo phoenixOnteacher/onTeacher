@@ -33,7 +33,7 @@ $(function() {
 
 	/* 오프라인 주소 선택 */
 	$('input[id=isOnline]').change(function() {
-		if ($(this).val() == '0') {
+		if ($(this).val() == '1') {
 			$('select[id=sido]').attr('disabled', 'disabled');
 			$('select[id=sigungu]').attr('disabled', 'disabled');
 		} else {
@@ -79,7 +79,7 @@ $(function() {
 
 	/* 참여인원 선택 */
 	$('input[id=isGroup]').change(function() {
-		if ($(this).val() == '1') {
+		if ($(this).val() == '0') {
 			$('input[name=minStudent]').attr('disabled', 'disabled');
 			$('input[name=maxStudent]').attr('disabled', 'disabled');
 		} else {
