@@ -1,6 +1,7 @@
 package com.onteacher.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,13 @@ public class CommonController {
 	
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
+		model.addAttribute("courses", courseService.selectCourseForIndex());
+		model.addAttribute("page", "index");
+		return "template";
+	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, Model model) {

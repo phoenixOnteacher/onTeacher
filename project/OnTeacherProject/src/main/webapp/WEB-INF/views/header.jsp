@@ -13,17 +13,18 @@
 <div id="h_wrap">
 	<nav class="navbar fixed-top" id="g_navbar">
 		<div id="logo">
-			<a href="#"><img src="${path}/resources/img/logo.png" /></a>
+			<a href="/main"><img src="${path}/resources/img/logo.png" /></a>
 		</div>
 		<ul id="navbar_menu">
 			<li><a href="#">수업검색</a></li>
 			<li><a href="/teacher/course-manage">수업관리</a></li>
+			<!-- OCR 인식은 추후에 회원만 가능하도록 변경 -->
 			<li><a href="/ocr/ocr-main">OCR 인식</a></li>
 			<li><a href="#">질문게시판</a></li>
 			
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
-					<li><a href="#">로그인</a></li>
+					<li><a href="/login">로그인</a></li>
 					<li id="btnJoin">회원가입
 						<div id="down">
 							<i class="fas fa-caret-down"></i>
@@ -33,14 +34,14 @@
 						</div>
 						<div id="joinsub">
 							<ul id="submenu">
-								<li class="submenu_li"><a href="#">학생가입</a></li>
-								<li class="submenu_li"><a href="#">선생님가입</a></li>
+								<li class="submenu_li"><a href="/student/join">학생가입</a></li>
+								<li class="submenu_li"><a href="/teacher/join">선생님가입</a></li>
 							</ul>
 						</div>
 					</li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="#">로그아웃</a></li>
+					<li><a href="/logout">로그아웃</a></li>
 				</c:otherwise>
 			</c:choose>
 		</ul>
