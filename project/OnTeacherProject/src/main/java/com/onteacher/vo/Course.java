@@ -156,6 +156,12 @@ public class Course {
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
 	
 	@Override
 	public String toString() {
