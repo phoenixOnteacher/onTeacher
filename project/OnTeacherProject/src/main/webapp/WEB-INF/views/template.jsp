@@ -18,7 +18,7 @@ String id = request.getParameter("page");
 		<div id="header">
 			<jsp:include page="header.jsp" />
 		</div>
-		<div id="contents"><jsp:include page="${page }.jsp" /></div>
+		<div id="contents"><jsp:include page="${page}.jsp" /></div>
 	</div>
 	<div id="footer">
 		<jsp:include page="footer.jsp" />
