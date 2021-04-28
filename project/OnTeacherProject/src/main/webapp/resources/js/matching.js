@@ -12,7 +12,7 @@ $(function(){
     });
 
 	$('#matchingBtn').click(function () {
-	  	var con = confirm("매칭이 완료되면 더 이상 학생을 받을 수 없습니다. 매칭을 진행하시겠습니까?");
+	  	var con = confirm("매칭이 완료되면 더 이상 학생을 받을 수 없습니다.\n매칭을 진행하시겠습니까?");
 	  	if (con == true) {
 			var selectedStudents = [];
 			$("input[name='selectedStudent']:checked").each(function() {
@@ -28,9 +28,8 @@ $(function(){
 				}),
 				contentType: "application/json; charset=UTF-8",
 				complete: function() {
-					console.log("success");
+					alert("매칭이 완료되었습니다.");
 					location.reload();
-					console.log("reload");
 				}
 			})
 		}
