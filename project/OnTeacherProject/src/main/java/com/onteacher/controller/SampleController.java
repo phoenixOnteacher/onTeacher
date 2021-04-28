@@ -16,14 +16,4 @@ import com.onteacher.service.CourseService;
 @RequestMapping("/sample")
 public class SampleController {
 	
-	@Autowired
-	CourseService courseService;
-	
-	
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)  // 주소: localhost:8090/sample/main.do 로 들어가면 확인가능
-	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
-		model.addAttribute("courses", courseService.selectCourseForIndex());
-		model.addAttribute("page", "index");
-		return "template";
-	}
 }	
