@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
@@ -31,6 +31,7 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.StudentReview;
+import com.onteacher.vo.Teacher;
 
 @Controller
 @RequestMapping("/teacher")
@@ -44,6 +45,26 @@ public class TeacherController {
 	
 	@Autowired
 	CourseService courseService;
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String thjoin(Model model) {
+		model.addAttribute("page", "thjoin_form");
+		return "template";
+	}
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public ModelAndView thjoin(@ModelAttribute Teacher teacher) {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			teacherService.thjoin(teacher);
+			modelAndView.addObject("page", "login_form");
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelAndView.addObject("err", "회원가입 오류");
+			modelAndView.addObject("page", "err");
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
