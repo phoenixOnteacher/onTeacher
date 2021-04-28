@@ -48,7 +48,7 @@
 			<c:forEach var="course" items="${courses }">
 				<div class="col">
 					<div class="card">
-						<%-- <img src="${course.teacher.profileImg}" class="card-img-top"> --%>
+						<img src="${path}/티처프로필이미지폴더명/${course.teacher.profileImg}" class="card-img-top">
 						<div class="card-body">
 							<h5 class="card-title">${course.title }</h5>
 							<p class="card-text">${course.curriculum }</p>

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h3>[ 선생님회원가입 입력 ]</h3>
-<form action="./thjoin" method="post">
+<form action="/teacher/join" method="post" enctype="multipart/form-data">
 <table border="1">
 	<tr>
 		<td><label for = "email">이메일 : </label></td>
@@ -16,8 +16,8 @@
 		<td><input type="password" name="password" id = "password"></td>
 	</tr>
 	<tr>
-		<td><label for = "phone_number">전화번호 : </label></td>
-		<td><input type="tel" name="phone_number" id = "phone_number"></td>
+		<td><label for = "phoneNumber">전화번호 : </label></td>
+		<td><input type="tel" name="phoneNumber" id = "phoneNumber"></td>
 	</tr>
 	<tr>
 		<td><label for = "grade">나이 : </label></td>
@@ -39,16 +39,16 @@
 		</td>
 	</tr>
 	<tr>
-		<td><label for = "img">프로필사진 : </label></td>
-		<td><input type="image" name="img" id = "profile_img"></td>
+		<td><label for = "file">프로필사진 : </label></td>
+		<td><input type="file" name="file" id = "profileImg"></td>
 	</tr>
 	<tr>
 		<td><label for = "introduction">자기소개 : </label></td>
 		<td><input type="text" name="introduction" id = "introduction"></td>
 	</tr>
 	<tr>
-		<td><label for = "filename">자격파일 : </label></td>
-		<td><input type="file" name="filename" id = "filename"></td>
+		<td><label for = "file">자격파일 : </label></td>
+		<td><input type="file" name="file" id = "fileName"></td>
 	</tr>
 	<tr>
 		<td><label for = "description">자격파일설명 : </label></td>
