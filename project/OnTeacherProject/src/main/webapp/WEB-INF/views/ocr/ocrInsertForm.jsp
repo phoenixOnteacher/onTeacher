@@ -21,9 +21,9 @@
 			<td></td>
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" value="파일 인식" id="upload"></td>
+			<td colspan="2"><input type="submit" value="파일 인식" id="upload" onclick="fileCheck( this.form.file )"></td>
 		</tr>
-		<tr><td></td></tr>
+		<tr><td></td></tr>	
 		<tr>
 			<td><b>JPG 그림 파일만 전송 가능</b></td>
 		</tr>

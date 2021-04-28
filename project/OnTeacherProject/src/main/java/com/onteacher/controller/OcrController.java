@@ -35,7 +35,7 @@ public class OcrController {
 	@RequestMapping(value = "/ocrImageUpload", method = RequestMethod.POST)
 	public String imageUpload(MultipartHttpServletRequest mtfRequest, Model model)
 			throws IllegalStateException, IOException {
-		String path = mtfRequest.getServletContext().getRealPath("/upload/");
+		String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
 		System.out.println(path);
 		File dir = new File(path);
 		if (!dir.isDirectory()) {
@@ -59,7 +59,7 @@ public class OcrController {
 	@RequestMapping(value = "/savefile", method = RequestMethod.POST)
 	public void saveFile(@RequestParam(value="txtSave") String txtSave, @RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
 
-		String path = request.getServletContext().getRealPath("/upload/");		
+		String path = request.getServletContext().getRealPath("/ocrupload/");		
 		File file = new File(path + filename);		
 		String sfilename = null;
 		FileInputStream fis = null;
