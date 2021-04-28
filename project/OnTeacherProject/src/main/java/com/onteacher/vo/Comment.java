@@ -44,5 +44,4 @@ public class Comment {
 		this.articleId = articleId;
 	}
 	
-	
 }
