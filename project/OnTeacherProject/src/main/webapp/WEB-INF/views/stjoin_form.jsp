@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <h3>[ 회원정보 입력 ]</h3>
-<form action="./stjoin" method="post">
+<form action="/student/join" method="post" enctype="multipart/form-data">
 <table border="1">
 	<tr>
 		<td><label for = "email">이메일 : </label></td>
@@ -16,8 +16,8 @@
 		<td><input type="password" name="password" id = "password"></td>
 	</tr>
 	<tr>
-		<td><label for = "phone_number">전화번호 : </label></td>
-		<td><input type="tel" name="phone_number" id = "phone_number"></td>
+		<td><label for = "phoneNumber">전화번호 : </label></td>
+		<td><input type="tel" name="phoneNumber" id = "phoneNumber"></td>
 	</tr>
 	<tr>
 		<td><label for = "grade">나이 : </label></td>
@@ -39,8 +39,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td><label for = "img">프로필사진 : </label></td>
-		<td><input type="file" name="img" id = "profile_img"></td>
+		<td><label for = "file">프로필사진 : </label></td>
+		<td><input type="file" name="file" id = "profileImg"></td>
 	</tr>
 	<tr>
 		<td><label for = "introduction">소개 : </label></td>

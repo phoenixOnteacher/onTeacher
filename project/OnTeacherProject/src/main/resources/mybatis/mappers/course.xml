@@ -111,6 +111,6 @@
 	<!-- 수업등록 -->
 	<insert id="insertCourse" parameterType="course">
 		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
-		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, #{location, jdbcType=VARCHAR}, #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
+		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, replace(#{location, jdbcType=VARCHAR}, ',', ' '), #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
 	</insert>
 </mapper>

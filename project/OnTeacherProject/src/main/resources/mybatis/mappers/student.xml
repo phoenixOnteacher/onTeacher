@@ -27,7 +27,7 @@
 	<insert id="insertStudent" parameterType="student">
 		<![CDATA[
 		insert into student(id,email,name,password,phone_number,grade,address,birthday,gender,profile_img,introduction)
-		values(StudentIdSeq.nextval,#{email},#{name},#{password},#{phone_number},#{grade},#{address},#{birthday},#{gender},#{profile_img,jdbcType=VARCHAR},#{introduction})
+		values(StudentIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{grade},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction})
 		]]>
 	</insert>
 	<select id="selectStudent" resultType="student" parameterType="String">

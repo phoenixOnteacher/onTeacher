@@ -15,7 +15,7 @@
 		<result column="profile_img" property="profileImg" />
 		<result column="introduction" property="introduction" />
 		<result column="active" property="active" />
-		<result column="filename" property="filename" />
+		<result column="filename" property="fileName" />
 		<result column="description" property="description" />
 		<result column="status" property="status" />
 		<result column="message" property="message" />
@@ -23,7 +23,7 @@
 	<insert id="insertTeacher" parameterType="teacher">
 		<![CDATA[
 		insert into teacher(id,email,name,password,phone_number,address,birthday,gender,profile_img,introduction,filename,description)
-		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phone_number},#{address},#{birthday},#{gender},#{profile_img,jdbcType=VARCHAR},#{introduction},#{filename},#{description})
+		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
 		]]>
 	</insert>
 	<select id="selectTeacher" resultType="teacher" parameterType="String">
