@@ -54,10 +54,10 @@
 			</tr>
 			<tr>
 				<td class="thead"><label for="isOneday">수업 형태</label></td>
-				<td class="tbody"><input type="radio" name="isOneday" value="0"
+				<td class="tbody"><input type="radio" name="isOneday" value="1"
 					id="isOneday" required>&nbsp;1일
 					특강&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="isOneday" value="1" id="isOneday">&nbsp;다회차
+					type="radio" name="isOneday" value="0" id="isOneday">&nbsp;다회차
 					수업</td>
 			</tr>
 			<tr>
@@ -86,9 +86,9 @@
 			</tr>
 			<tr>
 				<td class="thead"><label for="isOnline">수업 방식</label></td>
-				<td class="tbody"><input type="radio" name="isOnline" value="0"
+				<td class="tbody"><input type="radio" name="isOnline" value="1"
 					id="isOnline" required>&nbsp;온라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="isOnline" value="1" id="isOnline">&nbsp;오프라인&nbsp;&nbsp;<label
+					type="radio" name="isOnline" value="0" id="isOnline">&nbsp;오프라인&nbsp;&nbsp;<label
 					for="location"></label><select required="required" name="location"
 					disabled="disabled" id="sido" class="form-select form-select-sm">
 						<option value="">시/도 선택</option>
@@ -117,9 +117,9 @@
 			</tr>
 			<tr>
 				<td class="thead"><label for="isGroup">참여인원</label></td>
-				<td class="tbody"><input type="radio" name="isGroup" value="1"
+				<td class="tbody"><input type="radio" name="isGroup" value="0"
 					id="isGroup" required>&nbsp;1:1수업&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="isGroup" value="0" id="isGroup">&nbsp;그룹수업&nbsp;&nbsp;<input
+					type="radio" name="isGroup" value="1" id="isGroup">&nbsp;그룹수업&nbsp;&nbsp;<input
 					name="minStudent" type="number" min="2" disabled="disabled"
 					id="minStudent" class="form-control" placeholder="최소 인원" /> <input
 					name="maxStudent" type="number" min="2" disabled="disabled"
