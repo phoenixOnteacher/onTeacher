@@ -41,52 +41,21 @@
 		<div id="mainthumbblock">
 			<div id="mainthumbtext">
 				<p>현재 신청 가능한 수업</p>
-				<a id="gotosearch" href="#">전체보기</a>
+				<a id="gotosearch" href="#">전체보기</a> <!-- 수업검색페이지로 연결하기 -->
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4">
-			<div class="col">
-				<div class="card">
-					<img src="${path}/resources/img/logo.png" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content. This
-							content is a little bit longer.</p>
+			<c:forEach var="course" items="${courses }">
+				<div class="col">
+					<div class="card">
+						<%-- <img src="${course.teacher.profileImg}" class="card-img-top"> --%>
+						<div class="card-body">
+							<h5 class="card-title">${course.title }</h5>
+							<p class="card-text">${course.curriculum }</p>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="${path}/resources/img/logo.png" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content. This
-							content is a little bit longer.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="${path}/resources/img/logo.png" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content.</p>
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<img src="${path}/resources/img/logo.png" class="card-img-top">
-					<div class="card-body">
-						<h5 class="card-title">Card title</h5>
-						<p class="card-text">This is a longer card with supporting
-							text below as a natural lead-in to additional content.</p>
-					</div>
-				</div>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
 </div>

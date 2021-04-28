@@ -40,4 +40,9 @@ public class CourseServiceImpl implements CourseService {
 		}
 		return homeworkList;
 	}
+
+	@Override
+	public List<Course> selectCourseForIndex() {
+		return courseDAO.selectCourseForIndex();
+	}
 }
