@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -214,18 +213,15 @@ public class TeacherController {
 	}
 
 	// 수업 시작
+	@ResponseBody
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
-	public String startCourse(Model model, @PathVariable String course_id) {
+	public void startCourse(Model model, @PathVariable String course_id) {
 		try {
-			int c_id = Integer.parseInt(course_id);
-			courseManageService.startCourse(c_id);
-//			model.addAttribute("page", ""); // 수업 관리 메뉴 페이지
+			int courseId = Integer.parseInt(course_id);
+			courseManageService.startCourse(courseId);
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
-		model.addAttribute("page", "index");
-		return "template";
 	}
 
 	// 수업 연장
@@ -233,14 +229,16 @@ public class TeacherController {
 	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model,
 			@PathVariable String course_id) {
 		try {
-			int c_id = Integer.parseInt(course_id);
-			courseManageService.extendCourse(c_id, extendDate);
-//			model.addAttribute("page", ""); // 수업 상세 페이지
+			int courseId = Integer.parseInt(course_id);
+			courseManageService.extendCourse(courseId, extendDate);
+			model.addAttribute("course", courseService.queryCourseById(courseId));
+			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
+			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
+			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
+			model.addAttribute("page", "index");
 		}
-		model.addAttribute("page", "index");
 		return "template";
 	}
 
