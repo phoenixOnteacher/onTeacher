@@ -16,13 +16,13 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller("sampleController")
 @RequestMapping("/sample")
 public class SampleController {
-	@RequestMapping(value="/main.do", method=RequestMethod.GET)  // 주소: localhost:8090/sample/main.do 로 들어가면 확인가능
+	@RequestMapping(value="/main.do", method=RequestMethod.GET)  //localhost:8090/sample/main.do
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "index");
 		return "template";
 	}
 	
-	@RequestMapping(value="/ocr.do", method=RequestMethod.GET) // 주소 : localhost:8090/sample/ocr.do
+	@RequestMapping(value="/ocr.do", method=RequestMethod.GET) //localhost:8090/sample/ocr.do
 	public String join(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "ocrInsertForm");
 		return "template";		
@@ -33,9 +33,9 @@ public class SampleController {
 		String src = mtfRequest.getParameter("src");
 		System.out.println("src value : " + src);
 		MultipartFile mf = mtfRequest.getFile("file");
-		String path="c:\\img\\";							// 이미지 파일 저장 경로
-		String originFileName = mf.getOriginalFilename(); 	// 이미지 파일 이름 저장
-		String safeFile = path + originFileName;			// 파일 저장 경로 + 파일 이름 safeFile 변수에 저장
+		String path="c:\\img\\";							
+		String originFileName = mf.getOriginalFilename(); 	
+		String safeFile = path + originFileName;			
 
 		try {
 			mf.transferTo(new File(safeFile));
