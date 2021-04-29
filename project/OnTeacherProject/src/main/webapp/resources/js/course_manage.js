@@ -1,7 +1,7 @@
 $(function(){
 	// 수업 취소
     $('.cancelCourseBtn').click(function () {
-	  	var con = confirm("취소하면 복구할 수 없습니다. 수업을 취소하시겠습니까?");
+	  	var con = confirm("취소하면 복구할 수 없습니다.\n수업을 취소하시겠습니까?");
 	  	if (con == true) {
 			cancelCourse($(this).val())
 		}
