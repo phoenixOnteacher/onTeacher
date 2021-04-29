@@ -1,11 +1,15 @@
 $(function(){
+	if ($("button[name='unreviewed']").length==0) {
+		$("#unreviewedAlert").hide();
+	}
+	
+	
 	// 학생 리뷰 작성
     $('.writeReviewBtn').click(function () {
 	  	var con = confirm("후기 작성을 완료하시겠습니까?");
 		var course_id = $("h2[class='course-title']").attr('id').substring(7);
 		var student_id = $(this).val();
 		var content = $("textarea[id='reviewContent"+course_id+student_id+"']").val();
-		console.log(content);
 	  	if (con == true) {
 			writeReview(course_id, student_id, content);
 		}

@@ -21,7 +21,7 @@
 				  <a class="nav-link text-reset" href="#homework" data-toggle="tab" data-load="false">과제</a>
 			  	</c:when>
 			  	<c:when test="${course.status=='end'}">
-			  	  <a class="nav-link text-reset" href="#endStudent" data-toggle="tab" data-load="false">수강한 학생</a>
+			  	  <a class="nav-link text-reset position-relative" href="#endStudent" data-toggle="tab" data-load="false">수강한 학생<span id="unreviewedAlert" class="position-absolute top-10 start-90 translate-middle badge border border-light rounded-circle bg-danger p-1 mx-2"><span class="visually-hidden">unread messages</span></span></a>
 			  	  <a class="nav-link text-reset" href="#homework" data-toggle="tab" data-load="false">과제</a>
 			  	</c:when>
 			  	<c:otherwise>
@@ -102,7 +102,7 @@
 						        <div class="form-check float-end">
 						        	<c:choose>
 						        		<c:when test="${empty student.studentReview }">
-								        	<button class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }${student.id }">후기 작성</button>
+								        	<button class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }${student.id }" name="unreviewed">후기 작성</button>
 						        		</c:when>
 						        		<c:otherwise>
 								        	<button class="btn btn-secondary btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }${student.id }">후기 확인</button>
@@ -124,8 +124,8 @@
 													  <textarea class="form-control" id="reviewContent${course.id }${student.id }" rows="4"></textarea>
 									        		</c:when>
 									        		<c:otherwise>
-											          <p style="white-space: pre-wrap;">${student.studentReview.content }</p>
-											          <small class="text-secondary float-end">작성 날짜 : ${student.studentReview.createdAt }</small>
+											          <p class="h5" style="white-space: pre-wrap;">${student.studentReview.content }</p>
+											          <small class="text-secondary float-end h6">작성 날짜 : ${student.studentReview.createdAt }</small>
 									        		</c:otherwise>
 									        	</c:choose>
 											</div>
