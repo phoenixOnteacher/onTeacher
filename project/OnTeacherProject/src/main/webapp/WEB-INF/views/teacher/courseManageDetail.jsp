@@ -10,7 +10,7 @@
 			<a href="/teacher/course-manage" class="h5 text-decoration-none text-reset">수업 관리</a>
 			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
-		<h2>${course.title }</h2>
+		<h2 id="course-${course.id }" class="course-title">${course.title }</h2>
 		<div class="row mt-3">
 			<nav class="nav flex-column col-2" id="manageNav">
 			  <a class="nav-link active in text-reset" aria-current="page" href="#detail" data-toggle="tab" data-load="true">수업 상세</a>
@@ -30,7 +30,7 @@
 			<div class="tab-content col-10">
 			  <div class="tab-pane fade" id="studyingStudent">
 			  	<c:forEach var="student" items="${students }">
-			    	<div class="card mb-3" style="max-width: 540px;">
+			    	<div class="card mb-3 mx-auto" style="max-width: 40vw;">
 					  <div class="row g-0">
 					    <div class="col-md-4">
 					      <img src="" alt="...">
@@ -66,7 +66,7 @@
 					        		</c:when>
 					        		<c:otherwise>
 					        			<div class="form-check float-end">
-								        	<button id="matchingCancelBtn" class="btn btn-danger btn-sm" value="${student.id }">매칭 취소</button>
+								        	<button class="btn btn-danger btn-sm cancelMatchingBtn" value="${student.id }">매칭 취소</button>
 										</div>
 					        		</c:otherwise>
 					        	</c:choose>

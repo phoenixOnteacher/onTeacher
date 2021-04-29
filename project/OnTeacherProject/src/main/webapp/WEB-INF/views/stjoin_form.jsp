@@ -35,12 +35,12 @@
 			<tr>
 				<td class="thead"><label for="grade">학년</label></td>
 				<td class="tbody"><input type="text" name="grade" id="grade"
-					class="form-control" required="required"></td>
+					placeholder="(예: 중3)" class="form-control" required="required"></td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="address">주소</label></td>
-				<td class="tbody"><input type="text"
-					placeholder="시/도 시/군/구 (예: 서울시 동작구)" name="address" id="address"
+				<td class="tbody"><input type="text" name="address"
+					id="address" placeholder="시/도 시/군/구 (예: 서울시 동작구, 경북 포항시)"
 					class="form-control" required="required"></td>
 			</tr>
 			<tr>
@@ -52,8 +52,8 @@
 			<tr>
 				<td class="thead"><label for="gender">성별</label></td>
 				<td class="tbody"><input type="radio" name="gender" value="남"
-					id="gender" required="required">남 <input type="radio"
-					name="gender" value="여">여</td>
+					id="gender" required="required">&nbsp;남&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="gender" value="여">&nbsp;여&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="file">프로필사진</label></td>
@@ -61,16 +61,14 @@
 					id="profileImg" class="form-control"></td>
 			</tr>
 			<tr>
-				<td class="thead"><label for="introduction">간단한 자기소개</label></td>
-				<td class="tbody"><input type="text" name="introduction"
-					id="introduction" class="form-control"></td>
-			</tr>
-			<tr>
-				<td class="thead"></td>
-				<td class="tbody"><button type="reset" class="btn btn-primary">다시
-						작성하기</button>
-					<button type="submit" class="btn btn-primary">가입하기</button></td>
+				<td class="thead"><label for="introduction">간단한<br>자기소개
+				</label></td>
+				<td class="tbody"><textarea name="introduction"
+						id="introduction" class="form-control"></textarea></td>
 			</tr>
 		</table>
+		<div id="login_btn">
+			<button type="submit" class="btn btn-primary">가입하기</button>
+		</div>
 	</form>
 </div>

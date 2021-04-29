@@ -33,6 +33,7 @@ import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Matching;
 import com.onteacher.vo.StudentReview;
 import com.onteacher.vo.Teacher;
 
@@ -276,11 +277,11 @@ public class TeacherController {
 	@ResponseBody
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.POST)
 	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
-		HttpSession session = request.getSession();
-		List<String> selectedStudents = reqData.get("selectedStudents");
+		HttpSession session = request.getSession();	
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
+		List<String> selectedStudents = reqData.get("selectedStudents");
 		try {
 			if (selectedStudents.size()==0) throw new Exception("선택된 학생이 없음");
 			Course course = courseService.queryCourseById(courseId);
@@ -295,16 +296,19 @@ public class TeacherController {
 	/* 매칭 취소 */
 	@ResponseBody
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
-	public void cancelMatching(HttpServletRequest request, @RequestParam(value="student_id", required=true) int student_id, @PathVariable String course_id) {
+	public void cancelMatching(HttpServletRequest request, @RequestBody Map<String, String> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
 		int userId = 1;
+		int courseId = Integer.parseInt(course_id);
+		int studentId = Integer.parseInt(reqData.get("studentId"));
 		try {
-			int c_id = Integer.parseInt(course_id);
-			Course course = new Course();
-			course.setId(c_id);
-			course.setTeacherId(userId);
-			courseManageService.cancelCourse(course);
+			Course course = courseService.queryCourseById(courseId);
+			if (!course.getStatus().equals("matched")) throw new Exception("매칭 완료된 수업만 매칭 취소 가능");
+			Matching matching = new Matching();
+			matching.setCourseId(courseId);
+			matching.setStudentId(studentId);
+			courseManageService.cancelMatching(matching);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
