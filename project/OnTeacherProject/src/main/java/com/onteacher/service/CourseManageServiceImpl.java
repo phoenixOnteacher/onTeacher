@@ -156,12 +156,17 @@ public class CourseManageServiceImpl implements CourseManageService {
 	}
 	
 	@Override
-	public List<Student> queryMatchingStudentList(int courseId) throws Exception {
+	public List<Student> queryMatchingStudentList(int courseId, int teacherId) throws Exception {
 		List<Student> studentList = studentDAO.selectMatchingStudentByCourseId(courseId);
 		for (Student student : studentList) {
 			String phoneNum = student.getPhoneNumber();
 			student.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
 			student.setBirthday(student.getBirthday().substring(0,10));
+			StudentReview sr = new StudentReview();
+			sr.setCourseId(courseId);
+			sr.setStudentId(student.getId());
+			sr.setTeacherId(teacherId);
+			student.setStudentReview(studentReviewDAO.selectStudentReview(sr));
 		}
 		return studentList;
 	}

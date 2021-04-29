@@ -138,10 +138,10 @@ public class TeacherController {
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
-		// 리스트 불러오기
 		try {
+			// 선생님인지 확인하는 코드 추가하기
 			model.addAttribute("course", courseService.queryCourseById(courseId));
-			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
+			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId, userId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
 			model.addAttribute("page", "teacher/courseManageDetail");
 		} catch (Exception e) {
@@ -198,24 +198,29 @@ public class TeacherController {
 	}
 
 	/* 학생 후기 작성 */
+	@ResponseBody
 	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.POST)
-	public String writeReview(HttpServletRequest request, @ModelAttribute StudentReview sr, Model model,
+	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
 			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
 		int userId = 1;
+		StudentReview sr = new StudentReview();
 		sr.setTeacherId(userId);
 		sr.setCourseId(Integer.parseInt(course_id));
 		sr.setStudentId(Integer.parseInt(student_id));
+		System.out.println(reqData);
+		System.out.println(reqData.get("content"));
+		sr.setContent(reqData.get("content"));
 		try {
 			courseManageService.writeStudentReview(sr);
-			model.addAttribute("studentReview", sr);
-			model.addAttribute("page", "teacher/studentReviewDetail");
+//			model.addAttribute("studentReview", sr);
+//			model.addAttribute("page", "teacher/studentReviewDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("page", "index");
+//			model.addAttribute("page", "index");
 		}
-		return "template";
+//		return "template";
 	}
 
 	/* 수업 시작 */
