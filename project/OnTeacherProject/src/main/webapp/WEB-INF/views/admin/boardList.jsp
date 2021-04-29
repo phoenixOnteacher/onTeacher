@@ -11,17 +11,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="${path}/resources/css/board.css" />
+
 <title>선생님 자격 심사</title>
 </head>
 
 
 <body>
-
-	<!-- 테스트 용 -->
-	<P>${tea.name}</P>
-	<P>${tea.id}</P>
-	<P>${tea.email}</P>
-	
 
 
     <div id="wrap">
@@ -29,34 +24,25 @@
     	<br>
     	<table>
     		<tr>
-    			<th>번호</th>
     			<th>이름</th>
     			<th>아이디</th>
     			<th>이메일</th>
     			<th>전화번호</th>
-    			<th>신청일</th>
-    			<th>증빙서류</th>
+     			<th>증빙서류 파일명</th>
+     			<th>자격 심사</th>
     		</tr>
-			<tr>
-    			<td>01</td>
-    			<td>홍길동</td>
-    			<td>30001</td>
-    			<td>hong@naver.com</td>
-    			<td>010-3452-2342</td>
-    			<td>2021-04-29,14:00</td>
-    			<td>대학교 학생증</td>			
-			</tr>
-			<c:forEach var="t" items="${tea}">
+
+	 		<c:forEach var="t" items="${tea}">
 				<tr>
-					<td></td>
-					<td>${t.name}</td>
+					<td>${t.name}</td> 
 					<td>${t.id}</td>
 					<td>${t.email}</td>
-					<td>${t.phone_number}</td>
-					<td></td>
-					<td>${t.description}</td>
+					<td>${t.phoneNumber}</td>
+					<td><a href="${path}/thcertiupload/${t.fileName}" target="_blank" title="기본증빙서류보기" >${t.fileName}</a></td>
+					<td><button type="button" id="accpet"  onclick="certAccept()" >승인</button> <button type="button" id="reject" onclick="certReject()" >반려</button></td>
 				</tr>
-			</c:forEach>
+			</c:forEach> 
+			
     	</table>
     </div>
 </body>

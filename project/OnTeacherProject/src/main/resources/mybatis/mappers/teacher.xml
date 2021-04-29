@@ -39,10 +39,12 @@
 		]]>
 	</select>	
 	
-	<select id="baseCertTeacher" resultType="teacher" parameterType="String">
+	<select id="baseCertTeacher" resultMap="teacherResult" >
 		<![CDATA[
-		select name, id, email, phone_number, description
+		select name, id, email, phone_number, fileName, description
 		from teacher
+		where STATUS='submitted' 
+		order by name
 		]]>
 	</select>
 		

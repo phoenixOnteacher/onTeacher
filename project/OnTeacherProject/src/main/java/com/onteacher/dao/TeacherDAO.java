@@ -15,4 +15,5 @@ public interface TeacherDAO {
 	public void insertTeacher(Teacher tea) throws Exception;
 	public Teacher selectTeacher(String email) throws Exception;
 	public List<Teacher> baseCertTeacher() throws Exception;
+	
 }

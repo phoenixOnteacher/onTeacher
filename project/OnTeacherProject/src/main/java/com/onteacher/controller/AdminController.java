@@ -29,13 +29,19 @@ public class AdminController {
 	@Autowired
 	TeacherService teacherService;
 	
-	@RequestMapping(value="/cert", method=RequestMethod.GET) // 테스트 호출 주소 : localhost:8090/admin/cert
-	public ModelAndView certMain(Model model) {
+	@RequestMapping(value="/cert", method=RequestMethod.GET) 
+	public ModelAndView certConfirm() {
 		ModelAndView modelAndView= new ModelAndView();
 		try {
-			System.out.println("controller");
 			List<Teacher> tea = teacherService.certConfirm(); 
-			System.out.println(tea.get(0).getId());
+			
+			/* MAPPER 체크 테스트 
+			 * DATA 넘어오는 것을 체크하는 테스트 코드 
+			 * 정상적으로 DB에서 데이터가 넘어오면 콘솔에 찍힘.
+			 * for(Teacher t : tea) {
+			 * System.out.println(t.getId()+t.getName()+t.getPhoneNumber()+t.getEmail()); }
+			 */
+			
 			modelAndView.addObject("tea", tea);
 			modelAndView.addObject("page", "admin/boardList");
 		} catch(Exception e) {
