@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onteacher.service.CourseService;
 import com.onteacher.vo.Course;
@@ -53,8 +54,10 @@ public class CommonController {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 			int id = userService.login(email,password);
-			if (id==0)
-				throw new Exception("비밀번호 오류");
+			if (id==0) {
+				modelAndView.addObject("msg", false);
+				throw new Exception("로그인 실패");
+			}
 			request.getSession().setAttribute("id", id);
 			
 			modelAndView.setViewName("redirect:/main");;
