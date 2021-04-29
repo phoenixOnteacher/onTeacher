@@ -6,21 +6,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.HighCategoryDAO;
 import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
-
+import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.StudentDAO;
 import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Matching;
 import com.onteacher.vo.Student;
 import com.onteacher.vo.StudentReview;
 
@@ -45,6 +43,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 
 	@Autowired
 	private StudentDAO studentDAO;
+
+	@Autowired
+	private MatchingDAO matchingDAO;
 	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
@@ -76,6 +77,29 @@ public class CourseManageServiceImpl implements CourseManageService {
 		if (c.getTeacherId()==course.getTeacherId()) {
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("해당 수업의 선생님만 취소 가능");
+	}
+	
+	// 매칭하기
+	@Override
+	public void match(int courseId, List<String> selectedStudents) throws Exception {
+		List<Matching> matchingList = matchingDAO.selectMatchingListByCourseId(courseId);
+		for (Matching matching : matchingList) {
+			int matchingStudentId = matching.getStudentId();
+			boolean isSelected = false; // 선택된 학생인지 확인하기 위한 변수
+			for (String selectedStudent_id : selectedStudents) {
+				int selectedStudentId = Integer.parseInt(selectedStudent_id);
+				if (matchingStudentId==selectedStudentId) {
+					isSelected = true;
+				}
+			}
+			// 선택되지 않은 학생들의 matching 데이터는 삭제됨
+			if (!isSelected) {
+				matchingDAO.deleteMatching(matching);
+			}
+		}
+		Course course = courseDAO.selectCourseById(courseId);
+		course.setStatus("matched");
+		courseDAO.updateCourseStatus(course);
 	}
 	
 	@Override

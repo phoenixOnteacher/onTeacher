@@ -33,10 +33,10 @@
 		    </tr>
 		  </tbody>
 		</table>
-		<c:if test="${fn:substring(user_id,0,1)}=='2'">
-			<%-- <jsp:include page="../student/homeworkAnswer.jsp"/> --%>
+		<c:if test="${fn:substring(user_id,0,1)=='2'}">
+			<jsp:include page="../student/homeworkAnswer.jsp"/>
 		</c:if>
-		<c:if test="${fn:substring(user_id,0,1)}=='3'">
+		<c:if test="${fn:substring(user_id,0,1)=='3'}">
 	  		<div class="card" style="width: 18rem;">
 			  <div class="card-header">제출된 과제 목록</div>
 			  <div class="list-group list-group-flush d-flex bd-highlight mb-3">
