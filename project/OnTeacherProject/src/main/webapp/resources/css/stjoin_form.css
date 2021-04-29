@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+#stj_wrap {
+	align-items: center;
+	width: 700px;
+	font-family: 'S-CoreDream-4Regular';
+	margin: 0 auto;
+	border: 1px solid #ededed;
+	padding: 50px 20px;
+	margin-top: 80px;
+}
+
+#stj_title_wrap {
+	font-family: 'S-CoreDream-3Light';
+	font-size: 22px;
+	text-align: center;
+	margin-bottom: 18px;
+}
+
+table {
+	margin: 0 auto;
+}
+
+td.thead, td.tbody {
+	height: 50px;
+	align-items: center;
+}
+
+input.form-control {
+	height: 32px;
+    padding: 4px 7px;
+	font-size: 14px;
+}

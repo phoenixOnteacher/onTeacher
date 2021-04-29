@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public int login(String email, String password) throws Exception {
 		User user = userDAO.selectUser(email);
-		if(user==null) throw new Exception("이메일 오류");
+		if(user==null) return 0;
 		if(user.getPassword().equals(password)) {
 			return user.getId();
 		}
