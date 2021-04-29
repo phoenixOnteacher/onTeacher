@@ -103,6 +103,15 @@ public class CourseManageServiceImpl implements CourseManageService {
 	}
 	
 	@Override
+	public void cancelMatching(Matching matching) throws Exception {
+		matchingDAO.deleteMatching(matching);
+		int courseId = matching.getCourseId();
+		if (matchingDAO.selectMatchingListByCourseId(courseId).size()==0) {
+			courseDAO.deleteCourse(courseId);
+		}
+	}
+	
+	@Override
 	public List<Course> queryStudyingCourseList(int teacherId) throws Exception {
 		List<Course> courseList = courseDAO.selectStudyingCourseList(teacherId);
 		for (Course course : courseList) {
