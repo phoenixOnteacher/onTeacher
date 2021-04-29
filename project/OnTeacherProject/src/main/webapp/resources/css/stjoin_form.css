@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#stj_wrap {
+	align-items: center;
+	width: 100%;
+	font-family: 'S-CoreDream-4Regular';
+}
+
+#stj_title_wrap {
+	font-family: 'S-CoreDream-5Medium';	
+}
+
+#stJoinForm {
+	margin: 0 auto;
+}

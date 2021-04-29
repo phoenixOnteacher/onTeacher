@@ -21,7 +21,7 @@
 
 #l_form_wrap {
 	width: 500px;
-	height: 400px;
+	height: 430px;
 	margin: 0 auto;
 	border: 1px solid #ededed;
 }
@@ -47,8 +47,22 @@ form#loginForm {
 
 input#login_email.form-control, input#login_pass.form-control {
 	width: 250px;
-	height: 35px;
+	height: 38px;
 	font-size: 14px;
+}
+
+.form-floating>label {
+	padding: 0.5rem 0.75rem;
+	font-size: 14px;
+	color: #A8A8A8;
+}
+
+.form-floating {
+	padding: 0;
+}
+
+table td:first-child {
+	padding-bottom: 8px;
 }
 
 #login_btn {
@@ -61,7 +75,7 @@ button.btn-primary  {
 	border-color: #CED4DA;
 	color: #555555;
 	width: 250px;
-	height: 35px;
+	height: 38px;
 }
 
 button.btn-primary:hover {

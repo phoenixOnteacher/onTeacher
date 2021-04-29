@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/login_form.css" />
 <div id="l_wrap">
 	<c:if test="${msg == false }">
@@ -18,12 +19,14 @@
 		<form action="./login" method="post" id="loginForm">
 			<table>
 				<tr>
-					<td><input type="text" name="email" id="login_email"
-						placeholder="아이디 (이메일)" class="form-control" /></td>
+					<td class="form-floating"><input type="email" name="email" id="login_email"
+						placeholder="아이디 (이메일)" class="form-control" />
+						<label for="email">아이디 (이메일)</label></td>
 				</tr>
 				<tr>
-					<td><input type="password" name="password" id="login_pass"
-						placeholder="비밀번호" class="form-control" /></td>
+					<td class="form-floating"><input type="password" name="password" id="login_pass"
+						placeholder="비밀번호" class="form-control" />
+						<label for="password">비밀번호</label></td>
 				</tr>
 			</table>
 			<button type="submit" class="btn btn-primary" id="login_btn">로그인</button>
