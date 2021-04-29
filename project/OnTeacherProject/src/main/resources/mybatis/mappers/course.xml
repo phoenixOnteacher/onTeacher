@@ -2,6 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseDAO">
+	<!-- 2. CourseVO안에 TeacherVO를 넣어서 JOIN한 형태 -->
+	<!--column : DB에 들어가있는 column의 형태 property : VO에 들어가있는 변수 그 둘을 매핑 시켜주는 것 -->
+	<!-- 2-1. Course(VO)를 매핑해주고 2-2. Course안에있는 Teacher(VO)를 매핑 -->
+	<!-- 2-1. -->
+	<resultMap type="course" id="courseMap">
+		<id column="course_id" property="id" />
+		<result column="title" property="title" />
+		<result column="status" property="status" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<!-- 2-2. -->
+		<association javaType="teacher" property="teacher">
+			<id column="teacher_id" property="id" />
+			<result column="name" property="name" />
+			<result column="profile_img" property="profileImg" />
+		</association>
+	</resultMap>
+	
+	<resultMap type="teacher" id="indexTeacherMap">
+		<id column="id" property="id" />
+		<result column="profile_img" property="profileImg" />
+	</resultMap>
+	<resultMap type="course" id="indexCourseMap">
+		<id column="id" property="id" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="title" property="title" />
+		<result column="classinfo" property="curriculum" />
+		<!-- teacher table join -->
+		<collection property="teacher" resultMap="indexTeacherMap" />
+	</resultMap>
+	<!-- index에 넣을 최신 수업 8개 -->
+	<select id="selectCourseForIndex" resultMap="indexCourseMap">
+	<!-- 선생님 회원가입 및 로그인 없을 때 임시로 사용하는 쿼리문 -->
+		<!-- <![CDATA[select * from (select c.id, c.title, c.classinfo
+		from course c
+		order by c.id desc)
+		where rownum <= 8]]> -->
+	<!-- 선생님 회원가입 및 로그인 완료됐을 때 -->
+		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		order by c.id desc)
+		where rownum <= 8]]> 
+	</select>
+
 	<resultMap id="courseResult" type="course">
 		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
 		<id column="id" property="id" />
@@ -24,6 +70,44 @@
 		<result column="classinfo_file" property="curriculumFile" />
 		<result column="status" property="status" />
 	</resultMap>
+
+	<select id="selectCourseWaitingList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status in ('matching', 'matched')
+		]]>
+	</select>
+	<select id="selectCourseStudyingList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='studying'
+		]]>
+	</select>
+	<select id="selectCourseEndList" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status='end'
+		]]>
+	</select>
+
 	<update id="updateCourseStatus" parameterType="course">
 		<![CDATA[
 		update course
@@ -83,6 +167,6 @@
 	<!-- 수업등록 -->
 	<insert id="insertCourse" parameterType="course">
 		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
-		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, #{location, jdbcType=VARCHAR}, #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
+		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, replace(#{location, jdbcType=VARCHAR}, ',', ' '), #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
 	</insert>
 </mapper>

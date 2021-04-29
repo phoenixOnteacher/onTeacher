@@ -27,14 +27,9 @@ public class Course {
 	private int teacherId; //FK
 	private int highCategoryId; //FK
 	private int lowCategoryId; //FK
+	private Teacher teacher;
 	private List<Student> studentList;
 	
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
-	}
 	public int getId() {
 		return id;
 	}
@@ -47,11 +42,11 @@ public class Course {
 	public void setTarget(String target) {
 		this.target = target;
 	}
-	public char getIsGroup() {
-		return isGroup;
+	public char getIsOneday() {
+		return isOneday;
 	}
-	public void setIsGroup(char isGroup) {
-		this.isGroup = isGroup;
+	public void setIsOneday(char isOneday) {
+		this.isOneday = isOneday;
 	}
 	public String getStartDate() {
 		return startDate;
@@ -77,11 +72,11 @@ public class Course {
 	public void setStudyTime(String studyTime) {
 		this.studyTime = studyTime;
 	}
-	public char getIsOneday() {
-		return isOneday;
+	public char getIsOnline() {
+		return isOnline;
 	}
-	public void setIsOneday(char isOneday) {
-		this.isOneday = isOneday;
+	public void setIsOnline(char isOnline) {
+		this.isOnline = isOnline;
 	}
 	public String getLocation() {
 		return location;
@@ -89,11 +84,11 @@ public class Course {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public char getIsOnline() {
-		return isOnline;
+	public char getIsGroup() {
+		return isGroup;
 	}
-	public void setIsOnline(char isOnline) {
-		this.isOnline = isOnline;
+	public void setIsGroup(char isGroup) {
+		this.isGroup = isGroup;
 	}
 	public int getMinStudent() {
 		return minStudent;
@@ -154,6 +149,18 @@ public class Course {
 	}
 	public void setLowCategoryId(int lowCategoryId) {
 		this.lowCategoryId = lowCategoryId;
+	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 	
 	@Override

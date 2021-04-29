@@ -3,6 +3,7 @@ package com.onteacher.vo;
 import java.sql.Date;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component("student")
 public class Student {
@@ -16,8 +17,10 @@ public class Student {
 	private String address;
 	private String birthday; //Date
 	private String gender;
+	private MultipartFile file;
 	private String profileImg;
 	private String introduction;
+	
 	public int getId() {
 		return id;
 	}
@@ -71,6 +74,12 @@ public class Student {
 	}
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
 	}
 	public String getProfileImg() {
 		return profileImg;

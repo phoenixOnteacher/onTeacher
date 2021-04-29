@@ -1,9 +1,9 @@
 $(function(){
-    $('#classNav a').click(function (e) {
+    $('#classNav .nav-link').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
-	$('#manageNav a').click(function (e) {
+	$('#manageNav .nav-link').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
     })
