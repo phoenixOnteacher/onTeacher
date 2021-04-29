@@ -190,12 +190,12 @@ public class TeacherController {
 	}
 
 	/* 학생 후기 작성 폼 */
-	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.GET)
-	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
-		// request user가 선생님인지 확인하고 폼으로 이동하는 로직 추가
-		model.addAttribute("page", "teacher/studentReviewForm");
-		return "template";
-	}
+//	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.GET)
+//	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
+//		// request user가 선생님인지 확인하고 폼으로 이동하는 로직 추가
+//		model.addAttribute("page", "teacher/studentReviewForm");
+//		return "template";
+//	}
 
 	/* 학생 후기 작성 */
 	@ResponseBody
@@ -209,18 +209,12 @@ public class TeacherController {
 		sr.setTeacherId(userId);
 		sr.setCourseId(Integer.parseInt(course_id));
 		sr.setStudentId(Integer.parseInt(student_id));
-		System.out.println(reqData);
-		System.out.println(reqData.get("content"));
 		sr.setContent(reqData.get("content"));
 		try {
 			courseManageService.writeStudentReview(sr);
-//			model.addAttribute("studentReview", sr);
-//			model.addAttribute("page", "teacher/studentReviewDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
-//		return "template";
 	}
 
 	/* 수업 시작 */
