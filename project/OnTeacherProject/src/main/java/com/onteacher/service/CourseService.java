@@ -21,8 +21,6 @@ public interface CourseService {
 
 	public Course queryCourseById(int courseId) throws Exception;
 	
-	public void cancleMatching(int studentId, int courseId);
-	
 	public Homework queryHomework(int id) throws Exception;
 	
 	public List<Homework> queryHomeworkList(int courseId) throws Exception;

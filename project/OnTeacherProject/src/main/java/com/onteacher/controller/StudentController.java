@@ -47,7 +47,46 @@ public class StudentController {
 	@Autowired
 	CourseService courseService;
 	
-	//test 코드 : 코드 test를 위한 샘플 로그인
+	
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String stjoin(Model model) {
+		model.addAttribute("page", "stjoin_form");
+		return "template";
+	}
+
+	@RequestMapping(value = "/join", method = RequestMethod.POST)
+	public ModelAndView stjoin(@ModelAttribute Student student, MultipartHttpServletRequest multi) {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			MultipartFile origFile = student.getFile();
+
+			if (!origFile.isEmpty() && origFile.getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
+				String path = multi.getServletContext().getRealPath("/stprofileupload/"); // 파일 저장 경로
+				File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+				if (!dir.isDirectory()) {
+					dir.mkdir();
+				}
+				String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
+				String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+				try {
+					origFile.transferTo(new File(saveFile));
+					student.setProfileImg(origFileName);
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			studentService.stjoin(student);
+			modelAndView.addObject("page", "login_form");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+	}
+	
+	//test 코드 : 코드 test를 위한 샘플 로그인 (김다니엘, 통합 시 삭제할 것)
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
 		System.out.println("login_get");
@@ -55,7 +94,7 @@ public class StudentController {
 		return "template";
 	}
 
-	//test 코드 : 로그인 이후 메인
+	//test 코드 : 로그인 이후 메인 (김다니엘, 통합 시 삭제할 것)
 	@RequestMapping(value = "/afterlogin", method = RequestMethod.POST)
 	public ModelAndView login(@RequestParam(value = "email",required = true)String email,
 							  @RequestParam(value="password",required = true) String password,
@@ -121,7 +160,7 @@ public class StudentController {
 		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
 		int studentId = getStudentIdBySessionEmail(request);
 		//2. db에서 delete문 실행
-		courseService.cancleMatching(studentId,courseId);
+		myCourseService.cancleMatching(studentId,courseId);
 		//3. view 정의. 대기중인 수업 목록 조회 화면 그대로.
 		List<Course> courses = courseService.courseWaitingList(studentId);
 		modelAndView.addObject("courses", courses);
@@ -131,6 +170,7 @@ public class StudentController {
 		
 	}
 	
+	//진행중인 수업 - 수업 상세
 	@RequestMapping(value="/courseStudyingDetail", method=RequestMethod.GET)
 	public ModelAndView courseStudyingDetail(@RequestParam(value = "courseId",required = true)int courseId,
 									HttpServletRequest request) {
@@ -155,46 +195,7 @@ public class StudentController {
 		return modelAndView;
 	}
 
-			
-	@RequestMapping(value = "/join", method = RequestMethod.GET)
-	public String stjoin(Model model) {
-		model.addAttribute("page", "stjoin_form");
-		return "template";
-	}
-
-	@RequestMapping(value = "/join", method = RequestMethod.POST)
-	public ModelAndView stjoin(@ModelAttribute Student student, MultipartHttpServletRequest multi) {
-		ModelAndView modelAndView = new ModelAndView();
-		try {
-			MultipartFile origFile = student.getFile();
-
-			if (!origFile.isEmpty() && origFile.getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
-				String path = multi.getServletContext().getRealPath("/stprofileupload/"); // 파일 저장 경로
-				File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
-				if (!dir.isDirectory()) {
-					dir.mkdir();
-				}
-				String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
-				String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
-				try {
-					origFile.transferTo(new File(saveFile));
-					student.setProfileImg(origFileName);
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-			studentService.stjoin(student);
-			modelAndView.addObject("page", "login_form");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-
+	//경민 코드, 니엘 참고할 것
 	@RequestMapping(value = "/{course_id}/homeworkanswer", method = RequestMethod.POST)
 	public String homeworkAnswer(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		hw.setCourseId(Integer.parseInt(course_id));

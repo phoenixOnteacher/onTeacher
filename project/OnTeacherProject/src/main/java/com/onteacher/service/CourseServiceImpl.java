@@ -64,11 +64,6 @@ public class CourseServiceImpl implements CourseService {
 	}
 	
 	@Override
-	public void cancleMatching(int studentId, int courseId) {
-		matchingDAO.deleteMatchingData(studentId,courseId);
-	}
-
-	@Override
 	public Homework queryHomework(int id) throws Exception {
 		return homeworkDAO.selectHomeworkById(id);
 	}

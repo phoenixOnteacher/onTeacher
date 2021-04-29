@@ -24,7 +24,7 @@ public class CourseController {
 	@Autowired
 	CourseService courseService;
 	
-	
+	//courseupload 폴더에 있는 파일 다운로드
 	@RequestMapping(value="/filedownload",  method=RequestMethod.GET) 
 	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/courseupload/");
