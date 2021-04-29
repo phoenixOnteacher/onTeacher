@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
 <div class="m-5 px-5">
 	<div id="" class="">
-		<div class="d-flex justify-content-start align-items-center">
+		<div class="d-flex justify-content-start align-items-center text-secondary">
 			<a href="././." class="text-secondary h5 text-decoration-none">수업 관리</a>
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
 			<a href="./." class="text-secondary h5 text-decoration-none">${course.title }</a>
