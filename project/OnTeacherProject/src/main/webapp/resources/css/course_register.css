@@ -107,6 +107,7 @@ button.btn-primary {
 	background-color: #E9ECEF;
 	border-color: #CED4DA;
 	color: #555555;
+	width: 160px;
 }
 
 button.btn-primary:hover {

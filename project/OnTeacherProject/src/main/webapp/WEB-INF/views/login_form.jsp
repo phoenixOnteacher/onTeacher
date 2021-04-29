@@ -20,12 +20,12 @@
 			<table>
 				<tr>
 					<td class="form-floating"><input type="email" name="email" id="login_email"
-						placeholder="아이디 (이메일)" class="form-control" />
+						placeholder="아이디 (이메일)" class="form-control" required="required" />
 						<label for="email">아이디 (이메일)</label></td>
 				</tr>
 				<tr>
 					<td class="form-floating"><input type="password" name="password" id="login_pass"
-						placeholder="비밀번호" class="form-control" />
+						placeholder="비밀번호" class="form-control" required="required" />
 						<label for="password">비밀번호</label></td>
 				</tr>
 			</table>
