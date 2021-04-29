@@ -10,20 +10,18 @@
 		<h1>수업 관리</h1>
 		<div class="row mt-3">
 			<nav class="nav flex-column col-3" id="classNav">
-			  <a class="nav-link active in text-reset" aria-current="page" href="#studying" data-toggle="tab" data-load="true">진행 중인 수업</a>
-			  <a class="nav-link text-reset" href="#match" data-toggle="tab" data-load="false">대기 중인 수업</a>
-			  <a class="nav-link text-reset" href="#end" data-toggle="tab" data-load="false">종료된 수업</a>
+				<a class="nav-link active in text-reset" aria-current="page" href="#studying" data-toggle="tab" data-load="true">진행 중인 수업</a>
+				<a class="nav-link text-reset" href="#match" data-toggle="tab" data-load="false">대기 중인 수업</a>
+				<a class="nav-link text-reset" href="#end" data-toggle="tab" data-load="false">종료된 수업</a>
 			</nav>
 			<div class="tab-content col-9">
 				<div class="tab-pane fade show active" id="studying">
 				  	<c:forEach var="course" items="${studyingList }">
 						<div class="card m-2">
 						  <h5 class="card-header py-3">
-						  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
-					    	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelCourseBtn" value="${course.id }">수업 취소</button>
-						    <button type="button" class="btn btn-primary btn-sm float-end mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
-							  수업 연장
-							</button>
+							  	<a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
+						    	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelCourseBtn" value="${course.id }">수업 취소</button>
+							    <button type="button" class="btn btn-primary btn-sm float-end mx-2" data-bs-toggle="modal" data-bs-target="#exampleModal">수업 연장</button>
 						  </h5>
 						  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							  <div class="modal-dialog">
@@ -46,11 +44,25 @@
 							  </div>
 						  </div>
 						  <div class="card-body">
-						    <h5 class="card-title">${course.status }</h5>
-						    <c:forEach var="student" items="${course.studentList }">
-						    	<p class="card-text">${student.name } 학생</p>
-						    </c:forEach>
-						    <p>${course.startDate } ~ ${course.endDate }</p>
+							    <h5 class="card-title">${course.target } Low-category</h5>
+							    <p>
+							    	<i class="fas fa-user-friends"></i> 
+								    <c:choose>
+							    		<c:when test="${empty course.studentList }">
+							    			<span>없음</span>
+							    		</c:when>
+							    		<c:otherwise>
+										    <c:forEach var="student" items="${course.studentList }" varStatus="status">
+										    	<c:if test="${status.count > 1}">
+										    		<span>, </span>
+										    	</c:if>
+										    	<span class="card-text">${student.name } 학생</span>
+										    </c:forEach>
+							    		</c:otherwise>
+							    	</c:choose> 
+							    </p>
+							    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+							    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate } ${course.studyDay } ${course.studyTime }</p>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -63,11 +75,26 @@
 						  	<small class="btn btn-primary float-end btn-sm">매칭 대기</small>
 					  	  </h5>
 						  <div class="card-body">
-						    <h5 class="card-title">매칭 대기</h5>
-						    <c:forEach var="student" items="${course.studentList }">
-						    	<p class="card-text">${student.name } 학생</p>
-						    </c:forEach>
-						    <p>${course.startDate } ~ ${course.endDate }</p>
+						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <p>
+						    	<i class="fas fa-user-friends"></i> 
+							    <c:choose>
+						    		<c:when test="${empty course.studentList }">
+						    			<span>없음</span>
+						    		</c:when>
+						    		<c:otherwise>
+									    <c:forEach var="student" items="${course.studentList }" varStatus="status">
+										    	<c:if test="${status.count > 1}">
+										    		<span>, </span>
+										    	</c:if>
+									    	<span class="card-text">${student.name } 학생</span>
+									    </c:forEach>
+						    		</c:otherwise>
+						    	</c:choose> 
+						    </p>
+						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
+						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -79,11 +106,26 @@
 						  	<button class="startCourseBtn btn btn-success float-end btn-sm mx-2" value="${course.id }">수업 시작</button>
 						  </h5>
 						  <div class="card-body">
-						    <h5 class="card-title">${course.status }</h5>
-						    <c:forEach var="student" items="${course.studentList }">
-						    	<p class="card-text">${student.name } 학생</p>
-						    </c:forEach>
-						    <p>${course.startDate } ~ ${course.endDate }</p>
+						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <p>
+						    	<i class="fas fa-user-friends"></i> 
+							    <c:choose>
+						    		<c:when test="${empty course.studentList }">
+						    			<span>없음</span>
+						    		</c:when>
+						    		<c:otherwise>
+									    <c:forEach var="student" items="${course.studentList }" varStatus="status">
+										    	<c:if test="${status.count > 1}">
+										    		<span>, </span>
+										    	</c:if>
+									    	<span class="card-text">${student.name } 학생</span>
+									    </c:forEach>
+						    		</c:otherwise>
+						    	</c:choose> 
+						    </p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.studyDay } ${course.studyTime }</p>
+						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+						    <p class="card-text">${course.startDate } ~ ${course.endDate }</p>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -92,13 +134,28 @@
 					<c:forEach var="course" items="${endList }">
 						<div class="card m-2">
 						  <h5 class="card-header p-3"><a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a></h5>
-						  <div class="card-body">
-						    <h5 class="card-title">${course.status }</h5>
-						    <c:forEach var="student" items="${course.studentList }">
-						    	<p class="card-text">${student.name } 학생</p>
-						    </c:forEach>
-						    <p>${course.startDate } ~ ${course.endDate }</p>
-						  </div>
+					      <div class="card-body">
+						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <p>
+						    	<i class="fas fa-user-friends"></i>
+						    	<c:choose>
+						    		<c:when test="${empty course.studentList }">
+						    			<span>없음</span>
+						    		</c:when>
+						    		<c:otherwise>
+									    <c:forEach var="student" items="${course.studentList }" varStatus="status">
+										    	<c:if test="${status.count > 1}">
+										    		<span>, </span>
+										    	</c:if>
+									    	<span class="card-text">${student.name } 학생</span>
+									    </c:forEach>
+						    		</c:otherwise>
+						    	</c:choose> 
+						    </p>
+						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
+						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
+					  	  </div>
 						</div>
 				  	</c:forEach>
 				</div>
