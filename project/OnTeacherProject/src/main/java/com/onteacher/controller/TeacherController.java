@@ -115,14 +115,14 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
-		int teacherId = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		// 리스트 불러오기
 		try {
-			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(teacherId));
-			model.addAttribute("matchingList", courseManageService.queryMatchingCourseList(teacherId));
-			model.addAttribute("matchedList", courseManageService.queryMatchedCourseList(teacherId));
-			model.addAttribute("endList", courseManageService.queryEndCourseList(teacherId));
+			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(userId));
+			model.addAttribute("matchingList", courseManageService.queryMatchingCourseList(userId));
+			model.addAttribute("matchedList", courseManageService.queryMatchedCourseList(userId));
+			model.addAttribute("endList", courseManageService.queryEndCourseList(userId));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -134,8 +134,8 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
-		int teacherId = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		// 리스트 불러오기
 		try {
@@ -150,16 +150,16 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 과제 내기
+	/* 과제 내기 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int teacherId = Integer.parseInt((String) session.getAttribute("id"));
-		int teacherId = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			Course course = courseService.queryCourseById(courseId);
-			if (course.getTeacherId() == teacherId) {
+			if (course.getTeacherId() == userId) {
 				model.addAttribute("course", course);
 				model.addAttribute("page", "teacher/homeworkForm");
 			}
@@ -170,8 +170,12 @@ public class TeacherController {
 		return "template";
 	}
 
+	/* 과제 상세 페이지 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-	public String homework(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 3;
 		hw.setCourseId(Integer.parseInt(course_id));
 		try {
 			courseManageService.setHomework(hw);
@@ -184,7 +188,7 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 학생 후기 작성
+	/* 학생 후기 작성 폼 */
 	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.GET)
 	public String reviewForm(Model model, @PathVariable String course_id, @PathVariable String student_id) {
 		// request user가 선생님인지 확인하고 폼으로 이동하는 로직 추가
@@ -192,13 +196,14 @@ public class TeacherController {
 		return "template";
 	}
 
+	/* 학생 후기 작성 */
 	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.POST)
 	public String writeReview(HttpServletRequest request, @ModelAttribute StudentReview sr, Model model,
 			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
-//		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
-		int teacher_id = 1;
-		sr.setTeacherId(teacher_id);
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
+		sr.setTeacherId(userId);
 		sr.setCourseId(Integer.parseInt(course_id));
 		sr.setStudentId(Integer.parseInt(student_id));
 		try {
@@ -212,10 +217,13 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 수업 시작
+	/* 수업 시작 */
 	@ResponseBody
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
-	public void startCourse(Model model, @PathVariable String course_id) {
+	public void startCourse(HttpServletRequest request, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
 			courseManageService.startCourse(courseId);
@@ -224,17 +232,21 @@ public class TeacherController {
 		}
 	}
 
-	// 수업 연장
+	/* 수업 연장 */
 	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
-	public String extendCourse(@RequestParam(value="extendDate", required=true) String extendDate, Model model,
+	public String extendCourse(HttpServletRequest request, @RequestParam(value="extendDate", required=true) String extendDate, Model model,
 			@PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
 			courseManageService.extendCourse(courseId, extendDate);
-			model.addAttribute("course", courseService.queryCourseById(courseId));
-			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId));
-			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
-			model.addAttribute("page", "teacher/courseManageDetail");
+			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(userId));
+			model.addAttribute("matchingList", courseManageService.queryMatchingCourseList(userId));
+			model.addAttribute("matchedList", courseManageService.queryMatchedCourseList(userId));
+			model.addAttribute("endList", courseManageService.queryEndCourseList(userId));
+			model.addAttribute("page", "teacher/courseManage");
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("page", "index");
@@ -242,18 +254,18 @@ public class TeacherController {
 		return "template";
 	}
 
-	// 수업 취소
+	/* 수업 취소 */
 	@ResponseBody
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
-		int teacher_id = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		try {
 			int c_id = Integer.parseInt(course_id);
 			Course course = new Course();
 			course.setId(c_id);
-			course.setTeacherId(teacher_id);
+			course.setTeacherId(userId);
 			courseManageService.cancelCourse(course);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,15 +278,14 @@ public class TeacherController {
 	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 		List<String> selectedStudents = reqData.get("selectedStudents");
-//		int user_id = Integer.parseInt((String) session.getAttribute("id"));
-		int user_id = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			if (selectedStudents.size()==0) throw new Exception("선택된 학생이 없음");
-			
 			Course course = courseService.queryCourseById(courseId);
 			if (!course.getStatus().equals("matching")) throw new Exception("매칭 대기 중인 수업만 매칭 가능");
-			if (course.getTeacherId()!=user_id) throw new Exception("해당 수업의 선생님만 매칭 가능");
+			if (course.getTeacherId()!=userId) throw new Exception("해당 수업의 선생님만 매칭 가능");
 			courseManageService.match(courseId, selectedStudents);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -286,13 +297,13 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
 	public void cancelMatching(HttpServletRequest request, @RequestParam(value="student_id", required=true) int student_id, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int teacher_id = Integer.parseInt((String) session.getAttribute("id"));
-		int teacher_id = 1;
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 1;
 		try {
 			int c_id = Integer.parseInt(course_id);
 			Course course = new Course();
 			course.setId(c_id);
-			course.setTeacherId(teacher_id);
+			course.setTeacherId(userId);
 			courseManageService.cancelCourse(course);
 		} catch (Exception e) {
 			e.printStackTrace();

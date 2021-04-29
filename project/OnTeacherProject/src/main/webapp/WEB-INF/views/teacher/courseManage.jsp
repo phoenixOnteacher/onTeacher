@@ -44,25 +44,26 @@
 							  </div>
 						  </div>
 						  <div class="card-body">
-							    <h5 class="card-title">${course.target } Low-category</h5>
-							    <p>
-							    	<i class="fas fa-user-friends"></i> 
-								    <c:choose>
-							    		<c:when test="${empty course.studentList }">
-							    			<span>없음</span>
-							    		</c:when>
-							    		<c:otherwise>
-										    <c:forEach var="student" items="${course.studentList }" varStatus="status">
-										    	<c:if test="${status.count > 1}">
-										    		<span>, </span>
-										    	</c:if>
-										    	<span class="card-text">${student.name } 학생</span>
-										    </c:forEach>
-							    		</c:otherwise>
-							    	</c:choose> 
-							    </p>
-							    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-							    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate } ${course.studyDay } ${course.studyTime }</p>
+						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <p>
+						    	<i class="fas fa-user-friends"></i> 
+							    <c:choose>
+						    		<c:when test="${empty course.studentList }">
+						    			<span>없음</span>
+						    		</c:when>
+						    		<c:otherwise>
+									    <c:forEach var="student" items="${course.studentList }" varStatus="status">
+									    	<c:if test="${status.count > 1}">
+									    		<span>, </span>
+									    	</c:if>
+									    	<span class="card-text">${student.name } 학생</span>
+									    </c:forEach>
+						    		</c:otherwise>
+						    	</c:choose> 
+						    </p>
+						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -92,8 +93,8 @@
 						    		</c:otherwise>
 						    	</c:choose> 
 						    </p>
-						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
+						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
 						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 						  </div>
 						</div>
@@ -123,9 +124,9 @@
 						    		</c:otherwise>
 						    	</c:choose> 
 						    </p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.studyDay } ${course.studyTime }</p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text">${course.startDate } ~ ${course.endDate }</p>
+						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 						  </div>
 						</div>
 				  	</c:forEach>
@@ -153,8 +154,8 @@
 						    	</c:choose> 
 						    </p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
+						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
 					  	  </div>
 						</div>
 				  	</c:forEach>
