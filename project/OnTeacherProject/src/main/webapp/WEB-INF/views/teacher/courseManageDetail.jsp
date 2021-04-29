@@ -40,6 +40,8 @@
 					        <h5 class="card-title h4 mb-3">${student.name } 학생</h5>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>
 					        <p class="card-text"><i class="fas fa-envelope"></i> ${student.email }</p>
+					        <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${student.address }</p>
+					        <p class="card-text"><i class="fas fa-user"></i> ${student.grade } ${student.gender }자</p>
 					        <p class="card-text"><i class="fas fa-birthday-cake"></i> ${student.birthday }</p>
 					      </div>
 					    </div>
@@ -73,6 +75,8 @@
 					        </div>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>
 					        <p class="card-text"><i class="fas fa-envelope"></i> ${student.email }</p>
+					        <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${student.address }</p>
+					        <p class="card-text"><i class="fas fa-user"></i> ${student.grade } ${student.gender }자</p>
 					        <p class="card-text"><i class="fas fa-birthday-cake"></i> ${student.birthday }</p>
 					      </div>
 					    </div>
@@ -94,11 +98,34 @@
 					      <div class="card-body">
 					        <div class="card-title h4 mb-3">${student.name } 학생
 						        <div class="form-check float-end">
-						        	<button id="writeReviewBtn" class="btn btn-success btn-sm" value="${student.id }">후기 작성</button>
+						        	<button id="writeReviewBtn${course.id }${student.id }" class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }${student.id }" value="${student.id }">후기 작성</button>
+									<!-- Modal -->
+									<div class="modal fade" id="reviewModal${course.id }${student.id }" tabindex="-1" aria-labelledby="reviewModalLabel${course.id }${student.id }" aria-hidden="true">
+									  <div class="modal-dialog modal-dialog-centered">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="reviewModalLabel${course.id }${student.id }"><b>${course.title}</b> 수업 후기</h5>
+									        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+									      </div>
+									      <div class="modal-body">
+									        <div class="mb-3">
+											  <label for="reviewContent" class="form-label h6">${student.name } 학생은 어땠나요?</label>
+											  <textarea class="form-control" id="reviewContent${course.id }${student.id }" rows="4"></textarea>
+											</div>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									        <button type="button" class="btn btn-primary">작성 완료</button>
+									      </div>
+									    </div>
+									  </div>
+									</div>
 								</div>
 					        </div>
 					        <p class="card-text"><i class="fas fa-phone"></i> ${student.phoneNumber }</p>
 					        <p class="card-text"><i class="fas fa-envelope"></i> ${student.email }</p>
+					        <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${student.address }</p>
+					        <p class="card-text"><i class="fas fa-user"></i> ${student.grade } ${student.gender }자</p>
 					        <p class="card-text"><i class="fas fa-birthday-cake"></i> ${student.birthday }</p>
 					      </div>
 					    </div>
@@ -125,9 +152,7 @@
 					      <th scope="row">${status.count} </th>
 					      <td>
 					      	<div class="position-relative p-0">
-					      		<a href="/homework/${homework.id }" class="text-decoration-none text-reset stretched-link p-3">
-					      			${homework.title }
-					      		</a>
+					      		<a href="/homework/${homework.id }" class="text-decoration-none text-reset stretched-link p-3">${homework.title }</a>
 				      		</div>
 			      		  </td>
 					      <td>${homework.deadline }</td>
