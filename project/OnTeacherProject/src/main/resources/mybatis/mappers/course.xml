@@ -92,13 +92,19 @@
 		ORDER BY id DESC
 		]]>
 	</select>
-	<select id="selectCourseForSearchFilter" resultMap="courseResult">
+	<!-- 카테고리 필터 -->
+	<select id="selectCourseForSearchFilter" resultMap="courseResult" parameterType="course">
 		<![CDATA[
-		select *
-		from course
-		where studyday=#{studyday}
-		and is_group=#{is_group}
-		ORDER BY id DESC
+		select * from course
+		where high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline}
 		]]>
 	</select>
+	<select id="highcategoryList" resultType="highCategory">
+		<![CDATA[
+		select * from highcategory
+		]]>
+	</select>	
+	
+	
 </mapper>
