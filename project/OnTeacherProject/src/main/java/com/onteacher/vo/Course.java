@@ -27,8 +27,8 @@ public class Course {
 	private int teacherId; //FK
 	private int highCategoryId; //FK
 	private int lowCategoryId; //FK
-	private List<Student> studentList;
 	private Teacher teacher;
+	private List<Student> studentList;
 	
 	public int getId() {
 		return id;
@@ -150,17 +150,17 @@ public class Course {
 	public void setLowCategoryId(int lowCategoryId) {
 		this.lowCategoryId = lowCategoryId;
 	}
-	public List<Student> getStudentList() {
-		return studentList;
-	}
-	public void setStudentList(List<Student> studentList) {
-		this.studentList = studentList;
-	}
 	public Teacher getTeacher() {
 		return teacher;
 	}
 	public void setTeacher(Teacher teacher) {
 		this.teacher = teacher;
+	}
+	public List<Student> getStudentList() {
+		return studentList;
+	}
+	public void setStudentList(List<Student> studentList) {
+		this.studentList = studentList;
 	}
 	
 	@Override

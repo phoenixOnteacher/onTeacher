@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.MatchingDAO">
+	
+	<delete id="deleteMatchingData" parameterType="int">
+		<![CDATA[
+		delete from matching
+		where student_id = #{studentId}
+		and course_id = #{courseId}
+		]]>
+	</delete>
+		
 	<resultMap id="matchingResult" type="matching">
 		<result column="student_id" property="studentId" />
 		<result column="course_id" property="courseId" />
