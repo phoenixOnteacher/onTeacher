@@ -14,6 +14,11 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	StudentDAO studentDAO;
+
+	@Override
+	public Student queryStudentByEmail(String email) {
+		return studentDAO.selectStudentByEmail(email);
+	}
 	
 	@Override
 	public void stjoin(Student student) throws Exception {

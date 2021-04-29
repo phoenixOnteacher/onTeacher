@@ -14,6 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseService;
+import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
+import com.onteacher.vo.Homework;
+import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Teacher;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.User;
@@ -86,5 +91,6 @@ public class CommonController {
 		}
 		return "template";
 	}
+	
 
 }

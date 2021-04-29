@@ -6,4 +6,7 @@
 		resultType="lowCategory">
 		<![CDATA[select * from lowcategory where high_category_id = #{high_category_id}]]>
 	</select>
+	<select id="selectLowCategoryById" resultType="lowCategory" parameterType="int">
+		<![CDATA[select * from lowcategory where id=#{lowCategoryId}]]>
+	</select>
 </mapper>
