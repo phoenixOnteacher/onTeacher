@@ -6,15 +6,16 @@
 	font-family: 'S-CoreDream-4Regular';
 	margin: 0 auto;
 	border: 1px solid #ededed;
-	padding: 50px 20px;
+	padding: 50px;
 	margin-top: 80px;
+	font-size: 14px;
 }
 
 #stj_title_wrap {
 	font-family: 'S-CoreDream-3Light';
 	font-size: 22px;
 	text-align: center;
-	margin-bottom: 18px;
+	margin-bottom: 20px;
 }
 
 table {
@@ -22,12 +23,45 @@ table {
 }
 
 td.thead, td.tbody {
-	height: 50px;
+	height: 60px;
 	align-items: center;
+}
+
+td.thead {
+	width: 15%;
+	padding-right: 10px;
+	text-align: left;
+	font-weight: 700;
+}
+
+td.tbody {
+	width: 60%;
 }
 
 input.form-control {
 	height: 32px;
-    padding: 4px 7px;
+    padding: 4px 10px;
 	font-size: 14px;
+}
+
+textarea#introduction {
+	resize: none;
+	height: 120px;
+}
+
+#login_btn {
+	text-align: center;
+	margin-top: 30px;
+}
+
+button.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 160px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
 }
