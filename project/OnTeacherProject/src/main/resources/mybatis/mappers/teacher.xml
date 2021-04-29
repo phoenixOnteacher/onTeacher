@@ -38,4 +38,12 @@
 		email=#{email}
 		]]>
 	</select>	
+	
+	<select id="baseCertTeacher" resultType="teacher" parameterType="String">
+		<![CDATA[
+		select name, id, email, phone_number, description
+		from teacher
+		]]>
+	</select>
+		
 </mapper>

@@ -1,5 +1,7 @@
 package com.onteacher.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +14,5 @@ public interface TeacherDAO {
 	public Teacher selectTeacherById(int teacherId);
 	public void insertTeacher(Teacher tea) throws Exception;
 	public Teacher selectTeacher(String email) throws Exception;
+	public List<Teacher> baseCertTeacher() throws Exception;
 }

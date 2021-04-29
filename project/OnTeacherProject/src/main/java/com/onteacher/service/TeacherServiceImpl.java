@@ -1,5 +1,7 @@
 package com.onteacher.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -30,5 +32,10 @@ public class TeacherServiceImpl implements TeacherService {
 			return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public List<Teacher> certConfirm() throws Exception {
+		return teacherDAO.baseCertTeacher();
 	}
 }
