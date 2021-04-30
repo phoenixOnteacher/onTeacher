@@ -17,7 +17,7 @@
 <tr>
 	<th>수업명</th><th>학생후기</th>
 </tr>
-	<c:forEach items="${student.studentReviewList }" var="courseReview">
+	<c:forEach items="${student.studentReviewList }" var="studentReview">
 		<tr>
 			<td>${studentReview.courseName }</td><td>${studentReview.content }</td>
 		</tr>
