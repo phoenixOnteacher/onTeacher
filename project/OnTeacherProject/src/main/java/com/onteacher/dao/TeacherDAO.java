@@ -15,5 +15,7 @@ public interface TeacherDAO {
 	public void insertTeacher(Teacher tea) throws Exception;
 	public Teacher selectTeacher(String email) throws Exception;
 	public List<Teacher> baseCertTeacher() throws Exception;
-	
+	public void updateActive(String email);
+	public void updateApproved(String email);
+	public void updateRejected(String email);
 }

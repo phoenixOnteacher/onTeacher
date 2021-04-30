@@ -38,4 +38,16 @@ public class TeacherServiceImpl implements TeacherService {
 	public List<Teacher> certConfirm() throws Exception {
 		return teacherDAO.baseCertTeacher();
 	}
+
+	@Override
+	public void certApproved(String email) throws Exception {
+		teacherDAO.updateActive(email);
+		teacherDAO.updateApproved(email);
+	}
+	
+	@Override
+	public void certRejected(String email) throws Exception {
+		teacherDAO.updateActive(email);
+		teacherDAO.updateRejected(email);
+	}
 }

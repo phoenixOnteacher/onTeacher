@@ -9,4 +9,6 @@ public interface TeacherService {
 	public void thjoin(Teacher thacher) throws Exception;
 	public boolean login(String email, String password) throws Exception;
 	public List<Teacher> certConfirm() throws Exception;
+	public void certApproved(String email) throws Exception;
+	public void certRejected(String email) throws Exception;
 }
