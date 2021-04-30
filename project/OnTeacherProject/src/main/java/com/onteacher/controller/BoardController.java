@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.onteacher.service.BoardService;
 import com.onteacher.vo.Article;
+import com.onteacher.vo.Comment;
 
 @Controller
 public class BoardController {
@@ -40,186 +41,106 @@ public class BoardController {
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	public String addArticle(@ModelAttribute Article article, HttpServletRequest request) {
 
-
-		
 		try {
-			String path= request.getServletContext().getRealPath("/boardupload/");
-			File dir = new File(path);
-			if(!dir.isDirectory()) {
-				dir.mkdir();
-			}
+
 			MultipartFile orgfile = article.getFile();
-			File destFile = new File(path+orgfile.getOriginalFilename());
-			orgfile.transferTo(destFile);
-			article.setFilename(orgfile.getOriginalFilename());
+			System.out.println(orgfile.getOriginalFilename());
+			if (orgfile != null && orgfile.getOriginalFilename().trim() != "") {
+				String path = request.getServletContext().getRealPath("/boardupload/");
+				File dir = new File(path);
+				if (!dir.isDirectory()) {
+					dir.mkdir();
+				}
+
+				File destFile = new File(path + orgfile.getOriginalFilename());
+				orgfile.transferTo(destFile);
+				article.setFilename(orgfile.getOriginalFilename());
+			} else {
+				article.setFilename("");
+
+			}
+
 			boardService.addArticle(article);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			
+
 		}
 		return "redirect:/listArticle";
 	}
-	
+
 	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
-	public String listArticle(@RequestParam(value="page") int page, Model model) {
-		
-		if(page<=0) page=1;
-				
-		
-		
-	
+	public String listArticle(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+			Model model) {
+
 		try {
-			Article article= new Article();
-			article.setS_row((page-1)*10+1);
-			article.setE_row(page*10);
+			Article article = new Article();
+			article.setS_row((page - 1) * 10 + 1);
+			article.setE_row(page * 10);
 			List<Article> listarticle = boardService.listArticles(article);
 			model.addAttribute("articlesList", listarticle);
+			model.addAttribute("currentPage", page);
+			model.addAttribute("pageCnt", boardService.articleCount() / 10 + 1);
 			model.addAttribute("page", "board/listArticles");
 
-			
 		} catch (Exception e) {
 			e.printStackTrace();
-			
 		}
 		return "template";
 
-	
 	}
-	
+
 	@RequestMapping(value = "/viewArticle", method = RequestMethod.GET)
-	public String viewArticle(@RequestParam(value="no") int no, Model model) {
+	public String viewArticle(@RequestParam(value = "no") int no, Model model) {
 
 		try {
-			Article article = boardService.viewArticle(no); 
+			Article article = boardService.viewArticle(no);
+			List<Comment> commentList = boardService.commentList(no);
 			model.addAttribute("article", article);
+			model.addAttribute("commentList", commentList);
 			model.addAttribute("page", "board/viewArticle");
-			
-			
-		} catch (Exception e) {
-				e.printStackTrace();
-				
-			}
-		
-		return "template";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-/*
-  // 글보기
-	@RequestMapping(value = "/viewArticle", method = RequestMethod.GET)
-	public String viewArticle(Model model) {
-		model.addAttribute("page", "viewArticle");
-		return "template";
-	}
 
-	@RequestMapping(value = "/viewArticle", method = RequestMethod.POST)
-	public String articleForm(@ModelAttribute viewArticle viewArticle, Model model) {
-		try {
-			boardService.viewArticle(viewArticle);
-			model.addAttribute("page", "viewArticle");
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("err", "글 쓰기 실패");
-			model.addAttribute("page", "err");
+
 		}
+
 		return "template";
 	}
 
-	// 글 수정 삭제는 따로 화면view를 안만들어서 일단 보류
+	// 댓글 기능
+	// comment------------------------------------------------------------------
 
-	// 글 수정
-	@RequestMapping(value = "/modArticle", method = RequestMethod.GET)
-	public String modArticle(Model model) {
+	// 댓글쓰기
+
+	@RequestMapping(value = "/commentForm", method = RequestMethod.GET)
+	public String commentForm(Model model) {
+		model.addAttribute("page", "board/commentForm");
+		return "template";
+	}
+
+	@RequestMapping(value = "/addComment", method = RequestMethod.POST)
+	public String addComment(@ModelAttribute Comment comment, Model model) {
+		System.out.println(comment.getArticle_id());
+		System.out.println(comment.getUser_id());
+		try {
+			boardService.addComment(comment);
+			model.addAttribute("no", comment.getArticle_id());
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		return "redirect:viewArticle?no=" + comment.getArticle_id();
+	}
+
+	// 댓글 리스트 보기
+
+	@RequestMapping(value = "/commentList", method = RequestMethod.GET)
+	public String commentList(Model model) {
+		model.addAttribute("page", "viewComment");
+		return "template";
 
 	}
 
-	// 글 삭제
-	@RequestMapping(value="/removeArticle", method=RequestMethod.GET)
-			public String removeArticle(Model model) {
-		
-			}*/
+	
 }
-
-
-
-// 이 밑으로는
-// 참고해볼것들--------------------------------------------------------------------------------------
-/*
- * // 글 수정
- * 
- * @RequestMapping(value = "/modArticle") public String
- * boardUpdate(HttpServletRequest request, ModelMap modelMap) throws Exception {
- * 
- * String articleNO = request.getParameter("articleNO");
- * 
- * boardVO modArticle = boardService.modArticle(articleNO);
- * 
- * modelMap.addAttribute("modArticle", modArticle);
- * 
- * return "board/modArticle"; }
- * 
- * @RequestMapping(value = "/boardUpdateSave") public String
- * board1UpdateSave(@ModelAttribute boardVO boardInfo) throws Exception {
- * 
- * boardSvc.updateBoard(boardInfo);
- * 
- * return "redirect:/boardList"; }
- * 
- * // 글 읽기
- * 
- * @RequestMapping(value = "/boardRead") public String
- * boardRead(HttpServletRequest request, ModelMap modelMap) throws Exception {
- * 
- * String brdno = request.getParameter("brdno");
- * 
- * boardVO boardInfo = boardSvc.selectBoardOne(brdno);
- * 
- * modelMap.addAttribute("boardInfo", boardInfo);
- * 
- * return "board/boardRead"; }
- * 
- * // 글 삭제
- * 
- * @RequestMapping(value = "/board1Delete") public String
- * boardDelete(HttpServletRequest request) throws Exception {
- * 
- * String brdno = request.getParameter("brdno");
- * 
- * boardSvc.deleteBoardOne(brdno);
- * 
- * return "redirect:/board1List"; }
- * 
- * 
- * 
- * =====================================================================
- * 
- *//**
-	 * 댓글 저장.
-	 */
-/*
- * @RequestMapping(value = "/boardReplySave") public String
- * board5ReplySave(HttpServletRequest request, BoardReplyVO boardReplyInfo) {
- * 
- * boardSvc.insertBoardReply(boardReplyInfo);
- * 
- * return "redirect:/boardRead?brdno=" + boardReplyInfo.getBrdno(); }
- * 
- *//**
-	 * 댓글 삭제.
-	 */
-/*
- * @RequestMapping(value = "/boardReplyDelete") public String
- * board5ReplyDelete(HttpServletRequest request, BoardReplyVO boardReplyInfo) {
- * 
- * boardSvc.deleteBoard5Reply(boardReplyInfo.getReno());
- * 
- * return "redirect:/boardRead?brdno=" + boardReplyInfo.getBrdno(); } }
- */

@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.ArticleDAO">
-	
-	
-	
-		
-	
+
+
+
+
+
 	<select id="selectAllArticlesList" resultType="article">
 		<![CDATA[
 		  select id,title,created_at,hits,user_id
@@ -16,16 +16,16 @@
 
 		]]>
 	</select>
-	
+
 	<select id="selectMaxArticleNO" resultType="int"> 
 	<![CDATA[
 		select max(id) from article
 	]]>
 	</select>
-	
-	
-	
-	
+
+
+
+
 	<insert id="insertArticle" parameterType="article">
 
 	 <![CDATA[
@@ -33,16 +33,17 @@
          VALUES (#{id}, #{title}, #{content}, #{filename}, sysdate, 0, #{user_id} )
 		]]>
 	</insert>
-	
-	
-	<select id="selectArticle" resultType="article" parameterType="int">
+
+
+	<select id="selectArticle" resultType="article"
+		parameterType="int">
 		<![CDATA[
 		SELECT * from article
         where id = #{id}	
 		]]>
 	</select>
-	
-	    
+
+
 	<update id="updateArticle" parameterType="article">
 		<![CDATA[
 		update article
@@ -52,13 +53,23 @@
 		where id=#{id}
 		]]>
 	</update>
-	
-	
+
+
 	<delete id="deleteArticle" parameterType="int">
 		<![CDATA[
 		delete * from article
 		where id=#{id}
 		]]>
 	</delete>
-	
+
+	<select id="selectArticleCount" resultType="int">
+		<![CDATA[
+		select count(*)
+		from article	
+		]]>
+	</select>
+
+
+
+
 </mapper>

@@ -4,58 +4,43 @@
 <mapper namespace="com.onteacher.dao.CommentDAO">
 
 
-	<resultMap id="id" type="id">
-    <result property="content" column="content" />
-    <result property="createdAt" column="createdAt" />
-    <result property="user_id" column="userId" />
-    <result property="articleNO" column="articleNO" />
-  </resultMap> 
-  
-  
-	 <!-- 경민님 파일 참조함 =============================================================================== -->
-	
-	<select id="selectCommentListByUserId" parameterType="">
-		<![CDATA[
-		select * from Q_comment
-		where userid=#{userid}
+	<select id="selectAllCommentList" resultType="comment"
+		parameterType="int">
+		 <![CDATA[
+		SELECT id,content,created_at,user_id,article_id
+		FROM reply
+		WHERE article_id=#{article_id}
+		ORDER BY id
 		]]>
 	</select>
-	<insert id="insertComment" parameterType="">
-		<![CDATA[
-		insert into Q_comment(id,content,createdAt,userId,articleNO)
-		values(#{id},#{content}, now(),#{userId},#{articleNO})
+
+	<insert id="insertComment" parameterType="comment">
+        <![CDATA[
+		 INSERT INTO reply(id,content,created_at,user_id,article_id)
+         VALUES (REPLY_SEQ.NEXTVAL, #{content}, sysdate,  #{user_id}, #{article_id} )
 		]]>
 	</insert>
-	 <!-- 경민님 파일 참조함 =============================================================================== -->
-	 
-	 <!-- comment 추가  =============================================================================== -->
-    <select id="selectAllCommentList" resultType="com.onteacher.CommentVO" parameterType="String">
-        SELECT id,content,createdAt,userId,articleNO
-          FROM Q_comment
-         WHERE articleNO=#{articleNO}
-         ORDER BY id
-    </select>
-        
-    <insert id="insertNewComment" parameterType="com.onteacher.CommentVO" >
-        <selectKey resultType="String" keyProperty="id" order="BEFORE">
-            SELECT IFNULL(MAX(id),0)+1 FROM Q_comment
-        </selectKey>
-            
-        INSERT INTO Q_comment(id,content,createdAt,userId,articleNO)
-        VALUES (#{id}, #{content}, now(), #{userId}, #{articleNO})
-    </insert>
 
-    <update id="deleteComment" parameterType="String"> 
-        delete * from Q_Comment          
-        WHERE id=#{id}       
-    </update> 
+	<delete id="deleteComment" parameterType="int">
+		<![CDATA[
+		delete from reply
+		WHERE id=#{id}
+		]]>
+	</delete>
 
-    <update id="updateComment" parameterType="com.onteacher.CommentVO">
-        UPDATE Q_Comment
-           SET content=#{content} 
-         WHERE id=#{id}
-    </update> 
-    
+	<update id="updateComment" parameterType="comment">
+		 <![CDATA[
+		 UPDATE reply
+		SET content=#{content}
+		WHERE id=#{id}
+		]]>
+	</update>
 
-	 
+	<select id="selectComment" resultType="comment"
+		parameterType="int">
+		 <![CDATA[
+		 select * from Reply
+		where article_id=#{article_id}
+		]]>
+	</select>
 </mapper>

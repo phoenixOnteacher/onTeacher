@@ -1,24 +1,23 @@
 package com.onteacher.dao;
 
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+
+import com.onteacher.vo.Comment;
 
 @Mapper
 @Repository("commentDAO")
 public interface CommentDAO {
 
-	
+	public List<Comment> selectAllCommentsList() throws Exception;
 
-public interface BoardDAO {
-	public List selectAllCommentsList() throws DataAccessException;
-	public int insertNewComment(Map articleMap) throws DataAccessException;
-	public void updateComment(Map articleMap) throws DataAccessException;
-	public void deleteComment(int articleNO) throws DataAccessException;
-	
-}
+	public void insertComment(Comment comment) throws Exception;
 
+	public void updateComment(Comment comment) throws Exception;
+
+	public void deleteComment(int id) throws Exception;
+
+	public List<Comment> selectComment(int article_id) throws Exception;
 }
