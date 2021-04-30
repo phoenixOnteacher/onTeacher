@@ -21,7 +21,7 @@ public class Student {
 	private String profileImg;
 	private String introduction;
 	private StudentReview studentReview;
-	private List<CourseReview> courseReviewList;
+	private List<StudentReview> studentReviewList;
 	
 	public StudentReview getStudentReview() {
 		return studentReview;
@@ -101,12 +101,11 @@ public class Student {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	public List<CourseReview> getCourseReviewList() {
-		return courseReviewList;
+	public List<StudentReview> getStudentReviewList() {
+		return studentReviewList;
 	}
-	public void setCourseReviewList(List<CourseReview> courseReviewList) {
-		this.courseReviewList = courseReviewList;
+	public void setStudentReviewList(List<StudentReview> studentReviewList) {
+		this.studentReviewList = studentReviewList;
 	}
-	
 	
 }

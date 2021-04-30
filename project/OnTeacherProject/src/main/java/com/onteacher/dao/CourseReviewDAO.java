@@ -11,5 +11,4 @@ import com.onteacher.vo.CourseReview;
 @Repository("courseReviewDAO")
 public interface CourseReviewDAO {
 	public List<CourseReview> selectCourseReviewByTeacher(int teacherId) throws Exception;
-	public List<CourseReview> selectCourseReviewByStudent(int studentId) throws Exception;
 }

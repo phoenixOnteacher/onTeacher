@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.onteacher.dao.CourseReviewDAO;
 import com.onteacher.dao.StudentDAO;
-import com.onteacher.vo.CourseReview;
+import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Student;
+import com.onteacher.vo.StudentReview;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
@@ -20,7 +20,7 @@ public class StudentServiceImpl implements StudentService {
 	StudentDAO studentDAO;
 	
 	@Autowired
-	CourseReviewDAO couresReviewDAO;
+	StudentReviewDAO studentReviewDAO;
 
 	@Override
 	public Student queryStudentByEmail(String email) {
@@ -50,8 +50,8 @@ public class StudentServiceImpl implements StudentService {
 		if(student==null) {
 			throw new Exception("정보 없음");
 		}
-		List<CourseReview> reviewList = couresReviewDAO.selectCourseReviewByStudent(studentId);
-		student.setCourseReviewList(reviewList);
+		List<StudentReview> reviewList = studentReviewDAO.selectStudentReviewByStudent(studentId);
+		student.setStudentReviewList(reviewList);
 		return student;
 	}
 	

@@ -49,6 +49,7 @@
 		email=#{email}
 		]]>
 		</select>
+		
 		<select id="selectStudentByStudentId" resultMap="studentMap" parameterType="int">
 		<![CDATA[
 		select * 

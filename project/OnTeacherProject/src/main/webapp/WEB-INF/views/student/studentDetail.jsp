@@ -15,11 +15,11 @@
 
 <table>
 <tr>
-	<th>과목명</th><th>수업후기</th>
+	<th>수업명</th><th>학생후기</th>
 </tr>
-	<c:forEach items="${student.courseReviewList }" var="courseReview">
+	<c:forEach items="${student.studentReviewList }" var="courseReview">
 		<tr>
-			<td>${courseReview.courseName }</td><td>${courseReview.content }</td>
+			<td>${studentReview.courseName }</td><td>${studentReview.content }</td>
 		</tr>
 	</c:forEach>
 </table>
