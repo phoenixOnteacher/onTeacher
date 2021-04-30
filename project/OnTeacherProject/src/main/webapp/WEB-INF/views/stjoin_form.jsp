@@ -18,14 +18,14 @@
 					class="form-control" required="required"></td>
 			</tr>
 			<tr>
-				<td class="thead"><label for="name">이름</label></td>
-				<td class="tbody"><input type="text" name="name" id="name"
-					class="form-control" required="required"></td>
-			</tr>
-			<tr>
 				<td class="thead"><label for="password">비밀번호</label></td>
 				<td class="tbody"><input type="password" name="password"
 					id="password" class="form-control" required="required"></td>
+			</tr>
+			<tr>
+				<td class="thead"><label for="name">이름</label></td>
+				<td class="tbody"><input type="text" name="name" id="name"
+					class="form-control" required="required"></td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="phoneNumber">전화번호</label></td>
@@ -67,7 +67,7 @@
 						id="introduction" class="form-control"></textarea></td>
 			</tr>
 		</table>
-		<div id="login_btn">
+		<div id="stjoin_btn">
 			<button type="submit" class="btn btn-primary">가입하기</button>
 		</div>
 	</form>
