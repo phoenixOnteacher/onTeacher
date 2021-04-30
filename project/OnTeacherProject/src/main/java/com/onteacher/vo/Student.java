@@ -1,5 +1,7 @@
 package com.onteacher.vo;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,6 +21,7 @@ public class Student {
 	private String profileImg;
 	private String introduction;
 	private StudentReview studentReview;
+	private List<CourseReview> courseReviewList;
 	
 	public StudentReview getStudentReview() {
 		return studentReview;
@@ -97,6 +100,12 @@ public class Student {
 	}
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
+	}
+	public List<CourseReview> getCourseReviewList() {
+		return courseReviewList;
+	}
+	public void setCourseReviewList(List<CourseReview> courseReviewList) {
+		this.courseReviewList = courseReviewList;
 	}
 	
 	

@@ -1,11 +1,15 @@
 package com.onteacher.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.onteacher.dao.CourseReviewDAO;
 import com.onteacher.dao.StudentDAO;
+import com.onteacher.vo.CourseReview;
 import com.onteacher.vo.Student;
 
 @Service
@@ -14,6 +18,9 @@ public class StudentServiceImpl implements StudentService {
 
 	@Autowired
 	StudentDAO studentDAO;
+	
+	@Autowired
+	CourseReviewDAO couresReviewDAO;
 
 	@Override
 	public Student queryStudentByEmail(String email) {
@@ -36,4 +43,16 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return false;
 	}
+
+	@Override
+	public Student studentInfo(int studentId) throws Exception {
+		Student student = studentDAO.selectStudentByStudentId(studentId);
+		if(student==null) {
+			throw new Exception("정보 없음");
+		}
+		List<CourseReview> reviewList = couresReviewDAO.selectCourseReviewByStudent(studentId);
+		student.setCourseReviewList(reviewList);
+		return student;
+	}
+	
 }
