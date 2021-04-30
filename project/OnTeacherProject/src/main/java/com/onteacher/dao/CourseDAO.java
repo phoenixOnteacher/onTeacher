@@ -10,6 +10,13 @@ import com.onteacher.vo.Course;
 @Mapper
 @Repository("courseDAO")
 public interface CourseDAO {
+
+	public List<Course> selectCourseWaitingList(int studentId);
+
+	public List<Course> selectCourseStudyingList(int studentId);
+
+	public List<Course> selectCourseEndList(int studentId);
+
 	public void insertCourse(Course course) throws Exception;
 	public Course selectCourseById(int id) throws Exception;
 	public void updateCourseStatus(Course c) throws Exception;
@@ -19,4 +26,5 @@ public interface CourseDAO {
 	public List<Course> selectMatchingCourseList(int teacherId) throws Exception;
 	public List<Course> selectMatchedCourseList(int teacherId) throws Exception;
 	public List<Course> selectEndCourseList(int teacherId) throws Exception;
+	public List<Course> selectCourseForIndex();
 }

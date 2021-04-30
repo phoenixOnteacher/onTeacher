@@ -4,12 +4,10 @@
 /* 공통 */
 /* 폰트 */
 @font-face {
-	font-family: 'S-CoreDream-5Medium';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
+     font-family: 'S-CoreDream-3Light';
+     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-3Light.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
 }
 
 @font-face {
@@ -17,6 +15,15 @@
      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-4Regular.woff') format('woff');
      font-weight: normal;
      font-style: normal;
+}
+
+@font-face {
+	font-family: 'S-CoreDream-5Medium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
 a {
@@ -45,4 +52,5 @@ body {
 	min-height: 800px;
 	max-height: 100%;
 	margin: 0 auto;
+	margin-top: 12px;
 }

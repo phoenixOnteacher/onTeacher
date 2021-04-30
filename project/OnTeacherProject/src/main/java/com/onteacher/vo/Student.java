@@ -1,8 +1,9 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component("student")
 public class Student {
@@ -16,8 +17,18 @@ public class Student {
 	private String address;
 	private String birthday; //Date
 	private String gender;
+	private MultipartFile file;
 	private String profileImg;
 	private String introduction;
+	private StudentReview studentReview;
+	private List<StudentReview> studentReviewList;
+	
+	public StudentReview getStudentReview() {
+		return studentReview;
+	}
+	public void setStudentReview(StudentReview studentReview) {
+		this.studentReview = studentReview;
+	}
 	public int getId() {
 		return id;
 	}
@@ -72,6 +83,12 @@ public class Student {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public String getProfileImg() {
 		return profileImg;
 	}
@@ -84,6 +101,11 @@ public class Student {
 	public void setIntroduction(String introduction) {
 		this.introduction = introduction;
 	}
-	
+	public List<StudentReview> getStudentReviewList() {
+		return studentReviewList;
+	}
+	public void setStudentReviewList(List<StudentReview> studentReviewList) {
+		this.studentReviewList = studentReviewList;
+	}
 	
 }

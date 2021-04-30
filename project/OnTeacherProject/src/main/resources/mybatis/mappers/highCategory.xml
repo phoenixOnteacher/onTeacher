@@ -4,5 +4,8 @@
 <mapper namespace="com.onteacher.dao.HighCategoryDAO">
 	<select id="selectHighCategory" resultType="highCategory">
 		<![CDATA[select * from highcategory]]>
-	</select>		
+	</select>
+	<select id="selectHighCategoryById" resultType="highCategory" parameterType="int">
+		<![CDATA[select * from highcategory where id=#{highCategoryId}]]>
+	</select>
 </mapper>

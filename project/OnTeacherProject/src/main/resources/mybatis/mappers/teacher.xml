@@ -2,6 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.TeacherDAO">
-	
+	<select id="selectTeacherById" resultType="teacher" parameterType="int">
+		<![CDATA[select * from teacher where id=#{teacherId}]]>
+	</select>
 		
+	<resultMap id="teacherResult" type="teacher">
+		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
+		<id column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="address" property="address" />
+		<result column="birthday" property="birthday" />
+		<result column="gender" property="gender" />
+		<result column="profile_img" property="profileImg" />
+		<result column="introduction" property="introduction" />
+		<result column="active" property="active" />
+		<result column="filename" property="fileName" />
+		<result column="description" property="description" />
+		<result column="status" property="status" />
+		<result column="message" property="message" />
+	</resultMap>
+	<insert id="insertTeacher" parameterType="teacher">
+		<![CDATA[
+		insert into teacher(id,email,name,password,phone_number,address,birthday,gender,profile_img,introduction,filename,description)
+		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
+		]]>
+	</insert>
+	
+	<select id="selectTeacher" resultType="teacher" parameterType="String">
+		<![CDATA[
+		select * 
+		from ((select email from student) union (select email from teacher) union (select email from admin))
+		where
+		email=#{email}
+		]]>
+	</select>
+	
+	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select * 
+		from teacher
+		where
+		id=#{teacherId}
+		]]>
+	</select>
 </mapper>
