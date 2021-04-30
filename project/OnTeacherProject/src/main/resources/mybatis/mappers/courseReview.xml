@@ -2,6 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CourseReviewDAO">
-	
-		
+	<select id="selectCourseReviewByTeacher" parameterType="int"
+		resultType="courseReview">
+		<![CDATA[
+		SELECT r.id as id,r.content as content, r.created_at as createdAt, r.course_id as courseId,
+		c.title as courseName, r.teacher_id as teacherId, r.student_id as studentId 
+		from coursereview r, course c
+		where r.course_id = c.id
+		and r.teacher_id = #{teacherId}
+		]]>
+	</select>
 </mapper>

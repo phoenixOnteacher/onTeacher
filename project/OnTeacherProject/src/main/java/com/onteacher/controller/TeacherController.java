@@ -402,4 +402,19 @@ public class TeacherController {
 		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
+	@RequestMapping(value="/teacherDetail", method=RequestMethod.GET)
+	public String teacherDetail(@RequestParam(value = "teacherId") int teacherId, Model model,
+			HttpServletRequest request) {
+		try {
+			Teacher teacher = teacherService.teacherInfo(teacherId);
+			String path = "/thprofileupload/";
+			teacher.setProfileImg(path+teacher.getProfileImg());
+			model.addAttribute("teacher", teacher);
+			model.addAttribute("page", "teacher/teacherDetail");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "template";
+	}
 }

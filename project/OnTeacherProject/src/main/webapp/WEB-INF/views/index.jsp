@@ -41,14 +41,22 @@
 		<div id="mainthumbblock">
 			<div id="mainthumbtext">
 				<p>현재 신청 가능한 수업</p>
-				<a id="gotosearch" href="#">전체보기</a> <!-- 수업검색페이지로 연결하기 -->
+				<a id="gotosearch" href="#">전체보기</a>
+				<!-- 수업검색페이지로 연결하기 -->
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach var="course" items="${courses }">
 				<div class="col">
 					<div class="card">
-						<img src="${path}/thprofileupload/${course.teacher.profileImg}" class="card-img-top">
+						<c:choose>
+							<c:when test="${course.teacher.profileImg == null}"><img src="${path}/resources/img/logo.png"
+									class="card-img-top"></c:when>
+							<c:otherwise>
+								<img src="${path}/thprofileupload/${course.teacher.profileImg}"
+									class="card-img-top">
+							</c:otherwise>
+						</c:choose>
 						<div class="card-body">
 							<h5 class="card-title">${course.title }</h5>
 							<p class="card-text">${course.curriculum }</p>

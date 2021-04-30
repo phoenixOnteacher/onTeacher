@@ -26,7 +26,7 @@ import com.onteacher.service.OcrService;
 @RequestMapping("/ocr")
 public class OcrController {
 	
-	@RequestMapping(value="/ocr-main", method=RequestMethod.GET) // 주소 : localhost:8090/ocr/ocr-main
+	@RequestMapping(value="/ocr-main", method=RequestMethod.GET) // 호출 주소 : localhost:8090/ocr/ocr-main
 	public String ocrMain(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "ocr/ocrInsertForm");
 		return "template";		
