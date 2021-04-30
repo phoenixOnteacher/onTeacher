@@ -9,4 +9,5 @@ import com.onteacher.vo.StudentReview;
 @Repository("studentReviewDAO")
 public interface StudentReviewDAO {
 	public void insertStudentReview(StudentReview sr) throws Exception;
+	public StudentReview selectStudentReview(StudentReview sr) throws Exception;
 }
