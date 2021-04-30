@@ -11,6 +11,7 @@ public class StudentReview {
 	private String content;
 	private String createdAt; //Date
 	private int courseId; //FK
+	private String courseName;
 	private int teacherId; //FK
 	private int studentId; //FK
 	
@@ -37,6 +38,12 @@ public class StudentReview {
 	}
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
+	}
+	public String getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 	public int getTeacherId() {
 		return teacherId;
