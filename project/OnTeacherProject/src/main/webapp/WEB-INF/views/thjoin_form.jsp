@@ -67,7 +67,7 @@
 		<table>
 			<tr>
 				<td class="tbody" colspan="2">
-					<div class="alert alert-info" role="alert">
+					<div class="alert alert-warning" role="alert">
 						온티처의 선생님 회원이 되기 위해서는 교육 관련 경험이나 경력 증빙 자료가 필수입니다.
 						<hr>
 						<strong>자격증빙가능 자료 종류</strong> <br>1. 교육 관련 경험 또는 경력 증명서<br>2.
