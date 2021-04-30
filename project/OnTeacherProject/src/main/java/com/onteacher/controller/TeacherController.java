@@ -180,22 +180,24 @@ public class TeacherController {
 	}
 
 	/* 과제 상세 페이지 */
-	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
-		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 3;
-		hw.setCourseId(Integer.parseInt(course_id));
-		try {
-			courseManageService.setHomework(hw);
-			model.addAttribute("homework", hw);
-			model.addAttribute("page", "common/homeworkDetail");
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.addAttribute("page", "index");
-		}
-		return "template";
-	}
+//	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
+//	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+//		HttpSession session = request.getSession();
+////		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = 3;
+//		int courseId = Integer.parseInt(course_id);
+//		hw.setCourseId(courseId);
+//		try {
+//			courseManageService.setHomework(hw);
+//			model.addAttribute("homework", hw);
+//			model.addAttribute("course", courseService.queryCourseById(courseId));
+//			model.addAttribute("page", "common/homeworkDetail");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			model.addAttribute("page", "index");
+//		}
+//		return "template";
+//	}
 
 	/* 학생 후기 작성 폼 */
 //	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.GET)

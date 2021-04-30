@@ -156,7 +156,7 @@
 				<jsp:include page="../common/courseDetail.jsp"/>
 			  </div>
 			  <div class="tab-pane fade" id="homework">
-				<a href="${course.id }/homework" class="btn btn-primary float-end">과제 내기</a>
+				<a href="/teacher/course-manage/${course.id }/homework" class="btn btn-primary float-end">과제 내기</a>
 				<table class="table table-hover">
 				  <thead>
 				    <tr>

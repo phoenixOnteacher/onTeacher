@@ -78,14 +78,17 @@ public class CommonController {
 	
 	// homework detail page로 이동
 	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
-	public String courseManage(HttpServletRequest request, Model model, @PathVariable String homework_id) {
+	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
 //		int user_id = Integer.parseInt((String) session.getAttribute("id"));
-		int user_id = 3; 
+		int user_id = 3;
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
 			Homework hw = courseService.queryHomework(homeworkId);
+			int courseId = hw.getCourseId();
 			// model.addAttribute("homeworkAnswerList",);
+			model.addAttribute("user_id", user_id);
+			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("homework", hw);
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
