@@ -39,6 +39,7 @@
 		where
 		email=#{email}
 		]]>
+
 	</select>	
 	
 	<select id="baseCertTeacher" resultMap="teacherResult" >
@@ -74,4 +75,16 @@
 		]]>
 	</update>
 	
+
+
+	
+	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select * 
+		from teacher
+		where
+		id=#{teacherId}
+		]]>
+	</select>
+
 </mapper>

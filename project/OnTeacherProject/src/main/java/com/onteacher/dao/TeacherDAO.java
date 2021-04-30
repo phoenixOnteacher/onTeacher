@@ -18,4 +18,6 @@ public interface TeacherDAO {
 	public void updateActive(String email);
 	public void updateApproved(String email);
 	public void updateRejected(String email);
+	public Teacher selectTeacherByTeacherId(int teacherId) throws Exception;
 }
+

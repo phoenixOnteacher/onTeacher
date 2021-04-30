@@ -2,7 +2,7 @@
 
 #stj_wrap {
 	align-items: center;
-	width: 700px;
+	max-width: 700px;
 	font-family: 'S-CoreDream-4Regular';
 	margin: 0 auto;
 	border: 1px solid #ededed;
