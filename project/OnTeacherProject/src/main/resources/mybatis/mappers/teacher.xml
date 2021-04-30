@@ -30,6 +30,7 @@
 		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
 		]]>
 	</insert>
+	
 	<select id="selectTeacher" resultType="teacher" parameterType="String">
 		<![CDATA[
 		select * 
@@ -37,5 +38,14 @@
 		where
 		email=#{email}
 		]]>
-	</select>	
+	</select>
+	
+	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select * 
+		from teacher
+		where
+		id=#{teacherId}
+		]]>
+	</select>
 </mapper>

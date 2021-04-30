@@ -25,6 +25,7 @@ public class Teacher {
 	private String description;
 	private String status;
 	private String message;
+	private List<CourseReview> courseReviewList;
 	
 	public int getId() {
 		return id;
@@ -74,6 +75,7 @@ public class Teacher {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+	
 	public String getProfileImg() {
 		return profileImg;
 	}
@@ -115,5 +117,11 @@ public class Teacher {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public List<CourseReview> getCourseReviewList() {
+		return courseReviewList;
+	}
+	public void setCourseReviewList(List<CourseReview> courseReviewList) {
+		this.courseReviewList = courseReviewList;
 	}
 }

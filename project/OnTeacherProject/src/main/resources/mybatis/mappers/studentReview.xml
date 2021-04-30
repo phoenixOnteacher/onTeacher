@@ -21,4 +21,15 @@
 		from studentReview
 		where course_id=#{courseId} and teacher_id=#{teacherId} and student_id=#{studentId}
 	</select>
+	
+	<select id="selectStudentReviewByStudent" parameterType="int"
+		resultType="studentReview">
+		<![CDATA[
+		SELECT r.id as id,r.content as content, r.created_at as createdAt, r.course_id as courseId,
+		c.title as courseName, r.teacher_id as teacherId, r.student_id as studentId 
+		from studentreview r, course c
+		where r.course_id = c.id
+		and r.student_id = #{studentId}
+		]]>
+	</select>
 </mapper>
