@@ -18,7 +18,7 @@ body {
 	align-items: center;
 }
 
-#i_content img {
+#i_content.carousel-item>img {
 	width: 100%;
 	height: auto;
 }
@@ -84,6 +84,11 @@ a.btn-primary:hover {
 	font-weight: 600;
 	padding-right: 14px;
 	color: #692D03;
+}
+
+.card-img-top {
+	height: 200px;
+	object-fit: cover;
 }
 
 h5.card-title {
