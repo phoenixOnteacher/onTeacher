@@ -96,3 +96,114 @@
     ```
 
 - 다른 팀원이 유의해야 하거나 참고할 사항은 반드시 주석으로 표시합니다.
+
+## 6. CSS 색상코드
+
+### 6-1. 로고, 글로벌 네비게이션바, 템플릿 하단 색상
+
+```css
+logo text {
+    color: #FF8184;
+    color: #FFCD4A;
+}
+
+global navbar basic {
+    border-bottom: 1px solid #ededed;
+}
+
+global navbar scroll effect {
+    background-color: #FBFAF1;
+    border-bottom: 0.2px solid #FEDEC3;
+}
+
+footer {
+    background-color: #FBAD38;
+}
+```
+
+### 6-2. submit 버튼
+
+```css
+button.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+```
+
+### 6-3. 컨텐츠 박스
+
+```css
+#wrap {
+    border: 1px solid #ededed;
+}
+```
+
+## 7. Bootstrap 활용
+
+### 7-1. form-control
+
+1. input
+
+   ```jsp
+   <input type="" class="form-control" />
+   ```
+
+2. select
+
+   ```jsp
+   <select class="form-select 크기에 따라 form-select-sm 또는 form-select-lg 등">
+   	<option value=""></option>
+   </select>
+   ```
+
+### 7-2. 각 구성요소들
+
+1. alert 예제
+
+   ```jsp
+   <div class="alert alert-warning alert-dismissible fade show" role="alert">
+   	<strong>로그인 실패!</strong> 아이디 혹은 비밀번호를 잘못 입력하셨습니다.
+   	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+   ```
+
+2. button 예제
+
+   ```jsp
+   <button type="submit" class="btn btn-primary" id="login_btn">로그인</button>
+   ```
+
+3. button group 예제
+
+   ```jsp
+   <div class="btn-group" role="group" aria-label="Basic outlined example">
+   	<a href="/student/join" class="btn btn-outline-primary" id="gotostjoin">학생 가입</a>
+   	<a href="/teacher/join" class="btn btn-outline-primary" id="gotothjoin">선생님 가입</a>
+   </div>
+   ```
+
+4. card 예제
+
+   ```jsp
+   <div class="row row-cols-1 row-cols-md-4 g-4">
+   	<c:forEach var="course" items="${courses }">
+   		<div class="col">
+   			<div class="card">
+   				<img src="${path}/thprofileupload/${course.teacher.profileImg}" class="card-img-top">
+   					<div class="card-body">
+   						<h5 class="card-title">${course.title }</h5>
+   						<p class="card-text">${course.curriculum }</p>
+   					</div>
+   			</div>
+   		</div>
+   	</c:forEach>
+   </div>
+   ```
+
+   

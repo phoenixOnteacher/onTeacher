@@ -15,4 +15,30 @@
 		<result column="student_id" property="studentId" />
 		<result column="course_id" property="courseId" />
 	</resultMap>
+	<insert id="insertMatching" parameterType="matching">
+		<![CDATA[
+		insert into matching(student_id,course_id)
+		values(#{studentId},#{courseId})
+		]]>
+	</insert>
+	<select id="selectMatching" resultMap="matchingResult" parameterType="matching">
+		<![CDATA[
+		select *
+		from matching
+		where student_id=#{studentId} and course_id=#{courseId}
+		]]>
+	</select>
+	<select id="selectMatchingListByCourseId" resultMap="matchingResult" parameterType="int">
+		<![CDATA[
+		select *
+		from matching
+		where course_id=#{courseId}
+		]]>
+	</select>
+	<delete id="deleteMatching" parameterType="matching">
+		<![CDATA[
+		delete from matching
+		where student_id=#{studentId} and course_id=#{courseId}
+		]]>
+	</delete>
 </mapper>

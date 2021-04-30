@@ -1,7 +1,5 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,7 +18,14 @@ public class Student {
 	private MultipartFile file;
 	private String profileImg;
 	private String introduction;
+	private StudentReview studentReview;
 	
+	public StudentReview getStudentReview() {
+		return studentReview;
+	}
+	public void setStudentReview(StudentReview studentReview) {
+		this.studentReview = studentReview;
+	}
 	public int getId() {
 		return id;
 	}

@@ -2,10 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.StudentReviewDAO">
+	<resultMap id="studentReviewResult" type="studentReview">
+		<id column="id" property="id"/>
+		<result column="content" property="content" />
+		<result column="created_at" property="createdAt" />
+		<result column="course_id" property="courseId" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="student_id" property="studentId" />
+	</resultMap>
 	<insert id="insertStudentReview" parameterType="studentReview">
 		<![CDATA[
-		insert into studentReview(id,content,course_id,teacher_id,student_id)
-		values(StudentReviewIdSeq.nextval,#{content},#{courseId},#{teacherId},#{studentId})
+		insert into studentReview(id, content, course_id, teacher_id, student_id)
+		values(StudentReviewIdSeq.nextval, #{content}, #{courseId}, #{teacherId}, #{studentId})
 		]]>
 	</insert>
+	<select id="selectStudentReview" resultMap="studentReviewResult" parameterType="studentReview">
+		select *
+		from studentReview
+		where course_id=#{courseId} and teacher_id=#{teacherId} and student_id=#{studentId}
+	</select>
 </mapper>

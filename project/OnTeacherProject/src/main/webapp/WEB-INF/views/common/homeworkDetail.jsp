@@ -53,20 +53,18 @@
 				</table>
 			</form>
 		<%-- </c:if> --%>
-		<c:if test="${fn:substring(user_id,0,1)}=='3'">
-			<div class="card" style="width: 18rem;">
-				<div class="card-header">제출된 과제 목록</div>
-				<div class="list-group list-group-flush d-flex bd-highlight mb-3">
-					<c:forEach var="answer" items="${homeworkAnswerList }"
-						varStatus="status">
-						<a href="" class="list-group-item"> <span
-							class="p-2 bd-highlight">제출한 학생 이름</span> <span
-							class="p-2 bd-highlight"><i class="fas fa-paperclip"></i>
-								${answer.filename }</span> <span
-							class="ms-auto p-2 bd-highlight text-secondary">${answer.createdAt }</span>
-						</a>
-					</c:forEach>
-				</div>
+		<c:if test="${fn:substring(user_id,0,1)=='3'}">
+	  		<div class="card" style="width: 18rem;">
+			  <div class="card-header">제출된 과제 목록</div>
+			  <div class="list-group list-group-flush d-flex bd-highlight mb-3">
+		  	    <c:forEach var="answer" items="${homeworkAnswerList }" varStatus="status">
+				  <a href="" class="list-group-item">
+					  <span class="p-2 bd-highlight">제출한 학생 이름</span>
+					  <span class="p-2 bd-highlight"><i class="fas fa-paperclip"></i> ${answer.filename }</span>
+					  <span class="ms-auto p-2 bd-highlight text-secondary">${answer.createdAt }</span>
+				  </a>
+		  	    </c:forEach>
+  			  </div>
 			</div>
 		</c:if>
 	</div>
