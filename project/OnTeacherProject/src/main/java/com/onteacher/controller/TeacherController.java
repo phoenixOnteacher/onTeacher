@@ -31,6 +31,7 @@ import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
@@ -140,7 +141,14 @@ public class TeacherController {
 		int courseId = Integer.parseInt(course_id);
 		try {
 			// 선생님인지 확인하는 코드 추가하기
-			model.addAttribute("course", courseService.queryCourseById(courseId));
+			Course course = courseService.queryCourseById(courseId);
+			HighCategory highCategory = courseService.queryHighCategoryById(course.getHighCategoryId());
+			LowCategory lowCategory = courseService.queryLowCategoryById(course.getLowCategoryId());
+			Teacher teacher = courseService.queryTeacherById(course.getTeacherId());
+			model.addAttribute("highCategory", highCategory);
+			model.addAttribute("lowCategory", lowCategory);
+			model.addAttribute("teacher", teacher); 
+			model.addAttribute("course", course);
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId, userId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
 			model.addAttribute("page", "teacher/courseManageDetail");
