@@ -30,7 +30,8 @@
 			<tr>
 				<td class="thead"><label for="phoneNumber">전화번호</label></td>
 				<td class="tbody"><input type="tel" name="phoneNumber"
-					id="phoneNumber" class="form-control" required="required"></td>
+					id="phoneNumber" placeholder="(예: 010-1234-5678)"
+					class="form-control" required="required"></td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="address">주소</label></td>
