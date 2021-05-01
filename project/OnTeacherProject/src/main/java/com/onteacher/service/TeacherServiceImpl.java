@@ -39,6 +39,26 @@ public class TeacherServiceImpl implements TeacherService {
 		return false;
 	}
 
+	
+	@Override
+	public List<Teacher> certConfirm() throws Exception {
+		return teacherDAO.baseCertTeacher();
+	}
+
+	@Override
+	public void certApproved(String email) throws Exception {
+		teacherDAO.updateActive(email);
+		teacherDAO.updateApproved(email);
+	}
+	
+	@Override
+	public void certRejected(String email) throws Exception {
+		teacherDAO.updateActive(email);
+		teacherDAO.updateRejected(email);
+	}
+
+
+
 	@Override
 	public Teacher teacherInfo(int teacherId) throws Exception {
 		Teacher teacher = teacherDAO.selectTeacherByTeacherId(teacherId);
@@ -51,3 +71,4 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 	
 }
+
