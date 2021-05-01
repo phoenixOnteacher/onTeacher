@@ -71,7 +71,7 @@
 		<result column="status" property="status" />
 	</resultMap>
 
-	<select id="selectCourseWaitingList" parameterType="int"
+	<select id="selectCourseMatchingListByStudentId" parameterType="int"
 		resultMap="courseMap">
 		<![CDATA[
 		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.id as teacher_id, t.name, t.profile_img
@@ -80,13 +80,25 @@
 		and c.id in (select course_id 
 		             from matching 
 		             where student_id = #{studentId})
-		and c.status in ('matching', 'matched')
+		and c.status ='matching'
 		]]>
 	</select>
-	<select id="selectCourseStudyingList" parameterType="int"
+	<select id="selectCourseMatchedListByStudentId" parameterType="int"
 		resultMap="courseMap">
 		<![CDATA[
-		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='matched'
+		]]>
+	</select>
+	<select id="selectCourseStudyingListByStudentId" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.id as teacher_id, t.name, t.profile_img
 		from course c, teacher t
 		where c.teacher_id = t.id
 		and c.id in (select course_id 
@@ -95,10 +107,10 @@
 		and c.status ='studying'
 		]]>
 	</select>
-	<select id="selectCourseEndList" parameterType="int"
+	<select id="selectCourseEndListByStudentId" parameterType="int"
 		resultMap="courseMap">
 		<![CDATA[
-		select c.id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.name, t.profile_img
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, t.id as teacher_id, t.name, t.profile_img
 		from course c, teacher t
 		where c.teacher_id = t.id
 		and c.id in (select course_id 

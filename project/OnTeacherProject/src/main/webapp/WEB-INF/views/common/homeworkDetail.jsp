@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<script src="${path }/resources/js/course_tab.js"></script>
+<script src="${path }/resources/js/course_manage.js"></script>
+
 <div id="" class="m-5 px-5">
 	<div id="">
 		<h1>Homework Detail</h1>
@@ -31,7 +34,7 @@
 				</tr>
 			</tbody>
 		</table>
-		<%-- <c:if test="${fn:substring(user_id,0,1)}=='2'"> --%>
+		<c:if test="${fn:substring(user_id,0,1)}=='2'"> 
 			<br>
 			<h1>과제 작성</h1>
 			<form action="">
@@ -52,7 +55,7 @@
 					</tbody>
 				</table>
 			</form>
-		<%-- </c:if> --%>
+		</c:if>
 		<c:if test="${fn:substring(user_id,0,1)=='3'}">
 	  		<div class="card" style="width: 18rem;">
 			  <div class="card-header">제출된 과제 목록</div>

@@ -48,13 +48,13 @@ $(function(){
 		  <tbody>
 		    <tr>
 		      <td rowspan="3" ><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
-		      <td><a href="/student/courseStudyingDetail?courseId=${course.id}">${course.title}</a></td>
+		      <td><a href="/student/courseWaitingDetail?courseId=${course.id}">${course.title}</a></td>
 		      	<c:set var="status" value="${course.status}"/>
 		      	<c:choose>
 		      		<c:when	test="${status eq 'matching'}">
 				      <td><a href="./applyCancle?courseId=${course.id}" id="${course.id}"></a><input type="button" value="신청취소" class="cancle_button ${course.id}"></td>
 		      		</c:when>
-		      		<c:when	test="${status eq 'match	ed'}">
+		      		<c:when	test="${status eq 'matched'}">
 					  <td><button disabled="disabled">신청취소</button></td>		      		
 		      		</c:when>
 		      	</c:choose>

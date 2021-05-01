@@ -80,8 +80,8 @@ public class CommonController {
 	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
-//		int user_id = Integer.parseInt((String) session.getAttribute("id"));
-		int user_id = 3; 
+		int user_id = (int) session.getAttribute("id");
+//		int user_id = 3; 
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
 			Homework hw = courseService.queryHomework(homeworkId);

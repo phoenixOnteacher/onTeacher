@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+
 <script src="${path }/resources/js/course_list.js"></script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
@@ -16,11 +17,11 @@
 		</div>
 		<div class="row mt-3">
 			<nav class="nav flex-column col-3">
-				<a class="nav-link text-reset" aria-current="page" href="#teahcer"
+				<a class="nav-link text-reset" aria-current="page" href="#Redirect"
 					data-toggle="tab" data-load="false">내 선생님</a> <a
-					class="nav-link active in text-reset" href="#detail"
+					class="nav-link active in text-reset" href="#Redirect"
 					data-toggle="tab" data-load="true">수업 상세</a> <a
-					class="nav-link text-reset" href="#homework" data-toggle="tab"
+					class="nav-link text-reset" href="/student/courseStudyingHomeworkList?courseId=${course.id}" data-toggle="tab"
 					data-load="false">과제</a>
 			</nav>
 			<div class="tab-content col-9">

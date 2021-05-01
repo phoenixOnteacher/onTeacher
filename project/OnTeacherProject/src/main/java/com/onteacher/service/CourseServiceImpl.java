@@ -42,25 +42,14 @@ public class CourseServiceImpl implements CourseService {
 	TeacherDAO teacherDAO;
 
 	@Override
-	public List<Course> courseWaitingList(int studentId) {
-		return courseDAO.selectCourseWaitingList(studentId);
-	}
-
-
-	@Override
-	public List<Course> courseStudyingList(int studentId) {
-		return courseDAO.selectCourseStudyingList(studentId);
-	}
-
-
-	@Override
-	public List<Course> courseEndList(int studentId) {
-		return courseDAO.selectCourseEndList(studentId);
-	}
-	
-	@Override
 	public Course queryCourseById(int courseId) throws Exception {
-		return courseDAO.selectCourseById(courseId);
+		Course course = courseDAO.selectCourseById(courseId);
+		System.out.println("서비스 문제없다");
+		System.out.println(course);
+		System.out.println(course.getId());
+		course.setStartDate(course.getStartDate().substring(0,10));
+		course.setEndDate(course.getEndDate().substring(0,10));
+		return course;
 	}
 	
 	@Override
@@ -98,5 +87,11 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> selectCourseForIndex() {
 		return courseDAO.selectCourseForIndex();
+	}
+
+
+	@Override
+	public List<Course> courseMatchingList(int studentId) {
+		return null;
 	}
 }

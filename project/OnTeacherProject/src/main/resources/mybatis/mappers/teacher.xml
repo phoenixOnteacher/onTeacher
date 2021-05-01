@@ -38,4 +38,12 @@
 		email=#{email}
 		]]>
 	</select>	
+	<select id="selectMatchingTeacherByCourseId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select t.*
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id = #{courseId}
+		]]>
+	</select>
 </mapper>
