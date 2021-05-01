@@ -10,7 +10,7 @@
 			<a href="." class="text-secondary h5 text-decoration-none">${course.title }</a>
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
 		</div>
-		<h2>Homework Form</h2>
+		<h2>과제 내기</h2>
 		<form action="" method="post">
 			<div class="mb-3">
 			  <label for="homeworkTitle" class="form-label">과제 제목</label>
@@ -33,5 +33,5 @@
 	</div>
 </div>
 <script>
-	document.getElementById('homeworkDeadline').min = new Date().toISOString().substring(0, 10);
+	$('#homeworkDeadline').min = new Date().toISOString().substring(0, 10);
 </script>
