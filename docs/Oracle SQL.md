@@ -47,6 +47,8 @@
 CONSTRAINT (제약조건 테이블 이름) FOREIGN KEY (FK를 지정할 필드 이름) REFERENCES (참조 테이블 이름) (참조 필드)
 ```
 
+
+
 ```sql
 CREATE TABLE Student (
     "id"	(type)

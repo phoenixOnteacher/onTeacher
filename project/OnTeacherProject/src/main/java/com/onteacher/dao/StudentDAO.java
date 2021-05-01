@@ -18,4 +18,7 @@ public interface StudentDAO {
 	public Student selectStudent(String email) throws Exception;
 
 	public Student selectqueryStudentById(int studentId);
+
+	public Student selectStudentByStudentId(int StudentId) throws Exception;
+
 }

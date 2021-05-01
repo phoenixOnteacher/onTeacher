@@ -1,21 +1,21 @@
 @charset "UTF-8";
 
-#stj_wrap {
+#thj_wrap {
 	align-items: center;
-	max-width: 700px;
-	font-family: 'S-CoreDream-4Regular';
 	margin: 0 auto;
+	max-width: 700px;
 	border: 1px solid #ededed;
-	padding: 50px;
 	margin-top: 80px;
+	padding: 50px;
+	font-family: 'S-CoreDream-4Regular';
 	font-size: 14px;
 }
 
-#stj_title_wrap {
+#thj_title_wrap {
+	margin-bottom: 2.5rem;
+	text-align: center;
 	font-family: 'S-CoreDream-3Light';
 	font-size: 22px;
-	text-align: center;
-	margin-bottom: 2.5rem;
 }
 
 table {
@@ -38,18 +38,22 @@ td.tbody {
 	width: 60%;
 }
 
+td.certi {
+	font-size: 12px;
+}
+
 input.form-control, textarea.form-control {
 	height: 32px;
     padding: 4px 10px;
 	font-size: 14px;
 }
 
-textarea#introduction {
+textarea#introduction, textarea#description {
 	resize: none;
 	height: 120px;
 }
 
-#stjoin_btn {
+#thjoin_btn {
 	text-align: center;
 	margin-top: 30px;
 }
@@ -64,4 +68,8 @@ button.btn-primary {
 button.btn-primary:hover {
 	background-color: #FF8184;
 	border-color: #FF8184;
+}
+
+#thj_line {
+	margin: 3.5rem 0;
 }
