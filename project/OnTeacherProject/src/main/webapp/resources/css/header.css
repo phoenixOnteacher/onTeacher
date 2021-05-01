@@ -11,9 +11,10 @@ nav.navbar {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	padding: 0 200px;
+	padding: 0 230px;
 	margin: 0;
 	border: 0;
+	border-bottom: 1px solid #ededed;
 	font-family: 'S-CoreDream-5Medium';
 	transition: background-color 0.5s ease 0s;
 	font-size: 16px;
@@ -46,6 +47,7 @@ nav.fixed-top {
 
 #navbar_menu li a {
 	color: black;
+	text-decoration: none;
 }
 
 #navbar_menu li:not(:last-child) {
@@ -97,7 +99,6 @@ nav.navbar:after {
 	text-align: right;
 	font-size: 14.4px;
 	padding-right: 3px;
-	padding-top: 5px;
 	padding-bottom: 10px;
 }
 

@@ -3,77 +3,114 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
 <meta charset="UTF-8">
-<title>수업 검색</title>
+<!-- include libraries(jQuery, bootstrap) -->
+<link
+	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-</head>
+<!-- include summernote css/js -->
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+
+<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
+	
+<head>
+	<style>
+	h2 {
+		text-align: center;
+	}
+	table {
+		width: 50%;
+	}
+	#outter {
+		display: block;
+		width: 60%;
+		margin: auto;
+	}
+	a {
+		text-decoration: none;
+	}
+	.center {
+    margin: auto;
+    width: 50%;
+    border: 1px solid black;
+    padding: 10px;
+    }
+    .center2 {
+    margin: auto;
+    width: 30%;
+    border: 1px solid black;
+    padding: 10px;
+}
+</style>
+</head>	
+	
 <body>
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-<div id="cr_wrap">
+	<div>
 	<form action="searchCourse" method="post" id="courseRegForm">
-		<table border="1">
+		<div style="display: block; text-align: center;">	
+		<table class="center" border="1">
 			<tr>
-				<td><label for="highcategory">수업 카테고리</label></td>
-				<td><select required="required" id="highcategory" name="highcategory">
-						<option value="">선택해주세요</option>
-						<c:forEach var="high" items="${highCategory }">
-							<option value="${high.id }">${high.name }</option>
-						</c:forEach>
+				<td class="thead"><label for="highcategory">수업 카테고리</label></td>
+				<td class="tbody"><select required="required" id="highcategory" name="highcategory">
+					<option value="">선택해주세요</option>
+					<c:forEach var="high" items="${highCategory }">
+						<option value="${high.id }">${high.name }</option>
+					</c:forEach>
 				</select> <select required="required" id="lowcategory" name="lowcategory">
-						<!-- jquery에서 option 동적생성 처리 -->
-						<option value="">선택해주세요</option>
+					<!-- jquery에서 option 동적생성 처리 -->
+					<option value="">선택해주세요</option>
 				</select>
 			</tr>
 			<tr>
-				<td><label for="target">수업 대상</label></td>
-				<td><select required="required" id="target" name="target">
-						<option value="">선택해주세요</option>
-						<option value="초등">초등학생</option>
-						<option value="중등">중학생</option>
-						<option value="고등">고등학생</option>
+				<td class="thead"><label for="target">수업 대상</label></td>
+				<td class="tbody"><select required="required" id="target" name="target">
+					<option value="">선택해주세요</option>
+					<option value="초등">초등학생</option>
+					<option value="중등">중학생</option>
+					<option value="고등">고등학생</option>
 				</select></td>
 			</tr>
 			<tr>
-				<td><label for="isonline">수업 방식</label></td>
-				<td><input type="radio" name="isonline" value='1'
+				<td class="thead"><label for="isonline">수업 방식</label></td>
+				<td class="tbody"><input type="radio" name="isonline" value='1'
 					id="online" class="isonline">온라인 <input type="radio" name="isonline"
 					value='0' id="offline" class="isonline">오프라인</td>
 			</tr>		
-			<tr>
-				<td><button type="submit" id="submit_btn">검색하기</button></td>
-			</tr>
-		</table>
+				<tr><td class="tbody">
+				<button type="submit" id="submit_btn">검색하기</button>
+				<td></tr>		
+		</table>	
+		</div>
 	</form>
+	<div>
+	<p>&nbsp;</p>
+	</div>
+	
 </div>
+</body>
 
-
-<div>
+<div id="outter">
+	<div style="float: right;">
 <table>
-
 <tr><td>
 <select id="browsers" name="browsers" multiple size="1" required="required">
     <option value="최신순">최신순</option>
     <option value="마감순">마감순</option>
     <option value="인기순">인기순</option>
 </select></td></tr>
-    
 </table>
-
-<c:forEach var="course" items="${courses}">
-	<table border="1">
-		<tr><td>${course.title}</td></tr>
-		<tr><td>${course.location}</td></tr>
-		<tr><td>${course.studyDay} ${course.studyTime}</td></tr>
-		<tr><td>${course.startDate} ~ ${course.endDate}</td></tr>				
-	</table>
-</c:forEach>
-
 </div>
 
+
+</div>
 </body>
 
 <script>
@@ -143,6 +180,57 @@ $(function() {
 		}
 	})
 });
-
 </script>
+
+<script>
+	function selChange() {
+		var sel = document.getElementById('cntPerPage').value;
+		location.href="boardList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+	}
+</script>
+<body>
+<div id="outter">
+	<div style="float: left;">
+		<select id="cntPerPage" name="sel" onchange="selChange()">
+			<option value="5"
+				<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+			<option value="10"
+				<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+			<option value="15"
+				<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+			<option value="20"
+				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+		</select>
+	</div> <!-- 옵션선택 끝 --></div>
+	<div>
+		<p>&nbsp;</p>	
+	</div>
+	<c:forEach var="course" items="${courses}">
+		<table class="center2" border="1">
+			<tr><td>${course.title}</td></tr>
+			<tr><td>${course.location}</td></tr>
+			<tr><td>${course.studyDay} ${course.studyTime}</td></tr>
+			<tr><td>${course.startDate} ~ ${course.endDate}</td></tr>	
+		</table>
+	</c:forEach>
+	
+	<div style="display: block; text-align: center;">		
+		<c:if test="${paging.startPage != 1 }">
+			<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage }">
+					<b>${p }</b>
+				</c:when>
+				<c:when test="${p != paging.nowPage }">
+					<a href="/boardList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<a href="/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+		</c:if>
+	</div>
+
 </html>
