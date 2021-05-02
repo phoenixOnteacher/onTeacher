@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<script src="${path }/resources/js/homework_detail.js"></script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
@@ -34,7 +35,7 @@
 		      <td colspan="1" class="text-center px-3">${fn:substring(homework.deadline,0,10) }</td>
 		    </tr>
 		    <tr>
-		      <th colspan="1" class="text-center px-3">Content</th>
+		      <th colspan="1" class="text-center px-5 align-middle">Content</th>
 		      <td colspan="3" class="px-3" style="white-space: pre-wrap;">${homework.content }</td>
 		    </tr>
 		  </tbody>
@@ -51,13 +52,13 @@
 				    <div class="accordion-item">
 				      <h2 class="accordion-header" id="flush-headingOne">
 				        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne-${student.id }" aria-expanded="false" aria-controls="flush-collapseOne">
-				          <h5 class="mb-0">${student.name } 학생</h5><c:if test="${empty student.homeworkAnswer }"><span class="badge bg-danger ms-1 collapse-badge">미제출</span></c:if>
+				          <h5 class="mb-0">${student.name } 학생</h5><c:if test="${empty student.homeworkAnswer }"><span class="badge bg-danger ms-2 collapse-badge">미제출</span></c:if>
 				        </button>
 				      </h2>
 				      <c:if test="${!empty student.homeworkAnswer }">
 					      <div id="flush-collapseOne-${student.id }" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 					        <div class="accordion-body">
-					      	  <p class="h6">${student.homeworkAnswer.content }</p>
+					      	  <p class="h6" style="white-space: pre-wrap;">${student.homeworkAnswer.content }</p>
 					      	  <i class="fas fa-paperclip"></i> ${student.homeworkAnswer.filename }
 					      	  <small class="text-secondary float-end">${student.homeworkAnswer.createdAt } 제출</small>
 				      	    </div>
