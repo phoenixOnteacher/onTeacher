@@ -159,7 +159,7 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 내기 */
+	/* 과제 내기 폼 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
@@ -179,25 +179,25 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 상세 페이지 */
-//	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-//	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
-//		HttpSession session = request.getSession();
-////		int userId = Integer.parseInt((String) session.getAttribute("id"));
-//		int userId = 3;
-//		int courseId = Integer.parseInt(course_id);
-//		hw.setCourseId(courseId);
-//		try {
-//			courseManageService.setHomework(hw);
-//			model.addAttribute("homework", hw);
-//			model.addAttribute("course", courseService.queryCourseById(courseId));
-//			model.addAttribute("page", "common/homeworkDetail");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("page", "index");
-//		}
-//		return "template";
-//	}
+	/* 과제 내기 */
+	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
+	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+		HttpSession session = request.getSession();
+//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = 3;
+		int courseId = Integer.parseInt(course_id);
+		hw.setCourseId(courseId);
+		try {
+			courseManageService.setHomework(hw);
+			model.addAttribute("homework", hw);
+			model.addAttribute("course", courseService.queryCourseById(courseId));
+			model.addAttribute("page", "common/homeworkDetail");
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("page", "index");
+		}
+		return "template";
+	}
 
 	/* 학생 후기 작성 폼 */
 //	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.GET)
