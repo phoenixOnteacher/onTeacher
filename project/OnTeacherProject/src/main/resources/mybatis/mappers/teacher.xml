@@ -74,10 +74,7 @@
 		where email=#{email}
 		]]>
 	</update>
-	
-
-
-	
+		
 	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
 		<![CDATA[
 		select * 
