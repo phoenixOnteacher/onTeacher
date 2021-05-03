@@ -69,6 +69,7 @@
 		<result column="classinfo" property="curriculum" />
 		<result column="classinfo_file" property="curriculumFile" />
 		<result column="status" property="status" />
+		<result column="low_category_name" property="lowCategoryName" />
 	</resultMap>
 
 	<select id="selectCourseWaitingList" parameterType="int"
@@ -138,29 +139,36 @@
 	<select id="selectStudyingCourseList" resultMap="courseResult"
 		parameterType="int">
 		<![CDATA[
-		select * from course
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
 		where teacher_id=#{teacherId} and status='studying'
 		]]>
 	</select>
 	<select id="selectEndCourseList" resultMap="courseResult"
 		parameterType="int">
 		<![CDATA[
-		select * from course
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
 		where teacher_id=#{teacherId} and status='end'
 		]]>
 	</select>
 	<select id="selectMatchingCourseList" resultMap="courseResult"
 		parameterType="int">
 		<![CDATA[
-		select *
-		from course
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
 		where teacher_id=#{teacherId} and status='matching'
 		]]>
 	</select>
 	<select id="selectMatchedCourseList" resultMap="courseResult"
 		parameterType="int">
 		<![CDATA[
-		select * from course
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
 		where teacher_id=#{teacherId} and status='matched'
 		]]>
 	</select>

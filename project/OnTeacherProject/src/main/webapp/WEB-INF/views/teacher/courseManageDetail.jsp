@@ -153,10 +153,12 @@
 		    	</c:forEach>
 			  </div>
 			  <div class="tab-pane fade show active" id="detail">
-				<h1>상세 페이지</h1>
+				<jsp:include page="../common/courseDetail.jsp"/>
 			  </div>
 			  <div class="tab-pane fade" id="homework">
-				<a href="${course.id }/homework" class="btn btn-primary float-end">과제 내기</a>
+			  	<c:if test="${course.status=='studying' }">
+					<a href="/teacher/course-manage/${course.id }/homework" class="btn btn-primary float-end">과제 내기</a>
+			  	</c:if>
 				<table class="table table-hover">
 				  <thead>
 				    <tr>

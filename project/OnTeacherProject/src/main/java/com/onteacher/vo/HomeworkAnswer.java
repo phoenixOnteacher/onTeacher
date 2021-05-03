@@ -11,6 +11,7 @@ public class HomeworkAnswer {
 	private String createdAt; //Date
 	private int studentId; //FK
 	private int homeworkId; //FK
+	private String content;
 	
 	public String getFilename() {
 		return filename;
@@ -35,6 +36,12 @@ public class HomeworkAnswer {
 	}
 	public void setHomeworkId(int homeworkId) {
 		this.homeworkId = homeworkId;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	
 	@Override
