@@ -19,7 +19,7 @@
 			<li><a href="#">수업검색</a></li>
 			<li><a href="/teacher/course-manage">수업관리</a></li>
 			<!-- OCR 인식은 추후에 회원만 가능하도록 변경 -->
-			<li><a href="/ocr/ocr-main">OCR 인식</a></li>
+			<li><a href="/ocr/main">OCR 인식</a></li>
 			<li><a href="#">질문게시판</a></li>
 			
 			<c:choose>
