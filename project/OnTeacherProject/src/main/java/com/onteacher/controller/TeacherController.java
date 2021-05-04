@@ -186,7 +186,7 @@ public class TeacherController {
 	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file, @ModelAttribute Homework hw, @PathVariable String course_id,
 			Model model, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
-		int userId = Integer.parseInt((String) session.getAttribute("id"));
+		int userId = (int) session.getAttribute("id");
 //		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		hw.setCourseId(courseId);

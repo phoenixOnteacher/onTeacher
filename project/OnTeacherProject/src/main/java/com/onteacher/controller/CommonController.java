@@ -84,6 +84,7 @@ public class CommonController {
 	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
+//		int userId = 399999;
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
 			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,userId);
@@ -111,13 +112,13 @@ public class CommonController {
 		String sfilename = null;
 		FileInputStream fis = null;
 		try {
-			// if(ie){
-			// 브라우저 정보에 따라 utf-8변경
+			String downloadFileName = file.getName().substring(25);
+			// 브라우저 정보에 따라 utf-8 변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
-				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+				sfilename = URLEncoder.encode(downloadFileName, "utf-8");
 			} else {
-				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
+				sfilename = new String(downloadFileName.getBytes("utf-8"), "ISO-8859-1");
+			}
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/octet-stream;charset=utf-8");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
@@ -136,9 +137,7 @@ public class CommonController {
 				} catch (Exception e) {
 				}
 			}
-		} // try end;
-		
+		}	
 	}
-	
 
 }
