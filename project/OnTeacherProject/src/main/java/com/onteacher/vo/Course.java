@@ -29,6 +29,7 @@ public class Course {
 	private int lowCategoryId; //FK
 	private Teacher teacher;
 	private List<Student> studentList;
+	private String lowCategoryName;
 	
 	public int getId() {
 		return id;
@@ -161,6 +162,12 @@ public class Course {
 	}
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
+	}
+	public String getLowCategoryName() {
+		return lowCategoryName;
+	}
+	public void setLowCategoryName(String lowCategoryName) {
+		this.lowCategoryName = lowCategoryName;
 	}
 	
 	@Override

@@ -19,11 +19,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
-
 
 @Controller
 @RequestMapping
@@ -34,6 +34,9 @@ public class CommonController {
 	
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	CourseManageService courseManageService;
 	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -78,15 +81,18 @@ public class CommonController {
 	
 	// homework detail page로 이동
 	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
-	public String courseManage(HttpServletRequest request, Model model, @PathVariable String homework_id) {
+	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
-		int user_id = (int) session.getAttribute("id");
-//		int user_id = 3; 
+		int userId = (int) session.getAttribute("id");
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
+			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,userId);
 			Homework hw = courseService.queryHomework(homeworkId);
-			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,user_id);
-			model.addAttribute("user_id",user_id);
+			int courseId = hw.getCourseId();
+			// model.addAttribute("homeworkAnswerList",);
+			model.addAttribute("user_id", userId);
+			model.addAttribute("students", courseManageService.queryStudentListAndHomeworkAnswer(homeworkId));
+			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("homework", hw);
 			model.addAttribute("homeworkAnswer",ha);
 			model.addAttribute("page", "common/homeworkDetail");

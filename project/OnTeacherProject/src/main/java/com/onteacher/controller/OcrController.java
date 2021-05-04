@@ -26,13 +26,13 @@ import com.onteacher.service.OcrService;
 @RequestMapping("/ocr")
 public class OcrController {
 	
-	@RequestMapping(value="/ocr-main", method=RequestMethod.GET) // 주소 : localhost:8090/ocr/ocr-main
+	@RequestMapping(value="/main", method=RequestMethod.GET) // 호출 주소 : localhost:8090/ocr/main
 	public String ocrMain(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "ocr/ocrInsertForm");
 		return "template";		
 	}
 	
-	@RequestMapping(value = "/ocrImageUpload", method = RequestMethod.POST)
+	@RequestMapping(value = "/ImageUpload", method = RequestMethod.POST)
 	public String imageUpload(MultipartHttpServletRequest mtfRequest, Model model)
 			throws IllegalStateException, IOException {
 		String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");

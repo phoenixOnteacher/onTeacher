@@ -206,5 +206,20 @@ public class StudentController {
 			e.printStackTrace();
 		}
 	}
-	
+
+	@RequestMapping(value="/studentDetail", method=RequestMethod.GET)
+	public String studentDetail(@RequestParam(value = "studentId") int studentId, Model model,
+			HttpServletRequest request) {
+		try {
+			Student student = studentService.studentInfo(studentId);
+			String path = "/stprofileupload/";
+			student.setProfileImg(path+student.getProfileImg());
+			model.addAttribute("student",student);
+			model.addAttribute("page","student/studentDetail");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "template";
+	}
 }

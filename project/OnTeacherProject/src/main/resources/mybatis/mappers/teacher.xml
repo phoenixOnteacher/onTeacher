@@ -24,12 +24,14 @@
 		<result column="status" property="status" />
 		<result column="message" property="message" />
 	</resultMap>
+	
 	<insert id="insertTeacher" parameterType="teacher">
 		<![CDATA[
 		insert into teacher(id,email,name,password,phone_number,address,birthday,gender,profile_img,introduction,filename,description)
 		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
 		]]>
 	</insert>
+	
 	<select id="selectTeacher" resultType="teacher" parameterType="String">
 		<![CDATA[
 		select * 
@@ -37,7 +39,9 @@
 		where
 		email=#{email}
 		]]>
+
 	</select>	
+
 	<select id="selectMatchingTeacherByCourseId" resultMap="teacherResult" parameterType="int">
 		<![CDATA[
 		select t.*
@@ -46,4 +50,47 @@
 		and c.id = #{courseId}
 		]]>
 	</select>
+	
+	<select id="baseCertTeacher" resultMap="teacherResult" >
+		<![CDATA[
+		select name, id, email, phone_number, fileName, description
+		from teacher
+		where STATUS='submitted' 
+		order by name
+		]]>
+	</select>
+	
+	<update id="updateActive" parameterType="String">
+		<![CDATA[
+		update teacher
+		set ACTIVE='1'
+		where email=#{email}
+		]]>
+	</update>
+	
+	<update id="updateApproved" parameterType="String">
+		<![CDATA[
+		update teacher
+		set STATUS='approved'
+		where email=#{email}
+		]]>
+	</update>
+	
+	<update id="updateRejected" parameterType="String">
+		<![CDATA[
+		update teacher
+		set STATUS='rejected'
+		where email=#{email}
+		]]>
+	</update>
+		
+	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select * 
+		from teacher
+		where
+		id=#{teacherId}
+		]]>
+	</select>
+
 </mapper>

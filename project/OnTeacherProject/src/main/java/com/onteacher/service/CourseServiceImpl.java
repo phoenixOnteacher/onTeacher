@@ -102,6 +102,6 @@ public class CourseServiceImpl implements CourseService {
 
 	@Override
 	public HomeworkAnswer queryHomeworkAnswer(int homework_id, int user_id) {
-		return homeworkAnswerDAO.selectHomeworkAnswer(homework_id,user_id);
+		return homeworkAnswerDAO.selectHomeworkAnswerById(homework_id,user_id);
 	}
 }

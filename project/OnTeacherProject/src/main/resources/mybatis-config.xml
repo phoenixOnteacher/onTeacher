@@ -18,5 +18,6 @@
    <mapper resource="mybatis/mappers/studentReview.xml"/>
    <mapper resource="mybatis/mappers/teacher.xml"/>
    <mapper resource="mybatis/mappers/user.xml"/>
+   <mapper resource="mybatis/mappers/notification.xml"/>
  </mappers>
 </configuration>

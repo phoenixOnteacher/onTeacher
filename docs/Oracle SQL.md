@@ -16,6 +16,12 @@
 
   teacher 테이블의 message 필드의 타입을 varchar2(100)으로 바꿈
 
+#### 컬럼 삭제
+
+```sql
+ALTER TABLE 테이블명 DROP COLUMN 컬럼명
+```
+
 
 
 ## Constraint (제약조건)
@@ -46,6 +52,8 @@
 ```sql
 CONSTRAINT (제약조건 테이블 이름) FOREIGN KEY (FK를 지정할 필드 이름) REFERENCES (참조 테이블 이름) (참조 필드)
 ```
+
+
 
 ```sql
 CREATE TABLE Student (

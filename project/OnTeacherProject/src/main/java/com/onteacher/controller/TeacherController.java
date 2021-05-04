@@ -31,6 +31,7 @@ import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
@@ -140,7 +141,14 @@ public class TeacherController {
 		int courseId = Integer.parseInt(course_id);
 		try {
 			// 선생님인지 확인하는 코드 추가하기
-			model.addAttribute("course", courseService.queryCourseById(courseId));
+			Course course = courseService.queryCourseById(courseId);
+			HighCategory highCategory = courseService.queryHighCategoryById(course.getHighCategoryId());
+			LowCategory lowCategory = courseService.queryLowCategoryById(course.getLowCategoryId());
+			Teacher teacher = courseService.queryTeacherById(course.getTeacherId());
+			model.addAttribute("highCategory", highCategory);
+			model.addAttribute("lowCategory", lowCategory);
+			model.addAttribute("teacher", teacher); 
+			model.addAttribute("course", course);
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId, userId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
 			model.addAttribute("page", "teacher/courseManageDetail");
@@ -151,7 +159,7 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 내기 */
+	/* 과제 내기 폼 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
@@ -171,16 +179,18 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 상세 페이지 */
+	/* 과제 내기 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
 	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
 		int userId = 3;
-		hw.setCourseId(Integer.parseInt(course_id));
+		int courseId = Integer.parseInt(course_id);
+		hw.setCourseId(courseId);
 		try {
 			courseManageService.setHomework(hw);
 			model.addAttribute("homework", hw);
+			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -390,6 +400,21 @@ public class TeacherController {
 		course.setTeacherId(teacher_id);
 		courseManageService.registerCourse(course);
 		model.addAttribute("page", "teacher/course_register");
+		return "template";
+	}
+	@RequestMapping(value="/teacherDetail", method=RequestMethod.GET)
+	public String teacherDetail(@RequestParam(value = "teacherId") int teacherId, Model model,
+			HttpServletRequest request) {
+		try {
+			Teacher teacher = teacherService.teacherInfo(teacherId);
+			String path = "/thprofileupload/";
+			teacher.setProfileImg(path+teacher.getProfileImg());
+			model.addAttribute("teacher", teacher);
+			model.addAttribute("page", "teacher/teacherDetail");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		return "template";
 	}
 }

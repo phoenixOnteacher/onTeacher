@@ -44,7 +44,7 @@
 							  </div>
 						  </div>
 						  <div class="card-body">
-						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <h5 class="card-title">${course.target } ${course.lowCategoryName }</h5>
 						    <p>
 						    	<i class="fas fa-user-friends"></i> 
 							    <c:choose>
@@ -76,7 +76,7 @@
 						  	<small class="btn btn-primary float-end btn-sm">매칭 대기</small>
 					  	  </h5>
 						  <div class="card-body">
-						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <h5 class="card-title">${course.target } ${course.lowCategoryName }</h5>
 						    <p>
 						    	<i class="fas fa-user-friends"></i> 
 							    <c:choose>
@@ -107,7 +107,7 @@
 						  	<button class="startCourseBtn btn btn-success float-end btn-sm mx-2" value="${course.id }">수업 시작</button>
 						  </h5>
 						  <div class="card-body">
-						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <h5 class="card-title">${course.target } ${course.lowCategoryName }</h5>
 						    <p>
 						    	<i class="fas fa-user-friends"></i> 
 							    <c:choose>
@@ -136,7 +136,7 @@
 						<div class="card m-2">
 						  <h5 class="card-header p-3"><a href="/teacher/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a></h5>
 					      <div class="card-body">
-						    <h5 class="card-title">${course.target } Low-category</h5>
+						    <h5 class="card-title">${course.target } ${course.lowCategoryName }</h5>
 						    <p>
 						    	<i class="fas fa-user-friends"></i>
 						    	<c:choose>

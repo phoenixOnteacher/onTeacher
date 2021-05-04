@@ -11,6 +11,6 @@ import com.onteacher.vo.HomeworkAnswer;
 public interface HomeworkAnswerDAO {
 	public void insertHomeworkAnswer(HomeworkAnswer ha) throws Exception;
 //	public Homework selectHomeworkById(int id) throws Exception;
-
-	public HomeworkAnswer selectHomeworkAnswer(@Param("homework_id")int homework_id, @Param("user_id")int user_id);
+	public HomeworkAnswer selectHomeworkAnswerById(@Param("homework_id")int homework_id, @Param("user_id")int user_id);
+	public HomeworkAnswer selectHomeworkAnswer(HomeworkAnswer ha) throws Exception;
 }

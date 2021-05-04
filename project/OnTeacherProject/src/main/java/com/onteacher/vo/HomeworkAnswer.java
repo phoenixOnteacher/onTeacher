@@ -14,7 +14,6 @@ public class HomeworkAnswer {
 	private int studentId; //FK
 	private int homeworkId; //FK
 	private MultipartFile file;
-
 	
 	public String getFilename() {
 		return filename;
@@ -52,7 +51,7 @@ public class HomeworkAnswer {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "HomeworkAnswer [filename=" + filename + ", createdAt=" + createdAt + ", studentId=" + studentId
