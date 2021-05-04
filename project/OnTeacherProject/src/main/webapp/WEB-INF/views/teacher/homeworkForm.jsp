@@ -11,7 +11,7 @@
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
 		</div>
 		<h2>과제 내기</h2>
-		<form action="" method="post">
+		<form action="" method="post" enctype="multipart/form-data">
 			<div class="mb-3">
 			  <label for="homeworkTitle" class="form-label">과제 제목</label>
 			  <input type="text" class="form-control" id="homeworkTitle" name="title" required>
@@ -26,7 +26,7 @@
 			</div>
 			<div class="mb-3">
 			  <label for="homeworkFile" class="form-label">첨부 파일</label>
-			  <input class="form-control" type="file" id="homeworkFile" name="filename">
+			  <input class="form-control" type="file" id="homeworkFile" name="file">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
