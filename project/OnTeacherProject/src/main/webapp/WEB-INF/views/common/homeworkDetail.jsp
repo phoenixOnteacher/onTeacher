@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<script src="${path }/resources/js/course_tab.js"></script>
+<script src="${path }/resources/js/course_manage.js"></script>
 <script src="${path }/resources/js/homework_detail.js"></script>
+
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
@@ -27,7 +30,7 @@
 	  					<p class="text-secondary mb-0">파일 없음</p>
   					</c:when>
   					<c:otherwise>
-		      			<i class="fas fa-paperclip"></i> ${homework.filename }
+		      			<i class="fas fa-paperclip"></i> <a href="/hwfiledownload?filename=${homework.filename }">${homework.filename }</a>
   					</c:otherwise>
  				  </c:choose>
 		      </td>
@@ -40,8 +43,9 @@
 		    </tr>
 		  </tbody>
 		</table>
-		<c:if test="${fn:substring(user_id,0,1)=='2'}">
-			<jsp:include page="../student/homeworkAnswer.jsp"/>
+		<c:if test="${fn:substring(user_id,0,1)=='2'}"> 
+			<br>
+			<jsp:include page="../student/homeworkAnswer.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${fn:substring(user_id,0,1)=='3'}">
 	  		<div class="card" style="width: 100%;">
