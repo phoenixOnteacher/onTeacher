@@ -97,6 +97,7 @@ public class CommonController {
 		return "template";
 	}
 	
+	/* homework file 다운로드 */
 	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
 	public void homeworkfiledownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/homeworkupload/");

@@ -37,7 +37,7 @@ public class MyCourseServiceImpl implements MyCourseService {
 	HomeworkAnswerDAO homeworkAnswerDAO;
 
 	@Override
-	public void cancleMatching(int studentId, int courseId) {
+	public void cancelMatching(int studentId, int courseId) {
 		matchingDAO.deleteMatchingData(studentId,courseId);
 	}
 

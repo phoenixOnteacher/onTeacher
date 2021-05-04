@@ -9,7 +9,7 @@ import com.onteacher.vo.Teacher;
 
 public interface MyCourseService {
 
-	public void cancleMatching(int studentId, int courseId);
+	public void cancelMatching(int studentId, int courseId);
 
 	public List<Course> queryMatchingcourseListByStudentId(int studentId);
 

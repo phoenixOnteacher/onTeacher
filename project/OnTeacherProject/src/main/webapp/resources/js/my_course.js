@@ -10,7 +10,7 @@ $(function(){
 	function cancelCourse(course_id) {
 		$.ajax({
 			type: "DELETE",
-			url: "http://localhost:8090/student/applyCancle?courseId="+course_id,
+			url: "http://localhost:8090/student/applyCancel?courseId="+course_id,
 			success: function() {
 				location.reload();
 			}

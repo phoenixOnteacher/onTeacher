@@ -92,127 +92,7 @@ public class StudentController {
 		return modelAndView;
 	}
 	
-	//대기중인 수업 목록 조회
-	@RequestMapping(value="/courseWaitingList", method=RequestMethod.GET)
-	public ModelAndView courseWaitingList(HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		HttpSession session = request.getSession();
-		int studentId = (int) session.getAttribute("id");
-//		List<Course> courses = courseService.courseWaitingList(studentId);
-//		modelAndView.addObject("courses", courses);
-		modelAndView.addObject("page", "student/courseWaitingList");
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-	//진행중인 수업 목록 조회
-	@RequestMapping(value="/courseStudyingList", method=RequestMethod.GET)
-	public ModelAndView courseStudyingList(HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		HttpSession session = request.getSession();
-		int studentId = (int) session.getAttribute("id");
-//		List<Course> courses = courseService.courseStudyingList(studentId);
-//		modelAndView.addObject("courses", courses);
-		modelAndView.addObject("page", "student/courseStudyingList");
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-	//종료된 수업 목록 조회
-	@RequestMapping(value="/courseEndList", method=RequestMethod.GET)
-	public ModelAndView courseEndList(HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		HttpSession session = request.getSession();
-		int studentId = (int) session.getAttribute("id");
-//		List<Course> courses = courseService.courseEndList(studentId);
-//		modelAndView.addObject("courses", courses);
-		modelAndView.addObject("page", "student/courseEndList");
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-	/*
-	//대기중인 수업 - 신청 취소
-	@RequestMapping(value="/applyCancle", method=RequestMethod.GET)
-	public ModelAndView applyCancle(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
-		HttpSession session = request.getSession();
-		int studentId = (int) session.getAttribute("id");
-		//2. db에서 delete문 실행
-		myCourseService.cancleMatching(studentId,courseId);
-		//3. view 정의. 대기중인 수업 목록 조회 화면 그대로.
-//		List<Course> courses = courseService.courseWaitingList(studentId);
-//		modelAndView.addObject("courses", courses);
-		modelAndView.addObject("page", "student/courseWaitingList");
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	*/
-	
-	
-	//대기중인 수업 - 신청 취소
-	@ResponseBody
-	@RequestMapping(value="/applyCancle", method=RequestMethod.DELETE)
-	public void applyCancle(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
-		HttpSession session = request.getSession();
-		int studentId = (int) session.getAttribute("id");
-		//2. db에서 delete문 실행
-		myCourseService.cancleMatching(studentId,courseId);
-		//3. view 정의. 대기중인 수업 목록 조회 화면 그대로.
-//		List<Course> courses = courseService.courseWaitingList(studentId);
-//		modelAndView.addObject("courses", courses);
-	}
-	
-	//진행중인 수업 - 수업 상세
-	@RequestMapping(value="/courseStudyingDetail", method=RequestMethod.GET)
-	public ModelAndView courseStudyingDetail(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		try {
-			Course course = courseService.queryCourseById(courseId);
-			int highCategoryId = course.getHighCategoryId();
-			int lowCategoryId = course.getLowCategoryId();
-			int teacherId = course.getTeacherId();
-			HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
-			LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
-			Teacher teacher = courseService.queryTeacherById(teacherId);
-			modelAndView.addObject("course", course);
-			modelAndView.addObject("highCategory", highCategory);
-			modelAndView.addObject("lowCategory", lowCategory);
-			modelAndView.addObject("teacher", teacher);
-			modelAndView.addObject("page","student/courseStudyingDetail");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-	//진행중인 수업 - 수업 상세
-	@RequestMapping(value="/courseStudyingHomeworkList", method=RequestMethod.GET)
-	public ModelAndView courseStudyingHomeworkList(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
-		try {
-			List<Homework> homeworks = courseService.queryHomeworkList(courseId);
-			Course course = courseService.queryCourseById(courseId);
-			modelAndView.addObject("homeworks", homeworks);
-			modelAndView.addObject("course", course);
-			modelAndView.addObject("page","student/courseStudyingHomeworkList");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		modelAndView.setViewName("template");
-		return modelAndView;
-	}
-	
-	
-	/* 수업 관리 페이지로 이동 */
+	/* 수업 관리 페이지 - 대기중, 진행중, 종료된 수업 목록 조회 */
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
@@ -230,7 +110,7 @@ public class StudentController {
 		return "template";
 	}
 
-	/* 특정 수업 관리 */
+	/* 수업 관리 디테일 페이지 - 수업 관리 페이지에서 특정 수업을 클릭 했을 때 */
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
@@ -261,8 +141,21 @@ public class StudentController {
 		}
 		return "template";
 	}
+	
+	/* 신청 취소 - (대기중인 수업) */
+	@ResponseBody
+	@RequestMapping(value="/applyCancel", method=RequestMethod.DELETE)
+	public void applyCancel(@RequestParam(value = "courseId",required = true)int courseId,
+									HttpServletRequest request) {
+		ModelAndView modelAndView= new ModelAndView();
+		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
+		HttpSession session = request.getSession();
+		int studentId = (int) session.getAttribute("id");
+		//2. db에서 delete문 실행
+		myCourseService.cancelMatching(studentId,courseId);
+	}
 
-	/* 수업 후기 작성 */
+	/* 후기 작성 - (종료된 수업) */
 	@ResponseBody
 	@RequestMapping(value="/{course_id}/review", method = RequestMethod.POST)
 	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
@@ -279,13 +172,11 @@ public class StudentController {
 			cr.setContent(reqData.get("content"));
 			myCourseService.writeCourseReview(cr);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	
-	/* 숙제 작성. 숙제 목록은 commonController에 */
+	/* 숙제 작성. - (진행중인 수업) 숙제 목록은 commonController에 */
 	@RequestMapping(value = "/{homework_id}/homeworkanswer", method = RequestMethod.POST)
 	public void homeworkAnswer(@ModelAttribute HomeworkAnswer ha, HttpServletRequest request, Model model, @PathVariable String homework_id, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
@@ -311,48 +202,9 @@ public class StudentController {
 				e.printStackTrace();
 			}
 			myCourseService.createHomeworkAnswer(ha);
-//			model.addAttribute("homework", ha);
-//			model.addAttribute("page", "student/myCourseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-//			model.addAttribute("page", "index");
 		}
-//		return "template";
 	}
 	
-	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
-	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
-		File file = new File(saveDir + filename);
-		String sfilename = null;
-		FileInputStream fis = null;
-		try {
-			// if(ie){
-			// 브라우저 정보에 따라 utf-8변경
-			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
-				sfilename = URLEncoder.encode(file.getName(), "utf-8");
-			} else {
-				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
-			response.setCharacterEncoding("utf-8");
-			response.setContentType("application/octet-stream;charset=utf-8");
-			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
-			response.setHeader("Content-Transfer-Encoding", "binary");
-			OutputStream out = response.getOutputStream();
-			// 파일 카피 후 마무리
-			fis = new FileInputStream(file);
-			FileCopyUtils.copy(fis, out);
-			out.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (fis != null) {
-				try {
-					fis.close();
-				} catch (Exception e) {
-				}
-			}
-		} // try end;
-		
-	}
 }
