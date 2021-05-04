@@ -119,7 +119,7 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 399999;
 		// 리스트 불러오기
 		try {
@@ -138,7 +138,7 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		try {
@@ -165,7 +165,7 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		try {
@@ -186,8 +186,8 @@ public class TeacherController {
 	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file, @ModelAttribute Homework hw, @PathVariable String course_id,
 			Model model, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("id");
-//		int userId = 399999;
+//		int userId = (int) session.getAttribute("id");
+		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		hw.setCourseId(courseId);
 		
@@ -243,7 +243,7 @@ public class TeacherController {
 	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
 			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		StudentReview sr = new StudentReview();
 		sr.setTeacherId(userId);
@@ -262,7 +262,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
 	public void startCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
@@ -277,7 +277,7 @@ public class TeacherController {
 	public String extendCourse(HttpServletRequest request, @RequestParam(value="extendDate", required=true) String extendDate, Model model,
 			@PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
@@ -299,7 +299,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int c_id = Integer.parseInt(course_id);
@@ -317,7 +317,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.POST)
 	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();	
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		List<String> selectedStudents = reqData.get("selectedStudents");
@@ -337,7 +337,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
 	public void cancelMatching(HttpServletRequest request, @RequestBody Map<String, String> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		int studentId = Integer.parseInt(reqData.get("studentId"));
