@@ -10,7 +10,9 @@ public class Comment {
 	private String created_at; // Date
 	private int user_id; // FK
 	private int article_id; // FK
-
+	private String user_name;
+	
+	
 	public int getId() {
 		return id;
 	}
@@ -49,6 +51,14 @@ public class Comment {
 
 	public void setArticle_id(int article_id) {
 		this.article_id = article_id;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 }

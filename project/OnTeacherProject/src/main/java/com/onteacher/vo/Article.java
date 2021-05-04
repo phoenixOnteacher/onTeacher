@@ -17,6 +17,7 @@ public class Article {
 	private int user_id; // FK
 	private int s_row;
 	private int e_row;
+	private String user_name;
 
 	public int getS_row() {
 		return s_row;
@@ -96,6 +97,14 @@ public class Article {
 
 	public void setUser_id(int user_id) {
 		this.user_id = user_id;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
 	}
 
 }

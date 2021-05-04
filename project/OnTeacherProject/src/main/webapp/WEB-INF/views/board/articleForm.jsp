@@ -31,12 +31,18 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 <body>
 	<h1 style="text-align: center">글쓰기</h1>
 	<form action="/addArticle" method="post" enctype="multipart/form-data">
-		<input type="hidden" name="user_id" value="11111">
+		<input type="hidden" name="user_id" value="${sessionScope.id}">
 		<table border="0" align="center">
 			<tr>
+				
+			
+				
+				
 				<td align="right">작성자</td>
-				<td colspan=2 align="left"><input type="text" size="20"
-					maxlength="100" value="${student.name }" readonly /></td>
+				<td colspan="2">
+				<input type="text" size="20" maxlength="100" value="${user_name}" disabled />		
+				<input type="hidden" value="${user_name }"  name="user_name"/>
+				</td>
 			</tr>
 			<tr>
 				<td align="right">글제목:</td>
@@ -54,8 +60,8 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 			</tr>
 			<tr>
 				<td align="right"></td>
-				<td colspan="2"><input type="submit" value="글쓰기" /> <input
-					type=button value="목록보기" onClick="backToList(this.form)" /></td>
+				<td colspan="2"><input type="submit" value="글쓰기" /> 
+					<a href="listArticle?page=${pageNo}">목록보기</a></td>
 			</tr>
 		</table>
 	</form>

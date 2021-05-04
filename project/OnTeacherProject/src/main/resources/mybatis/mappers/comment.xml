@@ -4,12 +4,12 @@
 <mapper namespace="com.onteacher.dao.CommentDAO">
 
 
-	<select id="selectAllCommentList" resultType="comment"
+	<select id="selectCommentList" resultType="comment"
 		parameterType="int">
 		 <![CDATA[
-		SELECT id,content,created_at,user_id,article_id
-		FROM reply
-		WHERE article_id=#{article_id}
+		SELECT r.id as id, content,created_at,user_id,article_id, t.name as user_name
+		FROM reply r,teacher t
+		WHERE r.user_id=t.id and article_id=#{article_id}
 		ORDER BY id
 		]]>
 	</select>
@@ -21,26 +21,5 @@
 		]]>
 	</insert>
 
-	<delete id="deleteComment" parameterType="int">
-		<![CDATA[
-		delete from reply
-		WHERE id=#{id}
-		]]>
-	</delete>
-
-	<update id="updateComment" parameterType="comment">
-		 <![CDATA[
-		 UPDATE reply
-		SET content=#{content}
-		WHERE id=#{id}
-		]]>
-	</update>
-
-	<select id="selectComment" resultType="comment"
-		parameterType="int">
-		 <![CDATA[
-		 select * from Reply
-		where article_id=#{article_id}
-		]]>
-	</select>
+	
 </mapper>

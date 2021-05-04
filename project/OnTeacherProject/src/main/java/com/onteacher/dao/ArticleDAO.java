@@ -23,4 +23,10 @@ public interface ArticleDAO {
 	public void deleteArticle(int id) throws Exception;
 
 	public int selectArticleCount() throws Exception;
+	
+	public void updateHits(int id) throws Exception;
+	
+
+	
+	
 }

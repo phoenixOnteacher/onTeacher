@@ -17,4 +17,7 @@ public interface StudentDAO {
 	public void insertStudent(Student std) throws Exception;
 	public Student selectStudent(String email) throws Exception;
 	public Student selectStudentByStudentId(int StudentId) throws Exception;
+	public String selectStudentName(int id) throws Exception;
+	
+	
 }

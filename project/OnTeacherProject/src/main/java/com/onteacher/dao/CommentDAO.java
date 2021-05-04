@@ -11,13 +11,9 @@ import com.onteacher.vo.Comment;
 @Repository("commentDAO")
 public interface CommentDAO {
 
-	public List<Comment> selectAllCommentsList() throws Exception;
+	public List<Comment> selectCommentList(int article_id) throws Exception;
 
 	public void insertComment(Comment comment) throws Exception;
 
-	public void updateComment(Comment comment) throws Exception;
-
-	public void deleteComment(int id) throws Exception;
-
-	public List<Comment> selectComment(int article_id) throws Exception;
+	
 }

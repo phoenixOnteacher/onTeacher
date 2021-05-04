@@ -12,4 +12,8 @@ public interface StudentService {
 	public boolean login(String email, String password) throws Exception;
 	
 	public Student studentInfo(int studentId) throws Exception;
+	
+	public String studentName(int id) throws Exception;
+	
+	
 }

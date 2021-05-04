@@ -39,18 +39,20 @@ public class BoardServiceImpl implements BoardService {
 	public Article viewArticle(int id) throws Exception {
 		return articleDAO.selectArticle(id);
 	}
-	//아직 수정 삭제가 덜됨
-	@Override
-	public void modArticle(Article article) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-	//아직 수정 삭제가 덜됨
-	@Override
-	public void removeArticle(int id) throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+	
+	
+	  @Override 
+	  public void modArticle(Article article) throws Exception {
+	  articleDAO.updateArticle(article);
+	  
+	  }
+	  
+	  @Override 
+	  public void deleteArticle(int id) throws Exception { 
+	  articleDAO.deleteArticle(id);
+	  
+	  }
+	 
 
 	@Override
 	public int articleCount() throws Exception {
@@ -65,7 +67,21 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Comment> commentList(int article_id) throws Exception {
-		return commentDAO.selectComment(article_id);
+		List<Comment> list= commentDAO.selectCommentList(article_id);
+
+		return list;
 	}
+
+	@Override
+	public void plusHits(int id) throws Exception {
+		// TODO Auto-generated method stub
+		articleDAO.updateHits(id);
+	}
+
+	
+	
+
+	
+	
 
 }

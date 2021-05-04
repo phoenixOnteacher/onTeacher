@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <%
   request.setCharacterEncoding("UTF-8");
@@ -38,7 +39,10 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 </head>
 
 <body>
+	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
 	<a class="cls1" href="articleForm"><p class="cls2">글쓰기</p></a>
+	</c:if>
+	
 	<!-- ><a class="cls1" href="javascript:fn_articleForm"><p class="cls2">글쓰기</p></a>-->
 
 	<table align="center" border="1" width="80%">
@@ -64,10 +68,10 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 					varStatus="articleNO">
 					<tr align="center">
 						<td width="10%">${article.id }</td>
-						<td width="10%">${article.user_id}</td>
+						<td width="10%">${article.user_name}</td>
 						<td align='left' width="35%"><span
 							style="padding-right: 30px"></span> <a
-							href="./viewArticle?no=${article.id}">${article.title} </a></td>
+							href="./viewArticle?no=${article.id}&pageNo=${currentPage}">${article.title} </a></td>
 						<td width="10%">${article.created_at}</td>
 						<td width="5%">${article.hits}</td>
 					</tr>
