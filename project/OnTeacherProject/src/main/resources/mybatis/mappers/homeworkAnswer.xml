@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.HomeworkAnswerDAO">
+
 	<resultMap id="homeworkAnswerResult" type="homeworkAnswer">
 		<result column="content" property="content" />
 		<result column="filename" property="filename" />
@@ -9,12 +10,22 @@
 		<result column="student_id" property="studentId" />
 		<result column="homework_id" property="homeworkId" />
 	</resultMap>
+	
 	<insert id="insertHomeworkAnswer" parameterType="homeworkAnswer">
 		<![CDATA[
 		insert into homeworkAnswer(filename,content,student_id,homework_id)
 		values(#{filename},#{content},#{studentId},#{homeworkId})
 		]]>
 	</insert>
+	<select id="selectHomeworkAnswerById" resultMap="homeworkAnswerResult" parameterType="int">
+		<![CDATA[
+		select *
+		from homeworkAnswer
+		where student_id=#{user_id}
+		and homework_id=#{homework_id}
+		]]>
+	</select>
+	
 	<select id="selectHomeworkAnswer" resultMap="homeworkAnswerResult" parameterType="homeworkAnswer">
 		<![CDATA[
 		select *

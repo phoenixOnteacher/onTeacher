@@ -21,7 +21,6 @@ modelAndView.addObject("teacher", teacher);
 
 <div class="row mt-3">
 	<div class="tab-content col-9">
-		<h1>${course.title}</h1>
 		<div>
 			<c:set var="isOnline" value="${course.isOnline}" />
 			<c:set var="isOneday" value="${course.isOneday}" />
@@ -29,7 +28,7 @@ modelAndView.addObject("teacher", teacher);
 			<table class="table table-bordered">
 				<tr>
 					<td>수업 분류</td>
-					<td>${highCategory.name}>${lowCategory.name}</td>
+					<td>${highCategory.name} > ${lowCategory.name}</td>
 					<td>수업 대상</td>
 					<td>${course.target}</td>
 				</tr>
@@ -42,7 +41,7 @@ modelAndView.addObject("teacher", teacher);
 						<td>온라인</td>
 					</c:if>
 					<td>수업 일정</td>
-					<td>${course.startDate}~${course.endDate}</td>
+					<td>${course.startDate} ~ ${course.endDate}</td>
 				</tr>
 				<tr>
 					<td>수업 형태</td>
