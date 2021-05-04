@@ -14,13 +14,11 @@
 		출제하거나 과제를 제출하는 등 다양하게 활용할 수 있습니다.<br> <strong>*JPG 파일만
 			가능합니다.</strong>
 	</div>
-	<form method="post" action="ImageUpload"
-		enctype="multipart/form-data">
-		<input multiple="multiple" type="file" name="file" id="bfile"
-			class="form-control">
+	<form method="post" action="ImageUpload" enctype="multipart/form-data">
+		<input type="file" name="file" id="bfile" class="form-control">
 		<div id="ocr_btn">
 			<button type="submit" id="upload" class="btn btn-primary"
-				onclick="fileCheck( this.form.file )">파일 인식</button>
+				onclick="fileCheck( this.form.file )">글자 인식</button>
 		</div>
 	</form>
 </div>
