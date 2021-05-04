@@ -1,6 +1,23 @@
 # OnTeacher Deploy Guide  
 
+## STS 4 bootWar 생성하기
 
+1. build.gradle에서 ojdc10을 추가합니다.
+
+   > ojdbc6은 AWS에서 충돌을 일으키는 증상이 발견되었습니다. 
+
+   ``` java
+   dependencies 
+   {
+       ...
+       implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
+   	...
+   }
+   ```
+
+   ![build.gradle](md-images/build.gradle.jpg)
+
+   
 
 ## AWS EC2 ubuntu Linux 접속하기 
 
