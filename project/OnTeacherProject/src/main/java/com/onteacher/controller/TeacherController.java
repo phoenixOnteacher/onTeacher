@@ -3,6 +3,8 @@ package com.onteacher.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -118,7 +120,7 @@ public class TeacherController {
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 1;
+		int userId = 399999;
 		// 리스트 불러오기
 		try {
 			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(userId));
@@ -164,7 +166,7 @@ public class TeacherController {
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
 //		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 1;
+		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			Course course = courseService.queryCourseById(courseId);
@@ -181,12 +183,40 @@ public class TeacherController {
 
 	/* 과제 내기 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file, @ModelAttribute Homework hw, @PathVariable String course_id,
+			Model model, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 3;
+		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		hw.setCourseId(courseId);
+		
+		// 파일 업로드
+		if (!file.isEmpty()) {
+			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			
+			// 파일 이름을 식별하기 위한 처리
+			Date date_now = new Date(System.currentTimeMillis()); // 현재시간을 가져와 Date형으로 저장한다
+			SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMddHHmmss");
+			// 000010002_20210504110616_filename의 형태로 저장됨
+			String origFileName = String.format("%09d", courseId) + "_" + date_format.format(date_now) + "_" + file.getOriginalFilename();
+			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			File targetfile = new File(saveFile);
+
+			try {
+				file.transferTo(targetfile);
+				hw.setFilename(origFileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
 			courseManageService.setHomework(hw);
 			model.addAttribute("homework", hw);
