@@ -3,6 +3,8 @@ package com.onteacher.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +33,7 @@ import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
@@ -116,8 +119,8 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 1;
+//		int userId = (int) session.getAttribute("id");
+		int userId = 399999;
 		// 리스트 불러오기
 		try {
 			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(userId));
@@ -135,12 +138,19 @@ public class TeacherController {
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			// 선생님인지 확인하는 코드 추가하기
-			model.addAttribute("course", courseService.queryCourseById(courseId));
+			Course course = courseService.queryCourseById(courseId);
+			HighCategory highCategory = courseService.queryHighCategoryById(course.getHighCategoryId());
+			LowCategory lowCategory = courseService.queryLowCategoryById(course.getLowCategoryId());
+			Teacher teacher = courseService.queryTeacherById(course.getTeacherId());
+			model.addAttribute("highCategory", highCategory);
+			model.addAttribute("lowCategory", lowCategory);
+			model.addAttribute("teacher", teacher); 
+			model.addAttribute("course", course);
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId, userId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
 			model.addAttribute("page", "teacher/courseManageDetail");
@@ -151,12 +161,12 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 내기 */
+	/* 과제 내기 폼 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 1;
+//		int userId = (int) session.getAttribute("id");
+		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			Course course = courseService.queryCourseById(courseId);
@@ -171,16 +181,46 @@ public class TeacherController {
 		return "template";
 	}
 
-	/* 과제 상세 페이지 */
+	/* 과제 내기 */
 	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-	public String homework(HttpServletRequest request, @ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
+	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file, @ModelAttribute Homework hw, @PathVariable String course_id,
+			Model model, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
-		int userId = 3;
-		hw.setCourseId(Integer.parseInt(course_id));
+//		int userId = (int) session.getAttribute("id");
+		int userId = 399999;
+		int courseId = Integer.parseInt(course_id);
+		hw.setCourseId(courseId);
+		
+		// 파일 업로드
+		if (!file.isEmpty()) {
+			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			
+			// 파일 이름을 식별하기 위한 처리
+			Date date_now = new Date(System.currentTimeMillis()); // 현재시간을 가져와 Date형으로 저장한다
+			SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMddHHmmss");
+			// 000010002_20210504110616_filename의 형태로 저장됨
+			String origFileName = String.format("%09d", courseId) + "_" + date_format.format(date_now) + "_" + file.getOriginalFilename();
+			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			File targetfile = new File(saveFile);
+
+			try {
+				file.transferTo(targetfile);
+				hw.setFilename(origFileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		try {
 			courseManageService.setHomework(hw);
 			model.addAttribute("homework", hw);
+			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -203,7 +243,7 @@ public class TeacherController {
 	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
 			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		StudentReview sr = new StudentReview();
 		sr.setTeacherId(userId);
@@ -222,7 +262,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
 	public void startCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
@@ -237,7 +277,7 @@ public class TeacherController {
 	public String extendCourse(HttpServletRequest request, @RequestParam(value="extendDate", required=true) String extendDate, Model model,
 			@PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
@@ -259,7 +299,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		try {
 			int c_id = Integer.parseInt(course_id);
@@ -277,7 +317,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.POST)
 	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();	
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		List<String> selectedStudents = reqData.get("selectedStudents");
@@ -297,7 +337,7 @@ public class TeacherController {
 	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
 	public void cancelMatching(HttpServletRequest request, @RequestBody Map<String, String> reqData, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = Integer.parseInt((String) session.getAttribute("id"));
+//		int userId = (int) session.getAttribute("id");
 		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		int studentId = Integer.parseInt(reqData.get("studentId"));

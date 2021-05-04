@@ -25,6 +25,7 @@ public class Teacher {
 	private String description;
 	private String status;
 	private String message;
+	private CourseReview courseReview;
 	private List<CourseReview> courseReviewList;
 	
 	public int getId() {
@@ -117,6 +118,12 @@ public class Teacher {
 	}
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	public CourseReview getCourseReview() {
+		return courseReview;
+	}
+	public void setCourseReview(CourseReview courseReview) {
+		this.courseReview = courseReview;
 	}
 	public List<CourseReview> getCourseReviewList() {
 		return courseReviewList;

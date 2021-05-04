@@ -33,6 +33,7 @@ public class Course {
 	private int endPage;
 	private int s_row;
 	private int e_row;
+	private String lowCategoryName;
 	
 	public int getId() {
 		return id;
@@ -189,6 +190,12 @@ public class Course {
 	}
 	public void setE_row(int e_row) {
 		this.e_row = e_row;
+	}
+	public String getLowCategoryName() {
+		return lowCategoryName;
+	}
+	public void setLowCategoryName(String lowCategoryName) {
+		this.lowCategoryName = lowCategoryName;
 	}
 	
 	@Override
