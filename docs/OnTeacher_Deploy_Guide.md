@@ -2,7 +2,7 @@
 
 ## STS 4 bootWar 생성하기
 
-1. build.gradle에서 ojdc10을 추가합니다.
+1. build.gradle에서 **ojdc6**대신에 **ojdc10**을 추가합니다.
 
    > ojdbc6은 AWS에서 충돌을 일으키는 증상이 발견되었습니다. 
 
