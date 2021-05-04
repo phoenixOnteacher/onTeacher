@@ -189,23 +189,11 @@ $(function() {
 	}
 </script>
 <body>
-<div id="outter">
-	<div style="float: left;">
-		<select id="cntPerPage" name="sel" onchange="selChange()">
-			<option value="5"
-				<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
-			<option value="10"
-				<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
-			<option value="15"
-				<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
-			<option value="20"
-				<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
-		</select>
-	</div> <!-- 옵션선택 끝 --></div>
 	<div>
 		<p>&nbsp;</p>	
 	</div>
-	<c:forEach var="course" items="${courses}">
+	
+  	<c:forEach var="course" items="${courses}">
 		<table class="center2" border="1">
 			<tr><td>${course.title}</td></tr>
 			<tr><td>${course.location}</td></tr>
@@ -213,7 +201,32 @@ $(function() {
 			<tr><td>${course.startDate} ~ ${course.endDate}</td></tr>	
 		</table>
 	</c:forEach>
-	
+<!-- 
+<div class="bar">
+	    <!-- 이전 페이지 -->
+		<c:choose>
+			<c:when test="${current eq 1}">
+				<a href="CourseList?page=${current}">&laquo;</a>
+			</c:when>
+			<c:otherwise>
+				<a href="CourseList?page=${current-1}">&laquo;</a>
+			</c:otherwise>
+		</c:choose>
+		<!-- 게시판 페이징 숫자클릭 -->
+		<c:forEach var="i" begin="1" end="${pageCnt}">
+			<a href="CourseList?page=${i}" class="button">${i}</a>
+		</c:forEach>
+		<!-- 다음 페이지 -->
+		<c:choose>
+			<c:when test="${current eq cnt}">
+				<a href="CourseList?page=${current}">&raquo;</a>
+			</c:when>
+			<c:otherwise>
+				<a href="CourseList?page=${current+1}">&raquo;</a>
+			</c:otherwise>
+		</c:choose>
+	</div> -->	
+<!-- 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
 			<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
@@ -232,5 +245,5 @@ $(function() {
 			<a href="/boardList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 		</c:if>
 	</div>
-
+ -->
 </html>

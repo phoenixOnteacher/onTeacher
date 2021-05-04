@@ -69,8 +69,7 @@ modelAndView.addObject("teacher", teacher);
 				</tr>
 			</table><br>
 		</div>
-		
-			<script src="/js/matching.js">
+			<script>
 			function appli(){
 				alert("해당 수업을 신청하였습니다.");
 			}</script>

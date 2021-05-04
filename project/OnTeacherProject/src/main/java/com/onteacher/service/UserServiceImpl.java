@@ -12,7 +12,6 @@ import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.UserDAO;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
-import com.onteacher.vo.PagingVO;
 import com.onteacher.vo.User;
 
 
@@ -47,13 +46,32 @@ public class UserServiceImpl implements UserService {
 		}
 		return 0;
 	}
-	
-	public int countBoard() {
-		return courseDAO.countBoard();
+
+
+	@Override
+	public List<Course> selectMaxCourseNO() {
+		// TODO Auto-generated method stub
+		return courseDAO.selectMaxCourseNO();
 	}
-	public List<Course> selectBoard(PagingVO vo) {
-		return courseDAO.selectBoard(vo);
+
+	@Override
+	public List<Course> selectAllCourseList() {
+		// TODO Auto-generated method stub
+		return courseDAO.selectAllCourseList();
 	}
+
+	@Override
+	public List<Course> CourseList(Course courseList) {
+		// TODO Auto-generated method stub
+		return courseDAO.CourseList(courseList);
+	}
+
+	@Override
+	public int Course() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	
 }
 

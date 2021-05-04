@@ -191,10 +191,7 @@
 	</select>
 	
 		
-	<select id="countBoard" resultType="int">
-	SELECT COUNT(*) FROM COURSE
-	</select>
-<!-- 페이징 처리 후 게시글 조회 -->
+<!-- 페이징 처리 후 게시글 조회 
 <select id="selectBoard" resultMap="courseResult" parameterType="course">
 	SELECT * 
 		FROM (
@@ -206,6 +203,23 @@
 						) A
 				)
 	WHERE RN BETWEEN #{start} AND #{end}
+</select> -->
+
+
+<select id="selectAllCourseList" resultType="course">
+		<![CDATA[
+					
+		select * from
+		(select row_number() over (order by id desc) num, c.*
+		from course c
+		where high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline} order by id)
+		where num between #{s_row} and #{e_row}
+
+
+		]]>
 </select>
+
 	
+		
 </mapper>

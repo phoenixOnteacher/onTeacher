@@ -29,6 +29,10 @@ public class Course {
 	private int lowCategoryId; //FK
 	private Teacher teacher;
 	private List<Student> studentList;
+	private int startPage;
+	private int endPage;
+	private int s_row;
+	private int e_row;
 	
 	public int getId() {
 		return id;
@@ -162,6 +166,30 @@ public class Course {
 	public void setStudentList(List<Student> studentList) {
 		this.studentList = studentList;
 	}
+	public int getStartPage() {
+		return startPage;
+	}
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+	public int getEndPage() {
+		return endPage;
+	}
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+	public int getS_row() {
+		return s_row;
+	}
+	public void setS_row(int s_row) {
+		this.s_row = s_row;
+	}
+	public int getE_row() {
+		return e_row;
+	}
+	public void setE_row(int e_row) {
+		this.e_row = e_row;
+	}
 	
 	@Override
 	public String toString() {
@@ -170,6 +198,9 @@ public class Course {
 				+ isOnline + ", location=" + location + ", isGroup=" + isGroup + ", minStudent=" + minStudent
 				+ ", maxStudent=" + maxStudent + ", title=" + title + ", curriculum=" + curriculum + ", curriculumFile="
 				+ curriculumFile + ", status=" + status + ", teacherId=" + teacherId + ", highCategoryId="
-				+ highCategoryId + ", lowCategoryId=" + lowCategoryId + ", studentList=" + studentList + "]";
+				+ highCategoryId + ", lowCategoryId=" + lowCategoryId + ", studentList=" + studentList + ", startPage=" + startPage
+				+ ", endPage=" + endPage + ", s_row=" + s_row + ", e_row=" + e_row + "]";
 	}
+
+	
 }

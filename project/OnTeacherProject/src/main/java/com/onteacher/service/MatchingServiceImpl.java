@@ -35,7 +35,7 @@ public class MatchingServiceImpl implements MatchingService{
 	@Override
 	public void insertMatching(Matching matching) throws Exception {
 		// TODO Auto-generated method stub
-		
+		matchingDAO.insertMatching(matching);
 	}
 
 	@Override
