@@ -27,10 +27,10 @@ public class MatchingServiceImpl implements MatchingService{
 		return studentDAO.selectqueryStudentById(studentId);
 	}
 
-	@Override
-	public Course queryCourseById(int courseId) throws Exception {
-		return courseDAO.selectqueryCourseById(courseId);
-	}
+//	@Override
+//	public Course queryCourseById(int courseId) throws Exception {
+//		return courseDAO.selectqueryCourseById(courseId);
+//	}
 
 	@Override
 	public void insertMatching(Matching matching) throws Exception {

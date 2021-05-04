@@ -1,8 +1,5 @@
 package com.onteacher.service;
 
-import java.util.List;
-
-import com.onteacher.vo.PagingVO;
 import com.onteacher.vo.Student;
 
 public interface StudentService {

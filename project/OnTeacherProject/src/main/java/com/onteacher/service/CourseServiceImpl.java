@@ -95,8 +95,8 @@ public class CourseServiceImpl implements CourseService {
 		return teacherDAO.selectTeacherById(teacherId);
 	}
 
-	@Override
-	public List<Course> selectCourseForIndex() {
-		return courseDAO.selectCourseForIndex();
-	}
+//	@Override
+//	public List<Course> selectCourseForIndex() {
+//		return courseDAO.selectCourseForIndex();
+//	}
 }
