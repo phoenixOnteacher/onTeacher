@@ -25,6 +25,7 @@ public class Teacher {
 	private String description;
 	private String status;
 	private String message;
+	private CourseReview courseReview;
 	
 	public int getId() {
 		return id;
@@ -116,4 +117,11 @@ public class Teacher {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public CourseReview getCourseReview() {
+		return courseReview;
+	}
+	public void setCourseReview(CourseReview courseReview) {
+		this.courseReview = courseReview;
+	}
+	
 }

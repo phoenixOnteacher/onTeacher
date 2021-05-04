@@ -3,6 +3,8 @@ package com.onteacher.service;
 import java.util.List;
 
 import com.onteacher.vo.Course;
+import com.onteacher.vo.CourseReview;
+import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.Teacher;
 
 public interface MyCourseService {
@@ -18,5 +20,9 @@ public interface MyCourseService {
 	public List<Course> queryEndcourseListByStudentId(int studentId);
 
 	public Teacher queryMatchingTeacher(int courseId);
+
+	public void writeCourseReview(CourseReview cr);
+
+	public void createHomeworkAnswer(HomeworkAnswer ha) throws Exception;
 	
 }

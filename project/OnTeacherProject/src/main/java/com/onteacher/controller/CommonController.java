@@ -1,5 +1,10 @@
 package com.onteacher.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,22 +12,17 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onteacher.service.CourseService;
-import com.onteacher.vo.Course;
-import com.onteacher.vo.HighCategory;
-import com.onteacher.vo.Homework;
-import com.onteacher.vo.LowCategory;
-import com.onteacher.vo.Teacher;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
-import com.onteacher.vo.User;
+import com.onteacher.vo.HomeworkAnswer;
 
 
 @Controller
@@ -85,14 +85,52 @@ public class CommonController {
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
 			Homework hw = courseService.queryHomework(homeworkId);
-			// model.addAttribute("homeworkAnswerList",);
+			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,user_id);
+			model.addAttribute("user_id",user_id);
 			model.addAttribute("homework", hw);
+			model.addAttribute("homeworkAnswer",ha);
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addAttribute("page", "index");
 		}
 		return "template";
+	}
+	
+	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
+	public void homeworkfiledownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+		String saveDir = request.getSession().getServletContext().getRealPath("/homeworkupload/");
+		File file = new File(saveDir + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			// if(ie){
+			// 브라우저 정보에 따라 utf-8변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+			} else {
+				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
+			} // end if;
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		} // try end;
+		
 	}
 	
 

@@ -21,7 +21,6 @@ modelAndView.addObject("teacher", teacher);
 
 <div class="row mt-3">
 	<div class="tab-content col-9">
-		<h1>${course.title}</h1>
 		<div>
 			<c:set var="isOnline" value="${course.isOnline}" />
 			<c:set var="isOneday" value="${course.isOneday}" />

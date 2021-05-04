@@ -8,9 +8,13 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
+import com.onteacher.dao.CourseReviewDAO;
+import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.TeacherDAO;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.CourseReview;
+import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.Teacher;
 
 @Service
@@ -25,6 +29,12 @@ public class MyCourseServiceImpl implements MyCourseService {
 	
 	@Autowired
 	TeacherDAO teacherDAO;
+	
+	@Autowired
+	CourseReviewDAO courseReviewDAO;
+	
+	@Autowired
+	HomeworkAnswerDAO homeworkAnswerDAO;
 
 	@Override
 	public void cancleMatching(int studentId, int courseId) {
@@ -52,14 +62,38 @@ public class MyCourseServiceImpl implements MyCourseService {
 
 	@Override
 	public List<Course> queryEndcourseListByStudentId(int studentId) {
-		return courseDAO.selectCourseEndListByStudentId(studentId);
+		List<Course> courseList = courseDAO.selectCourseEndListByStudentId(studentId);
+		for (Course course : courseList) {
+			Teacher teacher = course.getTeacher();
+			CourseReview cr = new CourseReview();
+			cr.setCourseId(course.getId());
+			cr.setStudentId(studentId);
+			cr.setTeacherId(teacher.getId());
+			teacher.setCourseReview(courseReviewDAO.selectCourseReview(cr));
+		}
+		return courseList;
 	}
 
 
 	@Override
 	public Teacher queryMatchingTeacher(int courseId) {
-		System.out.println("서비스임플 courseId:"+courseId);
-		return teacherDAO.selectMatchingTeacherByCourseId(courseId);
+		Teacher teacher = teacherDAO.selectMatchingTeacherByCourseId(courseId);
+		String phoneNum = teacher.getPhoneNumber();
+		teacher.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
+		teacher.setBirthday(teacher.getBirthday().substring(0, 10));
+		return teacher;
+	}
+
+
+	@Override
+	public void writeCourseReview(CourseReview cr) {
+		courseReviewDAO.insertCourseReview(cr);
+	}
+
+
+	@Override
+	public void createHomeworkAnswer(HomeworkAnswer ha) throws Exception {
+		homeworkAnswerDAO.insertHomeworkAnswer(ha);
 	}
 
 }

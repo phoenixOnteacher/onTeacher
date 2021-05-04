@@ -26,7 +26,7 @@
 								<p class="text-secondary mb-0">파일 없음</p>
 							</c:when>
 							<c:otherwise>
-								<i class="fas fa-paperclip"></i> ${homework.filename }
+								<i class="fas fa-paperclip"></i> <a href="/hwfiledownload?filename=${homework.filename }">${homework.filename }</a>
   					</c:otherwise>
 						</c:choose></td>
 					<th scope="row" colspan="1" class="px-3">Deadline</th>
@@ -34,27 +34,9 @@
 				</tr>
 			</tbody>
 		</table>
-		<c:if test="${fn:substring(user_id,0,1)}=='2'"> 
+		<c:if test="${fn:substring(user_id,0,1)=='2'}"> 
 			<br>
-			<h1>과제 작성</h1>
-			<form action="">
-				<table class="table table-bordered">
-					<tbody>
-						<tr>	
-							<th colspan="1" class="px-3">Content</th>
-							<td colspan="3" class="text-center px-3"><input type="text"></td>
-						</tr>
-						<tr>
-							<th colspan="1" class="px-3">과제 업로드</th>
-							<td colspan="3" class="text-center px-3"><input type="file"></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td style="text-align:right;"><input type="submit"></td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
+			<jsp:include page="../student/homeworkAnswer.jsp"></jsp:include>
 		</c:if>
 		<c:if test="${fn:substring(user_id,0,1)=='3'}">
 	  		<div class="card" style="width: 18rem;">

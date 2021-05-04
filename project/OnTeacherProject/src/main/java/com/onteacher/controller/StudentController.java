@@ -1,23 +1,28 @@
 package com.onteacher.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,12 +31,13 @@ import com.onteacher.service.CourseService;
 import com.onteacher.service.MyCourseService;
 import com.onteacher.service.StudentService;
 import com.onteacher.vo.Course;
+import com.onteacher.vo.CourseReview;
 import com.onteacher.vo.HighCategory;
-import com.onteacher.vo.Student;
-import com.onteacher.vo.Teacher;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Student;
+import com.onteacher.vo.Teacher;
 
 //@Controller
 @Controller("studentController")
@@ -125,6 +131,7 @@ public class StudentController {
 		return modelAndView;
 	}
 	
+	/*
 	//대기중인 수업 - 신청 취소
 	@RequestMapping(value="/applyCancle", method=RequestMethod.GET)
 	public ModelAndView applyCancle(@RequestParam(value = "courseId",required = true)int courseId,
@@ -141,7 +148,24 @@ public class StudentController {
 		modelAndView.addObject("page", "student/courseWaitingList");
 		modelAndView.setViewName("template");
 		return modelAndView;
-		
+	}
+	*/
+	
+	
+	//대기중인 수업 - 신청 취소
+	@ResponseBody
+	@RequestMapping(value="/applyCancle", method=RequestMethod.DELETE)
+	public void applyCancle(@RequestParam(value = "courseId",required = true)int courseId,
+									HttpServletRequest request) {
+		ModelAndView modelAndView= new ModelAndView();
+		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
+		HttpSession session = request.getSession();
+		int studentId = (int) session.getAttribute("id");
+		//2. db에서 delete문 실행
+		myCourseService.cancleMatching(studentId,courseId);
+		//3. view 정의. 대기중인 수업 목록 조회 화면 그대로.
+//		List<Course> courses = courseService.courseWaitingList(studentId);
+//		modelAndView.addObject("courses", courses);
 	}
 	
 	//진행중인 수업 - 수업 상세
@@ -212,12 +236,24 @@ public class StudentController {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
 		int courseId = Integer.parseInt(course_id);
-		System.out.println("courseId :" +courseId);
+		Course course = null;
+		try {
+			course = courseService.queryCourseById(courseId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		int highCategoryId = course.getHighCategoryId();
+		int lowCategoryId = course.getLowCategoryId();
+		int teacherId = course.getTeacherId();
+		HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
+		LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
 		try {
 			// 선생님인지 확인하는 코드 추가하기
 			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("teacher", myCourseService.queryMatchingTeacher(courseId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
+			model.addAttribute("highCategory", highCategory);
+			model.addAttribute("lowCategory", lowCategory);
 			model.addAttribute("page", "student/myCourseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,18 +262,97 @@ public class StudentController {
 		return "template";
 	}
 
-	//경민 코드, 니엘 참고할 것
-	@RequestMapping(value = "/{course_id}/homeworkanswer", method = RequestMethod.POST)
-	public String homeworkAnswer(@ModelAttribute Homework hw, Model model, @PathVariable String course_id) {
-		hw.setCourseId(Integer.parseInt(course_id));
+	/* 수업 후기 작성 */
+	@ResponseBody
+	@RequestMapping(value="/{course_id}/review", method = RequestMethod.POST)
+	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
+			@PathVariable String course_id) {
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("id");
+		Course course;
 		try {
-//			myCourseService.setHomework(hw);
-			model.addAttribute("homework", hw);
-			model.addAttribute("page", "homeworkDetail");
+			course = courseService.queryCourseById(Integer.parseInt(course_id));
+			CourseReview cr = new CourseReview();
+			cr.setStudentId(userId);
+			cr.setCourseId(Integer.parseInt(course_id));
+			cr.setTeacherId(course.getTeacherId());
+			cr.setContent(reqData.get("content"));
+			myCourseService.writeCourseReview(cr);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	
+	/* 숙제 작성. 숙제 목록은 commonController에 */
+	@RequestMapping(value = "/{homework_id}/homeworkanswer", method = RequestMethod.POST)
+	public void homeworkAnswer(@ModelAttribute HomeworkAnswer ha, HttpServletRequest request, Model model, @PathVariable String homework_id, MultipartHttpServletRequest multi) {
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("id");
+		ha.setStudentId(userId);
+		ha.setHomeworkId(Integer.parseInt(homework_id));
+		try {
+			MultipartFile origFile = ha.getFile();
+
+			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
+			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			try {
+				origFile.transferTo(new File(saveFile));
+				ha.setFilename(origFileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			myCourseService.createHomeworkAnswer(ha);
+//			model.addAttribute("homework", ha);
+//			model.addAttribute("page", "student/myCourseManageDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
-			model.addAttribute("page", "index");
+//			model.addAttribute("page", "index");
 		}
-		return "template";
+//		return "template";
+	}
+	
+	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
+	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+		String saveDir = request.getSession().getServletContext().getRealPath("/upload/");
+		File file = new File(saveDir + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			// if(ie){
+			// 브라우저 정보에 따라 utf-8변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+			} else {
+				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
+			} // end if;
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		} // try end;
+		
 	}
 }
