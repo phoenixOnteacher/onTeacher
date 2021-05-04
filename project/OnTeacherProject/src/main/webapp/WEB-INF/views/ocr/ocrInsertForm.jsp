@@ -12,15 +12,12 @@
 	<div class="alert alert-warning" role="alert">
 		OCR 기능은 사진파일에 있는 글자를 인식해서 텍스트 형태로 추출해주는 기능입니다.<br> 사진으로 찍은 문제를
 		출제하거나 과제를 제출하는 등 다양하게 활용할 수 있습니다.<br> <strong>*JPG 파일만
-			가능합니다.</strong>
+			가능합니다. (최대 업로드 가능 용량: 5MB)</strong>
 	</div>
-	<form method="post" action="ImageUpload"
-		enctype="multipart/form-data">
-		<input multiple="multiple" type="file" name="file" id="bfile"
-			class="form-control">
+	<form method="post" action="ImageUpload" enctype="multipart/form-data">
+		<input type="file" name="file" id="file" class="form-control">
 		<div id="ocr_btn">
-			<button type="submit" id="upload" class="btn btn-primary"
-				onclick="fileCheck( this.form.file )">파일 인식</button>
+			<button type="submit" id="upload" class="btn btn-primary">글자 인식</button>
 		</div>
 	</form>
 </div>
