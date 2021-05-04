@@ -22,6 +22,7 @@ public class Student {
 	private String introduction;
 	private StudentReview studentReview;
 	private List<StudentReview> studentReviewList;
+	private HomeworkAnswer homeworkAnswer;
 	
 	public StudentReview getStudentReview() {
 		return studentReview;
@@ -106,6 +107,12 @@ public class Student {
 	}
 	public void setStudentReviewList(List<StudentReview> studentReviewList) {
 		this.studentReviewList = studentReviewList;
+	}
+	public HomeworkAnswer getHomeworkAnswer() {
+		return homeworkAnswer;
+	}
+	public void setHomeworkAnswer(HomeworkAnswer homeworkAnswer) {
+		this.homeworkAnswer = homeworkAnswer;
 	}
 	
 }

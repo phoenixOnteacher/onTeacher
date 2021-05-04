@@ -7,7 +7,6 @@
 
    <mapper resource="mybatis/mappers/article.xml"/> 
    <mapper resource="mybatis/mappers/comment.xml"/>
- 
    <mapper resource="mybatis/mappers/course.xml"/>
    <mapper resource="mybatis/mappers/courseReview.xml"/>
    <mapper resource="mybatis/mappers/highCategory.xml"/>
@@ -18,6 +17,8 @@
    <mapper resource="mybatis/mappers/student.xml"/>
    <mapper resource="mybatis/mappers/studentReview.xml"/>
    <mapper resource="mybatis/mappers/teacher.xml"/>
- 
+   <mapper resource="mybatis/mappers/user.xml"/>
+   <mapper resource="mybatis/mappers/notification.xml"/>
+
  </mappers>
 </configuration>

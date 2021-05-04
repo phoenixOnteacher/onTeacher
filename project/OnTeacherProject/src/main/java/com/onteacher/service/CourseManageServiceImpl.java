@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.HighCategoryDAO;
+import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
 import com.onteacher.dao.MatchingDAO;
@@ -17,6 +18,7 @@ import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
+import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
 import com.onteacher.vo.Student;
@@ -46,6 +48,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 
 	@Autowired
 	private MatchingDAO matchingDAO;
+
+	@Autowired
+	private HomeworkAnswerDAO homeworkAnswerDAO;
 	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
@@ -167,6 +172,22 @@ public class CourseManageServiceImpl implements CourseManageService {
 			sr.setStudentId(student.getId());
 			sr.setTeacherId(teacherId);
 			student.setStudentReview(studentReviewDAO.selectStudentReview(sr));
+		}
+		return studentList;
+	}
+	
+	@Override
+	public List<Student> queryStudentListAndHomeworkAnswer(int homeworkId) throws Exception {
+		int courseId = homeworkDAO.selectHomeworkById(homeworkId).getCourseId();
+		List<Student> studentList = studentDAO.selectMatchingStudentByCourseId(courseId);
+		for (Student student : studentList) {
+			String phoneNum = student.getPhoneNumber();
+			student.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
+			student.setBirthday(student.getBirthday().substring(0,10));
+			HomeworkAnswer ha = new HomeworkAnswer();
+			ha.setStudentId(student.getId());
+			ha.setHomeworkId(homeworkId);
+			student.setHomeworkAnswer(homeworkAnswerDAO.selectHomeworkAnswer(ha));
 		}
 		return studentList;
 	}

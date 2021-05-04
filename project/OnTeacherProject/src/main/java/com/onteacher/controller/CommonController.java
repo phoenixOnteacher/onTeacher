@@ -1,5 +1,10 @@
 package com.onteacher.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,23 +12,18 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
-import com.onteacher.vo.Course;
-import com.onteacher.vo.HighCategory;
-import com.onteacher.vo.Homework;
-import com.onteacher.vo.LowCategory;
-import com.onteacher.vo.Teacher;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
-import com.onteacher.vo.User;
-
+import com.onteacher.vo.HomeworkAnswer;
 
 @Controller
 @RequestMapping
@@ -34,6 +34,9 @@ public class CommonController {
 	
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	CourseManageService courseManageService;
 	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -78,15 +81,21 @@ public class CommonController {
 	
 	// homework detail page로 이동
 	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
-	public String courseManage(HttpServletRequest request, Model model, @PathVariable String homework_id) {
+	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
-//		int user_id = Integer.parseInt((String) session.getAttribute("id"));
-		int user_id = 3; 
+		int userId = (int) session.getAttribute("id");
+//		int userId = 399999;
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
+			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,userId);
 			Homework hw = courseService.queryHomework(homeworkId);
+			int courseId = hw.getCourseId();
 			// model.addAttribute("homeworkAnswerList",);
+			model.addAttribute("user_id", userId);
+			model.addAttribute("students", courseManageService.queryStudentListAndHomeworkAnswer(homeworkId));
+			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("homework", hw);
+			model.addAttribute("homeworkAnswer",ha);
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -95,5 +104,40 @@ public class CommonController {
 		return "template";
 	}
 	
+	/* homework file 다운로드 */
+	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
+	public void homeworkfiledownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+		String saveDir = request.getSession().getServletContext().getRealPath("/homeworkupload/");
+		File file = new File(saveDir + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			String downloadFileName = file.getName().substring(25);
+			// 브라우저 정보에 따라 utf-8 변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(downloadFileName, "utf-8");
+			} else {
+				sfilename = new String(downloadFileName.getBytes("utf-8"), "ISO-8859-1");
+			}
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		}	
+	}
 
 }
