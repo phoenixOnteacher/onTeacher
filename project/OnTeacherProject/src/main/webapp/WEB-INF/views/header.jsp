@@ -18,9 +18,6 @@
 		<ul id="navbar_menu">
 			<li><a href="#">수업검색</a></li>
 			<li><a href="/teacher/course-manage">수업관리</a></li>
-
-			<!-- OCR 인식은 추후에 회원만 가능하도록 변경 -->
-			<li><a href="/ocr/ocr-main">OCR 인식</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 				</c:when>
@@ -29,8 +26,6 @@
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">질문게시판</a></li>
-
-
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>
