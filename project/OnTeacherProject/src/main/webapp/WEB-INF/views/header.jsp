@@ -26,8 +26,6 @@
 				</c:otherwise>
 			</c:choose>
 			<li><a href="#">질문게시판</a></li>
-
-
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>
