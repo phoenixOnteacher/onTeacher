@@ -54,5 +54,11 @@ public class StudentServiceImpl implements StudentService {
 		student.setStudentReviewList(reviewList);
 		return student;
 	}
+
+	@Override
+	public String studentName(int id) throws Exception {
+		// TODO Auto-generated method stub
+		return studentDAO.selectStudentName(id);
+	}
 	
 }

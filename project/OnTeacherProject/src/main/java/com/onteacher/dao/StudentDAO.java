@@ -21,4 +21,7 @@ public interface StudentDAO {
 
 	public Student selectStudentByStudentId(int StudentId) throws Exception;
 
+	public String selectStudentName(int id) throws Exception;
+	
+	
 }

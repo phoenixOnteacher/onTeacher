@@ -58,4 +58,13 @@
 		id=#{studentId}
 		]]>
 	</select>
+	
+		<select id="selectStudentName" resultType="String" parameterType="int">
+		<![CDATA[
+		select name
+		from student
+		where
+		id=#{id}
+		]]>
+	</select>
 </mapper>
