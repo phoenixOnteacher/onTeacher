@@ -23,7 +23,6 @@ public interface CourseService {
 
 	public Teacher queryTeacherById(int teacherId);
 	
-//	public List<Course> selectCourseForIndex();
 	public List<Course> selectCourseForIndex();
 
 	public List<Course> courseMatchingList(int studentId);

@@ -7,7 +7,7 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 
 
-public interface UserService<CourseList> {
+public interface UserService {
 	public List<Course> queryCourseForSearch(Course course);
 	public List<HighCategory> highcategoryList();
 	public int login(String email, String password) throws Exception;

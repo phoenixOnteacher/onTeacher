@@ -81,7 +81,7 @@ public class CommonController {
 		return modelAndView;
 	}
 		
-@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String thlogout(HttpServletRequest request, Model model) {
 		request.getSession().removeAttribute("id");
 		model.addAttribute("page", "login_form");

@@ -4,7 +4,7 @@ import com.onteacher.vo.Student;
 
 public interface StudentService {
 
-	//test 肄붾뱶 : 濡쒓렇�씤�븳 email濡� student媛뱀껜瑜� 媛��졇��
+	//test 코드 : 로그인한 email로 student객체를 가져와
 	public Student queryStudentByEmail(String email);
 	
 	public void stjoin(Student student) throws Exception;
