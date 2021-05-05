@@ -194,4 +194,57 @@
 		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
 		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, replace(#{location, jdbcType=VARCHAR}, ',', ' '), #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
 	</insert>
+	<select id="selectCourseForSearch" resultMap="courseResult">
+		<![CDATA[
+		select *
+		from course
+		ORDER BY id DESC
+		]]>
+	</select>
+	<!-- 카테고리 필터 -->
+	<select id="selectCourseForSearchFilter" resultMap="courseResult" parameterType="course">
+		<![CDATA[
+		select * from course
+		where high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline}
+		]]>
+	</select>
+	<select id="highcategoryList" resultType="highCategory">
+		<![CDATA[
+		select * from highcategory
+		]]>
+	</select>
+	
+		
+<!-- 페이징 처리 후 게시글 조회 
+<select id="selectBoard" resultMap="courseResult" parameterType="course">
+	SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						SELECT * 
+						FROM BOARD 
+						ORDER BY SEQ DESC 
+						) A
+				)
+	WHERE RN BETWEEN #{start} AND #{end}
+</select> -->
+
+
+<select id="selectAllCourseList" resultType="course">
+		<![CDATA[
+					
+		select * from
+		(select row_number() over (order by id desc) num, c.*
+		from course c
+		where high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline} order by id)
+		where num between #{s_row} and #{e_row}
+
+
+		]]>
+</select>
+
+	
+		
 </mapper>

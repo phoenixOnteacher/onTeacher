@@ -47,9 +47,9 @@
 				<td class="tbody"><select required="required" id="target"
 					name="target" class="form-select form-select-sm">
 						<option value="">수업 대상 선택</option>
-						<option value="초등학생">초등학생</option>
-						<option value="중학생">중학생</option>
-						<option value="고등학생">고등학생</option>
+						<option value="초등">초등학생</option>
+						<option value="중등">중학생</option>
+						<option value="고등">고등학생</option>
 				</select></td>
 			</tr>
 			<tr>
