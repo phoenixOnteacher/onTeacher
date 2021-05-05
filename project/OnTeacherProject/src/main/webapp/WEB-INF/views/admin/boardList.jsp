@@ -4,19 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="com.onteacher.vo.Teacher"%>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="${path}/resources/css/board.css" />
-<script>
-function approve() {
-	alert('기본 증빙서류 심사가 승인되었습니다.');
-}
-
-function reject() {
-	alert('기본 증빙서류 심사가 반려되었습니다.');
-}
-</script>
-
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${path}/resources/css/boardList.css" />
+<script src="${path}/resources/js/boardList.js"></script>
 <div id="tc_wrap">
 	<div id="tc_title_wrap">
 		<div id="tc_title">선생님 자격 심사 목록</div>
