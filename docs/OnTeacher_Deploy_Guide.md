@@ -1,5 +1,64 @@
 # OnTeacher Deploy Guide  
 
+## STS 4 bootWar 생성하기
+
+1. build.gradle에서 **ojdc6**대신에 **ojdc10**을 추가합니다.
+
+   > ojdbc6은 AWS에서 충돌을 일으키는 증상이 발견되었습니다. 
+
+   ``` java
+   dependencies 
+   {
+       ...
+       implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
+   	...
+   }
+   ```
+
+   ![build.gradle](md-images/build.gradle.jpg)
+
+
+2.  로컬에서 실습하는 환경이 아닌 실제 호스팅 환경이므로 Application.properties 에서 IP, Username, Password를 변경합니다.
+
+   ```java
+   spring.datasource.url=jdbc:oracle:thin:@18.216.45.215:1521:XE
+   spring.datasource.username=system
+   spring.datasource.password=oracle
+
+   ![application.properies](md-images/app.propety.jpg)
+
+3. 상단 메뉴에서  Window > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
+
+4. Gradle Tasks  메뉴에서 Build할 프로젝트를 선택한 후 build > bootWar를 선택하여 war 파일을 생성합니다. 
+
+   ![bootWar](md-images/gradleTask.jpg)
+
+   > war  파일은 OnTeacherProject\build\libs\에 .war로 생성됩니다. 
+
+
+
+## GitHub Desktop를 이용하여  war 파일 업로드하기 
+
+1. GitHub Desktop을 설치한 후  배포로 사용할 Repository를 생성합니다. 
+
+2. 생성한 Local Repository 에 실행할 war 파일을 복사합니다. 
+
+   > 본 예제에서는 OnTeacherProject-0.0.1-SNAPSHOT.WAR을 사용합니다. 
+
+   ![WAR COPY](md-images/WAR%20COPY.jpg)
+
+3. Commit to master 를 클릭한 후에 publish repository를 클릭합니다. 
+
+   ![publish repository](md-images/pub%20github.jpg)
+
+4.  정상적으로 업로드 되면, Github repository에 빌드한 war 파일이 업로드 됩니다. 
+
+   ![Github](md-images/war%20github.jpg)
+
+   > 배포서버 git clone 할 예정이오니, clone 할  HTTPS 주소를 복사해 둡니다. 
+   >
+   > https://github.com/KhanKMS/OnTeacher-Deploy.git
+
 
 
 ## AWS EC2 ubuntu Linux 접속하기 
@@ -167,7 +226,39 @@
 
    ```bash
    # docker start {CONTAINER ID}
-   # docker start 2aa62d90d2f6 
+   # docker start 2aa62d90d2f6 		"Docker image를 시작합니다."
    # docker stop 2aa62d90d2f6			"Docker image를 중단합니다."
    ```
+
+5. oracle  이미지를 실행 한 후 sqlplus Shell로 이동합니다. sqlplus  shell이 실행되면, user-name, password를 입력하여 로그온 합니다. 
+
+   ```bash 
+   # docker exec -it 2aa62d90d2f6 /bin/bash 
+   
+   root@7df740aeb0a5:/# sqlplus
+   
+   SQL*Plus: Release 11.2.0.2.0 Production on Wed May 5 03:54:29 2021
+   Copyright (c) 1982, 2011, Oracle.  All rights reserved.
+   
+   user-name : system 
+   password : oracle
+   
+   Connected to:
+   Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production
+   SQL> 
+   ```
+
+6. oracle sql 문 입력을 위해서  sql developer를 아래와 같이 설정한 후 접속하면, 원격으로  sql 관리 작업을 수행할 수 있습니다. 
+
+   ![SQL delveloper](md-images/SQL%20DEVELOPER.jpg)
+
+   > 사용자 이름 : system 
+   >
+   >  비밀번호 :  oracle
+   >
+   >  호스트 이름 : AWS 접속 IP를 입력함
+
+7.  SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 
+
+   ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
 
