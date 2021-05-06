@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 /* 전체 */
+a {
+	text-decoration: none;
+}
+
 #s_wrap {
 	max-width: 800px;
 	margin: 0 auto;
@@ -112,6 +116,17 @@ div.col-md-4 {
 	height: 140px;
 	object-fit: cover;
 	border-radius: 10%;
+}
+
+p.tcard > a {
+	color: #FBAD38;
+	font-weight: 500;
+}
+
+h5.ccard > a {
+	color: #FF8184;
+	font-family: 'S-CoreDream-5Medium';
+	font-weight: 600;
 }
 
 /* 맨위로가기버튼 */
