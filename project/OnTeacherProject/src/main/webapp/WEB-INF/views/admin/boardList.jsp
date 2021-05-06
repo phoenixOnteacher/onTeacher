@@ -11,7 +11,6 @@
 	<div id="tc_title_wrap">
 		<div id="tc_title">선생님 자격 심사 목록</div>
 	</div>
-	<br>
 	<table class="table table-hover">
 		<thead class="table-warning">
 			<tr>
