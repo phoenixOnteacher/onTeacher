@@ -87,7 +87,6 @@ $('#notificationBell').click(function() {
 				notificationStr += '<div class="card text-dark bg-light mb-3" style="max-width: 100%;">';
 				notificationStr += '<div class="card-header d-flex justify-content-between">';
 				notificationStr += '<p class="text-start mb-0">' + notifications[i].createdAt.substring(0, 10) + '</p>';
-				notificationStr += '<button type="button" class="btn-close" aria-label="Close"></button>';
 				notificationStr += '</div>';
 				notificationStr += '<div class="card-body">';
 				notificationStr += '<p class="card-text text-start">' + notifications[i].content + '</p>';
