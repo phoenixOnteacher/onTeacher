@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css" />
 
@@ -42,8 +43,44 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="/logout">로그아웃</a></li>
+					<li><i id="notificationBell" class="fas fa-bell" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i></li>
+					<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+					  <div class="offcanvas-header">
+					    <h5 id="offcanvasRightLabel">알림</h5>
+					    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					  </div>
+					  <div class="offcanvas-body">
+					  </div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</ul>
 	</nav>
 </div>
+<script>
+// 알림 목록 가져오기
+$('#notificationBell').click(function() {
+	$.ajax({
+		type: "POST",
+		url: "http://localhost:8090/notification",
+		success: function(res) {
+			console.log(res);
+			console.log(res.data);
+			var notifications = res.data;
+			console.log(notifications);
+			var notificationStr = '';
+			for (var i=0; i<notifications.length; i++) {
+				notificationStr += '<div class="card text-dark bg-light mb-3" style="max-width: 100%;">';
+				notificationStr += '<div class="card-header d-flex justify-content-between">';
+				notificationStr += '<p class="text-start mb-0">' + notifications[i].createdAt.substring(0, 10) + '</p>';
+				notificationStr += '<button type="button" class="btn-close" aria-label="Close"></button>';
+				notificationStr += '</div>';
+				notificationStr += '<div class="card-body">';
+				notificationStr += '<p class="card-text text-start">' + notifications[i].content + '</p>';
+				notificationStr += '</div></div>';
+			}
+			$('.offcanvas-body').html(notificationStr);
+		}
+	})
+})
+</script>
