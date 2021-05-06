@@ -1,8 +1,11 @@
 package com.onteacher.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -17,6 +20,7 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -447,4 +451,92 @@ public class TeacherController {
 		}
 		return "template";
 	}
+	
+	@RequestMapping(value="/certfiledownload",  method=RequestMethod.GET) 
+	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+		String saveDir = request.getSession().getServletContext().getRealPath("/thcertiupload/");
+		File file = new File(saveDir + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			// if(ie){
+			// 브라우저 정보에 따라 utf-8변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+			} else {
+				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
+			} // end if;
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		} // try end;
+		
+	}
+	
+	/* 자격증명 재업로드 폼 가져오기 - 기존 올렸던 파일 가져오도록 teacher객체 전달 */
+	@RequestMapping(value ="/cert-reupload", method=RequestMethod.GET)
+	public String teacherCertReupload(Model model) {
+//		HttpSession session = request.getSession();	
+//		int user_id = (int) session.getAttribute("id");
+		int user_id = 300005;
+		try {
+			Teacher teacher = teacherService.teacherInfo(user_id);
+			model.addAttribute("teacher",teacher);
+			model.addAttribute("page","teacher/CertificationReupload");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "template";
+	}
+	
+	/* 자격증명 재업로드 기능 수행 */
+	@RequestMapping(value="/cert-reupload", method=RequestMethod.POST)
+	public void teacherCertReupload(@ModelAttribute Teacher teacher, MultipartHttpServletRequest multi, Model model, HttpServletResponse response,
+						HttpServletRequest request)  throws IllegalStateException, IOException{
+//		HttpSession session = request.getSession();	
+//		int user_id = (int) session.getAttribute("id");
+		int user_id = 300005;
+		teacher.setId(user_id);
+		try {
+			MultipartFile origFile = teacher.getFile();
+
+			String path = multi.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
+			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
+			if (!dir.isDirectory()) {
+				dir.mkdir();
+			}
+			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
+			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
+			try {
+				origFile.transferTo(new File(saveFile));
+				teacher.setFileName(origFileName);
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			//fileName, description, status="submitted"로 update
+			teacherService.updateTeacherCert(teacher);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }
