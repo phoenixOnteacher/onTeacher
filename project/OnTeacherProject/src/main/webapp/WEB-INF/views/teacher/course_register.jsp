@@ -73,16 +73,16 @@
 			<tr>
 				<td class="thead"><label for="studyDay">수업 요일</label></td>
 				<td class="tbody"><input type="radio" name="studyDay"
-					id="studyDay" value="weekdays" required>&nbsp;주중&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="studyDay" id="studyDay" value="weekend">&nbsp;주말&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="studyDay" id="studyDay" value="anytime">&nbsp;주중+주말</td>
+					id="studyDay" value="주중" required>&nbsp;주중&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyDay" id="studyDay" value="주말">&nbsp;주말&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyDay" id="studyDay" value="주중+주말">&nbsp;주중+주말</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="studyTime">수업 시간</label></td>
 				<td class="tbody"><input type="radio" name="studyTime"
-					id="studyTime" value="morning" required>&nbsp;오전&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="studyTime" id="studyTime" value="afternoon">&nbsp;오후&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="radio" name="studyTime" id="studyTime" value="discuss">&nbsp;협의</td>
+					id="studyTime" value="오전" required>&nbsp;오전&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyTime" id="studyTime" value="오후">&nbsp;오후&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+					type="radio" name="studyTime" id="studyTime" value="협의">&nbsp;협의</td>
 			</tr>
 			<tr>
 				<td class="thead"><label for="isOnline">수업 방식</label></td>
