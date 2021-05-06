@@ -1,0 +1,134 @@
+@charset "UTF-8";
+
+/* 전체 */
+#s_wrap {
+	max-width: 800px;
+	margin: 0 auto;
+	margin-top: 50px;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+	position: relative;
+}
+
+/* 수업검색 */
+#searchbox {
+	background-color: #EDEDED;
+}
+
+#s_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+	padding-top: 28px;
+}
+
+#s_table {
+	width: 500px;
+	margin: 0 auto;
+}
+
+td.thead {
+	font-weight: 700;
+	width: 20%;
+	text-align: right;
+	margin: 0;
+	padding: 0;
+	padding-right: 40px;
+}
+
+td.tbody {
+	width: 80%;
+}
+
+td.thead, td.tbody {
+	height: 50px;
+	align-items: center;
+}
+
+.form-select-sm {
+	padding: 0;
+	padding-top: .2rem;
+	padding-bottom: .2rem;
+	padding-left: .5rem;
+	font-size: .875rem;
+}
+
+.form-select {
+	display: inline-block;
+	width: 160px;
+	font-size: 14px;
+}
+
+#s_btn_wrap {
+	text-align: right;
+	padding-right: 40px;
+	padding-bottom: 2rem;
+}
+
+button.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 150px;
+	height: 35px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
+/* 수업검색결과 */
+#searchlist {
+	margin: 0 auto;
+	margin-top: 2rem;
+	height: 100%;
+	width: 760px;
+}
+
+.card {
+	border: 0;
+}
+
+.row {
+	margin-bottom: 1.3rem;
+    padding-bottom: 1.2rem;
+}
+
+.row:not(:last-child) {
+	border-bottom: 1px solid #ededed;
+}
+
+div.col-md-4 {
+	width: 140px;
+	height: 140px;
+}
+
+.l_thimg {
+	width: 140px;
+	height: 140px;
+	object-fit: cover;
+	border-radius: 10%;
+}
+
+/* 맨위로가기버튼 */
+a.gototop {
+	color: #000000;
+	position: absolute;
+	right: -50px;
+	border: 2px solid #ededed;
+	width: 50px;
+	height: 50px;
+	text-decoration: none;
+	text-align: center;
+	align-items: center;
+	font-size: 10px;
+}
+
+i.fas {
+	font-size: 20px;
+	line-height: 30px;
+}

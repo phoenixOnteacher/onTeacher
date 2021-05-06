@@ -63,6 +63,7 @@ modelAndView.addObject("teacher", teacher);
 				</tr>
 			</table><br>
 		</div>
+
 		<div>
 			<table class="table table-borderless">
 				<tr>

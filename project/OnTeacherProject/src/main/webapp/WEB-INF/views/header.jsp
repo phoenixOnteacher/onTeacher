@@ -17,12 +17,26 @@
 			<a href="/main"><img src="${path}/resources/img/logo.png" /></a>
 		</div>
 		<ul id="navbar_menu">
-			<li><a href="#">수업검색</a></li>
-			<li><a href="/teacher/course-manage">수업관리</a></li>
-			<!-- OCR 인식은 추후에 회원만 가능하도록 변경 -->
-			<li><a href="/ocr/main">OCR 인식</a></li>
-			<li><a href="#">질문게시판</a></li>
-			
+			<c:if test="${fn:substring(sessionScope.id,0,1)=='3'}"> <!-- 선생님인 경우 -->
+				<li><a href="/teacher/courseregister">수업등록</a></li>
+			</c:if>
+			<li><a href="/searchCourse">수업검색</a></li>
+			<c:choose>
+				<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
+					<li><a href="/student/course-manage">내수업</a></li>
+				</c:when>
+				<c:otherwise> <!-- 비회원, 선생님일 경우 -->
+					<li><a href="/teacher/course-manage">수업관리</a></li>
+				</c:otherwise>
+			</c:choose>
+			<c:choose>
+				<c:when test="${sessionScope.id == null }">
+				</c:when>
+				<c:otherwise>
+					<li><a href="/ocr/main">OCR 인식</a></li>
+				</c:otherwise>
+			</c:choose>
+			<li><a href="/listArticle">질문게시판</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>
