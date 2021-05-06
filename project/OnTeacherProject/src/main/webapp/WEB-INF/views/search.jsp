@@ -61,24 +61,25 @@
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
-							<p class="card-title">
+							<p class="card-title tcard">
 								<a href="">${course.teacher.name } 선생님</a>
 							</p>
-							<c:choose>
-								<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
-								<!-- 학생인 경우 수업상세+신청 -->
-									<h5 class="card-title">
+							<h5 class="card-title ccard">
+								<c:choose>
+									<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
+										<!-- 학생인 경우 수업상세+신청 -->
 										<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
-									</h5>
-								</c:when>
-								<c:otherwise>
-									<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
-								</c:otherwise>
-							</c:choose>
-							<p class="card-text">${course.location}
-								${course.studyDay} ${course.studyTime}</p>
+									</c:when>
+									<c:otherwise>
+										<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
+									</c:otherwise>
+								</c:choose>
+							</h5>
+							<p class="card-text">${course.location}${course.studyDay}
+								${course.studyTime}</p>
 							<p class="card-text">
-								<small class="text-muted">${course.startDate} ~ ${course.endDate}</small>
+								<small class="text-muted">${course.startDate} ~
+									${course.endDate}</small>
 							</p>
 						</div>
 					</div>
