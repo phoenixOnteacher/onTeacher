@@ -3,6 +3,9 @@ package com.onteacher.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.MatchingDAO;
@@ -11,6 +14,8 @@ import com.onteacher.vo.Course;
 import com.onteacher.vo.Matching;
 import com.onteacher.vo.Student;
 
+@Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class MatchingServiceImpl implements MatchingService{
 	
 	@Autowired

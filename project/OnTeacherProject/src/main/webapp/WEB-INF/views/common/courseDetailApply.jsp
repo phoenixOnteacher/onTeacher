@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
-<script src="${path }/resources/js/course_list.js"></script>
+<script src="${path }/resources/js/course_apply.js"></script>
 
 <!-- 이 jsp를 include 하기위해 Controller에 추가해야할 코드 -->
 <!-- 
@@ -63,16 +63,6 @@ modelAndView.addObject("teacher", teacher);
 				</tr>
 			</table><br>
 		</div>
-			<script>
-			function appli(){
-				alert("해당 수업을 신청하였습니다.");
-			}</script>
-				
-		<table>
-			<tr><td>
-				<INPUT type ='button' value='수강신청' onclick='appli()'>
-			</td></tr>
-		</table>
 
 		<div>
 			<table class="table table-borderless">
@@ -93,5 +83,11 @@ modelAndView.addObject("teacher", teacher);
 
 			</table>
 		</div>
+		
+		<table>
+			<tr><td>
+				<button type="button" class="btn btn-danger btn-sm float-end mx-2 courseApplyBtn" value="${course.id }">수강 신청</button>
+			</td></tr>
+		</table>
 	</div>
 </div>
