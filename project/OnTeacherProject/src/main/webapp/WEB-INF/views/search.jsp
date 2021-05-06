@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/search.css" />
-<script src="${path }/resources/js/search.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div id="s_wrap">
@@ -15,12 +14,13 @@
 			<tr>
 				<td class="thead"><label for="highcategory">수업 분류</label></td>
 				<td class="tbody"><select required="required" id="highcategory"
-					name="highcategory">
+					name="highcategory" class="form-select form-select-sm">
 						<option value="">상위 분류 선택</option>
 						<c:forEach var="high" items="${highCategory }">
 							<option value="${high.id }">${high.name }</option>
 						</c:forEach>
-				</select> <select required="required" id="lowcategory" name="lowcategory">
+				</select> <select required="required" id="lowcategory" name="lowcategory"
+					class="form-select form-select-sm">
 						<!-- jquery에서 option 동적생성 처리 -->
 						<option value="">하위 분류 선택</option>
 				</select>
@@ -28,7 +28,7 @@
 			<tr>
 				<td class="thead"><label for="target">수업 대상</label></td>
 				<td class="tbody"><select required="required" id="target"
-					name="target">
+					name="target" class="form-select form-select-sm">
 						<option value="">선택해주세요</option>
 						<option value="초등">초등학생</option>
 						<option value="중등">중학생</option>
@@ -38,16 +38,13 @@
 			<tr>
 				<td class="thead"><label for="isonline">수업 방식</label></td>
 				<td class="tbody"><input type="radio" name="isonline" value='1'
-					id="online" class="isonline">온라인 <input type="radio"
-					name="isonline" value='0' id="offline" class="isonline">오프라인</td>
-			</tr>
-			<tr>
-				<td class="thead"></td>
-				<td class="tbody">
-					<button type="submit" id="submit_btn">검색하기</button>
-				</td>
+					id="online" class="isonline">&nbsp;온라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
+					name="isonline" value='0' id="offline" class="isonline">&nbsp;오프라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 			</tr>
 		</table>
+		<div id="s_btn_wrap">
+			<button type="submit" id="submit_btn" class="btn btn-primary">검색하기</button>
+		</div>
 	</form>
 	<div>
 		<p>&nbsp;</p>
@@ -73,7 +70,73 @@
 
 </div>
 </body>
+<script>
+$(function() {
+	var select = '<option value="">하위 분류 선택</option>';
 
+	/* 수업 카테고리 선택 */
+	$("#highcategory").change(function() {
+		$("#lowcategory").empty().append(select);
+		if ($("#highcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
+			$("#lowcategory").append(select);
+		} else {
+			comboChange($(this).val());
+		}
+	});
+
+	function comboChange(highcategoryid) {
+		$.ajax({
+			type: "GET",
+			url: "http://localhost:8090/teacher/highcategory",
+			dataType: "json",
+			data: { high_category_id: highcategoryid },
+			contentType: "application/json; charset=UTF-8",
+			success: function(data) {
+				if (data.length == 0) {
+					$("#lowcategory").append('<option value="">하위 분류 선택</option>');				
+				} else {
+					$(data).each(function(i, item) {
+						$("#lowcategory").append("<option value='" + item.id + "'>" + item.name + "</option>");
+						if('${lowcategory_id}') $('#lowcategory').val('${lowcategory_id}');						
+					});
+				}
+			}
+		});
+	}
+	if('${highcategory_id}'){
+  		$('#highcategory').val('${highcategory_id}').trigger('change');
+  	}
+	if('${target}') $('#target').val('${target}');
+	
+	if('${isonline}') {
+    	var onlineradio = $('.isonline');
+    	$.each(onlineradio, function(index,radio) {
+			if($(radio).val() == '${isonline}') {
+				$(radio).attr("checked",true); 
+			}
+		});
+    }
+
+	$('#submit_btn').on('click', function() {
+		if ($('#highcategory').val() == "") {
+			alert('수업 카테고리를 선택해주세요');
+			return false;
+		}
+		if ($('#lowcategory').val() == "") {
+			alert('수업 카테고리를 선택해주세요');
+			return false;	
+		}
+		if ($('#target').val() == "") {
+			alert('수업 대상을 선택해주세요');
+			return false;	
+		}		
+		if(!$('#online').is(':checked') && !$('#offline').is(':checked')) {
+			alert('수업 방식을 선택해주세요');
+			return false;	
+		}
+	})
+});
+</script>
 
 <body>
 	<div>
