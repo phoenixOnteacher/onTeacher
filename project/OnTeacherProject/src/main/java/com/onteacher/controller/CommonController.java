@@ -33,6 +33,8 @@ import com.onteacher.service.CourseService;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
+import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Teacher;
 
 @Controller
 @RequestMapping
@@ -165,7 +167,6 @@ public class CommonController {
 			@RequestParam(value="lowcategory") int lowcategory_id,
 			@RequestParam(value="target") String target,
 			@RequestParam(value="isonline") char isonline) {		
-		
 		Course course = new Course();
 		course.setHighCategoryId(highcategory_id);
 		course.setLowCategoryId(lowcategory_id);
@@ -185,6 +186,34 @@ public class CommonController {
 		modelAndView.setViewName("template");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/searchCourse/detail", method = RequestMethod.GET)
+	public ModelAndView searchCourseDetail(@RequestParam(value="courseId", required = true) int courseId) {
+		ModelAndView modelAndView= new ModelAndView();
+		Course course;
+		try {
+			course = courseService.queryCourseById(courseId);
+			int highCategoryId = course.getHighCategoryId();
+			int lowCategoryId = course.getLowCategoryId();
+			int teacherId = course.getTeacherId();
+			HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
+			LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
+			Teacher teacher = courseService.queryTeacherById(teacherId);
+			modelAndView.addObject("course", course);
+			modelAndView.addObject("highCategory", highCategory);
+			modelAndView.addObject("lowCategory", lowCategory);
+			modelAndView.addObject("teacher", teacher); 
+			modelAndView.addObject("page","common/courseDetail");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+		
+	}
+	
+
+	
 	
 //	@RequestMapping(value = "/searchCourse/list", method = RequestMethod.GET)
 //	public String CourseList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,

@@ -222,4 +222,29 @@ public class StudentController {
 		}
 		return "template";
 	}
+	
+	@RequestMapping(value="/searchCourse/apply", method = RequestMethod.GET)
+	public ModelAndView searchCourseDetailApply(@RequestParam(value="courseId", required = true) int courseId) {
+		ModelAndView modelAndView= new ModelAndView();
+		Course course;
+		try {
+			course = courseService.queryCourseById(courseId);
+			int highCategoryId = course.getHighCategoryId();
+			int lowCategoryId = course.getLowCategoryId();
+			int teacherId = course.getTeacherId();
+			HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
+			LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
+			Teacher teacher = courseService.queryTeacherById(teacherId);
+			modelAndView.addObject("course", course);
+			modelAndView.addObject("highCategory", highCategory);
+			modelAndView.addObject("lowCategory", lowCategory);
+			modelAndView.addObject("teacher", teacher); 
+			modelAndView.addObject("page","common/courseDetailApply");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		modelAndView.setViewName("template");
+		return modelAndView;
+		
+	}
 }
