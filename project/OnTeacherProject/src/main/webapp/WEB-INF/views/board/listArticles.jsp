@@ -4,6 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${path}/resources/css/board.css" />
 <%
   request.setCharacterEncoding("UTF-8");
 %>
@@ -31,28 +32,41 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 
 .cls2 {
 	text-align: center;
-	font-size: 30px;
+	font-size: 10px;
 }
 </style>
 <meta charset="UTF-8">
-<title>글목록창</title>
+<!--  <title>글목록창</title>-->
 </head>
 
 <body>
-	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
-	<a class="cls1" href="articleForm"><p class="cls2">글쓰기</p></a>
+
+
+
+
+<div id="tc_wrap">
+	<div id="tc_title_wrap">
+		<div id="tc_title">글목록창</div>
+		
+		
+	</div>	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
+	<a class="cls1" href="articleForm"><p button type="button" class="btn btn-danger">글쓰기</button></p></a>
 	</c:if>
 	
 	<!-- ><a class="cls1" href="javascript:fn_articleForm"><p class="cls2">글쓰기</p></a>-->
+	<br>
+	<table class="table table-hover">
+		<thead class="table-warning">
+			<tr>
+				<th>No</th>
+				<th>작성자</th>
+				<th>제목</th>
+				<th>작성일</th>
+				<th>조회수</th>
+			</tr>
+		</thead>
+		<tbody>
 
-	<table align="center" border="1" width="80%">
-		<tr height="10" align="center" bgcolor="lightgreen">
-			<td>No</td>
-			<td>작성자</td>
-			<td>제목</td>
-			<td>작성일</td>
-			<td>조회수</td>
-		</tr>
 		<c:choose>
 			<c:when test="${articlesList ==null }">
 				<tr height="10">
@@ -66,13 +80,13 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 			<c:when test="${articlesList !=null }">
 				<c:forEach var="article" items="${articlesList }"
 					varStatus="articleNO">
-					<tr align="center">
-						<td width="10%">${article.id }</td>
-						<td width="10%">${article.user_name}</td>
+					<tr class="tbody_row">
+						<td>${article.id }</td>
+						<td>${article.user_name}</td>
 						<td align='left' width="35%"><span
 							style="padding-right: 30px"></span> <a
 							href="./viewArticle?no=${article.id}&pageNo=${currentPage}">${article.title} </a></td>
-						<td width="10%">${article.created_at}</td>
+						<td>${article.created_at}</td>
 						<td width="5%">${article.hits}</td>
 					</tr>
 				</c:forEach>
