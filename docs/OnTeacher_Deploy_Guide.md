@@ -12,11 +12,12 @@
    dependencies 
    {
        ...
-       implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
+       ll
+           
    	...
    }
    ```
-
+   
    ![build.gradle](md-images/build.gradle.jpg)
 
 
