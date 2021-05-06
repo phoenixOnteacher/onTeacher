@@ -19,7 +19,6 @@ $(function() {
 			data: { high_category_id: highcategoryid },
 			contentType: "application/json; charset=UTF-8",
 			success: function(data) {
-				//alert(data);
 				if (data.length == 0) {
 					$("#lowcategory").append('<option value="">하위 분류 선택</option>');
 				} else {
