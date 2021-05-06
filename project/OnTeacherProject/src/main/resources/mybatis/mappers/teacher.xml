@@ -93,4 +93,11 @@
 		]]>
 	</select>
 
+	<update id="updateTeacherCert" parameterType="teacher">
+		<![CDATA[
+		update teacher 
+		set filename=#{fileName}, description=#{description}, status='submitted' 
+		where id=#{id}
+		]]>
+	</update>
 </mapper>

@@ -63,6 +63,16 @@ modelAndView.addObject("teacher", teacher);
 				</tr>
 			</table><br>
 		</div>
+			<script>
+			function appli(){
+				alert("해당 수업을 신청하였습니다.");
+			}</script>
+				
+		<table>
+			<tr><td>
+				<INPUT type ='button' value='수강신청' onclick='appli()'>
+			</td></tr>
+		</table>
 
 		<div>
 			<table class="table table-borderless">

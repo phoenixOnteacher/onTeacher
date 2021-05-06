@@ -20,5 +20,6 @@ public interface TeacherDAO {
 	public void updateApproved(String email);
 	public void updateRejected(String email);
 	public Teacher selectTeacherByTeacherId(int teacherId) throws Exception;
+	public void updateTeacherCert(Teacher teacher);
 }
 

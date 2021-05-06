@@ -69,6 +69,11 @@ public class TeacherServiceImpl implements TeacherService {
 		teacher.setCourseReviewList(reviewList);
 		return teacher;
 	}
+
+	@Override
+	public void updateTeacherCert(Teacher teacher) {
+		teacherDAO.updateTeacherCert(teacher);
+	}
 	
 }
 
