@@ -30,7 +30,7 @@
 	  					<p class="text-secondary mb-0">파일 없음</p>
   					</c:when>
   					<c:otherwise>
-		      			<i class="fas fa-paperclip"></i> <a href="/hwfiledownload?filename=${homework.filename }">${homework.filename }</a>
+		      			<i class="fas fa-paperclip"></i> <a href="/hwfiledownload?filename=${homework.filename }" class="text-decoration-none">${fn:substring(homework.filename,25,-1) }</a>
   					</c:otherwise>
  				  </c:choose>
 		      </td>

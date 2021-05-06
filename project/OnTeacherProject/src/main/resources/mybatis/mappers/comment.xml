@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CommentDAO">
+
+
+	<select id="selectCommentList" resultType="comment"
+		parameterType="int">
+		 <![CDATA[
+		SELECT r.id as id, content,created_at,user_id,article_id, t.name as user_name
+		FROM reply r,teacher t
+		WHERE r.user_id=t.id and article_id=#{article_id}
+		ORDER BY id
+		]]>
+	</select>
+
+	<insert id="insertComment" parameterType="comment">
+        <![CDATA[
+		 INSERT INTO reply(id,content,created_at,user_id,article_id)
+         VALUES (REPLY_SEQ.NEXTVAL, #{content}, sysdate,  #{user_id}, #{article_id} )
+		]]>
+	</insert>
+
+	
 </mapper>

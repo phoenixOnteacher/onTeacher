@@ -21,54 +21,57 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.onteacher.service.OcrService;
 
-
 @Controller("Controller")
 @RequestMapping("/ocr")
 public class OcrController {
-	
-	@RequestMapping(value="/main", method=RequestMethod.GET) // 호출 주소 : localhost:8090/ocr/main
+
+	@RequestMapping(value = "/main", method = RequestMethod.GET) // 호출 주소 : localhost:8090/ocr/main
 	public String ocrMain(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "ocr/ocrInsertForm");
-		return "template";		
+		return "template";
 	}
-	
+
 	@RequestMapping(value = "/ImageUpload", method = RequestMethod.POST)
 	public String imageUpload(MultipartHttpServletRequest mtfRequest, Model model)
 			throws IllegalStateException, IOException {
-		String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
-		System.out.println(path);
-		File dir = new File(path);
-		if (!dir.isDirectory()) {
-			dir.mkdir();
-		}
-		MultipartFile orgfile = mtfRequest.getFile("file");
-		File destFile = new File(path + orgfile.getOriginalFilename());
+		try {
+			MultipartFile orgfile = mtfRequest.getFile("file");
 
-		System.out.println(destFile.getPath());
-		orgfile.transferTo(destFile);		
-		String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename()); 
-		// OcrService의 ImageRecognize 메소드를 처리한 후 res 변수에 저장한다. 
-				
-		System.out.println(res);
-		
+			if (!orgfile.isEmpty()) {
+				String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
+				File dir = new File(path);
+				if (!dir.isDirectory()) {
+					dir.mkdir();
+				}
+				File destFile = new File(path + orgfile.getOriginalFilename());
+
+				orgfile.transferTo(destFile);
+				String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename());
+				// OcrService의 ImageRecognize 메소드를 처리한 후 res 변수에 저장한다.
+				model.addAttribute("text", res);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		model.addAttribute("page", "ocr/ocrRecognize");
-		model.addAttribute("text", res);
 		return "template";
 	}
 
 	@RequestMapping(value = "/savefile", method = RequestMethod.POST)
-	public void saveFile(@RequestParam(value="txtSave") String txtSave, @RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+	public void saveFile(@RequestParam(value = "txtSave") String txtSave,
+			@RequestParam(value = "filename") String filename, HttpServletRequest request,
+			HttpServletResponse response) {
 
-		String path = request.getServletContext().getRealPath("/ocrupload/");		
-		File file = new File(path + filename);		
+		String path = request.getServletContext().getRealPath("/ocrupload/");
+		File file = new File(path + filename);
 		String sfilename = null;
 		FileInputStream fis = null;
-		
+
 		try {
-		
+
 			FileWriter writer = new FileWriter(file);
 			writer.write(txtSave);
-			writer.close();		
+			writer.close();
 			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
@@ -85,16 +88,16 @@ public class OcrController {
 			fis = new FileInputStream(file);
 			FileCopyUtils.copy(fis, out);
 			out.flush();
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
 			if (fis != null) {
 				try {
 					fis.close();
-					} catch (Exception e) {
+				} catch (Exception e) {
 				}
 			}
 		}
 	}
-}	
+}

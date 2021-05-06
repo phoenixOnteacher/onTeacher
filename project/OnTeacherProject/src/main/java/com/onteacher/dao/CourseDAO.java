@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.onteacher.vo.Course;
+import com.onteacher.vo.HighCategory;
+
 
 @Mapper
 @Repository("courseDAO")
@@ -23,6 +25,14 @@ public interface CourseDAO {
 	public List<Course> selectMatchingCourseList(int teacherId) throws Exception;
 	public List<Course> selectMatchedCourseList(int teacherId) throws Exception;
 	public List<Course> selectEndCourseList(int teacherId) throws Exception;
+	public List<Course> selectCourseForSearch();
+	public List<Course> selectCourseForSearchFilter(Course course);
+	public List<HighCategory> highcategoryList();
+	
+	public List<Course> selectMaxCourseNO();
+	public List<Course> selectAllCourseList();
+
+	public List<Course> CourseList(Course courseList);
 	public List<Course> selectCourseForIndex();
 
 
