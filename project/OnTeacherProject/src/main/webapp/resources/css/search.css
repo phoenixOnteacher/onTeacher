@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* 전체 */
 #s_wrap {
 	max-width: 800px;
 	margin: 0 auto;
@@ -9,12 +10,18 @@
 	font-size: 14px;
 }
 
+/* 수업검색 */
+#searchbox {
+	background-color: #EDEDED;
+}
+
 #s_title_wrap {
 	font-family: 'S-CoreDream-5Medium';
 	font-size: 25px;
 	font-weight: 700;
 	text-align: center;
 	margin-bottom: 2.5rem;
+	padding-top: 28px;
 }
 
 #s_table {
@@ -57,6 +64,7 @@ td.thead, td.tbody {
 #s_btn_wrap {
 	text-align: right;
 	padding-right: 40px;
+	padding-bottom: 2rem;
 }
 
 button.btn-primary {
@@ -72,26 +80,23 @@ button.btn-primary:hover {
 	border-color: #FF8184;
 }
 
-#outter {
-	display: block;
-	width: 60%;
-	margin: auto;
+/* 수업검색결과 */
+#searchlist {
+	margin-top: 2rem;
 }
 
-a {
-	text-decoration: none;
+.card {
+	border: 0;
 }
 
-.center {
-	margin: auto;
-	width: 50%;
-	border: 1px solid black;
-	padding: 10px;
+div.col-md-4 {
+	width: 140px;
+	height: 140px;
 }
 
-.center2 {
-	margin: auto;
-	width: 30%;
-	border: 1px solid black;
-	padding: 10px;
+.l_thimg {
+	width: 140px;
+	height: 140px;
+	object-fit: cover;
+	border-radius: 10%;
 }

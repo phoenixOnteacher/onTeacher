@@ -7,70 +7,86 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <div id="s_wrap">
-	<div id="s_title_wrap">
-		<div id="s_title">수업검색</div>
-	</div>
-	<form action="searchCourse" method="post" id="courseSearchForm">
-		<table id="s_table">
-			<tr>
-				<td class="thead"><label for="highcategory">수업 분류</label></td>
-				<td class="tbody"><select required="required" id="highcategory"
-					name="highcategory" class="form-select form-select-sm">
-						<option value="">상위 분류 선택</option>
-						<c:forEach var="high" items="${highCategory }">
-							<option value="${high.id }">${high.name }</option>
-						</c:forEach>
-				</select> <select required="required" id="lowcategory" name="lowcategory"
-					class="form-select form-select-sm">
-						<!-- jquery에서 option 동적생성 처리 -->
-						<option value="">하위 분류 선택</option>
-				</select>
-			</tr>
-			<tr>
-				<td class="thead"><label for="target">수업 대상</label></td>
-				<td class="tbody"><select required="required" id="target"
-					name="target" class="form-select form-select-sm">
-						<option value="">선택해주세요</option>
-						<option value="초등">초등학생</option>
-						<option value="중등">중학생</option>
-						<option value="고등">고등학생</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td class="thead"><label for="isonline">수업 방식</label></td>
-				<td class="tbody"><input type="radio" name="isonline" value='1'
-					id="online" class="isonline">&nbsp;온라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"
-					name="isonline" value='0' id="offline" class="isonline">&nbsp;오프라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			</tr>
-		</table>
-		<div id="s_btn_wrap">
-			<button type="submit" id="submit_btn" class="btn btn-primary">검색하기</button>
+	<div id="searchbox">
+		<div id="s_title_wrap">
+			<div id="s_title">수업검색</div>
 		</div>
-	</form>
-	<div>
-		<p>&nbsp;</p>
+		<form action="searchCourse" method="post" id="courseSearchForm">
+			<table id="s_table">
+				<tr>
+					<td class="thead"><label for="highcategory">수업 분류</label></td>
+					<td class="tbody"><select required="required"
+						id="highcategory" name="highcategory"
+						class="form-select form-select-sm">
+							<option value="">상위 분류 선택</option>
+							<c:forEach var="high" items="${highCategory }">
+								<option value="${high.id }">${high.name }</option>
+							</c:forEach>
+					</select> <select required="required" id="lowcategory" name="lowcategory"
+						class="form-select form-select-sm">
+							<!-- jquery에서 option 동적생성 처리 -->
+							<option value="">하위 분류 선택</option>
+					</select>
+				</tr>
+				<tr>
+					<td class="thead"><label for="target">수업 대상</label></td>
+					<td class="tbody"><select required="required" id="target"
+						name="target" class="form-select form-select-sm">
+							<option value="">선택해주세요</option>
+							<option value="초등">초등학생</option>
+							<option value="중등">중학생</option>
+							<option value="고등">고등학생</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="thead"><label for="isonline">수업 방식</label></td>
+					<td class="tbody"><input type="radio" name="isonline"
+						value='1' id="online" class="isonline">&nbsp;온라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+						type="radio" name="isonline" value='0' id="offline"
+						class="isonline">&nbsp;오프라인&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				</tr>
+			</table>
+			<div id="s_btn_wrap">
+				<button type="submit" id="submit_btn" class="btn btn-primary">검색하기</button>
+			</div>
+		</form>
 	</div>
-
-</div>
-</body>
-
-<div id="outter">
-	<div style="float: right;">
-		<table>
-			<tr>
-				<td><select id="browsers" name="browsers" multiple size="1"
-					required="required">
-						<option value="최신순">최신순</option>
-						<option value="마감순">마감순</option>
-						<option value="인기순">인기순</option>
-				</select></td>
-			</tr>
-		</table>
+	<div id="searchlist">
+		<div class="card mb-3">
+			<c:forEach var="course" items="${courses}">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="/thprofileupload/${course.teacher.profileImg}"
+							class="l_thimg">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<p class="card-title">
+								<a href="">${course.teacher.name } 선생님</a>
+							</p>
+							<c:choose>
+								<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
+								<!-- 학생인 경우 수업상세+신청 -->
+									<h5 class="card-title">
+										<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
+									</h5>
+								</c:when>
+								<c:otherwise>
+									<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
+								</c:otherwise>
+							</c:choose>
+							<p class="card-text">${course.location}
+								${course.studyDay}${course.studyTime}</p>
+							<p class="card-text">
+								<small class="text-muted">${course.startDate} ~ ${course.endDate}</small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</c:forEach>
+		</div>
 	</div>
-
-
 </div>
-</body>
 <script>
 $(function() {
 	var select = '<option value="">하위 분류 선택</option>';
@@ -138,43 +154,3 @@ $(function() {
 	})
 });
 </script>
-
-<body>
-	<div>
-		<p>&nbsp;</p>
-	</div>
-
-	<c:forEach var="course" items="${courses}">
-		<table class="center2" border="1">
-			<tr>
-				<td><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
-			</tr>
-			<tr>
-				<td><a href="">${course.teacher.name } 선생님</a></td>
-			</tr>
-			<tr>
-				<td>
-					<c:choose>
-						<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}"> <!-- 학생인 경우 수업상세+신청 -->
-							<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
-						</c:when>
-						<c:otherwise>
-							<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
-						</c:otherwise>
-					</c:choose>
-					
-				
-				</td>
-			</tr>
-			<tr>
-				<td>${course.location}</td>
-			</tr>
-			<tr>
-				<td>${course.studyDay} ${course.studyTime}</td>
-			</tr>
-			<tr>
-				<td>${course.startDate} ~ ${course.endDate}</td>
-			</tr>
-		</table>
-	</c:forEach>
-</html>
