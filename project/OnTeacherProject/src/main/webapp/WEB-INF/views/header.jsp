@@ -65,6 +65,58 @@
 					  </div>
 					  <div class="offcanvas-body">
 					  </div>
+					  <!-- Modal -->
+					  <div class="modal fade" id="certReuploadModal" tabindex="-1" aria-labelledby="certReuploadModalLabel" aria-hidden="true" data-bs-backdrop="false">
+						  <div class="modal-dialog modal-dialog-centered">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="certReuploadModalLabel">자격 증명서 재업로드</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						        <div class="mb-3">
+						        	<!-- <h3>반려된 증명서</h3>
+					        		<table class="table table-bordered">
+										<tbody>
+											<tr>
+												<th>증명서 파일</th>
+												<td><a href="/teacher/certfiledownload?filename=${teacher.fileName }">${teacher.fileName }</a></td>
+											</tr>
+											<tr>
+												<th>설명</th>
+												<td>${teacher.description }</td>
+											</tr>
+										</tbody>
+									</table>
+									<br> -->
+									<h3>심사 다시 받기</h3>
+									<form action="/teacher/cert-reupload" method="post"  enctype="multipart/form-data">
+										<table class="table table-bordered">
+											<tbody>
+												<tr>
+													<th>증명서 파일</th>
+													<td><input type="file" id="fileName" name="file"></td>
+												</tr>
+												<tr>
+													<th>설명</th>
+													<td><textarea id="description" name="description"></textarea></td>
+												</tr>
+												<tr>
+													<th></th>
+													<td><input type="submit" value="제출"></td>
+												</tr>
+											</tbody>
+										</table>
+									</form>
+								</div>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+						        <button type="button" class="btn btn-primary reuploadCertBtn" value="${sessionScope.id }">작성 완료</button>
+						      </div>
+						    </div>
+						  </div>
+					  </div>
 					</div>
 				</c:otherwise>
 			</c:choose>
@@ -78,8 +130,6 @@ $('#notificationBell').click(function() {
 		type: "POST",
 		url: "http://localhost:8090/notification",
 		success: function(res) {
-			console.log(res);
-			console.log(res.data);
 			var notifications = res.data;
 			console.log(notifications);
 			var notificationStr = '';
@@ -90,6 +140,9 @@ $('#notificationBell').click(function() {
 				notificationStr += '</div>';
 				notificationStr += '<div class="card-body">';
 				notificationStr += '<p class="card-text text-start">' + notifications[i].content + '</p>';
+				if (notifications[i].content.substring(0,11)=='[자격 증명(반려)]') {
+					notificationStr += '<button class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#certReuploadModal">재업로드</button>';
+				}
 				notificationStr += '</div></div>';
 			}
 			$('.offcanvas-body').html(notificationStr);
