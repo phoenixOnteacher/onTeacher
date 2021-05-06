@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css" />
 
@@ -16,8 +17,18 @@
 			<a href="/main"><img src="${path}/resources/img/logo.png" /></a>
 		</div>
 		<ul id="navbar_menu">
-			<li><a href="#">수업검색</a></li>
-			<li><a href="/teacher/course-manage">수업관리</a></li>
+			<c:if test="${fn:substring(sessionScope.id,0,1)=='3'}"> <!-- 선생님인 경우 -->
+				<li><a href="/teacher/courseregister">수업등록</a></li>
+			</c:if>
+			<li><a href="/searchCourse">수업검색</a></li>
+			<c:choose>
+				<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
+					<li><a href="/student/course-manage">내수업</a></li>
+				</c:when>
+				<c:otherwise> <!-- 비회원, 선생님일 경우 -->
+					<li><a href="/teacher/course-manage">수업관리</a></li>
+				</c:otherwise>
+			</c:choose>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 				</c:when>
@@ -25,7 +36,7 @@
 					<li><a href="/ocr/main">OCR 인식</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="#">질문게시판</a></li>
+			<li><a href="/listArticle">질문게시판</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>

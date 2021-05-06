@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/search.css" />
 <script
@@ -146,16 +147,33 @@ $(function() {
 	<c:forEach var="course" items="${courses}">
 		<table class="center2" border="1">
 			<tr>
-				<td>${course.title}</td>
+				<td><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
+			</tr>
+			<tr>
+				<td><a href="">${course.teacher.name } 선생님</a></td>
+			</tr>
+			<tr>
+				<td>
+					<c:choose>
+						<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}"> <!-- 학생인 경우 수업상세+신청 -->
+							<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
+						</c:otherwise>
+					</c:choose>
+					
+				
+				</td>
 			</tr>
 			<tr>
 				<td>${course.location}</td>
 			</tr>
 			<tr>
-				<td>${course.studyDay}${course.studyTime}</td>
+				<td>${course.studyDay} ${course.studyTime}</td>
 			</tr>
 			<tr>
-				<td>${course.startDate}~${course.endDate}</td>
+				<td>${course.startDate} ~ ${course.endDate}</td>
 			</tr>
 		</table>
 	</c:forEach>
