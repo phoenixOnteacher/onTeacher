@@ -76,7 +76,7 @@
 								</c:otherwise>
 							</c:choose>
 							<p class="card-text">${course.location}
-								${course.studyDay}${course.studyTime}</p>
+								${course.studyDay} ${course.studyTime}</p>
 							<p class="card-text">
 								<small class="text-muted">${course.startDate} ~ ${course.endDate}</small>
 							</p>
@@ -86,6 +86,7 @@
 			</c:forEach>
 		</div>
 	</div>
+	<a href="#" class="gototop"><i class="fas fa-arrow-up"></i><br>TOP</a>
 </div>
 <script>
 $(function() {
