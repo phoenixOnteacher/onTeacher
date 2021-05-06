@@ -25,6 +25,7 @@ public class Teacher {
 	private String description;
 	private String status;
 	private String message;
+	private MultipartFile file;
 	private CourseReview courseReview;
 	private List<CourseReview> courseReviewList;
 	
@@ -119,6 +120,12 @@ public class Teacher {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
 	public CourseReview getCourseReview() {
 		return courseReview;
 	}
@@ -131,4 +138,5 @@ public class Teacher {
 	public void setCourseReviewList(List<CourseReview> courseReviewList) {
 		this.courseReviewList = courseReviewList;
 	}
+
 }

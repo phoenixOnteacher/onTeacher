@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
-<html>
-<meta charset="UTF-8">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<c:set var="path" value="${pageContext.request.contextPath}" />
+<link rel="stylesheet" href="${path}/resources/css/search.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- include libraries(jQuery, bootstrap) -->
 <link
 	href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -17,97 +18,69 @@
 <script src="/js/summernote/lang/summernote-ko-KR.js"></script>
 
 <link rel="stylesheet" href="/css/summernote/summernote-lite.css">
-	
-<head>
-	<style>
-	h2 {
-		text-align: center;
-	}
-	table {
-		width: 50%;
-	}
-	#outter {
-		display: block;
-		width: 60%;
-		margin: auto;
-	}
-	a {
-		text-decoration: none;
-	}
-	.center {
-    margin: auto;
-    width: 50%;
-    border: 1px solid black;
-    padding: 10px;
-    }
-    .center2 {
-    margin: auto;
-    width: 30%;
-    border: 1px solid black;
-    padding: 10px;
-}
-</style>
-</head>	
-	
-<body>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-	<div>
+<div>
 	<form action="searchCourse" method="post" id="courseRegForm">
-		<div style="display: block; text-align: center;">	
-		<table class="center" border="1">
-			<tr>
-				<td class="thead"><label for="highcategory">수업 카테고리</label></td>
-				<td class="tbody"><select required="required" id="highcategory" name="highcategory">
-					<option value="">선택해주세요</option>
-					<c:forEach var="high" items="${highCategory }">
-						<option value="${high.id }">${high.name }</option>
-					</c:forEach>
-				</select> <select required="required" id="lowcategory" name="lowcategory">
-					<!-- jquery에서 option 동적생성 처리 -->
-					<option value="">선택해주세요</option>
-				</select>
-			</tr>
-			<tr>
-				<td class="thead"><label for="target">수업 대상</label></td>
-				<td class="tbody"><select required="required" id="target" name="target">
-					<option value="">선택해주세요</option>
-					<option value="초등">초등학생</option>
-					<option value="중등">중학생</option>
-					<option value="고등">고등학생</option>
-				</select></td>
-			</tr>
-			<tr>
-				<td class="thead"><label for="isonline">수업 방식</label></td>
-				<td class="tbody"><input type="radio" name="isonline" value='1'
-					id="online" class="isonline">온라인 <input type="radio" name="isonline"
-					value='0' id="offline" class="isonline">오프라인</td>
-			</tr>		
-				<tr><td class="tbody">
-				<button type="submit" id="submit_btn">검색하기</button>
-				<td></tr>		
-		</table>	
+		<div style="display: block; text-align: center;">
+			<table class="center" border="1">
+				<tr>
+					<td class="thead"><label for="highcategory">수업 카테고리</label></td>
+					<td class="tbody"><select required="required"
+						id="highcategory" name="highcategory">
+							<option value="">선택해주세요</option>
+							<c:forEach var="high" items="${highCategory }">
+								<option value="${high.id }">${high.name }</option>
+							</c:forEach>
+					</select> <select required="required" id="lowcategory" name="lowcategory">
+							<!-- jquery에서 option 동적생성 처리 -->
+							<option value="">선택해주세요</option>
+					</select>
+				</tr>
+				<tr>
+					<td class="thead"><label for="target">수업 대상</label></td>
+					<td class="tbody"><select required="required" id="target"
+						name="target">
+							<option value="">선택해주세요</option>
+							<option value="초등">초등학생</option>
+							<option value="중등">중학생</option>
+							<option value="고등">고등학생</option>
+					</select></td>
+				</tr>
+				<tr>
+					<td class="thead"><label for="isonline">수업 방식</label></td>
+					<td class="tbody"><input type="radio" name="isonline"
+						value='1' id="online" class="isonline">온라인 <input
+						type="radio" name="isonline" value='0' id="offline"
+						class="isonline">오프라인</td>
+				</tr>
+				<tr>
+					<td class="tbody">
+						<button type="submit" id="submit_btn">검색하기</button>
+					<td>
+				</tr>
+			</table>
 		</div>
 	</form>
 	<div>
-	<p>&nbsp;</p>
+		<p>&nbsp;</p>
 	</div>
-	
+
 </div>
 </body>
 
 <div id="outter">
 	<div style="float: right;">
-<table>
-<tr><td>
-<select id="browsers" name="browsers" multiple size="1" required="required">
-    <option value="최신순">최신순</option>
-    <option value="마감순">마감순</option>
-    <option value="인기순">인기순</option>
-</select></td></tr>
-</table>
-</div>
+		<table>
+			<tr>
+				<td><select id="browsers" name="browsers" multiple size="1"
+					required="required">
+						<option value="최신순">최신순</option>
+						<option value="마감순">마감순</option>
+						<option value="인기순">인기순</option>
+				</select></td>
+			</tr>
+		</table>
+	</div>
 
 
 </div>
@@ -190,43 +163,69 @@ $(function() {
 </script>
 <body>
 	<div>
-		<p>&nbsp;</p>	
+		<p>&nbsp;</p>
 	</div>
-	
-  	<c:forEach var="course" items="${courses}">
+
+	<c:forEach var="course" items="${courses}">
 		<table class="center2" border="1">
-			<tr><td>${course.title}</td></tr>
-			<tr><td>${course.location}</td></tr>
-			<tr><td>${course.studyDay} ${course.studyTime}</td></tr>
-			<tr><td>${course.startDate} ~ ${course.endDate}</td></tr>	
+			<tr>
+				<td><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></td>
+			</tr>
+			<tr>
+				<td><a href="">${course.teacher.name } 선생님</a></td>
+			</tr>
+			<tr>
+				<td>
+					<c:choose>
+						<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}"> <!-- 학생인 경우 수업상세+신청 -->
+							<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
+						</c:when>
+						<c:otherwise>
+							<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
+						</c:otherwise>
+					</c:choose>
+					
+				
+				</td>
+			</tr>
+			<tr>
+				<td>${course.location}</td>
+			</tr>
+			<tr>
+				<td>${course.studyDay} ${course.studyTime}</td>
+			</tr>
+			<tr>
+				<td>${course.startDate} ~ ${course.endDate}</td>
+			</tr>
 		</table>
 	</c:forEach>
-<!-- 
+	<!-- 
 <div class="bar">
 	    <!-- 이전 페이지 -->
-		<c:choose>
-			<c:when test="${current eq 1}">
-				<a href="CourseList?page=${current}">&laquo;</a>
-			</c:when>
-			<c:otherwise>
-				<a href="CourseList?page=${current-1}">&laquo;</a>
-			</c:otherwise>
-		</c:choose>
-		<!-- 게시판 페이징 숫자클릭 -->
-		<c:forEach var="i" begin="1" end="${pageCnt}">
-			<a href="CourseList?page=${i}" class="button">${i}</a>
-		</c:forEach>
-		<!-- 다음 페이지 -->
-		<c:choose>
-			<c:when test="${current eq cnt}">
-				<a href="CourseList?page=${current}">&raquo;</a>
-			</c:when>
-			<c:otherwise>
-				<a href="CourseList?page=${current+1}">&raquo;</a>
-			</c:otherwise>
-		</c:choose>
-	</div> -->	
-<!-- 	
+	<c:choose>
+		<c:when test="${current eq 1}">
+			<a href="CourseList?page=${current}">&laquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a href="CourseList?page=${current-1}">&laquo;</a>
+		</c:otherwise>
+	</c:choose>
+	<!-- 게시판 페이징 숫자클릭 -->
+	<c:forEach var="i" begin="1" end="${pageCnt}">
+		<a href="CourseList?page=${i}" class="button">${i}</a>
+	</c:forEach>
+	<!-- 다음 페이지 -->
+	<c:choose>
+		<c:when test="${current eq cnt}">
+			<a href="CourseList?page=${current}">&raquo;</a>
+		</c:when>
+		<c:otherwise>
+			<a href="CourseList?page=${current+1}">&raquo;</a>
+		</c:otherwise>
+	</c:choose>
+	</div>
+	-->
+	<!-- 	
 	<div style="display: block; text-align: center;">		
 		<c:if test="${paging.startPage != 1 }">
 			<a href="/boardList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>

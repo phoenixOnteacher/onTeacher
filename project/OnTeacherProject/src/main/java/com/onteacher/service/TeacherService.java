@@ -12,5 +12,6 @@ public interface TeacherService {
 	public void certApproved(String email) throws Exception;
 	public void certRejected(String email) throws Exception;
 	public Teacher teacherInfo(int teacherId) throws Exception;
+	public void updateTeacherCert(Teacher teacher);
 
 }
