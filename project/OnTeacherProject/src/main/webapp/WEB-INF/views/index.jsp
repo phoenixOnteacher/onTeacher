@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/index.css" />
 <div id="i_wrap">
@@ -32,12 +33,30 @@
 				<span class="visually-hidden">Next</span>
 			</button>
 		</div>
-		<div id="loginblock">
-			<div id="loginbtndiv">
-				<div id="logintext">교육봉사 참여 / 수업 신청하려면?</div>
-				<a id="loginbtn" class="btn btn-primary" href="/login">로그인하러 가기</a>
+		<c:if test="${sessionScope.id == null }">
+			<div id="loginblock">
+				<div id="loginbtndiv">
+					<div id="logintext">교육봉사 참여 / 수업 신청하려면?</div>
+					<a id="loginbtn" class="btn btn-primary" href="/login">로그인하러 가기</a>
+				</div>
 			</div>
-		</div>
+		</c:if>
+		<c:if test="${fn:substring(sessionScope.id,0,1)=='2' }">
+			<div id="loginblock">
+				<div id="loginbtndiv">
+					<div id="logintext">나에게 알맞은 수업을 검색 / 신청하려면?</div>
+					<a id="loginbtn" class="btn btn-primary" href="/searchCourse">수업검색 하기</a>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${fn:substring(sessionScope.id,0,1)=='3' }">
+			<div id="loginblock">
+				<div id="loginbtndiv">
+					<div id="logintext">수업을 개설하고 학생과 매칭하려면?</div>
+					<a id="loginbtn" class="btn btn-primary" href="/teacher/courseregister">수업등록 하기</a>
+				</div>
+			</div>
+		</c:if>
 		<div id="mainthumbblock">
 			<div id="mainthumbtext">
 				<p>현재 신청 가능한 수업</p>
