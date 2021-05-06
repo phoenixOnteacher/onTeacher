@@ -28,3 +28,6 @@ alter table notification drop column from_id;
 alter table notification add is_checked char(1) default 0 not null;
 -- Homework : filename 길이 변경
 alter table homework modify filename varchar2(1000);
+
+-- 5/6 Reply : Sequence 추가
+create sequence ReplyIdSeq start with 1;
