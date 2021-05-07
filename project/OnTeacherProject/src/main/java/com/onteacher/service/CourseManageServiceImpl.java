@@ -13,6 +13,7 @@ import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
 import com.onteacher.dao.MatchingDAO;
+import com.onteacher.dao.NotificationDAO;
 import com.onteacher.dao.StudentDAO;
 import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Course;
@@ -21,6 +22,7 @@ import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
+import com.onteacher.vo.Notification;
 import com.onteacher.vo.Student;
 import com.onteacher.vo.StudentReview;
 
@@ -52,6 +54,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Autowired
 	private HomeworkAnswerDAO homeworkAnswerDAO;
 	
+	@Autowired
+	private NotificationDAO notificationDAO;
+	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
 		homeworkDAO.insertHomework(hw);
@@ -80,6 +85,14 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public void cancelCourse(Course c) throws Exception {
 		Course course = courseDAO.selectCourseById(c.getId());
 		if (c.getTeacherId()==course.getTeacherId()) {
+			System.out.println("ㅎㅇ");
+			Notification notification = new Notification();
+			notification.setContent("[수업 취소] " + course.getTitle() +" 수업이 취소되었습니다.");
+			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
+			for (Matching matching : matchings) {
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
+			}
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("해당 수업의 선생님만 취소 가능");
 	}

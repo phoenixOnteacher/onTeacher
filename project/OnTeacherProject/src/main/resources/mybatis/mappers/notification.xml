@@ -12,7 +12,7 @@
 	<insert id="insertNotification" parameterType="notification">
 		<![CDATA[
 		insert into notification(id, to_id, content)
-		values(#{NotificationIdSeq.nextval,},#{toId},#{content})
+		values(NotificationIdSeq.nextval, #{toId}, #{content})
 		]]>
 	</insert>
 	<select id="selectNotificationList" resultMap="notificationResult" parameterType="int">
