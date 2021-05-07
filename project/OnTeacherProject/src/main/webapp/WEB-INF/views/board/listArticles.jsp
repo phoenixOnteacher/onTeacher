@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<link rel="stylesheet" href="${path}/resources/css/board.css" />
+<link rel="stylesheet" href="${path}/resources/css/listArticles.css" />
 <%
   request.setCharacterEncoding("UTF-8");
 %>
@@ -50,7 +50,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 		
 		
 	</div>	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
-	<a class="cls1" href="articleForm"><p button type="button" class="btn btn-danger">글쓰기</button></p></a>
+	<a class="cls1" href="articleForm"><button type="button" class="btn btn-danger">글쓰기</button></a>
 	</c:if>
 	
 	<!-- ><a class="cls1" href="javascript:fn_articleForm"><p class="cls2">글쓰기</p></a>-->
@@ -95,7 +95,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	</table>
 	<fmt:parseNumber var="current" type="number" value="${currentPage}" />
 	<fmt:parseNumber var="cnt" type="number" value="${pageCnt}" />
-	
+</div>	
 	<div class="bar">
 	    <!-- 이전 페이지 -->
 		<c:choose>
