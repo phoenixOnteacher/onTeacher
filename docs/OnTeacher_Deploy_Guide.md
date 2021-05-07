@@ -17,7 +17,7 @@
    }
    ```
    
-   ![build.gradle](md-images/build.gradle.jpg)
+   ![build.gradle](docs_img/build.gradle.jpg)
 
 
 2. 로컬에서 실습하는 환경이 아닌 실제 호스팅 환경이므로 Application.properties 에서 IP, Username, Password를 변경합니다.
@@ -31,7 +31,7 @@
 
 4. Gradle Tasks  메뉴에서 Build할 프로젝트를 선택한 후 build > bootWar를 선택하여 war 파일을 생성합니다. 
 
-   ![bootWar](md-images/gradleTask.jpg)
+   ![bootWar](docs_img/gradleTask.jpg)
 
    > war  파일은 OnTeacherProject\build\libs\에 .war로 생성됩니다. 
 
@@ -45,15 +45,15 @@
 
    > 본 예제에서는 OnTeacherProject-0.0.1-SNAPSHOT.WAR을 사용합니다. 
 
-   ![WAR COPY](md-images/WAR%20COPY.jpg)
+   ![WAR COPY](docs_img/WAR%20COPY.jpg)
 
 3. Commit to master 를 클릭한 후에 publish repository를 클릭합니다. 
 
-   ![publish repository](md-images/pub%20github.jpg)
+   ![publish repository](docs_img/pub%20github.jpg)
 
 4.  정상적으로 업로드 되면, Github repository에 빌드한 war 파일이 업로드 됩니다. 
 
-   ![Github](md-images/war%20github.jpg)
+   ![Github](docs_img/war%20github.jpg)
 
    > 배포서버 git clone 할 예정이오니, clone 할  HTTPS 주소를 복사해 둡니다. 
    >
@@ -112,7 +112,7 @@
    
    > Real AWS  서버(접속 IP : 18.216.45.215)는 실제 호스팅하는 서버이므로, 스킬 업을 위한 실습은 자신의 AWS 계정을 이용해서 진행해야 합니다.  
 
-![Test Sever](md-images/Test%20Svr.jpg)
+![Test Sever](docs_img/Test%20Svr.jpg)
 
 
 
@@ -167,7 +167,7 @@
    $ sudo docker version
    ```
 
-   ![Docker install](md-images/docker%20installed.jpg)
+   ![Docker install](docs_img/docker%20installed.jpg)
 
 
 
@@ -185,7 +185,7 @@
    $ sudo git --version 
    ```
 
-   ![git version](md-images/git%20version.jpg)
+   ![git version](docs_img/git%20version.jpg)
 
 
 
@@ -203,7 +203,7 @@
    |   -p   | Port  Forwarding 을 수행함.                                  |
    | --name | Docker 컨테이너 이름을 지정해줍니다. 위 예제에서는 oracle이라고 명명했습니다. |
 
-   ![Docker Oracle Install](md-images/oracle%20docker%20install.jpg)
+   ![Docker Oracle Install](docs_img/oracle%20docker%20install.jpg)
 
    > Docker  내부 정책으로 docker 무료 사용자의 경우 ip 기반으로 다운로드를 제한할수도 있습니다. 이런 증상이 생길 경우에는 aws ubuntu linux ip 변경을 위해서 인스턴스를 중지 후 재기동해 봅니다. 
    >
@@ -222,7 +222,7 @@
    # docker ps -a 
    ```
 
-   ![docker oracle up](md-images/docker%20sql%20up.jpg)
+   ![docker oracle up](docs_img/docker%20sql%20up.jpg)
 
    > STATUS		Up 27 minutes		27 분 동안 ORACLE  서비스가 백그라운드에서 실행하고 있다는 의미
    >
@@ -256,7 +256,7 @@
 
 6. oracle sql 문 입력을 위해서  sql developer를 아래와 같이 설정한 후 접속하면, 원격으로  sql 관리 작업을 수행할 수 있습니다. 
 
-   ![SQL delveloper](md-images/SQL%20DEVELOPER.jpg)
+   ![SQL delveloper](docs_img/SQL%20DEVELOPER.jpg)
 
    > 사용자 이름 : system 
    >
@@ -266,7 +266,7 @@
 
 7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. 
 
-   ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
+   ![sql developer table create query](docs_img/AWS%20SQL%20TABLE%20CREATE.jpg)
 
    
 
@@ -284,7 +284,7 @@
       # docker volume inspect upload			"upload docker volume 상세정보를 표시합니다."
       ```
 
-      ![docker volume](md-images/Docker%20volume.jpg)
+      ![docker volume](docs_img/Docker%20volume.jpg)
 
       > Docker volume을 mount 하면 위 그림과 같이 /var/lib/docker/volumes/{mounting point}/_data 아래에 디렉토리와 파일이 위치합니다. 
 
@@ -309,7 +309,7 @@
 
       > 본 가이드에서는 작성자가 생성한 git  Repository를 사용했습니다만, 자신의 git Repository가 있다면 해당 github URL을 입력합니다. 
 
-      ![git clone](md-images/git%20clone.jpg)
+      ![git clone](docs_img/git%20clone.jpg)
 
    3. 클론한 디렉토리로 이동합니다. 
 
@@ -383,5 +383,5 @@
 
       > 실행중인 Docker Web Application 을 중단하려면 Ctrl+C를 눌려주세요. 
 
-       ![deploy end](md-images/deploy%20end.jpg)
+       ![deploy end](docs_img/deploy%20end.jpg)
 
