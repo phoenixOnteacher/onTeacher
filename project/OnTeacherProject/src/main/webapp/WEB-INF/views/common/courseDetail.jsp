@@ -32,7 +32,14 @@ modelAndView.addObject("teacher", teacher);
 				<td class="left">수업 분류</td>
 				<td class="right">${highCategory.name} > ${lowCategory.name}</td>
 				<td class="left">수업 대상</td>
-				<td class="right">${course.target}학생</td>
+				<c:choose>
+					<c:when test="${course.target eq '중등'}">
+						<td class="right">중학생</td>
+					</c:when>
+					<c:otherwise>
+						<td class="right">${course.target}학생</td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr>
 				<td class="left">수업 방식 (지역)</td>
