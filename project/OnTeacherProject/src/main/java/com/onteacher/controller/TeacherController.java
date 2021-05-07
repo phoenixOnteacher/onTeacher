@@ -438,7 +438,7 @@ public class TeacherController {
 		}
 		course.setTeacherId(teacher_id);
 		courseManageService.registerCourse(course);
-		model.addAttribute("page", "teacher/course_register");
+		model.addAttribute("page", "search");
 		return "template";
 	}
 
