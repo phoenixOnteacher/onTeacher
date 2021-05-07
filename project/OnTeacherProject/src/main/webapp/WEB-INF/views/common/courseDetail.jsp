@@ -85,7 +85,7 @@ modelAndView.addObject("teacher", teacher);
 			</tr>
 			<tr>
 				<td class="left2">수업 소개</td>
-				<td class="right2">${course.curriculum}</td>
+				<td class="right2" id="curriculum">${course.curriculum}</td>
 			</tr>
 			<tr>
 				<td class="left2">참고 자료</td>
