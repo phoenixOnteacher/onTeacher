@@ -12,8 +12,7 @@
    dependencies 
    {
        ...
-       ll
-           
+       implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
    	...
    }
    ```
@@ -28,8 +27,6 @@
    spring.datasource.username=system
    spring.datasource.password=oracle
    
-   ![application.properies](md-images/app.propety.jpg)
-
 3. 상단 메뉴에서  Window > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
 
 4. Gradle Tasks  메뉴에서 Build할 프로젝트를 선택한 후 build > bootWar를 선택하여 war 파일을 생성합니다. 
@@ -307,7 +304,7 @@
       ~~~
    
       ```bash 
-      FROM openjdk:11-jdk as builder
+      run FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
       
