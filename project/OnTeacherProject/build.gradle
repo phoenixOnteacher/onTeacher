@@ -24,6 +24,9 @@ dependencies {
 	implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation files('libs/ojdbc6.jar')  
 	
+	// AWS 배포용 ojdbc10 설정 
+	// implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
+	
 	//jsp
 	implementation('org.apache.tomcat.embed:tomcat-embed-jasper')  
     implementation('javax.servlet:jstl:1.2')
