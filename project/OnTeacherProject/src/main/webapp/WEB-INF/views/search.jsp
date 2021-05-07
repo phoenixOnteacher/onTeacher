@@ -56,29 +56,37 @@
 			<c:forEach var="course" items="${courses}">
 				<div class="row g-0">
 					<div class="col-md-4">
-						<img src="/thprofileupload/${course.teacher.profileImg}"
-							class="l_thimg">
+						<c:choose>
+							<c:when test="${course.teacher.profileImg == null}">
+								<img src="${path}/resources/img/logo.png" class="l_thimg">
+							</c:when>
+							<c:otherwise>
+								<img src="/thprofileupload/${course.teacher.profileImg}"
+									class="l_thimg">
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="col-md-8">
 						<div class="card-body">
-							<p class="card-title">
+							<p class="card-title tcard">
 								<a href="">${course.teacher.name } 선생님</a>
 							</p>
-							<c:choose>
-								<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
-								<!-- 학생인 경우 수업상세+신청 -->
-									<h5 class="card-title">
+							<h5 class="card-title ccard">
+								<c:choose>
+									<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
+										<!-- 학생인 경우 수업상세+신청 -->
 										<a href="/student/searchCourse/apply?courseId=${course.id }">${course.title}</a>
-									</h5>
-								</c:when>
-								<c:otherwise>
-									<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
-								</c:otherwise>
-							</c:choose>
-							<p class="card-text">${course.location}
-								${course.studyDay} ${course.studyTime}</p>
+									</c:when>
+									<c:otherwise>
+										<a href="/searchCourse/detail?courseId=${course.id }">${course.title}</a>
+									</c:otherwise>
+								</c:choose>
+							</h5>
+							<p class="card-text">${course.location}${course.studyDay}
+								${course.studyTime}</p>
 							<p class="card-text">
-								<small class="text-muted">${course.startDate} ~ ${course.endDate}</small>
+								<small class="text-muted">${course.startDate} ~
+									${course.endDate}</small>
 							</p>
 						</div>
 					</div>
@@ -89,69 +97,78 @@
 	<a href="#" class="gototop"><i class="fas fa-arrow-up"></i><br>TOP</a>
 </div>
 <script>
-$(function() {
-	var select = '<option value="">하위 분류 선택</option>';
+	$(function() {
+		var select = '<option value="">하위 분류 선택</option>';
 
-	/* 수업 카테고리 선택 */
-	$("#highcategory").change(function() {
-		$("#lowcategory").empty().append(select);
-		if ($("#highcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
-			$("#lowcategory").append(select);
-		} else {
-			comboChange($(this).val());
-		}
-	});
+		/* 수업 카테고리 선택 */
+		$("#highcategory").change(function() {
+			$("#lowcategory").empty().append(select);
+			if ($("#highcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
+				$("#lowcategory").append(select);
+			} else {
+				comboChange($(this).val());
+			}
+		});
 
-	function comboChange(highcategoryid) {
-		$.ajax({
-			type: "GET",
-			url: "http://localhost:8090/teacher/highcategory",
-			dataType: "json",
-			data: { high_category_id: highcategoryid },
-			contentType: "application/json; charset=UTF-8",
-			success: function(data) {
-				if (data.length == 0) {
-					$("#lowcategory").append('<option value="">하위 분류 선택</option>');				
-				} else {
-					$(data).each(function(i, item) {
-						$("#lowcategory").append("<option value='" + item.id + "'>" + item.name + "</option>");
-						if('${lowcategory_id}') $('#lowcategory').val('${lowcategory_id}');						
-					});
+		function comboChange(highcategoryid) {
+			$.ajax({
+				type : "GET",
+				url : "http://localhost:8090/teacher/highcategory",
+				dataType : "json",
+				data : {
+					high_category_id : highcategoryid
+				},
+				contentType : "application/json; charset=UTF-8",
+				success : function(data) {
+					if (data.length == 0) {
+						$("#lowcategory").append(
+								'<option value="">하위 분류 선택</option>');
+					} else {
+						$(data).each(
+								function(i, item) {
+									$("#lowcategory").append(
+											"<option value='" + item.id + "'>"
+													+ item.name + "</option>");
+									if ('${lowcategory_id}')
+										$('#lowcategory').val(
+												'${lowcategory_id}');
+								});
+					}
 				}
-			}
-		});
-	}
-	if('${highcategory_id}'){
-  		$('#highcategory').val('${highcategory_id}').trigger('change');
-  	}
-	if('${target}') $('#target').val('${target}');
-	
-	if('${isonline}') {
-    	var onlineradio = $('.isonline');
-    	$.each(onlineradio, function(index,radio) {
-			if($(radio).val() == '${isonline}') {
-				$(radio).attr("checked",true); 
-			}
-		});
-    }
+			});
+		}
+		if ('${highcategory_id}') {
+			$('#highcategory').val('${highcategory_id}').trigger('change');
+		}
+		if ('${target}')
+			$('#target').val('${target}');
 
-	$('#submit_btn').on('click', function() {
-		if ($('#highcategory').val() == "") {
-			alert('수업 카테고리를 선택해주세요');
-			return false;
+		if ('${isonline}') {
+			var onlineradio = $('.isonline');
+			$.each(onlineradio, function(index, radio) {
+				if ($(radio).val() == '${isonline}') {
+					$(radio).attr("checked", true);
+				}
+			});
 		}
-		if ($('#lowcategory').val() == "") {
-			alert('수업 카테고리를 선택해주세요');
-			return false;	
-		}
-		if ($('#target').val() == "") {
-			alert('수업 대상을 선택해주세요');
-			return false;	
-		}		
-		if(!$('#online').is(':checked') && !$('#offline').is(':checked')) {
-			alert('수업 방식을 선택해주세요');
-			return false;	
-		}
-	})
-});
+
+		$('#submit_btn').on('click', function() {
+			if ($('#highcategory').val() == "") {
+				alert('수업 카테고리를 선택해주세요');
+				return false;
+			}
+			if ($('#lowcategory').val() == "") {
+				alert('수업 카테고리를 선택해주세요');
+				return false;
+			}
+			if ($('#target').val() == "") {
+				alert('수업 대상을 선택해주세요');
+				return false;
+			}
+			if (!$('#online').is(':checked') && !$('#offline').is(':checked')) {
+				alert('수업 방식을 선택해주세요');
+				return false;
+			}
+		})
+	});
 </script>
