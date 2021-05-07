@@ -320,7 +320,7 @@
    4. Dockerfile  Linux vi 에디터를 이용해서 아래와 같이 작성합니다. 
 
       ~~~ bash 
-      # vi Dockerfile
+      # vi Dockerfile    ".war 파일이 위치한 디렉토리에서 작성해야 합니다."
       ~~~
 
       ```bash 
@@ -334,22 +334,31 @@
       ENTRYPOINT ["java","-jar","app.war"]
       ```
 
+      > <  Dockerfile  명령어 설명 > 
+      >
+      > FROM : 이미지를 생성할 때 사용할 기반 이미지를 지정
+      > RUN : 이미지를 생성할 때 실행할 코드를 지정
+      > WORKDIR : 작업 디렉토리를 지정
+      > COPY : 파일이나 폴더를 이미지에 복사
+      > ENV : 이미지에서 사용할 환경 변수 값을 지정
+      > ENTRYPOINT : 컨테이너를 시작할 때 실행할 명령어를 입력
+   
       > linux vi 에디터 데이터 저장은 Esc 키 누른 후 :wq를 입력하면 됩니다. 
       >
       > linux vi 에디터 사용법은 관련 도서, 웹 사이트를 참고하시면 됩니다.
       >
       > ARG JAR_FILE=./**OnTeacherProject-0.0.1-SNAPSHOT.war** "실제  war  파일 이름 입력"
-
+   
    5. Docker 이미지 파일을 빌드합니다. 
-
+   
       ``` bash 
       # docker build -t onteacher .   
       ```
-
+   
       > **.** 를 누락하는 경우가 많습니다. "."의 의미는 리눅스에서 현재 파일 경로를 의미합니다.  
-
+   
    6. Docker 이미지 파일이 성공적으로 빌드되었는지 확인합니다. 
-
+   
       ```bash 
       # docker images
       REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
@@ -359,11 +368,11 @@
       ```
       
    7. Docker 볼륨을  컨테이너에 마운트한 후 도커 이미지를 실행니다. 
-
+   
       ```bash 
       # docker run -v upload:/upload -p 8090:8090 onteacher
       ```
-
+   
       > upload Docker volume을 사용하기 위해서는 "/upload" 경로를 소스에서 추가해야 합니다. 
       >
       > ex) // OCR인식 기능을 위해서 이미지 파일을 업로드하는 소스를 아래와 같이 변경합니다. 
@@ -375,13 +384,13 @@
       > ​      String path = "/upload/ocr";  
 
    8. 아래와 같이 URL을 웹 브라우저에 입력하여, 웹 애플리케이션을 실행합니다. 
-
+   
       ``` WEB
       HTTP://{AWS public ip}:{port 번호} / 
       ex) http://18.216.45.215:8090/main
       ```
-
+   
       > 실행중인 Docker Web Application 을 중단하려면 Ctrl+C를 눌려주세요. 
-
+   
        ![deploy end](docs_img/deploy%20end.jpg)
 
