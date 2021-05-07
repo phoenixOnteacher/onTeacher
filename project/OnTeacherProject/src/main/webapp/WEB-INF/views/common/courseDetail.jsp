@@ -68,7 +68,7 @@ modelAndView.addObject("teacher", teacher);
 			<table class="table table-borderless">
 				<tr>
 					<td>선생님</td>
-					<td><a href="#">${teacher.name }</a></td> <!-- TODO:선생님 상세페이지 연결 -->
+					<td><a href="/teacher/teacherDetail?teacherId=${teacher.id }">${teacher.name }</a></td> <!-- TODO:선생님 상세페이지 연결 -->
 				</tr>
 				<tr>
 					<td>수업 소개</td>

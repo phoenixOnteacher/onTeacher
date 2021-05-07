@@ -2,8 +2,32 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
-<script src="${path }/resources/js/course_apply.js"></script>
-
+<%-- <script src="${path }/resources/js/course_apply.js"></script> --%>
+<!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
+<script> 
+$(function(){
+	// 수업 신청
+    $('.courseApplyBtn').click(function () {
+	  	var con = confirm("수업을 신청하시겠습니까?");
+	  	if (con == true) {
+			courseApply($(this).val())
+		}
+    })
+	
+	function courseApply(course_id) {
+		$.ajax({
+			type: "POST",
+			url: "http://localhost:8090/student/courseApply?courseId="+course_id,
+			success: function(data,status) {
+				alert(data);
+			},
+			error: function(request, status, error){
+				alert(request.responseText);
+			}
+		})
+	}
+});
+</script>
 <!-- 이 jsp를 include 하기위해 Controller에 추가해야할 코드 -->
 <!-- 
 Course course = courseService.queryCourseById(courseId);
@@ -68,7 +92,7 @@ modelAndView.addObject("teacher", teacher);
 			<table class="table table-borderless">
 				<tr>
 					<td>선생님</td>
-					<td><a href="#">${teacher.name }</a></td> <!-- TODO:선생님 상세페이지 연결 -->
+					<td><a href="/teacher/teacherDetail?teacherId=${teacher.id }">${teacher.name }</a></td> <!-- TODO:선생님 상세페이지 연결 -->
 				</tr>
 				<tr>
 					<td>수업 소개</td>

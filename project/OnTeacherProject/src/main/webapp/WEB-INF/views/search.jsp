@@ -62,7 +62,7 @@
 					<div class="col-md-8">
 						<div class="card-body">
 							<p class="card-title">
-								<a href="">${course.teacher.name } 선생님</a>
+								<a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">${course.teacher.name } 선생님</a>
 							</p>
 							<c:choose>
 								<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">

@@ -14,8 +14,8 @@ $(function(){
 			success: function(data,status) {
 				alert(data);
 			},
-			error: function(data,status){
-				alert(data);
+			error: function(request, status, error){
+				alert(request.responseText);
 			}
 		})
 	}
