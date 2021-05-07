@@ -39,18 +39,22 @@
 	
 	<!-- index에 넣을 최신 수업 8개 -->
 	<select id="selectCourseForIndex" resultMap="indexCourseMap">
-	<!-- 선생님 회원가입 및 로그인 없을 때 임시로 사용하는 쿼리문 -->
-		<!-- <![CDATA[select * from (select c.id, c.title, c.classinfo
-		from course c
-		order by c.id desc)
-		where rownum <= 8]]> -->
-	<!-- 선생님 회원가입 및 로그인 완료됐을 때 -->
 		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
 		from course c
 		left outer join teacher t
 		on c.teacher_id = t.id
 		order by c.id desc)
 		where rownum <= 8]]> 
+	</select>
+	<!-- 수업검색 화면 GET방식일 때 보여줄 전체 수업목록 -->
+	<select id="selectCourseForSearch" resultMap="courseMap">
+		<![CDATA[
+		select * from (select c.id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		order by c.id desc)
+		]]>
 	</select>
 
 	<resultMap id="courseResult" type="course">
@@ -194,13 +198,6 @@
 		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
 		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, #{startDate, jdbcType=VARCHAR}, #{endDate, jdbcType=VARCHAR}, #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, replace(#{location, jdbcType=VARCHAR}, ',', ' '), #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
 	</insert>
-	<select id="selectCourseForSearch" resultMap="courseResult">
-		<![CDATA[
-		select *
-		from course
-		ORDER BY id DESC
-		]]>
-	</select>
 	<!-- 카테고리 필터 -->
 	<select id="selectCourseForSearchFilter" resultMap="courseMap" parameterType="course">
 		<![CDATA[

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/search.css" />
 <script
@@ -82,11 +83,17 @@
 									</c:otherwise>
 								</c:choose>
 							</h5>
-							<p class="card-text">${course.location}${course.studyDay}
-								${course.studyTime}</p>
+							<p class="card-text"> <c:choose>
+							<c:when test="${course.location == null}">
+							<i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:when>
+							<c:otherwise><i class="fas fa-map-marker-alt"></i> ${course.location } <i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:otherwise></c:choose></p>
 							<p class="card-text">
-								<small class="text-muted">${course.startDate} ~
-									${course.endDate}</small>
+								<small class="text-muted"><fmt:parseDate
+										value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" /> <fmt:parseDate
+										value="${course.endDate}" var="courseend" pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" /> ~
+									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" /></small>
 							</p>
 						</div>
 					</div>

@@ -88,11 +88,6 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		return teacherDAO.selectTeacherById(teacherId);
 	}
-
-//	@Override
-//	public List<Course> selectCourseForIndex() {
-//		return courseDAO.selectCourseForIndex();
-//	}
 	
 	@Override
 	public List<Course> selectCourseForIndex() {
@@ -108,5 +103,10 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public HomeworkAnswer queryHomeworkAnswer(int homework_id, int user_id) {
 		return homeworkAnswerDAO.selectHomeworkAnswerById(homework_id,user_id);
+	}
+
+	@Override
+	public List<Course> selectCourseForSearch() {
+		return courseDAO.selectCourseForSearch();
 	}
 }
