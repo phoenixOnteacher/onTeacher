@@ -36,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
+import com.onteacher.service.UserService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
@@ -56,6 +57,9 @@ public class TeacherController {
 
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	UserService userService;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String thjoin(Model model) {
@@ -509,9 +513,9 @@ public class TeacherController {
 	@RequestMapping(value="/cert-reupload", method=RequestMethod.POST)
 	public void teacherCertReupload(@ModelAttribute Teacher teacher, MultipartHttpServletRequest multi, Model model, HttpServletResponse response,
 						HttpServletRequest request)  throws IllegalStateException, IOException{
-//		HttpSession session = request.getSession();	
-//		int user_id = (int) session.getAttribute("id");
-		int user_id = 300005;
+		HttpSession session = request.getSession();	
+		int user_id = (int) session.getAttribute("id");
+//		int user_id = 300005;
 		teacher.setId(user_id);
 		try {
 			MultipartFile origFile = teacher.getFile();
@@ -533,6 +537,7 @@ public class TeacherController {
 			}
 			//fileName, description, status="submitted"로 update
 			teacherService.updateTeacherCert(teacher);
+//			userService.deleteNotification(notificationId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
