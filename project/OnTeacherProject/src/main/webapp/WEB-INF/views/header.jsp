@@ -11,6 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/header.js"></script>
+<script src="${path }/resources/js/notification.js"></script>
 <div id="h_wrap">
 	<nav class="navbar fixed-top" id="g_navbar">
 		<div id="logo">
@@ -65,6 +66,9 @@
 					  </div>
 					  <div class="offcanvas-body">
 					  </div>
+					  <c:if test="">
+					  
+					  </c:if>
 					  <!-- Modal -->
 					  <div class="modal fade" id="certReuploadModal" tabindex="-1" aria-labelledby="certReuploadModalLabel" aria-hidden="true" data-bs-backdrop="false">
 						  <div class="modal-dialog modal-dialog-centered">
@@ -89,30 +93,24 @@
 										</tbody>
 									</table>
 									<br> -->
-									<h3>심사 다시 받기</h3>
-									<form action="/teacher/cert-reupload" method="post"  enctype="multipart/form-data">
-										<table class="table table-bordered">
-											<tbody>
-												<tr>
-													<th>증명서 파일</th>
-													<td><input type="file" id="fileName" name="file"></td>
-												</tr>
-												<tr>
-													<th>설명</th>
-													<td><textarea id="description" name="description"></textarea></td>
-												</tr>
-												<tr>
-													<th></th>
-													<td><input type="submit" value="제출"></td>
-												</tr>
-											</tbody>
-										</table>
+									<!-- <h3>반려된 자격 증명서</h3>
+									<p>증명서 파일</p>
+									<a class="text-decoration-none" href="/teacher/certfiledownload?filename=${teacher.fileName }">${teacher.fileName }</a>
+									<p>설명</p>
+									<p>${teacher.description }</p> -->
+									<form method="post" enctype="multipart/form-data" id="certReuploadForm">
+										<div class="mb-3">
+										  <label for="fileName" class="form-label float-start fw-bord">증명서 파일</label>
+										  <input class="form-control" type="file" id="fileName" name="file">
+										</div>
+										<div class="mb-3">
+										  <label for="description" class="form-label float-start fw-bord">설명</label>
+										  <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+										</div>
+										<button id="certReuploadBtn" type="submit" class="btn btn-primary">제출</button>
+										<input type="hidden" name="notificationId"/>
 									</form>
 								</div>
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-						        <button type="button" class="btn btn-primary reuploadCertBtn" value="${sessionScope.id }">작성 완료</button>
 						      </div>
 						    </div>
 						  </div>
@@ -123,30 +121,3 @@
 		</ul>
 	</nav>
 </div>
-<script>
-// 알림 목록 가져오기
-$('#notificationBell').click(function() {
-	$.ajax({
-		type: "POST",
-		url: "http://localhost:8090/notification",
-		success: function(res) {
-			var notifications = res.data;
-			console.log(notifications);
-			var notificationStr = '';
-			for (var i=0; i<notifications.length; i++) {
-				notificationStr += '<div class="card text-dark bg-light mb-3" style="max-width: 100%;">';
-				notificationStr += '<div class="card-header d-flex justify-content-between">';
-				notificationStr += '<p class="text-start mb-0">' + notifications[i].createdAt.substring(0, 10) + '</p>';
-				notificationStr += '</div>';
-				notificationStr += '<div class="card-body">';
-				notificationStr += '<p class="card-text text-start">' + notifications[i].content + '</p>';
-				if (notifications[i].content.substring(0,11)=='[자격 증명(반려)]') {
-					notificationStr += '<button class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#certReuploadModal">재업로드</button>';
-				}
-				notificationStr += '</div></div>';
-			}
-			$('.offcanvas-body').html(notificationStr);
-		}
-	})
-})
-</script>

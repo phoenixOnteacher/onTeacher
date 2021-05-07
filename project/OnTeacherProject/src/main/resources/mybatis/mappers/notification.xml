@@ -23,4 +23,10 @@
 		order by created_at desc
 		]]>
 	</select>
+	<delete id="deleteNotification" parameterType="int">
+		<![CDATA[
+		delete from notification
+		where id=#{id}
+		]]>
+	</delete>
 </mapper>

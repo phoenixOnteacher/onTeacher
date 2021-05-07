@@ -11,6 +11,7 @@ public interface UserService {
 	public List<HighCategory> highcategoryList();
 	public int login(String email, String password) throws Exception;
 	public List<Notification> queryNotificationList(int userId) throws Exception;
+	public void deleteNotification(int id) throws Exception;
 	public List<Course> selectMaxCourseNO();
 	public List<Course> selectAllCourseList();
 	public List<Course> CourseList(Course courseList);

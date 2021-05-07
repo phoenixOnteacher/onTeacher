@@ -21,8 +21,13 @@ import com.onteacher.vo.User;
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-
 	CourseDAO courseDAO;
+
+	@Autowired
+	UserDAO userDAO;
+
+	@Autowired
+	NotificationDAO notificationDAO;
 	
 	@Override
 	public List<Course> queryCourseForSearch(Course course) {
@@ -34,12 +39,6 @@ public class UserServiceImpl implements UserService {
 		
 		return courseDAO.highcategoryList();
 	}
-	
-	@Autowired
-	UserDAO userDAO;
-
-	@Autowired
-	NotificationDAO notificationDAO;
 	
 	@Override
 	public int login(String email, String password) throws Exception {
@@ -54,6 +53,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Notification> queryNotificationList(int userId) throws Exception {
 		return notificationDAO.selectNotificationList(userId);
+	}
+	
+	@Override
+	public void deleteNotification(int id) throws Exception {
+		notificationDAO.deleteNotification(id);
 	}
 
 	@Override
