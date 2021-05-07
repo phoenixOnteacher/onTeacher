@@ -40,7 +40,9 @@ public class OcrController {
 			if (!orgfile.isEmpty()) {
 
 				//String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
+				//Docker 배포를 위해서 "/upload/ocr" docker 볼륨을 사용해야 함. 
 				String path = "/upload/ocr";
+
 				File dir = new File(path);
 				if (!dir.isDirectory()) {
 					dir.mkdir();
@@ -64,8 +66,10 @@ public class OcrController {
 			@RequestParam(value = "filename") String filename, HttpServletRequest request,
 			HttpServletResponse response) {
 
-		//String path = request.getServletContext().getRealPath("/ocrupload/");
+		//String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
+		//Docker 배포를 위해서 "/upload/ocr" docker 볼륨을 사용해야 함. 
 		String path="/upload/ocr";
+
 		File file = new File(path + filename);
 		String sfilename = null;
 		FileInputStream fis = null;
