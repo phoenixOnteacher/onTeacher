@@ -85,9 +85,8 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public void cancelCourse(Course c) throws Exception {
 		Course course = courseDAO.selectCourseById(c.getId());
 		if (c.getTeacherId()==course.getTeacherId()) {
-			System.out.println("ㅎㅇ");
 			Notification notification = new Notification();
-			notification.setContent("[수업 취소] " + course.getTitle() +" 수업이 취소되었습니다.");
+			notification.setContent("[" + course.getTitle() +"] 수업이 취소되었습니다.");
 			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
 			for (Matching matching : matchings) {
 				notification.setToId(matching.getStudentId());
@@ -101,6 +100,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void match(int courseId, List<String> selectedStudents) throws Exception {
 		List<Matching> matchingList = matchingDAO.selectMatchingListByCourseId(courseId);
+		Course course = courseDAO.selectCourseById(courseId);
+		Notification notification = new Notification();
+		notification.setContent("[" + course.getTitle() +"] 수업 매칭이 성사되지 않았습니다.");
 		for (Matching matching : matchingList) {
 			int matchingStudentId = matching.getStudentId();
 			boolean isSelected = false; // 선택된 학생인지 확인하기 위한 변수
@@ -113,9 +115,10 @@ public class CourseManageServiceImpl implements CourseManageService {
 			// 선택되지 않은 학생들의 matching 데이터는 삭제됨
 			if (!isSelected) {
 				matchingDAO.deleteMatching(matching);
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
 			}
 		}
-		Course course = courseDAO.selectCourseById(courseId);
 		course.setStatus("matched");
 		courseDAO.updateCourseStatus(course);
 	}
@@ -124,6 +127,11 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public void cancelMatching(Matching matching) throws Exception {
 		matchingDAO.deleteMatching(matching);
 		int courseId = matching.getCourseId();
+		Course course = courseDAO.selectCourseById(courseId);
+		Notification notification = new Notification();
+		notification.setContent("[" + course.getTitle() +"] 수업 매칭이 취소되었습니다.");
+		notification.setToId(matching.getStudentId());
+		notificationDAO.insertNotification(notification);
 		if (matchingDAO.selectMatchingListByCourseId(courseId).size()==0) {
 			courseDAO.deleteCourse(courseId);
 		}
