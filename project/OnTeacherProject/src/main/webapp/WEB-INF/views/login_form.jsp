@@ -16,7 +16,7 @@
 		<div id="l_title_wrap">
 			<div id="l_title">로그인</div>
 		</div>
-		<form action="./login" method="post" id="loginForm">
+		<form action="../login" method="post" id="loginForm">
 			<table>
 				<tr>
 					<td class="form-floating"><input type="email" name="email" id="login_email"
