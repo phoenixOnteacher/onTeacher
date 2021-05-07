@@ -99,7 +99,7 @@ h5.card-title {
 	height: 130px;
 }
 
-.card-body>p {
+.card-body>p,ol,ul {
 	max-height: 50px;
 	word-wrap : break-word;
 	display : block;
