@@ -113,3 +113,10 @@ nav.navbareffect {
 	background-color: #FBFAF1;
 	border-bottom: 0.2px solid #FEDEC3;
 }
+
+/* 반응형 */
+@media screen and (max-width: 1023px) {
+	nav.navbar {
+		padding: 0 130px;
+	}
+}
