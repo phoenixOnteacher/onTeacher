@@ -56,7 +56,7 @@
 		select name, id, email, phone_number, fileName, description
 		from teacher
 		where STATUS='submitted' 
-		order by name
+		order by id
 		]]>
 	</select>
 	
