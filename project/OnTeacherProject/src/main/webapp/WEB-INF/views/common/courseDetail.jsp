@@ -30,7 +30,7 @@ modelAndView.addObject("teacher", teacher);
 		<table class="table table-bordered">
 			<tr>
 				<td class="left">수업 분류</td>
-				<td class="right">${highCategory.name}>${lowCategory.name}</td>
+				<td class="right">${highCategory.name} > ${lowCategory.name}</td>
 				<td class="left">수업 대상</td>
 				<td class="right">${course.target}학생</td>
 			</tr>
@@ -70,19 +70,19 @@ modelAndView.addObject("teacher", teacher);
 		</table>
 	</div>
 	<div id="table2_wrap">
-		<table class="table table-borderless">
+		<table class="table table-borderless" id="table2">
 			<tr>
-				<td>선생님</td>
-				<td><a href="#">${teacher.name }</a></td>
+				<td class="left2">선생님</td>
+				<td class="right2"><a href="#" id="th_name">${teacher.name }</a></td>
 				<!-- TODO:선생님 상세페이지 연결 -->
 			</tr>
 			<tr>
-				<td>수업 소개</td>
-				<td>${course.curriculum}</td>
+				<td class="left2">수업 소개</td>
+				<td class="right2">${course.curriculum}</td>
 			</tr>
 			<tr>
-				<td>참고 자료</td>
-				<td><span><a
+				<td class="left2">참고 자료</td>
+				<td class="right2"><span><a
 						href="/course/filedownload?filename=${course.curriculumFile}">${course.curriculumFile}</a></span><br />
 				</td>
 			</tr>
