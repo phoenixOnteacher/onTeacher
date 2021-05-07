@@ -16,7 +16,7 @@
    	...
    }
    ```
-
+   
    ![build.gradle](md-images/build.gradle.jpg)
 
 
@@ -27,8 +27,6 @@
    spring.datasource.username=system
    spring.datasource.password=oracle
    
-   ![application.properies](md-images/app.propety.jpg)
-
 3. 상단 메뉴에서  Window > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
 
 4. Gradle Tasks  메뉴에서 Build할 프로젝트를 선택한 후 build > bootWar를 선택하여 war 파일을 생성합니다. 
@@ -301,8 +299,12 @@
 
    4. Dockerfile  Linux vi 에디터를 이용해서 아래와 같이 작성합니다. 
 
+      ~~~ bash 
+      # vi Dockerfile
+      ~~~
+   
       ```bash 
-      FROM openjdk:11-jdk as builder
+      run FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
       
@@ -315,7 +317,7 @@
       > linux vi 에디터 데이터 저장은 Esc 키 누른 후 :wq를 입력하면 됩니다. 
       >
       > linux vi 에디터 사용법은 관련 도서, 웹 사이트를 참고하시면 됩니다.
-
+   
    5. Docker 파일을 빌드합니다. 
 
       ``` bash 
@@ -323,21 +325,21 @@
       ```
 
       > **.**를 누락하는 경우가 많습니다. "."의 의미는 리눅스에서 현재 파일 경로를 의미합니다.  
-
+   
    6. Docker 이미지를 실행합니다. 
 
       ```bash 
       # docker run -p 8090:8090 onteacher
       ```
-
-   7.  아래와 같이 URL을 웹 브라우저에 입력하여, 웹 애플리케이션을 실행합니다. 
-
+   
+   7. 아래와 같이 URL을 웹 브라우저에 입력하여, 웹 애플리케이션을 실행합니다. 
+   
       ``` WEB
       HTTP://{AWS public ip}:{port 번호} / 
       ex) http://18.216.45.215:8090/main
       ```
-
+   
       > 실행중인 Docker Web Application 을 중단하려면 Ctrl+C를 눌려주세요. 
-
+   
        ![deploy end](md-images/deploy%20end.jpg)
 
