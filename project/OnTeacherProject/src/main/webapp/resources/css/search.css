@@ -119,13 +119,30 @@ div.col-md-4 {
 }
 
 p.tcard > a {
-	color: #FBAD38;
+	color: #595959;
 	font-weight: 500;
 }
 
+p.tcard > a:hover {
+	text-decoration: underline;
+}
+
 h5.ccard > a {
-	color: #FF8184;
+	color: #000000;
 	font-family: 'S-CoreDream-5Medium';
+	font-weight: 600;
+}
+
+h5.ccard > a:hover {
+	color: #FF8184;
+}
+
+p.card-text {
+	margin-bottom: 0.25rem;
+}
+
+small.text-muted {
+	color: #FBAD38!important;
 	font-weight: 600;
 }
 

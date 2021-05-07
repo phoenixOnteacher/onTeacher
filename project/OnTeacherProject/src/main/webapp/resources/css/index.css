@@ -93,13 +93,15 @@ a.btn-primary:hover {
 
 h5.card-title {
 	font-size: 1.2rem;
+	font-weight: 600;
 }
 
 .card-body {
-	height: 130px;
+	height: 120px;
+	overflow: hidden;
 }
 
-.card-body>p,ol,ul {
+.card-body > p, ol, ul {
 	max-height: 50px;
 	word-wrap : break-word;
 	display : block;
@@ -108,4 +110,9 @@ h5.card-title {
 	-webkit-box-orient : vertical;
 	overflow : hidden;
 	text-overflow: ellipsis;
+	font-size: 0.813rem;
+}
+
+.card-body > p {
+	margin: 0;
 }
