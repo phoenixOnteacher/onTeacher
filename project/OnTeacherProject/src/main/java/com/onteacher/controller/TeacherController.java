@@ -74,7 +74,7 @@ public class TeacherController {
 		try {
 
 			if (!files.isEmpty()) {
-				if (files.get(0).getContentType().split("/")[0].equals("image")) {    // 이미지 파일인지 체크
+				if (files.get(0).getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
 					String path = multi.getServletContext().getRealPath("/thprofileupload/"); // 파일 저장 경로
 					File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 					if (!dir.isDirectory()) {
@@ -124,11 +124,11 @@ public class TeacherController {
 	}
 
 	/* 수업 관리 페이지로 이동 */
-	@RequestMapping(value="/course-manage", method=RequestMethod.GET)
+	@RequestMapping(value = "/course-manage", method = RequestMethod.GET)
 	public String courseManage(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 399999;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 399999;
 		// 리스트 불러오기
 		try {
 			model.addAttribute("studyingList", courseManageService.queryStudyingCourseList(userId));
@@ -143,11 +143,11 @@ public class TeacherController {
 	}
 
 	/* 특정 수업 관리 */
-	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/course-manage/{course_id}", method = RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			// 선생님인지 확인하는 코드 추가하기
@@ -157,7 +157,7 @@ public class TeacherController {
 			Teacher teacher = courseService.queryTeacherById(course.getTeacherId());
 			model.addAttribute("highCategory", highCategory);
 			model.addAttribute("lowCategory", lowCategory);
-			model.addAttribute("teacher", teacher); 
+			model.addAttribute("teacher", teacher);
 			model.addAttribute("course", course);
 			model.addAttribute("students", courseManageService.queryMatchingStudentList(courseId, userId));
 			model.addAttribute("homeworks", courseService.queryHomeworkList(courseId));
@@ -170,11 +170,11 @@ public class TeacherController {
 	}
 
 	/* 과제 내기 폼 */
-	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.GET)
+	@RequestMapping(value = "/course-manage/{course_id}/homework", method = RequestMethod.GET)
 	public String homeworkForm(HttpServletRequest request, Model model, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 399999;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		try {
 			Course course = courseService.queryCourseById(courseId);
@@ -190,15 +190,16 @@ public class TeacherController {
 	}
 
 	/* 과제 내기 */
-	@RequestMapping(value="/course-manage/{course_id}/homework", method=RequestMethod.POST)
-	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file, @ModelAttribute Homework hw, @PathVariable String course_id,
-			Model model, MultipartHttpServletRequest multi) {
+	@RequestMapping(value = "/course-manage/{course_id}/homework", method = RequestMethod.POST)
+	public String homework(HttpServletRequest request, @RequestPart("file") MultipartFile file,
+			@ModelAttribute Homework hw, @PathVariable String course_id, Model model,
+			MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 399999;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 399999;
 		int courseId = Integer.parseInt(course_id);
 		hw.setCourseId(courseId);
-		
+
 		// 파일 업로드
 		if (!file.isEmpty()) {
 			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
@@ -206,12 +207,13 @@ public class TeacherController {
 			if (!dir.isDirectory()) {
 				dir.mkdir();
 			}
-			
+
 			// 파일 이름을 식별하기 위한 처리
 			Date date_now = new Date(System.currentTimeMillis()); // 현재시간을 가져와 Date형으로 저장한다
 			SimpleDateFormat date_format = new SimpleDateFormat("yyyyMMddHHmmss");
 			// 000010002_20210504110616_filename의 형태로 저장됨
-			String origFileName = String.format("%09d", courseId) + "_" + date_format.format(date_now) + "_" + file.getOriginalFilename();
+			String origFileName = String.format("%09d", courseId) + "_" + date_format.format(date_now) + "_"
+					+ file.getOriginalFilename();
 			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
 			File targetfile = new File(saveFile);
 
@@ -224,7 +226,7 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
-		
+
 		try {
 			courseManageService.setHomework(hw);
 			model.addAttribute("homework", hw);
@@ -247,12 +249,12 @@ public class TeacherController {
 
 	/* 학생 후기 작성 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}/review/{student_id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{course_id}/review/{student_id}", method = RequestMethod.POST)
 	public void writeReview(HttpServletRequest request, @RequestBody Map<String, String> reqData, Model model,
 			@PathVariable String course_id, @PathVariable String student_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		StudentReview sr = new StudentReview();
 		sr.setTeacherId(userId);
 		sr.setCourseId(Integer.parseInt(course_id));
@@ -267,11 +269,11 @@ public class TeacherController {
 
 	/* 수업 시작 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}/start", method=RequestMethod.POST)
+	@RequestMapping(value = "/{course_id}/start", method = RequestMethod.POST)
 	public void startCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
 			courseManageService.startCourse(courseId);
@@ -281,12 +283,13 @@ public class TeacherController {
 	}
 
 	/* 수업 연장 */
-	@RequestMapping(value="/{course_id}/extend", method=RequestMethod.POST)
-	public String extendCourse(HttpServletRequest request, @RequestParam(value="extendDate", required=true) String extendDate, Model model,
+	@RequestMapping(value = "/{course_id}/extend", method = RequestMethod.POST)
+	public String extendCourse(HttpServletRequest request,
+			@RequestParam(value = "extendDate", required = true) String extendDate, Model model,
 			@PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		try {
 			int courseId = Integer.parseInt(course_id);
 			courseManageService.extendCourse(courseId, extendDate);
@@ -304,11 +307,11 @@ public class TeacherController {
 
 	/* 수업 취소 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/{course_id}", method = RequestMethod.DELETE)
 	public void cancelCourse(HttpServletRequest request, @PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		try {
 			int c_id = Integer.parseInt(course_id);
 			Course course = new Course();
@@ -319,39 +322,45 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* 매칭하기 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.POST)
-	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData, @PathVariable String course_id) {
-		HttpSession session = request.getSession();	
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+	@RequestMapping(value = "/{course_id}/matching", method = RequestMethod.POST)
+	public void match(HttpServletRequest request, @RequestBody Map<String, List<String>> reqData,
+			@PathVariable String course_id) {
+		HttpSession session = request.getSession();
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		List<String> selectedStudents = reqData.get("selectedStudents");
 		try {
-			if (selectedStudents.size()==0) throw new Exception("선택된 학생이 없음");
+			if (selectedStudents.size() == 0)
+				throw new Exception("선택된 학생이 없음");
 			Course course = courseService.queryCourseById(courseId);
-			if (!course.getStatus().equals("matching")) throw new Exception("매칭 대기 중인 수업만 매칭 가능");
-			if (course.getTeacherId()!=userId) throw new Exception("해당 수업의 선생님만 매칭 가능");
+			if (!course.getStatus().equals("matching"))
+				throw new Exception("매칭 대기 중인 수업만 매칭 가능");
+			if (course.getTeacherId() != userId)
+				throw new Exception("해당 수업의 선생님만 매칭 가능");
 			courseManageService.match(courseId, selectedStudents);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* 매칭 취소 */
 	@ResponseBody
-	@RequestMapping(value="/{course_id}/matching", method=RequestMethod.DELETE)
-	public void cancelMatching(HttpServletRequest request, @RequestBody Map<String, String> reqData, @PathVariable String course_id) {
+	@RequestMapping(value = "/{course_id}/matching", method = RequestMethod.DELETE)
+	public void cancelMatching(HttpServletRequest request, @RequestBody Map<String, String> reqData,
+			@PathVariable String course_id) {
 		HttpSession session = request.getSession();
-//		int userId = (int) session.getAttribute("id");
-		int userId = 1;
+		int userId = (int) session.getAttribute("id");
+//		int userId = 1;
 		int courseId = Integer.parseInt(course_id);
 		int studentId = Integer.parseInt(reqData.get("studentId"));
 		try {
 			Course course = courseService.queryCourseById(courseId);
-			if (!course.getStatus().equals("matched")) throw new Exception("매칭 완료된 수업만 매칭 취소 가능");
+			if (!course.getStatus().equals("matched"))
+				throw new Exception("매칭 완료된 수업만 매칭 취소 가능");
 			Matching matching = new Matching();
 			matching.setCourseId(courseId);
 			matching.setStudentId(studentId);
@@ -360,9 +369,9 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/* Registering course start */
-	@RequestMapping(value="/courseregister", method=RequestMethod.GET)
+	@RequestMapping(value = "/courseregister", method = RequestMethod.GET)
 	public String courseregister(Model model, HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		HttpSession session = request.getSession();
@@ -379,9 +388,9 @@ public class TeacherController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value="/highcategory", method=RequestMethod.GET)
+	@RequestMapping(value = "/highcategory", method = RequestMethod.GET)
 	public void subcategory(HttpServletResponse res,
-			@RequestParam(value="high_category_id", required=true) Integer high_category_id) {
+			@RequestParam(value = "high_category_id", required = true) Integer high_category_id) {
 		res.setCharacterEncoding("UTF-8");
 		List<LowCategory> lowcategory;
 		try {
@@ -404,16 +413,11 @@ public class TeacherController {
 	}
 
 	/* toss data to database including attachments */
-	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(@ModelAttribute Course course, MultipartHttpServletRequest multi, Model model,
 			HttpServletRequest request) throws Exception {
 
-		/*
-		 * String id = request.getParameter("id"); HttpSession session =
-		 * request.getSession(); session.setAttribute("teacher_id", id); int teacher_id
-		 * = (int) session.getAttribute("teacher_id");
-		 */
-		int teacher_id = 300003;
+		int teacher_id = 300001;
 
 		MultipartFile origFile = course.getFile();
 
@@ -440,24 +444,25 @@ public class TeacherController {
 		model.addAttribute("page", "teacher/course_register");
 		return "template";
 	}
-	@RequestMapping(value="/teacherDetail", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/teacherDetail", method = RequestMethod.GET)
 	public String teacherDetail(@RequestParam(value = "teacherId") int teacherId, Model model,
 			HttpServletRequest request) {
 		try {
 			Teacher teacher = teacherService.teacherInfo(teacherId);
 			String path = "/thprofileupload/";
-			teacher.setProfileImg(path+teacher.getProfileImg());
+			teacher.setProfileImg(path + teacher.getProfileImg());
 			model.addAttribute("teacher", teacher);
 			model.addAttribute("page", "teacher/teacherDetail");
-		}
-		catch (Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "template";
 	}
-	
-	@RequestMapping(value="/certfiledownload",  method=RequestMethod.GET) 
-	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
+
+	@RequestMapping(value = "/certfiledownload", method = RequestMethod.GET)
+	public void filedownload(@RequestParam(value = "filename") String filename, HttpServletRequest request,
+			HttpServletResponse response) {
 		String saveDir = request.getSession().getServletContext().getRealPath("/thcertiupload/");
 		File file = new File(saveDir + filename);
 		String sfilename = null;
@@ -489,43 +494,44 @@ public class TeacherController {
 				}
 			}
 		} // try end;
-		
+
 	}
-	
+
 	/* 자격증명 재업로드 폼 가져오기 - 기존 올렸던 파일 가져오도록 teacher객체 전달 */
-	@RequestMapping(value ="/cert-reupload", method=RequestMethod.GET)
-	public String teacherCertReupload(Model model) {
+	@RequestMapping(value = "/cert-reupload", method = RequestMethod.GET)
+	public String teacherCertReupload(HttpServletRequest request, Model model) {
 //		HttpSession session = request.getSession();	
 //		int user_id = (int) session.getAttribute("id");
 		int user_id = 300005;
 		try {
 			Teacher teacher = teacherService.teacherInfo(user_id);
-			model.addAttribute("teacher",teacher);
-			model.addAttribute("page","teacher/CertificationReupload");
+			model.addAttribute("teacher", teacher);
+			model.addAttribute("page", "teacher/CertificationReupload");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "template";
 	}
-	
+
 	/* 자격증명 재업로드 기능 수행 */
+	@ResponseBody
 	@RequestMapping(value="/cert-reupload", method=RequestMethod.POST)
-	public void teacherCertReupload(@ModelAttribute Teacher teacher, MultipartHttpServletRequest multi, Model model, HttpServletResponse response,
-						HttpServletRequest request)  throws IllegalStateException, IOException{
+	public void teacherCertReupload(HttpServletRequest request, @RequestParam(value="file", required=false) MultipartFile file,
+			@RequestParam(value="description", required=false) String description,
+			@RequestParam(value="notificationId", required=false) int notificationId)  throws IllegalStateException, IOException{
 		HttpSession session = request.getSession();	
 		int user_id = (int) session.getAttribute("id");
 //		int user_id = 300005;
-		teacher.setId(user_id);
 		try {
-			MultipartFile origFile = teacher.getFile();
-
-			String path = multi.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
+			Teacher teacher = teacherService.teacherInfo(user_id);
+			MultipartFile origFile = file;
+			String path = request.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
 				dir.mkdir();
 			}
-			String origFileName = origFile.getOriginalFilename(); // 파일 이름 저장
+			String origFileName = file.getOriginalFilename(); // 파일 이름 저장
 			String saveFile = path + origFileName; // 파일 저장 경로 + 파일 이름 saveFile 변수에 저장
 			try {
 				origFile.transferTo(new File(saveFile));
@@ -535,13 +541,14 @@ public class TeacherController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			//fileName, description, status="submitted"로 update
+			teacher.setDescription(description);
+			// fileName, description, status="submitted"로 update
 			teacherService.updateTeacherCert(teacher);
-//			userService.deleteNotification(notificationId);
+			// 해당 Notification 삭제
+			userService.deleteNotification(notificationId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }
