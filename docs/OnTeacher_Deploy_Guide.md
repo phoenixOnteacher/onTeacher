@@ -274,51 +274,57 @@
 
    1. Docker  컨테이너에서 파일을 업로드하거나 다운로드할 공간을  linux 운영체제에 미리 할당해 놓은 것을 Docker Volume이라고 합니다. 
 
+      
+
    2. 아래와 같은  docker  명령어로 Docker Volume을 생성합니다. 본 가이드에서는 "upload"라는 Docker Volume을 생성합니다. 
-   
+
       ```bash 
       # docker volume create upload 			"root 권한으로 upload 볼륨을 생성합니다."
       # docker volume ls 						"docker volume 리스트를 보여줍니다."
       # docker volume inspect upload			"upload docker volume 상세정보를 표시합니다."
       ```
+
+      ![docker volume](md-images/Docker%20volume.jpg)
+
+      > Docker volume을 mount 하면 위 그림과 같이 /var/lib/docker/volumes/{mounting point}/_data 아래에 디렉토리와 파일이 위치합니다. 
+
    
-      
-   
+
    ## Docker Web Applicatin 빌드하기 
-   
+
    1. AWS ubuntu에 접속한 후 Web Application을 다운 받을 디렉토리를 생성합니다. 
-   
+
       ```bash 
       # mkidr ~/app&&mkdir ~/app/step2
       # cd ~/app/step2
       ```
 
       > step2 디렉터리가 이미 생성되어 있다면, step3으로 생성하면 됩니다. 
-   
+
    2. 미리 war 파일을 저장해둔 git repository에서 빌드할 파일을 다운로드 합니다.
 
       ```bash
       # git clone https://github.com/KhanKMS/OnTeacher-Deploy.git
       ```
-   
+
       > 본 가이드에서는 작성자가 생성한 git  Repository를 사용했습니다만, 자신의 git Repository가 있다면 해당 github URL을 입력합니다. 
-   
+
       ![git clone](md-images/git%20clone.jpg)
-   
+
    3. 클론한 디렉토리로 이동합니다. 
-   
+
       ```bash
       # cd OnTeacher-Deploy 			"git clone한 디렉토리를 지정함"
       ```
-   
+
    4. Dockerfile  Linux vi 에디터를 이용해서 아래와 같이 작성합니다. 
-   
+
       ~~~ bash 
       # vi Dockerfile
       ~~~
-   
+
       ```bash 
-      run FROM openjdk:11-jdk as builder
+      FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
       
@@ -333,21 +339,31 @@
       > linux vi 에디터 사용법은 관련 도서, 웹 사이트를 참고하시면 됩니다.
       >
       > ARG JAR_FILE=./**OnTeacherProject-0.0.1-SNAPSHOT.war** "실제  war  파일 이름 입력"
-   
-   5. Docker 파일을 빌드합니다. 
-   
+
+   5. Docker 이미지 파일을 빌드합니다. 
+
       ``` bash 
-      # docker build -t onteacher .                
+      # docker build -t onteacher .   
       ```
-   
+
       > **.** 를 누락하는 경우가 많습니다. "."의 의미는 리눅스에서 현재 파일 경로를 의미합니다.  
-   
-   6. Docker 볼륨을  컨테이너에 마운트한 후 도커 이미지를 실행니다. 
-   
+
+   6. Docker 이미지 파일이 성공적으로 빌드되었는지 확인합니다. 
+
+      ```bash 
+      # docker images
+      REPOSITORY                       TAG       IMAGE ID       CREATED          SIZE
+      onteacher                        latest    939b5e58525c   17 minutes ago   685MB
+      openjdk                          11-jdk    aa31437d461e   2 weeks ago      647MB
+      deepdiver/docker-oracle-xe-11g   latest    396b3e06a5dc   5 years ago      2.7GB
+      ```
+      
+   7. Docker 볼륨을  컨테이너에 마운트한 후 도커 이미지를 실행니다. 
+
       ```bash 
       # docker run -v upload:/upload -p 8090:8090 onteacher
       ```
-   
+
       > upload Docker volume을 사용하기 위해서는 "/upload" 경로를 소스에서 추가해야 합니다. 
       >
       > ex) // OCR인식 기능을 위해서 이미지 파일을 업로드하는 소스를 아래와 같이 변경합니다. 
@@ -357,15 +373,15 @@
       > ​       // 원래는 상대경로를 이용했지만, Docker Volume에 연결하기 위해 아래 절대경로를 넣습니다.  
       >
       > ​      String path = "/upload/ocr";  
-   
-   7. 아래와 같이 URL을 웹 브라우저에 입력하여, 웹 애플리케이션을 실행합니다. 
-   
+
+   8. 아래와 같이 URL을 웹 브라우저에 입력하여, 웹 애플리케이션을 실행합니다. 
+
       ``` WEB
       HTTP://{AWS public ip}:{port 번호} / 
       ex) http://18.216.45.215:8090/main
       ```
-   
+
       > 실행중인 Docker Web Application 을 중단하려면 Ctrl+C를 눌려주세요. 
-   
+
        ![deploy end](md-images/deploy%20end.jpg)
 
