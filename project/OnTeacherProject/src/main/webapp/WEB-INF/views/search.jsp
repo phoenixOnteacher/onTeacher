@@ -83,10 +83,15 @@
 									</c:otherwise>
 								</c:choose>
 							</h5>
-							<p class="card-text"> <c:choose>
-							<c:when test="${course.location == null}">
-							<i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:when>
-							<c:otherwise><i class="fas fa-map-marker-alt"></i> ${course.location } <i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:otherwise></c:choose></p>
+							<p class="card-text">
+								<c:choose>
+									<c:when test="${course.location == null}">
+										<i class="fas fa-desktop"></i> 온라인 <i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:when>
+									<c:otherwise>
+										<i class="fas fa-map-marker-alt"></i> ${course.location } <i
+											class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:otherwise>
+								</c:choose>
+							</p>
 							<p class="card-text">
 								<small class="text-muted"><fmt:parseDate
 										value="${course.startDate}" var="coursestart"
