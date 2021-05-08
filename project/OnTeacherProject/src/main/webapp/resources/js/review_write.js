@@ -18,7 +18,7 @@ $(function(){
 	function writeReview(course_id, student_id, content) {
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:8090/teacher/"+course_id+"/review/"+student_id,
+			url: "http://${ipaddress}:${port}/teacher/"+course_id+"/review/"+student_id,
 			dataType: "json",
 			data: JSON.stringify({
 				"content": content
