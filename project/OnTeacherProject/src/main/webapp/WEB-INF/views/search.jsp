@@ -70,7 +70,7 @@
 					<div class="col-md-8">
 						<div class="card-body">
 							<p class="card-title tcard">
-								<a href="">${course.teacher.name } 선생님</a>
+								<a href="">${course.teacher.name }&nbsp;선생님</a>
 							</p>
 							<h5 class="card-title ccard">
 								<c:choose>
@@ -86,10 +86,11 @@
 							<p class="card-text">
 								<c:choose>
 									<c:when test="${course.location == null}">
-										<i class="fas fa-desktop"></i> 온라인 <i class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:when>
+										<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;<i
+											class="far fa-clock"></i>&nbsp;${course.studyDay}&nbsp;${course.studyTime}</c:when>
 									<c:otherwise>
-										<i class="fas fa-map-marker-alt"></i> ${course.location } <i
-											class="far fa-clock"></i> ${course.studyDay} ${course.studyTime}</c:otherwise>
+										<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;<i
+											class="far fa-clock"></i>&nbsp;${course.studyDay}&nbsp;${course.studyTime}</c:otherwise>
 								</c:choose>
 							</p>
 							<p class="card-text">
@@ -97,8 +98,8 @@
 										value="${course.startDate}" var="coursestart"
 										pattern="yy-MM-dd" /> <fmt:parseDate
 										value="${course.endDate}" var="courseend" pattern="yy-MM-dd" />
-									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" /> ~
-									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" /></small>
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
+										value="${courseend }" pattern="yy.MM.dd" /></small>
 							</p>
 						</div>
 					</div>
