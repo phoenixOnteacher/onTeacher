@@ -1,15 +1,11 @@
 package com.onteacher.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.MatchingService;
 import com.onteacher.service.MyCourseService;
@@ -36,7 +32,6 @@ import com.onteacher.service.StudentService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.CourseReview;
 import com.onteacher.vo.HighCategory;
-import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
@@ -60,6 +55,9 @@ public class StudentController {
 	@Autowired
 	MatchingService matchingService;
 	
+	@Autowired
+	private UploadPath uploadPath;
+	
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String stjoin(Model model) {
@@ -74,7 +72,10 @@ public class StudentController {
 			MultipartFile origFile = student.getFile();
 
 			if (!origFile.isEmpty() && origFile.getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
-				String path = multi.getServletContext().getRealPath("/stprofileupload/"); // 파일 저장 경로
+				String path = uploadPath.getStprofilePath(); // 파일 저장 경로
+				if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+					path = multi.getServletContext().getRealPath(path);
+				}
 				File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 				if (!dir.isDirectory()) {
 					dir.mkdir();
