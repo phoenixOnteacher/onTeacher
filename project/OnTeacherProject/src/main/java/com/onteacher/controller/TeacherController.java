@@ -459,7 +459,8 @@ public class TeacherController {
 			HttpServletRequest request) {
 		try {
 			Teacher teacher = teacherService.teacherInfo(teacherId);
-			String path = "/thprofileupload/";
+//			String path = "/thprofileupload/";
+			String path = "/upload/thprofile/";
 			teacher.setProfileImg(path + teacher.getProfileImg());
 			model.addAttribute("teacher", teacher);
 			model.addAttribute("page", "teacher/teacherDetail");

@@ -222,7 +222,8 @@ public class StudentController {
 			HttpServletRequest request) {
 		try {
 			Student student = studentService.studentInfo(studentId);
-			String path = "/stprofileupload/";
+//			String path = "/stprofileupload/";
+			String path = "/upload/stprofile/";
 			student.setProfileImg(path+student.getProfileImg());
 			model.addAttribute("student",student);
 			model.addAttribute("page","student/studentDetail");
