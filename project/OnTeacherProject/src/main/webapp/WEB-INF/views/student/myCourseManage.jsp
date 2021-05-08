@@ -4,9 +4,68 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
-<script src="${path }/resources/js/my_course.js"></script>
-<script src="${path }/resources/js/course_review_write.js"></script>
-
+<%-- <script src="${path }/resources/js/my_course.js"></script> --%>
+<%-- <script src="${path }/resources/js/course_review_write.js"></script> --%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('server.address')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
+<script>
+$(function(){
+	// 수업 신청 취소
+    $('.cancelApplyBtn').click(function () {
+	  	var con = confirm("취소하면 복구할 수 없습니다.\n수업 신청을 취소하시겠습니까?");
+	  	if (con == true) {
+			cancelCourse($(this).val())
+		}
+    })
+	
+	function cancelCourse(course_id) {
+		$.ajax({
+			type: "DELETE",
+			url: "http://${ipaddress}:${port}/student/applyCancel?courseId="+course_id,
+			success: function() {
+				location.reload();
+			}
+		})
+	}
+});
+</script>
+<script>
+$(function(){
+	if ($("button[name='unreviewed']").length==0) {
+		$("#unreviewedAlert").hide();
+	}
+	
+	
+	// 학생 리뷰 작성
+    $('.writeReviewBtn').click(function () {
+	  	var con = confirm("후기 작성을 완료하시겠습니까?");
+		var course_id = $(this).val();
+		var content = $("textarea[id='reviewContent"+course_id+"']").val();
+	  	if (con == true) {
+			console.log(course_id);
+			console.log(content);
+			writeReview(course_id, content);
+		}
+    })
+	
+	function writeReview(course_id, content) {
+		$.ajax({
+			type: "POST",
+			url: "http://${ipaddress}:${port}/student/"+course_id+"/review",
+			dataType: "json",
+			data: JSON.stringify({
+				"content": content
+			}),
+			contentType: "application/json; charset=UTF-8",
+			complete: function() {
+				alert("후기 작성이 완료되었습니다.");
+				location.reload();
+			}
+		})
+	}
+});
+</script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<h1>내 수업</h1>
