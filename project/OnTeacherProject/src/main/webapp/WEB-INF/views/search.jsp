@@ -64,7 +64,7 @@
 								<img src="${path}/resources/img/logo.png" class="l_thimg">
 							</c:when>
 							<c:otherwise>
-								<img src="/thprofileupload/${course.teacher.profileImg}"
+								<img src="/upload/thprofile/${course.teacher.profileImg}"
 									class="l_thimg">
 							</c:otherwise>
 						</c:choose>

@@ -97,7 +97,7 @@ public class TeacherController {
 					}
 				}
 				if (!files.get(1).isEmpty()) {
-					String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+					String path = uploadPath.getThcertiPath(); // 파일 저장 경로
 					if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
 						path = multi.getServletContext().getRealPath(path);
 					}
@@ -428,7 +428,7 @@ public class TeacherController {
 		MultipartFile origFile = course.getFile();
 
 		if (!origFile.isEmpty()) {
-			String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+			String path = uploadPath.getCoursePath(); // 파일 저장 경로
 			if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
 				path = multi.getServletContext().getRealPath(path);
 			}

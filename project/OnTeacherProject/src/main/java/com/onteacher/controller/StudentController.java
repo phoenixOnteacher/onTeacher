@@ -72,7 +72,7 @@ public class StudentController {
 			MultipartFile origFile = student.getFile();
 
 			if (!origFile.isEmpty() && origFile.getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
-				String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+				String path = uploadPath.getStprofilePath(); // 파일 저장 경로
 				if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
 					path = multi.getServletContext().getRealPath(path);
 				}
