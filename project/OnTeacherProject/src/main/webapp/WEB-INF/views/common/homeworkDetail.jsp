@@ -2,12 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<link rel="stylesheet" href="${path}/resources/css/course_manage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
-<script src="${path }/resources/js/course_manage.js"></script>
-<script src="${path }/resources/js/homework_detail.js"></script>
 
-<div id="" class="m-5 px-5">
+<div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
 			<a href="/teacher/course-manage" class="text-secondary h5 text-decoration-none">수업 관리</a>

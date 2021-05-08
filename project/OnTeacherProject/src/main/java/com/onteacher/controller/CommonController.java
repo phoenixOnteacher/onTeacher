@@ -8,19 +8,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -111,7 +117,7 @@ public class CommonController {
 		return "template";
 	}
 	
-	// homework detail page로 이동
+	/* homework detail page로 이동 */
 	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
 	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
@@ -262,4 +268,20 @@ public class CommonController {
 //	}
 
 
+	/* 알림 조회 */
+	@ResponseBody
+	@RequestMapping(value="/notification", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> viewNotification(HttpServletRequest request) {
+		Integer userId = (Integer) request.getSession().getAttribute("id");
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			resultMap.put("state", "success");
+			resultMap.put("data", userService.queryNotificationList(userId));
+		} catch (Exception e) {
+			e.printStackTrace();
+			resultMap.put("state", "fail");
+			resultMap.put("data", null);
+		}
+		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+	}
 }
