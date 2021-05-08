@@ -2,11 +2,11 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
 <%-- <script src="${path }/resources/js/my_course.js"></script> --%>
 <%-- <script src="${path }/resources/js/course_review_write.js"></script> --%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <script>
