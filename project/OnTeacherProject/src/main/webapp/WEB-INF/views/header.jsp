@@ -17,20 +17,32 @@
 			<a href="/main"><img src="${path}/resources/img/logo.png" /></a>
 		</div>
 		<ul id="navbar_menu">
-			<c:if test="${fn:substring(sessionScope.id,0,1)=='3'}"> <!-- 선생님인 경우 -->
-				<li><a href="/teacher/courseregister">수업등록</a></li>
-			</c:if>
+				<c:if test="${fn:substring(sessionScope.id,0,1)=='1'}">
+					<li><a href="/admin/cert">자격심사</a></li>
+				</c:if>
+			<c:choose>
+				<c:when test="${fn:substring(sessionScope.id,0,1)=='3' && sessionScope.teacherActive==1}">
+					<li><a href="/teacher/courseregister">수업등록</a></li>
+				</c:when>
+				<c:when test="${fn:substring(sessionScope.id,0,1)=='3' && sessionScope.teacherActive==0}">
+					<li><a href="javascript:void(0);" class="teacherReject">수업등록</a></li>
+				</c:when>
+			</c:choose>
 			<li><a href="/searchCourse">수업검색</a></li>
 			<c:choose>
 				<c:when test="${fn:substring(sessionScope.id,0,1)=='2'}">
 					<li><a href="/student/course-manage">내수업</a></li>
 				</c:when>
-				<c:otherwise> <!-- 비회원, 선생님일 경우 -->
+				<c:when test="${sessionScope.id == null }"> <!-- 비회원 -->
+					<li><a href="javascript:void(0);" class="nonmemberReject">수업관리</a></li>
+				</c:when>
+				<c:otherwise> <!-- 선생님, 관리자일 경우 -->
 					<li><a href="/teacher/course-manage">수업관리</a></li>
 				</c:otherwise>
 			</c:choose>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
+					<li><a href="javascript:void(0);" class="nonmemberReject">OCR 인식</a></li>
 				</c:when>
 				<c:otherwise>
 					<li><a href="/ocr/main">OCR 인식</a></li>
