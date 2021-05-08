@@ -67,6 +67,5 @@ public class UploadPath {
 	public String getCoursePath() {
 		return coursePath;
 	}
-	
-	
+
 }
