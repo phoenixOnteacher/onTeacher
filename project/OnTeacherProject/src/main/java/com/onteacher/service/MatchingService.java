@@ -12,7 +12,6 @@ public interface MatchingService {
 	
 	public Student queryStudentById(int studentId);
 //	public Course queryCourseById(int courseId) throws Exception;	
-	
 	public void insertMatching(Matching matching) throws Exception;
 	public Matching selectMatching(Matching matching) throws Exception;
 	public void deleteMatching(Matching matching) throws Exception;

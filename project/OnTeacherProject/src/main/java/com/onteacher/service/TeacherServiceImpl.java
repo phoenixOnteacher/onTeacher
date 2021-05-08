@@ -53,7 +53,7 @@ public class TeacherServiceImpl implements TeacherService {
 	
 	@Override
 	public void certRejected(String email) throws Exception {
-		teacherDAO.updateActive(email);
+//		teacherDAO.updateActive(email); 반려된 경우 ACTIVE는 0으로 변하지 않음 (수정:김다니엘)
 		teacherDAO.updateRejected(email);
 	}
 
