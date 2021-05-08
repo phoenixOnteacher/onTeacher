@@ -5,6 +5,9 @@
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
 <script src="${path }/resources/js/course_list.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <%-- <script src="${path }/resources/js/course_apply.js"></script> --%>
 <!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
 <script> 
@@ -20,7 +23,7 @@ $(function(){
 	function courseApply(course_id) {
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:8090/student/courseApply?courseId="+course_id,
+			url: "http://${ipaddress}:${port}/student/courseApply?courseId="+course_id,
 			success: function(data,status) {
 				alert(data);
 			},
