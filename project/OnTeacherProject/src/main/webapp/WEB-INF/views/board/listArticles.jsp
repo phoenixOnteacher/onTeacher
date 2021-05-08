@@ -32,7 +32,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 
 .cls2 {
 	text-align: center;
-	font-size: 10px;
+	font-size: 15px;
 }
 </style>
 <meta charset="UTF-8">
@@ -96,7 +96,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	<fmt:parseNumber var="current" type="number" value="${currentPage}" />
 	<fmt:parseNumber var="cnt" type="number" value="${pageCnt}" />
 </div>	
-	<div class="bar">
+	<div class=cls2>
 	    <!-- 이전 페이지 -->
 		<c:choose>
 			<c:when test="${current eq 1}">
@@ -122,8 +122,3 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	</div>
 </body>
 </html>
-
-
-
-
-
