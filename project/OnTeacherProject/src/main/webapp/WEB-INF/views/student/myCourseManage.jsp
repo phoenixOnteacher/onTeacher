@@ -2,11 +2,70 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
-<script src="${path }/resources/js/my_course.js"></script>
-<script src="${path }/resources/js/course_review_write.js"></script>
-
+<%-- <script src="${path }/resources/js/my_course.js"></script> --%>
+<%-- <script src="${path }/resources/js/course_review_write.js"></script> --%>
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
+<script>
+$(function(){
+	// 수업 신청 취소
+    $('.cancelApplyBtn').click(function () {
+	  	var con = confirm("취소하면 복구할 수 없습니다.\n수업 신청을 취소하시겠습니까?");
+	  	if (con == true) {
+			cancelCourse($(this).val())
+		}
+    })
+	
+	function cancelCourse(course_id) {
+		$.ajax({
+			type: "DELETE",
+			url: "http://${ipaddress}:${port}/student/applyCancel?courseId="+course_id,
+			success: function() {
+				location.reload();
+			}
+		})
+	}
+});
+</script>
+<script>
+$(function(){
+	if ($("button[name='unreviewed']").length==0) {
+		$("#unreviewedAlert").hide();
+	}
+	
+	
+	// 학생 리뷰 작성
+    $('.writeReviewBtn').click(function () {
+	  	var con = confirm("후기 작성을 완료하시겠습니까?");
+		var course_id = $(this).val();
+		var content = $("textarea[id='reviewContent"+course_id+"']").val();
+	  	if (con == true) {
+			console.log(course_id);
+			console.log(content);
+			writeReview(course_id, content);
+		}
+    })
+	
+	function writeReview(course_id, content) {
+		$.ajax({
+			type: "POST",
+			url: "http://${ipaddress}:${port}/student/"+course_id+"/review",
+			dataType: "json",
+			data: JSON.stringify({
+				"content": content
+			}),
+			contentType: "application/json; charset=UTF-8",
+			complete: function() {
+				alert("후기 작성이 완료되었습니다.");
+				location.reload();
+			}
+		})
+	}
+});
+</script>
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<h1>내 수업</h1>
@@ -28,7 +87,7 @@
 							  	<a href="/student/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
 						  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
    						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -49,7 +108,7 @@
 						  	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelApplyBtn" value="${course.id }">신청 취소</button>
 					  	  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -65,7 +124,7 @@
 						  	<small class="btn btn-secondary float-end btn-sm mx-2">매칭 완료</small>
 						  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -124,7 +183,7 @@
 						  </div>
 							 
 							<div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>

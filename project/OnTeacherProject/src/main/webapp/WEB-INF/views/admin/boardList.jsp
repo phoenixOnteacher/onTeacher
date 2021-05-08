@@ -29,7 +29,7 @@
 					<td>${t.name}</td>
 					<td>${t.email}</td>
 					<td>${t.phoneNumber}</td>
-					<td><a href="${path}/thcertiupload/${t.fileName}"
+					<td><a href="${path}/upload/thcerti/${t.fileName}"
 						target="_blank" title="증빙서류 보기">${t.fileName}</a></td>
 					<td>
 						<form action="/admin/certApproved" method="POST">

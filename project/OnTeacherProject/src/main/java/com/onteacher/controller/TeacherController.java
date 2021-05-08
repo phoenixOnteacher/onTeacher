@@ -214,7 +214,7 @@ public class TeacherController {
 		if (!file.isEmpty()) {
 			String path = uploadPath.getHomeworkPath();
 			if (!uploadPath.isAws()) {
-				path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+				path = request.getServletContext().getRealPath(path); // 파일 저장 경로
 			}
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
@@ -466,7 +466,7 @@ public class TeacherController {
 			HttpServletRequest request) {
 		try {
 			Teacher teacher = teacherService.teacherInfo(teacherId);
-			String path = "/thprofileupload/";
+			String path = uploadPath.getThprofilePath();
 			teacher.setProfileImg(path + teacher.getProfileImg());
 			model.addAttribute("teacher", teacher);
 			model.addAttribute("page", "teacher/teacherDetail");
@@ -479,7 +479,10 @@ public class TeacherController {
 	@RequestMapping(value = "/certfiledownload", method = RequestMethod.GET)
 	public void filedownload(@RequestParam(value = "filename") String filename, HttpServletRequest request,
 			HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/thcertiupload/");
+		String saveDir = uploadPath.getThcertiPath(); // 파일 저장 경로
+		if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+			saveDir = request.getServletContext().getRealPath(saveDir);
+		}
 		File file = new File(saveDir + filename);
 		String sfilename = null;
 		FileInputStream fis = null;
@@ -541,7 +544,10 @@ public class TeacherController {
 		try {
 			Teacher teacher = teacherService.teacherInfo(user_id);
 			MultipartFile origFile = file;
-			String path = request.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
+			String path = uploadPath.getThcertiPath(); // 파일 저장 경로
+			if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+				path = request.getServletContext().getRealPath(path);
+			}
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
 				dir.mkdir();

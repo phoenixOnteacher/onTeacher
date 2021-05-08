@@ -33,7 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
-
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
@@ -60,6 +60,9 @@ public class CommonController {
 	
 	@Autowired
 	TeacherService teacherService;
+	
+	@Autowired
+	private UploadPath uploadPath;
 	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -142,7 +145,11 @@ public class CommonController {
 	/* homework file 다운로드 */
 	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
 	public void homeworkfiledownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/homeworkupload/");
+		
+		String saveDir = uploadPath.getHomeworkPath();
+		if(!uploadPath.isAws()) {
+			saveDir = request.getServletContext().getRealPath(saveDir); // 파일 저장 경로
+		}
 		File file = new File(saveDir + filename);
 		String sfilename = null;
 		FileInputStream fis = null;

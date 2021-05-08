@@ -2,9 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
 <script src="${path }/resources/js/course_list.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <%-- <script src="${path }/resources/js/course_apply.js"></script> --%>
 <!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
 <script> 
@@ -20,7 +23,7 @@ $(function(){
 	function courseApply(course_id) {
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:8090/student/courseApply?courseId="+course_id,
+			url: "http://${ipaddress}:${port}/student/courseApply?courseId="+course_id,
 			success: function(data,status) {
 				alert(data);
 			},
@@ -122,6 +125,6 @@ modelAndView.addObject("teacher", teacher);
 		</table>
 	</div>
 	<div id="apply_btn_wrap">
-		<button type='button' onclick='apply()' class="btn btn-primary">수강신청</button>
+		<button type='button' class="btn btn-primary courseApplyBtn" value="${course.id }">수강신청</button>
 	</div>
 </div>

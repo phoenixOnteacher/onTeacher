@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<spring:eval expression="@environment.getProperty('server.address')" var="ipaddress" />
-<spring:eval expression="@environment.getProperty('server.port')" var="port" />
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/course_manage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
-<script src="${path }/resources/js/course_manage.js"></script>
+<%-- <script src="${path }/resources/js/course_manage.js"></script> --%>
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<h1>수업 관리</h1>
