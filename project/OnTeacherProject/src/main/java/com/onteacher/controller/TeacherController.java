@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
@@ -50,17 +51,20 @@ import com.onteacher.vo.Teacher;
 public class TeacherController {
 
 	@Autowired
-	CourseManageService courseManageService;
+	private CourseManageService courseManageService;
 
 	@Autowired
-	TeacherService teacherService;
+	private TeacherService teacherService;
 
 	@Autowired
-	CourseService courseService;
+	private CourseService courseService;
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
 
+	@Autowired
+	private UploadPath uploadPath;
+	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String thjoin(Model model) {
 		model.addAttribute("page", "thjoin_form");
@@ -202,7 +206,10 @@ public class TeacherController {
 
 		// 파일 업로드
 		if (!file.isEmpty()) {
-			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			String path = uploadPath.getHomeworkPath();
+			if (!uploadPath.isAws()) {
+				path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			}
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
 				dir.mkdir();
