@@ -32,6 +32,7 @@ a {
 td.left {
 	width: 18%;
 	background-color: #ededed;
+	font-weight: 600;
 }
 
 td.right {
@@ -58,7 +59,7 @@ button.btn-primary:hover {
 
 td.left2 {
 	width: 20%;
-	font-family: 'S-CoreDream-5Medium';
+	font-weight: 600;
 }
 
 td.right2 {
