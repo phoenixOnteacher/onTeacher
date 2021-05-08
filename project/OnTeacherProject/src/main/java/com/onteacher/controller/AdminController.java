@@ -16,7 +16,7 @@ import com.onteacher.vo.Teacher;
 @Controller("AdminController")
 @RequestMapping("/admin")
 public class AdminController {
-
+ 
 	@Autowired
 	AdminService adminService;
 

@@ -72,7 +72,7 @@
 							<c:when test="${course.teacher.profileImg == null}"><img src="${path}/resources/img/logo.png"
 									class="card-img-top"></c:when>
 							<c:otherwise>
-								<img src="${path}/thprofileupload/${course.teacher.profileImg}"
+								<img src="/upload/thprofile/${course.teacher.profileImg}"
 									class="card-img-top">
 							</c:otherwise>
 						</c:choose>
