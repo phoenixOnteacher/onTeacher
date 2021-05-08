@@ -70,7 +70,7 @@
 					<div class="col-md-8">
 						<div class="card-body">
 							<p class="card-title tcard">
-								<a href="">${course.teacher.name }&nbsp;선생님</a>
+								<a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">${course.teacher.name }&nbsp;선생님</a>
 							</p>
 							<h5 class="card-title ccard">
 								<c:choose>

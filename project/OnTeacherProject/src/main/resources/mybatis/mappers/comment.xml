@@ -17,7 +17,7 @@
 	<insert id="insertComment" parameterType="comment">
         <![CDATA[
 		 INSERT INTO reply(id,content,created_at,user_id,article_id)
-         VALUES (REPLY_SEQ.NEXTVAL, #{content}, sysdate,  #{user_id}, #{article_id} )
+         VALUES (REPLYIDSEQ.NEXTVAL, #{content}, sysdate,  #{user_id}, #{article_id} )
 		]]>
 	</insert>
 

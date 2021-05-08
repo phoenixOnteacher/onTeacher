@@ -61,7 +61,6 @@ public class AdminController {
 	public String certRejected( @RequestParam(value = "email",required = true) String email ) {
 		try {
 			//TEACHER TABLE STATUS = rejected로 업데이트하기
-			//TEACHER TABLE ACTIVE = 1로 업데이트하기
 			teacherService.certRejected(email);
 		} catch (Exception e) {
 			e.printStackTrace();

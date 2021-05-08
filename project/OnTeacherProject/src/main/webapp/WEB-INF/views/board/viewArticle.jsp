@@ -122,7 +122,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 					<td>${comment.id}</td>
 					-->					
 					<td>${comment.content}</td>
-					<td>${comment.user_name}</td>
+					<td><a href="/teacher/teacherDetail?teacherId=${comment.user_id}">${comment.user_name}</a></td>
 					<td>${comment.created_at}</td>
 				</tr>
 			</c:forEach>
@@ -133,7 +133,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 		<input type="hidden" value="${sessionScope.id}" name="user_id" />
 		
 
-		<c:if test="${sessionScope.id>=300000 && sessionScope.id<400000}">
+		<c:if test="${sessionScope.id>=300000 && sessionScope.id<400000 && sessionScope.teacherActive==1 || sessionScope.id==article.user_id}"> <!-- 자격 인증 받은 선생님만 댓글 작성 가능 -->
 		<table align="center" border="2">
 			<tr>
 				<td>
