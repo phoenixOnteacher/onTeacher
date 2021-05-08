@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+#cm-wrap {
+	font-family: 'S-CoreDream-5Medium';
+}
+
+.alert {
+	font-family: 'S-CoreDream-4Regular';
+	margin: 0;
+	position: absolute;
+	top: 20px;
+	left: 0;
+	right: 0;
+}
+
+.form-floating>label {
+	padding: 0.5rem 0.75rem;
+	font-size: 14px;
+	color: #A8A8A8;
+}
+
+.form-floating {
+	padding: 0;
+}
+
+table td:first-child {
+	padding-bottom: 8px;
+}
+
+button.btn-primary  {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 250px;
+	height: 38px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
