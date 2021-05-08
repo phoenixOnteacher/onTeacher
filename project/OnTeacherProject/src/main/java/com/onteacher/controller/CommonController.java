@@ -36,11 +36,14 @@ import com.onteacher.vo.HighCategory;
 
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
+import com.onteacher.service.TeacherService;
 import com.onteacher.service.UserService;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Teacher;
+
+import ch.qos.logback.core.pattern.parser.Parser;
 
 @Controller
 @RequestMapping
@@ -54,6 +57,9 @@ public class CommonController {
 
 	@Autowired
 	CourseManageService courseManageService;
+	
+	@Autowired
+	TeacherService teacherService;
 	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -72,14 +78,25 @@ public class CommonController {
 			@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
+		HttpSession session = request.getSession();
 		try {
 			int id = userService.login(email,password);
 			if (id==0) {
 				modelAndView.addObject("msg", false);
 				throw new Exception("로그인 실패");
 			}
-			request.getSession().setAttribute("id", id);
-			
+			session.setAttribute("id", id);
+			//선생님의 경우
+			//ACTIVE에 따라 제어(수업등록, 질문게시판 답변 => 이용 불가)
+			if(id>=300000 && id<400000) {
+				Teacher teacher = teacherService.teacherInfo(id);
+				if(teacher.isActive() == true) {
+					session.setAttribute("teacherActive", 1);
+				}
+				else{
+					session.setAttribute("teacherActive", 0);
+				}
+			}
 			modelAndView.setViewName("redirect:/main");;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,6 +109,7 @@ public class CommonController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String thlogout(HttpServletRequest request, Model model) {
 		request.getSession().removeAttribute("id");
+		request.getSession().removeAttribute("teacherActive");
 		model.addAttribute("page", "login_form");
 		return "template";
 	}

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -28,6 +30,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.onteacher.service.CourseService;
+import com.onteacher.service.MatchingService;
 import com.onteacher.service.MyCourseService;
 import com.onteacher.service.StudentService;
 import com.onteacher.vo.Course;
@@ -36,6 +39,7 @@ import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
+import com.onteacher.vo.Matching;
 import com.onteacher.vo.Student;
 import com.onteacher.vo.Teacher;
 
@@ -52,6 +56,9 @@ public class StudentController {
 	
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	MatchingService matchingService;
 	
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
@@ -246,5 +253,24 @@ public class StudentController {
 		modelAndView.setViewName("template");
 		return modelAndView;
 		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/courseApply", method=RequestMethod.POST)
+	public ResponseEntity<String> courseApply(@RequestParam(value = "courseId",required = true)int courseId,
+									HttpServletRequest request) {
+		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
+		HttpSession session = request.getSession();
+		int studentId = (int) session.getAttribute("id");
+		Matching matching = new Matching();
+		matching.setStudentId(studentId);
+		matching.setCourseId(courseId);
+		try {
+			matchingService.insertMatching(matching);
+			return new ResponseEntity<String>("신청이 완료되었습니다.",HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<String>("이미 신청한 수업입니다.",HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }

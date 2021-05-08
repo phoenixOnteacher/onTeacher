@@ -96,7 +96,7 @@ public class BoardController {
 			Model model, HttpServletRequest request) {
 			//임시처리 승빈님 자료합치면 83 line 까지 지움.
 			HttpSession session = request.getSession();
-			session.setAttribute("id", 200001);
+			session.getAttribute("id");
 			
 		try {
 			Article article = new Article();
