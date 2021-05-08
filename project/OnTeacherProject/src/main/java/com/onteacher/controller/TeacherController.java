@@ -33,6 +33,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.CourseManageService;
 import com.onteacher.service.CourseService;
 import com.onteacher.service.TeacherService;
@@ -56,6 +57,9 @@ public class TeacherController {
 
 	@Autowired
 	CourseService courseService;
+	
+	@Autowired
+	private UploadPath uploadPath;
 
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String thjoin(Model model) {
@@ -71,7 +75,10 @@ public class TeacherController {
 
 			if (!files.isEmpty()) {
 				if (files.get(0).getContentType().split("/")[0].equals("image")) { // 이미지 파일인지 체크
-					String path = multi.getServletContext().getRealPath("/thprofileupload/"); // 파일 저장 경로
+					String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+					if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+						path = multi.getServletContext().getRealPath(path);
+					}
 					File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 					if (!dir.isDirectory()) {
 						dir.mkdir();
@@ -90,7 +97,10 @@ public class TeacherController {
 					}
 				}
 				if (!files.get(1).isEmpty()) {
-					String path = multi.getServletContext().getRealPath("/thcertiupload/"); // 파일 저장 경로
+					String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+					if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+						path = multi.getServletContext().getRealPath(path);
+					}
 					File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 					if (!dir.isDirectory()) {
 						dir.mkdir();
@@ -418,7 +428,10 @@ public class TeacherController {
 		MultipartFile origFile = course.getFile();
 
 		if (!origFile.isEmpty()) {
-			String path = multi.getServletContext().getRealPath("/courseupload/"); // 파일 저장 경로
+			String path = uploadPath.getThprofilePath(); // 파일 저장 경로
+			if(!uploadPath.isAws()) {    //aws가 아닐 때 경로 지정
+				path = multi.getServletContext().getRealPath(path);
+			}
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
 				dir.mkdir();
