@@ -23,9 +23,19 @@
 2. 로컬에서 실습하는 환경이 아닌 실제 호스팅 환경이므로 Application.properties 에서 IP, Username, Password를 변경합니다.
 
    ```java
+   # AWS deploy settings
+   # server.address=localhost remove 
+   ipaddress=18.216.45.215 
+   server.port=8090
+       
+   # AWS datasource  
+   spring.datasource.driver-class-name=oracle.jdbc.driver.OracleDriver    
    spring.datasource.url=jdbc:oracle:thin:@18.216.45.215:1521:XE "AWS 공인 IP 주소"
    spring.datasource.username=system
    spring.datasource.password=oracle
+       
+   # AWS Deploy
+   aws=true    
    
 3. 상단 메뉴에서  Window > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
 
@@ -318,7 +328,7 @@
       ~~~
    
       ```bash 
-      run FROM openjdk:11-jdk as builder
+      FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
       
