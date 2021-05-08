@@ -87,7 +87,7 @@ $(function(){
 							  	<a href="/student/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
 						  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="/upload/thprofile/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
    						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -108,7 +108,7 @@ $(function(){
 						  	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelApplyBtn" value="${course.id }">신청 취소</button>
 					  	  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="/upload/thprofile/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -124,7 +124,7 @@ $(function(){
 						  	<small class="btn btn-secondary float-end btn-sm mx-2">매칭 완료</small>
 						  </h5>
 						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="/upload/thprofile/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
@@ -183,7 +183,7 @@ $(function(){
 						  </div>
 							 
 							<div class="card-body">
-						    <p class="card-text"><a href=""><img src="/thprofileupload/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
+						    <p class="card-text"><a href=""><img src="/upload/thprofile/${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
 						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
 						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
