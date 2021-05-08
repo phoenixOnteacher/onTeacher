@@ -193,8 +193,10 @@ public class StudentController {
 		ha.setHomeworkId(Integer.parseInt(homework_id));
 		try {
 			MultipartFile origFile = ha.getFile();
-
-			String path = multi.getServletContext().getRealPath("/homeworkupload/"); // 파일 저장 경로
+			String path = uploadPath.getHomeworkanswerPath();
+			if(!uploadPath.isAws()) {
+				path = request.getServletContext().getRealPath(path); // 파일 저장 경로
+			}
 			File dir = new File(path); // 지정된 directory가 없을 때 directory 만들어주기
 			if (!dir.isDirectory()) {
 				dir.mkdir();
