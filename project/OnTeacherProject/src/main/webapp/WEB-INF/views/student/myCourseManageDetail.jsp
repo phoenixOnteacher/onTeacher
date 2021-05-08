@@ -36,7 +36,7 @@
 		    	<div class="card mb-3 mx-auto" style="max-width: 40vw;">
 				  <div class="row g-0">
 				    <div class="col-md-4">
-   				      <img src="/thprofileupload/${teacher.profileImg}" style="width:200px; height:200px;" />
+   				      <img src="/upload/thprofile/${teacher.profileImg}" style="width:200px; height:200px;" />
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
