@@ -186,7 +186,7 @@ public class StudentController {
 
 	/* 숙제 작성. - (진행중인 수업) 숙제 목록은 commonController에 */
 	@RequestMapping(value = "/{homework_id}/homeworkanswer", method = RequestMethod.POST)
-	public void homeworkAnswer(@ModelAttribute HomeworkAnswer ha, HttpServletRequest request, Model model, @PathVariable String homework_id, MultipartHttpServletRequest multi) {
+	public String homeworkAnswer(@ModelAttribute HomeworkAnswer ha, HttpServletRequest request, Model model, @PathVariable String homework_id, MultipartHttpServletRequest multi) {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
 		ha.setStudentId(userId);
@@ -215,6 +215,7 @@ public class StudentController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return "redirect:/homework/"+homework_id;
 	}
 
 	@RequestMapping(value="/studentDetail", method=RequestMethod.GET)
