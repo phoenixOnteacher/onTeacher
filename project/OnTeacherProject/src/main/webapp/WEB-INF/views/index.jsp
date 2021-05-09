@@ -60,8 +60,7 @@
 		<div id="mainthumbblock">
 			<div id="mainthumbtext">
 				<p>현재 신청 가능한 수업</p>
-				<a id="gotosearch" href="#">전체보기</a>
-				<!-- 수업검색페이지로 연결하기 -->
+				<a id="gotosearch" href="/searchCourse">전체보기</a>
 			</div>
 		</div>
 		<div class="row row-cols-1 row-cols-md-4 g-4">

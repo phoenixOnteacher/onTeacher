@@ -186,6 +186,8 @@ public class CommonController {
 	public ModelAndView searchCourseDefault() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<HighCategory> highCategory = userService.highcategoryList();
+		List<Course> courses = courseService.selectCourseForSearch();
+		modelAndView.addObject("courses", courses);
 		modelAndView.addObject("highCategory", highCategory);
 		modelAndView.addObject("page","search");
 		modelAndView.setViewName("template");
