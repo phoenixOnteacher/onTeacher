@@ -80,7 +80,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 			<c:when test="${articlesList !=null }">
 				<c:forEach var="article" items="${articlesList }"
 					varStatus="articleNO">
-					<tr class="tbody_row">
+					<tr class="tbody_row" style=TABLE-layout:fixed>
 						<td>${article.id }</td>
 						<td>${article.user_name}</td>
 						<td align='left' width="35%"><span

@@ -37,6 +37,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	display: none;
 }
 </style>
+<link rel="stylesheet" href="${path}/resources/css/viewArticle.css" />
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script type="text/javascript">
   
@@ -48,7 +49,7 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 <body>
 	<form name="frmArticle" method="post" action="modArticle">
 		<input type="hidden" value= "${pageNo}" name="pageNo" >
-		<table border=0 align="center">
+		<table border=0, align="center">
 		
 			<tr>
 				<td width=150 align="center" bgcolor=#FF9933>글번호</td>
