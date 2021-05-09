@@ -34,6 +34,13 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	text-align: center;
 	font-size: 15px;
 }
+.txt_line {
+      width:400px;
+      padding:0 5px;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+  }
 </style>
 <meta charset="UTF-8">
 <!--  <title>글목록창</title>-->
@@ -52,8 +59,6 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	</div>	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
 	<a class="cls1" href="articleForm"><button type="button" class="btn btn-danger">글쓰기</button></a>
 	</c:if>
-	
-	<!-- ><a class="cls1" href="javascript:fn_articleForm"><p class="cls2">글쓰기</p></a>-->
 	<br>
 	<table class="table table-hover">
 		<thead class="table-warning">
@@ -83,12 +88,13 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 					<tr class="tbody_row" style=TABLE-layout:fixed>
 						<td>${article.id }</td>
 						<td>${article.user_name}</td>
-						<td align='left' width="35%"><span
-							style="padding-right: 30px"></span> <a
-							href="./viewArticle?no=${article.id}&pageNo=${currentPage}">${article.title} </a></td>
+						<td align='left' width="20%"> <a href="./viewArticle?no=${article.id}&pageNo=${currentPage}">
+						<div class="txt_line">${article.title}</div> </a></td>
 						<td>${article.created_at}</td>
-						<td width="5%">${article.hits}</td>
-					</tr>
+						<td width="8%">${article.hits}</td>
+					</tr>	
+					
+					
 				</c:forEach>
 			</c:when>
 		</c:choose>
