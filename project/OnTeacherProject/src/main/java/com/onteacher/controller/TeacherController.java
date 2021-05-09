@@ -413,7 +413,8 @@ public class TeacherController {
 	public String upload(@ModelAttribute Course course, MultipartHttpServletRequest multi, Model model,
 			HttpServletRequest request) throws Exception {
 
-		int teacher_id = 300001;
+		HttpSession session = request.getSession();
+		int teacher_id = (int) session.getAttribute("id");
 
 		MultipartFile origFile = course.getFile();
 
