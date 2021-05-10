@@ -1,9 +1,13 @@
 @charset "UTF-8";
 
+a {
+	text-decoration: none;
+	width: 100px;
+}
+
 #articleForm_wrap {
 	margin: 0 auto;
-	margin-top: 80px;
-	max-width: 900px;
+	max-width: 930px;
 	padding: 50px;
 	align-items: center;
 	font-family: 'S-CoreDream-4Regular';
@@ -38,4 +42,40 @@ td.thead, td.tbody {
 
 form label {
 	margin-bottom: 0;
+}
+
+input.form-control {
+    height: 27px;
+    padding: 4px 7px;
+}
+
+div.panel {
+	margin-bottom: 0;
+}
+
+#btn_wrap {
+	text-align: right;
+}
+
+button.btn-primary, button.btn-warning {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 100px;
+}
+
+button.btn-warning {
+	margin-right: 12px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
+button.btn-warning:hover {
+	background-color: #FADE54;
+	border-color: #FADE54;
+	color: #555555;
+	text-decoration: none;
 }
