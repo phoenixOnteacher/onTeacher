@@ -30,7 +30,7 @@ modelAndView.addObject("teacher", teacher);
 		<table class="table table-bordered">
 			<tr>
 				<td class="left">수업 분류</td>
-				<td class="right">${highCategory.name} > ${lowCategory.name}</td>
+				<td class="right">${highCategory.name}&nbsp;>&nbsp;${lowCategory.name}</td>
 				<td class="left">수업 대상</td>
 				<c:choose>
 					<c:when test="${course.target eq '중등'}">

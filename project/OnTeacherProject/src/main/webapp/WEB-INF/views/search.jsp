@@ -101,7 +101,7 @@
 										value="${course.startDate}" var="coursestart"
 										pattern="yy-MM-dd" /> <fmt:parseDate
 										value="${course.endDate}" var="courseend" pattern="yy-MM-dd" />
-									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
+									<i class="far fa-calendar"></i>&nbsp;<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
 										value="${courseend }" pattern="yy.MM.dd" /></small>
 							</p>
 						</div>
