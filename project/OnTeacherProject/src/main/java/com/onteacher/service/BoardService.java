@@ -8,7 +8,7 @@ import com.onteacher.vo.Comment;
 public interface BoardService {
 	public List<Article> listArticles(Article article) throws Exception;
 
-	public int addArticle(Article article) throws Exception;
+	public void addArticle(Article article) throws Exception;
 
 	public Article viewArticle(int id) throws Exception;
 
