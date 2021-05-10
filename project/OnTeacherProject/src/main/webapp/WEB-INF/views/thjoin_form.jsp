@@ -21,7 +21,7 @@
 			</tr>
 			<tr>
 				<td class="thead"><label for="pass">비밀번호</label></td>
-				<td class="tbody"><input type="password" name="password"
+				<td class="tbody"><input type="password" name="password" placeholder="8자리 이상. 영문, 숫자, 특수문자 중 2가지 이상 조합"
 					id="password" class="form-control" required="required"></td>
 			</tr>
 			<tr>
