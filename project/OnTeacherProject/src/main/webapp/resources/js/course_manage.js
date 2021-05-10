@@ -10,7 +10,7 @@ $(function(){
 	function cancelCourse(course_id) {
 		$.ajax({
 			type: "DELETE",
-			url: "http://localhost:8090/teacher/"+course_id,
+			url: "http://${ipaddress}:${port}/teacher/"+course_id,
 			success: function() {
 				location.reload();
 			}
@@ -28,7 +28,7 @@ $(function(){
 	function startCourse(course_id) {
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:8090/teacher/"+course_id+"/start",
+			url: "http://${ipaddress}:${port}/teacher/"+course_id+"/start",
 			success: function() {
 				var course_title = $("a[id='title-"+course_id+"']").text();
 				alert(course_title + " 수업을 시작하였습니다.");

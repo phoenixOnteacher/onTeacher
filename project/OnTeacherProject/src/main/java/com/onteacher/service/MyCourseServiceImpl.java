@@ -12,6 +12,7 @@ import com.onteacher.dao.CourseReviewDAO;
 import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.TeacherDAO;
+import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.CourseReview;
 import com.onteacher.vo.HomeworkAnswer;
@@ -35,6 +36,9 @@ public class MyCourseServiceImpl implements MyCourseService {
 	
 	@Autowired
 	HomeworkAnswerDAO homeworkAnswerDAO;
+	
+	@Autowired
+	private UploadPath uploadPath;
 
 	@Override
 	public void cancelMatching(int studentId, int courseId) {
@@ -44,19 +48,31 @@ public class MyCourseServiceImpl implements MyCourseService {
 
 	@Override
 	public List<Course> queryMatchingcourseListByStudentId(int studentId) {
-		return courseDAO.selectCourseMatchingListByStudentId(studentId);
+		List<Course> list = courseDAO.selectCourseMatchingListByStudentId(studentId);
+		for(Course c : list) {
+			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
+		}
+		return list;
 	}
 
 
 	@Override
 	public List<Course> queryMatchedcourseListByStudentId(int studentId) {
-		return courseDAO.selectCourseMatchedListByStudentId(studentId);
+		List<Course> list = courseDAO.selectCourseMatchedListByStudentId(studentId);
+		for(Course c : list) {
+			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
+		}
+		return list;
 	}
 
 
 	@Override
 	public List<Course> queryStudyingcourseListByStudentId(int studentId) {
-		return courseDAO.selectCourseStudyingListByStudentId(studentId);
+		List<Course> list = courseDAO.selectCourseStudyingListByStudentId(studentId);
+		for(Course c : list) {
+			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
+		}
+		return list;
 	}
 
 
@@ -70,6 +86,7 @@ public class MyCourseServiceImpl implements MyCourseService {
 			cr.setStudentId(studentId);
 			cr.setTeacherId(teacher.getId());
 			teacher.setCourseReview(courseReviewDAO.selectCourseReview(cr));
+			course.getTeacher().setProfileImg(uploadPath.getThprofilePath()+course.getTeacher().getProfileImg());
 		}
 		return courseList;
 	}
@@ -78,8 +95,6 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Override
 	public Teacher queryMatchingTeacher(int courseId) {
 		Teacher teacher = teacherDAO.selectMatchingTeacherByCourseId(courseId);
-		String phoneNum = teacher.getPhoneNumber();
-		teacher.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
 		teacher.setBirthday(teacher.getBirthday().substring(0, 10));
 		return teacher;
 	}

@@ -20,17 +20,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.BoardService;
 import com.onteacher.service.StudentService;
 import com.onteacher.vo.Article;
 import com.onteacher.vo.Comment;
-import com.onteacher.vo.Student;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private UploadPath uploadPath;
 
 	@Autowired
 	private StudentService studentService;
@@ -63,12 +66,21 @@ public class BoardController {
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
 	public String addArticle(@ModelAttribute Article article, HttpServletRequest request) {
 
+		
+		
+		
+		
 		try {
 		
 			MultipartFile orgfile = article.getFile();
 			System.out.println(orgfile.getOriginalFilename());
 			if (orgfile != null && orgfile.getOriginalFilename().trim() != "") {
-				String path = request.getServletContext().getRealPath("/boardupload/");
+				String path = uploadPath.getBoardPath();
+				
+				if(!uploadPath.isAws()) {
+					path = request.getServletContext().getRealPath(path);
+				}
+						
 				File dir = new File(path);
 				if (!dir.isDirectory()) {
 					dir.mkdir();
@@ -94,7 +106,7 @@ public class BoardController {
 	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
 	public String listArticle(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 			Model model, HttpServletRequest request) {
-			//임시처리 승빈님 자료합치면 83 line 까지 지움.
+			//임시처리 승빈님 자료합치면 99 line 까지 지움.
 			HttpSession session = request.getSession();
 			session.getAttribute("id");
 			
@@ -143,7 +155,11 @@ public class BoardController {
 	
 	@RequestMapping(value = "/articleDownload", method = RequestMethod.GET)
 	public void articleDownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/boardupload/");
+		String saveDir = uploadPath.getBoardPath();
+		
+		if(!uploadPath.isAws()) {
+			saveDir = request.getServletContext().getRealPath(saveDir);
+		}
 		File file = new File(saveDir + filename);
 		String sfilename = null;
 		FileInputStream fis = null;

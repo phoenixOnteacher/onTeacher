@@ -10,6 +10,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -19,12 +20,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.OcrService;
 
 @Controller("Controller")
 @RequestMapping("/ocr")
 public class OcrController {
-
+	@Autowired
+	private UploadPath uploadPath;
+	
 	@RequestMapping(value = "/main", method = RequestMethod.GET) // 호출 주소 : localhost:8090/ocr/main
 	public String ocrMain(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("page", "ocr/ocrInsertForm");
@@ -40,8 +44,10 @@ public class OcrController {
 			if (!orgfile.isEmpty()) {
 
 				//String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
-				//Docker 배포를 위해서 "/upload/ocr" docker 볼륨을 사용해야 함. 
-				String path = "/upload/ocr";
+				String path = uploadPath.getOcrPath();
+				if(!uploadPath.isAws()) {
+					path=mtfRequest.getServletContext().getRealPath(path);
+				}
 
 				File dir = new File(path);
 				if (!dir.isDirectory()) {
@@ -67,9 +73,11 @@ public class OcrController {
 			HttpServletResponse response) {
 
 		//String path = mtfRequest.getServletContext().getRealPath("/ocrupload/");
-		//Docker 배포를 위해서 "/upload/ocr" docker 볼륨을 사용해야 함. 
-		String path="/upload/ocr";
-
+		String path = uploadPath.getOcrPath();
+		if(!uploadPath.isAws()) {
+			path=request.getServletContext().getRealPath(path);
+		}		
+		
 		File file = new File(path + filename);
 		String sfilename = null;
 		FileInputStream fis = null;

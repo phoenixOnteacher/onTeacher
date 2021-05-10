@@ -2,18 +2,24 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<link rel="stylesheet" href="${path}/resources/css/course_manage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
-<script src="${path }/resources/js/course_manage.js"></script>
-<script src="${path }/resources/js/homework_detail.js"></script>
 
-<div id="" class="m-5 px-5">
+<div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
+		<c:if test="${fn:substring(sessionScope.id,0,1)=='2'}">
+			<a href="/student/course-manage" class="text-secondary h5 text-decoration-none">내수업</a>
+			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+			<a href="/student/course-manage/${course.id }" class="text-secondary h5 text-decoration-none">${course.title }</a>
+			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+		</c:if>
+		<c:if test="${fn:substring(sessionScope.id,0,1)=='3'}">
 			<a href="/teacher/course-manage" class="text-secondary h5 text-decoration-none">수업 관리</a>
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
 			<a href="/teacher/course-manage/${course.id }" class="text-secondary h5 text-decoration-none">${course.title }</a>
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
+		</c:if>
 		</div>
 		<h2 id="course-${course.id }" class="course-title">${homework.title }</h2>
 		<table class="table table-bordered">
