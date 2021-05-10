@@ -3,8 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/listArticles.css" />
+
 <%
   request.setCharacterEncoding("UTF-8");
 %>
@@ -20,11 +21,6 @@ http://localhost:8090/articleForm -->
 http://localhost:8090/viewArticle?no=x
 x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도 가능
  -->
-
-
-<!DOCTYPE html>
-<html>
-<head>
 <style>
 .cls1 {
 	text-decoration: none;
@@ -42,13 +38,6 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
       white-space:nowrap;
   }
 </style>
-<meta charset="UTF-8">
-<!--  <title>글목록창</title>-->
-</head>
-
-<body>
-
-
 
 <div id="tc_wrap">
 	<div id="tc_title_wrap">
@@ -127,5 +116,3 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 			</c:otherwise>
 		</c:choose>
 	</div>
-</body>
-</html>
