@@ -1,0 +1,88 @@
+@charset "UTF-8";
+
+#cm-wrap {
+	font-family: 'S-CoreDream-4Regular';
+}
+
+.alert {
+	font-family: 'S-CoreDream-4Regular';
+	margin: 0;
+	position: absolute;
+	top: 20px;
+	left: 0;
+	right: 0;
+}
+
+.btn-warning {
+	color: white;
+}
+
+.btn-warning:hover {
+	color: white;
+}
+
+.btn-primary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+}
+
+.btn-outline-primary {
+	border-color: #FF8184;
+	color: #FF8184;
+}
+
+.btn-outline-primary:hover, .btn-check:active+.btn-outline-primary, .btn-check:checked+.btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
+a {
+	color: #FF8184;
+}
+
+a:hover {
+	color: #FF6165
+}
+
+.course-manage-menu {
+	font-family: 'S-CoreDream-5Medium';
+}
+
+.st-profImg {
+	width: 260px;
+	height: 260px;
+	object-fit: contain;
+}
+
+.st-prof-card {
+	max-width: 780px;
+	min-width: 260px;
+}
+
+
+/* sweetalert */
+:root {
+	--swal-btn-confirm: #FF8184;
+	--swal-btn-confirm-hover: #FF8184;
+}
+
+.swal-text, .swal-title, .swal-footer {
+	font-family: 'S-CoreDream-4Regular';
+}
+
+.swal-footer {
+	text-align: center;
+}
+
+.swal-button, .swal-button--confirm {
+	background-color: #E9ECEF;
+	border: 1px solid #CED4DA;
+	color: #555555;
+}
+
+.swal-button:not([disabled]):hover, .swal-button--confirm:not([disabled]):hover {
+	background-color: var(--swal-btn-confirm-hover);
+	border-color: #FF8184;
+	color: #FFFFFF;
+}

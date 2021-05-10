@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
-<script src="${path }/resources/js/course_list.js"></script>
 
 <!-- 이 jsp를 include 하기위해 Controller에 추가해야할 코드 -->
 <!-- 
