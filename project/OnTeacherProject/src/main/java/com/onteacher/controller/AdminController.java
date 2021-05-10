@@ -58,10 +58,10 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/certRejected", method = RequestMethod.POST)
-	public String certRejected( @RequestParam(value = "email",required = true) String email ) {
+	public String certRejected( @RequestParam(value = "email",required = true) String email, @RequestParam(value = "message",required = true) String message) {
 		try {
 			//TEACHER TABLE STATUS = rejected로 업데이트하기
-			teacherService.certRejected(email);
+			teacherService.certRejected(email, message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
