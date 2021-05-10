@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+#articleForm_wrap {
+	margin: 0 auto;
+	margin-top: 80px;
+	max-width: 700px;
+	padding: 50px;
+	border: 1px solid #ededed;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+}
+
+#articleForm_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+
+
+
