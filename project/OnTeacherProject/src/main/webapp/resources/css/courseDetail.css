@@ -66,7 +66,11 @@ td.right2 {
 }
 
 td.left2, td.right2 {
-	height: 70px;
+	height: 40px;
+}
+
+#curriculum {
+	height: 500px;
 }
 
 #th_name {

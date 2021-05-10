@@ -28,4 +28,6 @@ public interface CourseService {
 	public List<Course> courseMatchingList(int studentId);
 
 	public HomeworkAnswer queryHomeworkAnswer(int homework_id, int user_id);
+	
+	public List<Course> selectCourseForSearch();
 }

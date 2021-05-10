@@ -112,4 +112,9 @@ public class CourseServiceImpl implements CourseService {
 	public HomeworkAnswer queryHomeworkAnswer(int homework_id, int user_id) {
 		return homeworkAnswerDAO.selectHomeworkAnswerById(homework_id,user_id);
 	}
+
+	@Override
+	public List<Course> selectCourseForSearch() {
+		return courseDAO.selectCourseForSearch();
+	}
 }

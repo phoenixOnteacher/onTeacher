@@ -8,7 +8,7 @@ $(function() {
 			});
 			return false;
 		} else {
-			var maxSize = 1024 * 1024 * 2    //5MB
+			var maxSize = 1024 * 1024 * 5    //5MB
 			var fileSize = file.files[0].size;
 			var currentfile = (fileSize / (1024 * 1024)).toFixed(2);
 

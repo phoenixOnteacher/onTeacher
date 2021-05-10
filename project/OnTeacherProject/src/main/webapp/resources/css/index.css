@@ -92,8 +92,16 @@ a.btn-primary:hover {
 }
 
 h5.card-title {
-	font-size: 1.2rem;
+	font-size: 1.1rem;
 	font-weight: 600;
+	max-height: 50px;
+	word-wrap : break-word;
+	display : block;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient : vertical;
+	overflow : hidden;
+	text-overflow: ellipsis;
 }
 
 .card-body {
@@ -101,7 +109,7 @@ h5.card-title {
 	overflow: hidden;
 }
 
-.card-body > p, ol, ul {
+.card-body > p, .card-body > ol, .card-body > ul {
 	max-height: 50px;
 	word-wrap : break-word;
 	display : block;
@@ -110,7 +118,7 @@ h5.card-title {
 	-webkit-box-orient : vertical;
 	overflow : hidden;
 	text-overflow: ellipsis;
-	font-size: 0.813rem;
+	font-size: 0.95rem;
 }
 
 .card-body > p {
