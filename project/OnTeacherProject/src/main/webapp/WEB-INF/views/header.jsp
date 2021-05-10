@@ -4,14 +4,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css" />
+<link rel="stylesheet" href="${path}/resources/css/notification.css" />
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 
 <script src="https://kit.fontawesome.com/0b88962ca7.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/header.js"></script>
-<script src="${path }/resources/js/notification.js"></script>
 <div id="h_wrap">
 	<nav class="navbar fixed-top" id="g_navbar">
 		<div id="logo">
@@ -49,7 +52,7 @@
 					<li><a href="/ocr/main">OCR 인식</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="/listArticles">질문게시판</a></li>
+			<li><a href="/listArticle">질문게시판</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>
@@ -78,9 +81,6 @@
 					  </div>
 					  <div class="offcanvas-body">
 					  </div>
-					  <c:if test="">
-					  
-					  </c:if>
 					  <!-- Modal -->
 					  <div class="modal fade" id="certReuploadModal" tabindex="-1" aria-labelledby="certReuploadModalLabel" aria-hidden="true" data-bs-backdrop="false">
 						  <div class="modal-dialog modal-dialog-centered">
@@ -144,11 +144,16 @@ $(function() {
 				var notifications = res.data;
 				var notificationStr = '';
 				for (var i=0; i<notifications.length; i++) {
-					notificationStr += '<div class="shadow p-3 mb-3 bg-body rounded">';
-					notificationStr += '<p class="text-start">' + notifications[i].content + '</p>';
+					notificationStr += '<div class="shadow p-3 mb-3 rounded ';
+					if (notifications[i].content.substring(0,11)=='[자격 증명(반려)]') {
+						notificationStr += 'bg-rejected';
+					} else {
+						notificationStr += 'bg-general';
+					}
+					notificationStr += '"><p class="text-start">' + notifications[i].content + '</p>';
 					notificationStr += '<div class="d-flex justify-content-between"><p class="text-secondary text-start mb-0">' + notifications[i].createdAt.substring(0, 10) + '</p>';
 					if (notifications[i].content.substring(0,11)=='[자격 증명(반려)]') {
-						notificationStr += '<a class="text-decoration-none text-end" data-bs-toggle="modal" href="#certReuploadModal" role="button">재업로드 하기 <i class="fas fa-chevron-right mx-2"></i></a>';
+						notificationStr += '<a class="text-decoration-none text-end" data-bs-toggle="modal" href="#certReuploadModal" role="button">재업로드 하기 <i class="fas fa-chevron-right ms-1"></i></a>';
 						$('input[name="notificationId"]').val(notifications[i].id);
 					}
 					notificationStr += '</div></div>';

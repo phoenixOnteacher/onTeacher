@@ -2,6 +2,7 @@ package com.onteacher.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.List;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.onteacher.prop.UploadPath;
 import com.onteacher.service.BoardService;
@@ -64,16 +66,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/addArticle", method = RequestMethod.POST)
-	public String addArticle(@ModelAttribute Article article, HttpServletRequest request) {
-
-		
-		
-		
+	public String addArticle(@ModelAttribute Article article, MultipartHttpServletRequest request) {
 		
 		try {
 		
 			MultipartFile orgfile = article.getFile();
-			System.out.println(orgfile.getOriginalFilename());
 			if (orgfile != null && orgfile.getOriginalFilename().trim() != "") {
 				String path = uploadPath.getBoardPath();
 				
@@ -86,12 +83,17 @@ public class BoardController {
 					dir.mkdir();
 				}
 
-				File destFile = new File(path + orgfile.getOriginalFilename());
-				orgfile.transferTo(destFile);
-				article.setFilename(orgfile.getOriginalFilename());
-			} else {
-				article.setFilename("");
-
+				String origFileName = orgfile.getOriginalFilename(); // 파일 이름 저장
+				String destFile = path + origFileName;
+				
+				try {
+					orgfile.transferTo(new File(destFile));
+					article.setFilename(orgfile.getOriginalFilename());
+				} catch (IllegalStateException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 
 			boardService.addArticle(article);
