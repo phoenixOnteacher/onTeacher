@@ -32,7 +32,7 @@
 
 	 <![CDATA[
 		 INSERT INTO article(id,title,content,filename,created_at,hits,user_id)
-         VALUES (ArticleIdSeq.nextval, #{title}, #{content}, #{filename,jdbcType=VARCHAR}, sysdate, 0, #{user_id} )
+         VALUES (ArticleIdSeq.nextval, #{title}, #{content,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, sysdate, 0, #{user_id} )
 		]]>
 	</insert>
 
