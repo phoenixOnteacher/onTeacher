@@ -40,8 +40,8 @@ request.setCharacterEncoding("UTF-8");
 			</tr>
 			<tr>
 				<td class="thead"><label for="title">제목</label></td>
-				<td class="tbody"><input type="text" maxlength="500" name="title"
-					class="form-control" /></td>
+				<td class="tbody"><input type="text" maxlength="500"
+					name="title" class="form-control" /></td>
 			</tr>
 			<tr>
 				<td class="thead" valign="top"><label for="content">내용</label></td>
@@ -50,18 +50,15 @@ request.setCharacterEncoding("UTF-8");
 			</tr>
 			<tr>
 				<td class="thead"><label for="file">파일 첨부</label></td>
-				<td class="tbody"><input type="file" name="file" onchange="readURL(this);"
-					class="form-control" /></td>
-			</tr>
-			<tr>
-				<td>
-					<button type="submit" class="btn btn-danger">글쓰기</button>
-				</td>
-				<td><a href="listArticle?page=${pageNo}">
-						<button type="button" class="btn btn-warning">돌아가기</button>
-				</a></td>
-
+				<td class="tbody"><input type="file" name="file"
+					onchange="readURL(this);" class="form-control" /></td>
 			</tr>
 		</table>
+		<div id="btn_wrap">
+			<a href="listArticle?page=${pageNo}">
+				<button type="button" class="btn btn-warning">돌아가기</button>
+			</a>
+			<button type="submit" class="btn btn-primary">글쓰기</button>
+		</div>
 	</form>
 </div>
