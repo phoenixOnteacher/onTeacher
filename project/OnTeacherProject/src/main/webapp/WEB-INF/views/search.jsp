@@ -65,7 +65,7 @@
 								<img src="${path}/resources/img/logo.png" class="l_thimg">
 							</c:when>
 							<c:otherwise>
-								<img src="/thprofileupload/${course.teacher.profileImg}"
+								<img src="/upload/thprofile/${course.teacher.profileImg}"
 									class="l_thimg">
 							</c:otherwise>
 						</c:choose>
@@ -129,7 +129,7 @@
 		function comboChange(highcategoryid) {
 			$.ajax({
 				type : "GET",
-				url : "http://localhost:8090/teacher/highcategory",
+				url : "http://${ipaddress}:${port}/teacher/highcategory",
 				dataType : "json",
 				data : {
 					high_category_id : highcategoryid
