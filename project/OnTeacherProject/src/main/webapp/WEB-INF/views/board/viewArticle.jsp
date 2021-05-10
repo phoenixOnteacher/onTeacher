@@ -20,46 +20,37 @@ request.setCharacterEncoding("UTF-8");
 		<input type="hidden" value="${pageNo}" name="pageNo">
 		<table class="table table-borderless">
 			<tr>
-				<td align="center">글번호</td>
-				<td>${article.id }</td>
+				<td colspan="4" id="a_title">${article.title }</td>
 			</tr>
 			<tr>
-				<td align="center">작성자</td>
-				<td>${article.user_name }</td>
+				<td class="left1">작성자</td>
+				<td colspan="2" class="right1">${article.user_name }</td>
+				<td class="cdate">등록일자&nbsp;&nbsp;&nbsp;${article.created_at}</td>
 			</tr>
 			<tr>
-				<td align="center">제목</td>
-				<td>${article.title }</td>
+				<td class="left2">내용</td>
+				<td colspan="3" class="right2">${article.content }</td>
 			</tr>
 			<tr>
-				<td align="center">내용</td>
-				<td>${article.content }</td>
-			</tr>
-			<tr>
-				<td align="center">등록일자</td>
-				<td>${article.created_at}</td>
-			</tr>
-			<tr id="modArticle">
-				<td>
-
-					<div class="btn-group-vertical" role="group"
-						aria-label="Basic mixed styles example">
-						<c:if test="${sessionScope.id == article.user_id }">
-							<button type="submit" class="btn btn-danger">수정하기</button>
-
-							<a href="deleteArticle?no=${article.id}" type="submit"
-								class="btn btn-warning">삭제하기</a>
-
-						</c:if>
-						<a href="listArticle?page=${pageNo}"></a>
-						<button type="submit" class="btn btn-light">리스트로 돌아가기</button>
-					</div>
-				<td>파일보기<br> <a
+				<td class="left2">파일보기</td>
+				<td colspan="3" class="right3"><a
 					href="articleDownload?filename=${article.filename}"
 					style="color: orange; font-size: 1.0em; font-weight: bold; background: #efefef;">${article.filename}</a>
 				</td>
 			</tr>
 		</table>
+		<div class="btn-group" role="group"
+			aria-label="Basic mixed styles example">
+			<c:if test="${sessionScope.id == article.user_id }">
+				<button type="submit" class="btn btn-danger">수정하기</button>
+
+				<a href="deleteArticle?no=${article.id}" type="submit"
+					class="btn btn-warning">삭제하기</a>
+
+			</c:if>
+			<a href="listArticle?page=${pageNo}"></a>
+			<button type="submit" class="btn btn-light">목록</button>
+		</div>
 	</form>
 
 
