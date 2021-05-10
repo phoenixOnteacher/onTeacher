@@ -16,6 +16,7 @@ import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.NotificationDAO;
 import com.onteacher.dao.StudentDAO;
 import com.onteacher.dao.StudentReviewDAO;
+import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
@@ -56,6 +57,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 	
 	@Autowired
 	private NotificationDAO notificationDAO;
+
+	@Autowired
+	private UploadPath uploadPath;
 	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
@@ -132,7 +136,13 @@ public class CourseManageServiceImpl implements CourseManageService {
 		notification.setContent("[" + course.getTitle() +"] 수업 매칭이 취소되었습니다.");
 		notification.setToId(matching.getStudentId());
 		notificationDAO.insertNotification(notification);
-		if (matchingDAO.selectMatchingListByCourseId(courseId).size()==0) {
+		List<Matching> remain = matchingDAO.selectMatchingListByCourseId(courseId);
+		if (remain.size()<course.getMinStudent()) { // 최소 인원보다 적어지면 수업 취소
+			// 남아있는 학생들에게 매칭 취소 알림
+			for (Matching m : remain) {
+				notification.setToId(m.getStudentId());
+				notificationDAO.insertNotification(notification);	
+			}
 			courseDAO.deleteCourse(courseId);
 		}
 	}
@@ -185,8 +195,7 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public List<Student> queryMatchingStudentList(int courseId, int teacherId) throws Exception {
 		List<Student> studentList = studentDAO.selectMatchingStudentByCourseId(courseId);
 		for (Student student : studentList) {
-			String phoneNum = student.getPhoneNumber();
-			student.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
+			student.setProfileImg(uploadPath.getStprofilePath()+student.getProfileImg());
 			student.setBirthday(student.getBirthday().substring(0,10));
 			StudentReview sr = new StudentReview();
 			sr.setCourseId(courseId);
