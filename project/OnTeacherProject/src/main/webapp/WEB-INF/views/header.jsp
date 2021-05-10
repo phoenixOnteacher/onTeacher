@@ -48,7 +48,7 @@
 					<li><a href="/ocr/main">OCR 인식</a></li>
 				</c:otherwise>
 			</c:choose>
-			<li><a href="/listArticle">질문게시판</a></li>
+			<li><a href="/listArticles">질문게시판</a></li>
 			<c:choose>
 				<c:when test="${sessionScope.id == null }">
 					<li><a href="/login">로그인</a></li>
