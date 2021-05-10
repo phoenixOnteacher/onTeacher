@@ -458,8 +458,7 @@ public class TeacherController {
 		}
 		course.setTeacherId(teacher_id);
 		courseManageService.registerCourse(course);
-		model.addAttribute("page", "teacher/course_register");
-		return "template";
+		return "redirect:/searchCourse";
 	}
 
 	@RequestMapping(value = "/teacherDetail", method = RequestMethod.GET)
