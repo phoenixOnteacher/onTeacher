@@ -50,3 +50,13 @@ button.btn-danger {
 	color: #dc3545;
 }
 
+.btn-primary {
+	background-color: #FF8184;
+	border-color: #FF8184;
+	color: white;
+}
+
+.btn-primary:hover, .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary.dropdown-toggle.show, .btn-primary:active {
+	background-color: #FF6165;
+	border-color: #FF6165;
+}
