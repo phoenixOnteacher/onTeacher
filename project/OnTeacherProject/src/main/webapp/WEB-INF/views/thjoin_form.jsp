@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/thjoin_form.css" />
+<script src="${path}/resources/js/thjoin_form.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div id="thj_wrap">
 	<div id="thj_title_wrap">
 		<div id="thj_title">
@@ -93,7 +95,7 @@
 			</tr>
 		</table>
 		<div id="thjoin_btn">
-			<button type="submit" class="btn btn-primary">가입하기</button>
+			<button type="submit" class="btn btn-primary" id="joinbtn">가입하기</button>
 		</div>
 	</form>
 </div>

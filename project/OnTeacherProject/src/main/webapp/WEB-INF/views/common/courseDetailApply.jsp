@@ -2,9 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
 <script src="${path }/resources/js/course_list.js"></script>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <%-- <script src="${path }/resources/js/course_apply.js"></script> --%>
 <!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
 <script> 
@@ -20,7 +23,7 @@ $(function(){
 	function courseApply(course_id) {
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:8090/student/courseApply?courseId="+course_id,
+			url: "http://${ipaddress}:${port}/student/courseApply?courseId="+course_id,
 			success: function(data,status) {
 				alert(data);
 			},
@@ -58,9 +61,16 @@ modelAndView.addObject("teacher", teacher);
 		<table class="table table-bordered">
 			<tr>
 				<td class="left">수업 분류</td>
-				<td class="right">${highCategory.name}>${lowCategory.name}</td>
+				<td class="right">${highCategory.name}&nbsp;>&nbsp;${lowCategory.name}</td>
 				<td class="left">수업 대상</td>
-				<td class="right">${course.target}학생</td>
+				<c:choose>
+					<c:when test="${course.target eq '중등'}">
+						<td class="right">중학생</td>
+					</c:when>
+					<c:otherwise>
+						<td class="right">${course.target}학생</td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr>
 				<td class="left">수업 방식 (지역)</td>
@@ -97,21 +107,15 @@ modelAndView.addObject("teacher", teacher);
 			</tr>
 		</table>
 	</div>
-	<script>
-		function apply() {
-			alert("해당 수업을 신청하였습니다.");
-		}
-	</script>
 	<div id="table2_wrap">
 		<table class="table table-borderless" id="table2">
 			<tr>
 				<td class="left2">선생님</td>
-				<td class="right2"><a href="#" id="th_name">${teacher.name }</a></td>
-				<!-- TODO:선생님 상세페이지 연결 -->
+				<td class="right2"><a href="/teacher/teacherDetail?teacherId=${teacher.id }" id="th_name">${teacher.name }</a></td>
 			</tr>
 			<tr>
 				<td class="left2">수업 소개</td>
-				<td class="right2">${course.curriculum}</td>
+				<td class="right2" id="curriculum">${course.curriculum}</td>
 			</tr>
 			<tr>
 				<td class="left2">참고 자료</td>
@@ -122,6 +126,6 @@ modelAndView.addObject("teacher", teacher);
 		</table>
 	</div>
 	<div id="apply_btn_wrap">
-		<button type='button' onclick='apply()' class="btn btn-primary">수강신청</button>
+		<button type='button' class="btn btn-primary courseApplyBtn" value="${course.id }">수강신청</button>
 	</div>
 </div>

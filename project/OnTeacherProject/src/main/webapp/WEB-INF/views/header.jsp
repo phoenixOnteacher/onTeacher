@@ -11,6 +11,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${path }/resources/js/header.js"></script>
+<script src="${path }/resources/js/notification.js"></script>
 <div id="h_wrap">
 	<nav class="navbar fixed-top" id="g_navbar">
 		<div id="logo">
@@ -69,8 +70,116 @@
 				</c:when>
 				<c:otherwise>
 					<li><a href="/logout">로그아웃</a></li>
+					<li><i id="notificationBell" class="fas fa-bell" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i></li>
+					<div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+					  <div class="offcanvas-header">
+					    <h5 id="offcanvasRightLabel">알림</h5>
+					    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					  </div>
+					  <div class="offcanvas-body">
+					  </div>
+					  <c:if test="">
+					  
+					  </c:if>
+					  <!-- Modal -->
+					  <div class="modal fade" id="certReuploadModal" tabindex="-1" aria-labelledby="certReuploadModalLabel" aria-hidden="true" data-bs-backdrop="false">
+						  <div class="modal-dialog modal-dialog-centered">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="certReuploadModalLabel">자격 증명서 재업로드</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						        <div class="mb-3">
+						        	<!-- <h3>반려된 증명서</h3>
+					        		<table class="table table-bordered">
+										<tbody>
+											<tr>
+												<th>증명서 파일</th>
+												<td><a href="/teacher/certfiledownload?filename=${teacher.fileName }">${teacher.fileName }</a></td>
+											</tr>
+											<tr>
+												<th>설명</th>
+												<td>${teacher.description }</td>
+											</tr>
+										</tbody>
+									</table>
+									<br> -->
+									<!-- <h3>반려된 자격 증명서</h3>
+									<p>증명서 파일</p>
+									<a class="text-decoration-none" href="/teacher/certfiledownload?filename=${teacher.fileName }">${teacher.fileName }</a>
+									<p>설명</p>
+									<p>${teacher.description }</p> -->
+									<form method="post" enctype="multipart/form-data" id="certReuploadForm">
+										<div class="mb-3">
+										  <label for="fileName" class="form-label float-start fw-bord">증명서 파일</label>
+										  <input class="form-control" type="file" id="fileName" name="file">
+										</div>
+										<div class="mb-3">
+										  <label for="description" class="form-label float-start fw-bord">설명</label>
+										  <textarea class="form-control" id="description" rows="3" name="description"></textarea>
+										</div>
+										<button id="certReuploadBtn" type="submit" class="btn btn-primary">제출</button>
+										<input type="hidden" name="notificationId"/>
+									</form>
+								</div>
+						      </div>
+						    </div>
+						  </div>
+					  </div>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</ul>
 	</nav>
 </div>
+<script>
+$(function() {
+	// 알림 목록 가져오기
+	$('#notificationBell').click(function() {
+		$.ajax({
+			type: "POST",
+			url: "http://${ipaddress}:${port}/notification",
+			success: function(res) {
+				var notifications = res.data;
+				var notificationStr = '';
+				for (var i=0; i<notifications.length; i++) {
+					notificationStr += '<div class="shadow p-3 mb-3 bg-body rounded">';
+					notificationStr += '<p class="text-start">' + notifications[i].content + '</p>';
+					notificationStr += '<div class="d-flex justify-content-between"><p class="text-secondary text-start mb-0">' + notifications[i].createdAt.substring(0, 10) + '</p>';
+					if (notifications[i].content.substring(0,11)=='[자격 증명(반려)]') {
+						notificationStr += '<a class="text-decoration-none text-end" data-bs-toggle="modal" href="#certReuploadModal" role="button">재업로드 하기 <i class="fas fa-chevron-right mx-2"></i></a>';
+						$('input[name="notificationId"]').val(notifications[i].id);
+					}
+					notificationStr += '</div></div>';
+				}
+				$('.offcanvas-body').html(notificationStr);
+			}
+		})
+	})
+	$('#certReuploadBtn').click(function() {
+		event.preventDefault();
+		var form = $('#certReuploadForm')[0];
+		var formData = new FormData(form);
+		console.log(formData);
+		$.ajax({
+			type: "POST",
+			enctype: 'multipart/form-data',
+		    url: 'http://${ipaddress}:${port}/teacher/cert-reupload',
+		    data: formData,
+		    dataType: 'json',
+		    processData: false,
+		    contentType: false,
+		    cache: false,
+		    success: function(res){
+		    	console.log(res);
+				location.reload();
+		    },
+		    error: function(e){
+		        console.log(e);
+				location.reload();
+		    }
+		});
+	})
+});
+</script>
