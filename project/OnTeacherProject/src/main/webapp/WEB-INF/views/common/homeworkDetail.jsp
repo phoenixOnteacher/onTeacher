@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="${path}/resources/css/course_manage.css" />
+<link rel="stylesheet" href="${path}/resources/css/homework.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
 
 <div id="cm-wrap" class="m-5 px-5">
@@ -61,7 +62,11 @@
 					      <div id="flush-collapseOne-${student.id }" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 					        <div class="accordion-body">
 					      	  <p class="h6" style="white-space: pre-wrap;">${student.homeworkAnswer.content }</p>
-					      	  <i class="fas fa-paperclip"></i> ${student.homeworkAnswer.filename }
+					      	  <a href="/student/hwfiledownload?filename=${homeworkAnswer.filename }">
+					      	  	<c:if test="${!empty homeworkAnswer.filename }">
+										<i class="fas fa-paperclip"></i> ${student.homeworkAnswer.filename } ${homeworkAnswer.filename }
+					      	  	</c:if>
+				      	  	  </a>
 					      	  <small class="text-secondary float-end">${student.homeworkAnswer.createdAt } 제출</small>
 				      	    </div>
 					      </div>
