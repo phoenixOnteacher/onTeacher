@@ -49,7 +49,7 @@
 
 ## GitHub Desktop를 이용하여  war 파일 업로드하기 
 
-1. GitHub Desktop을 설치한 후  배포로 사용할 Repository를 생성합니다. 
+1. GitHub Desktgitop을 설치한 후  배포로 사용할 Repository를 생성합니다. 
 
 2. 생성한 Local Repository 에 실행할 war 파일을 복사합니다. 
 
