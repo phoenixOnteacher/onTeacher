@@ -114,17 +114,19 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void finishCourse(int courseId) throws Exception {
 		Course course = courseDAO.selectCourseById(courseId);
-		course.setStatus("end");
-		Notification notification = new Notification();
-		notification.setContent("[" + course.getTitle() +"] 수업이 종료되었습니다. 고생 많으셨어요!");
-		List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
-		for (Matching matching : matchings) {
-			notification.setToId(matching.getStudentId());
+		if (course.getStatus()!="end") {
+			course.setStatus("end");
+			Notification notification = new Notification();
+			notification.setContent("[" + course.getTitle() +"] 수업이 종료되었습니다. 고생 많으셨어요!");
+			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
+			for (Matching matching : matchings) {
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
+			}
+			notification.setToId(course.getTeacherId());
 			notificationDAO.insertNotification(notification);
+			courseDAO.updateCourseStatus(course);
 		}
-		notification.setToId(course.getTeacherId());
-		notificationDAO.insertNotification(notification);
-		courseDAO.updateCourseStatus(course);
 	}
 	
 	// 매칭하기
