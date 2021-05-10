@@ -45,12 +45,14 @@
 		order by c.id desc)
 		where rownum <= 8]]> -->
 	<!-- 선생님 회원가입 및 로그인 완료됐을 때 -->
-		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
+		<![CDATA[
+		select * from (select c.id, c.title, c.classinfo, t.profile_img
 		from course c
 		left outer join teacher t
 		on c.teacher_id = t.id
 		order by c.id desc)
-		where rownum <= 8]]> 
+		where rownum <= 8
+		]]> 
 	</select>
 
 	<resultMap id="courseResult" type="course">
