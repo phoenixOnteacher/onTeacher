@@ -95,8 +95,6 @@ public class MyCourseServiceImpl implements MyCourseService {
 	@Override
 	public Teacher queryMatchingTeacher(int courseId) {
 		Teacher teacher = teacherDAO.selectMatchingTeacherByCourseId(courseId);
-		String phoneNum = teacher.getPhoneNumber();
-		teacher.setPhoneNumber(phoneNum.substring(0,3)+"-"+phoneNum.substring(3,7)+"-"+phoneNum.substring(7,11));
 		teacher.setBirthday(teacher.getBirthday().substring(0, 10));
 		return teacher;
 	}

@@ -2,6 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
+<spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/search.css" />
@@ -98,7 +101,7 @@
 										value="${course.startDate}" var="coursestart"
 										pattern="yy-MM-dd" /> <fmt:parseDate
 										value="${course.endDate}" var="courseend" pattern="yy-MM-dd" />
-									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
+									<i class="far fa-calendar"></i>&nbsp;<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
 										value="${courseend }" pattern="yy.MM.dd" /></small>
 							</p>
 						</div>

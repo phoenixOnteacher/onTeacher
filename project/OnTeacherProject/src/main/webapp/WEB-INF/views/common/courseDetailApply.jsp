@@ -61,9 +61,16 @@ modelAndView.addObject("teacher", teacher);
 		<table class="table table-bordered">
 			<tr>
 				<td class="left">수업 분류</td>
-				<td class="right">${highCategory.name}>${lowCategory.name}</td>
+				<td class="right">${highCategory.name}&nbsp;>&nbsp;${lowCategory.name}</td>
 				<td class="left">수업 대상</td>
-				<td class="right">${course.target}학생</td>
+				<c:choose>
+					<c:when test="${course.target eq '중등'}">
+						<td class="right">중학생</td>
+					</c:when>
+					<c:otherwise>
+						<td class="right">${course.target}학생</td>
+					</c:otherwise>
+				</c:choose>
 			</tr>
 			<tr>
 				<td class="left">수업 방식 (지역)</td>
@@ -100,21 +107,15 @@ modelAndView.addObject("teacher", teacher);
 			</tr>
 		</table>
 	</div>
-	<script>
-		function apply() {
-			alert("해당 수업을 신청하였습니다.");
-		}
-	</script>
 	<div id="table2_wrap">
 		<table class="table table-borderless" id="table2">
 			<tr>
 				<td class="left2">선생님</td>
-				<td class="right2"><a href="#" id="th_name">${teacher.name }</a></td>
-				<!-- TODO:선생님 상세페이지 연결 -->
+				<td class="right2"><a href="/teacher/teacherDetail?teacherId=${teacher.id }" id="th_name">${teacher.name }</a></td>
 			</tr>
 			<tr>
 				<td class="left2">수업 소개</td>
-				<td class="right2">${course.curriculum}</td>
+				<td class="right2" id="curriculum">${course.curriculum}</td>
 			</tr>
 			<tr>
 				<td class="left2">참고 자료</td>

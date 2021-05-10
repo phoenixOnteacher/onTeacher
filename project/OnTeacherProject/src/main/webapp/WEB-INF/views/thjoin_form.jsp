@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/thjoin_form.css" />
+<script src="${path}/resources/js/thjoin_form.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <div id="thj_wrap">
 	<div id="thj_title_wrap">
 		<div id="thj_title">
@@ -19,7 +21,7 @@
 			</tr>
 			<tr>
 				<td class="thead"><label for="pass">비밀번호</label></td>
-				<td class="tbody"><input type="password" name="password"
+				<td class="tbody"><input type="password" name="password" placeholder="8자리 이상. 영문, 숫자, 특수문자 중 2가지 이상 조합"
 					id="password" class="form-control" required="required"></td>
 			</tr>
 			<tr>
@@ -93,7 +95,7 @@
 			</tr>
 		</table>
 		<div id="thjoin_btn">
-			<button type="submit" class="btn btn-primary">가입하기</button>
+			<button type="submit" class="btn btn-primary" id="joinbtn">가입하기</button>
 		</div>
 	</form>
 </div>

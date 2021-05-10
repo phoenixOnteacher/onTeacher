@@ -28,11 +28,8 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public int addArticle(Article article) throws Exception {
-		int no = articleDAO.selectMaxArticleNO() + 1;
-		article.setId(no);
+	public void addArticle(Article article) throws Exception {
 		articleDAO.insertArticle(article);
-		return 0;
 	}
 
 	@Override
