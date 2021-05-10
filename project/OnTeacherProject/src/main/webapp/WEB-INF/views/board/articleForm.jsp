@@ -44,8 +44,8 @@ request.setCharacterEncoding("UTF-8");
 					class="form-control" /></td>
 			</tr>
 			<tr>
-				<td class="thead" valign="top"><label for="w_content">내용</label></td>
-				<td class="tbody"><textarea id="summernote" name="w_content"
+				<td class="thead" valign="top"><label for="content">내용</label></td>
+				<td class="tbody"><textarea id="summernote" name="content"
 						required="required"></textarea></td>
 			</tr>
 			<tr>
