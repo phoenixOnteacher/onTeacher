@@ -53,6 +53,10 @@ button.btn-primary:hover {
 	font-family: 'S-CoreDream-4Regular';
 }
 
+.swal-footer {
+	text-align: center;
+}
+
 .swal-button, .swal-button--confirm {
 	background-color: #E9ECEF;
 	border: 1px solid #CED4DA;

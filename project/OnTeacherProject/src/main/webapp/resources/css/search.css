@@ -160,7 +160,11 @@ a.gototop {
 	font-size: 10px;
 }
 
-i.fas {
+i.fa-arrow-up {
 	font-size: 20px;
 	line-height: 30px;
+}
+
+i.fa-desktop {
+	font-size: 14px;
 }

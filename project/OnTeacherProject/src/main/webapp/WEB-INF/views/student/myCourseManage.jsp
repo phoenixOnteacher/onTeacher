@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
 <script src="${path }/resources/js/course_tab.js"></script>
@@ -9,6 +10,9 @@
 <%-- <script src="${path }/resources/js/course_review_write.js"></script> --%>
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
+<style type="text/css"> 
+a { text-decoration:none } 
+</style> 
 <script>
 $(function(){
 	// 수업 신청 취소
@@ -82,19 +86,44 @@ $(function(){
 				<div class="tab-pane fade show active" id="studying"> <!-- 진행 중인 수업 리스트 조회 -->
 				  	<c:forEach var="course" items="${studyingList }">
 						<div class="card m-2">
-					
-						  <h5 class="card-header py-3">
-							  	<a href="/student/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
-						  </h5>
-						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
-   						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
-						  </div>
+
+							<h5 class="card-header py-3">
+								<a href="/student/course-manage/${course.id }"
+									class="fw-bold text-decoration-none align-middle">${course.title }<i
+									class="fas fa-chevron-right ms-1"></i></a>
+							</h5>
+							<div class="card-body">
+								<p class="card-text">
+									<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}"> ${course.teacher.name }
+										선생님</a>
+								</p>
+								<p class="card-text">
+									<c:choose>
+										<c:when test="${course.location == null}">
+											<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;
+									</c:when>
+										<c:otherwise>
+											<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;
+									</c:otherwise>
+									</c:choose>
+								</p>
+								<p class="card-text">
+									<i class="far fa-clock"></i> ${course.studyDay }
+									${course.studyTime }
+								</p>
+								<p class="card-text">
+									<i class="far fa-calendar"></i>
+									<fmt:parseDate value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" />
+									<fmt:parseDate value="${course.endDate}" var="courseend"
+										pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />
+									~
+									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" />
+								</p>
+							</div>
 						</div>
-				  	</c:forEach>
+					</c:forEach>
 				</div>
 				
 				
@@ -107,13 +136,36 @@ $(function(){
 						  	<small class="btn btn-primary float-end btn-sm">매칭 대기</small>
 						  	<button type="button" class="btn btn-danger btn-sm float-end mx-2 cancelApplyBtn" value="${course.id }">신청 취소</button>
 					  	  </h5>
-						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
-						  </div>
+							<div class="card-body">
+								<p class="card-text">
+									<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">
+										${course.teacher.name } 선생님</a>
+								</p>
+								<p class="card-text">
+									<c:choose>
+										<c:when test="${course.location == null}">
+											<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;
+									</c:when>
+										<c:otherwise>
+											<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;
+									</c:otherwise>
+									</c:choose>
+								</p>
+								<p class="card-text">
+									<i class="far fa-clock"></i> ${course.studyDay }
+									${course.studyTime }
+								</p>
+								<p class="card-text">
+									<i class="far fa-calendar"></i>
+									<fmt:parseDate value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" />
+									<fmt:parseDate value="${course.endDate}" var="courseend"
+										pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />
+									~
+									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" />
+								</p>
+							</div>
 						</div>
 				  	</c:forEach>
 				  	
@@ -123,13 +175,36 @@ $(function(){
 						  	<a href="/student/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle" id="title-${course.id }">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
 						  	<small class="btn btn-secondary float-end btn-sm mx-2">매칭 완료</small>
 						  </h5>
-						  <div class="card-body">
-						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
-						  </div>
+							<div class="card-body">
+								<p class="card-text">
+									<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">
+										${course.teacher.name } 선생님</a>
+								</p>
+								<p class="card-text">
+									<c:choose>
+										<c:when test="${course.location == null}">
+											<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;
+									</c:when>
+										<c:otherwise>
+											<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;
+									</c:otherwise>
+									</c:choose>
+								</p>
+								<p class="card-text">
+									<i class="far fa-clock"></i> ${course.studyDay }
+									${course.studyTime }
+								</p>
+								<p class="card-text">
+									<i class="far fa-calendar"></i>
+									<fmt:parseDate value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" />
+									<fmt:parseDate value="${course.endDate}" var="courseend"
+										pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />
+									~
+									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" />
+								</p>
+							</div>
 						</div>
 				  	</c:forEach>
 				</div>
@@ -138,59 +213,100 @@ $(function(){
 				<div class="tab-pane fade" id="end"> <!-- 종료된 수업 목록 조회 -->
 					<c:forEach var="course" items="${endList }">
 						<div class="card m-2">
-						  <div class="card-header p-3 h5"><a href="/student/course-manage/${course.id }" class="fw-bold text-decoration-none align-middle">${course.title }<i class="fas fa-chevron-right ms-1"></i></a>
-							  <div class="form-check float-end">
-							        	<c:choose>
-							        		<c:when test="${empty course.teacher.courseReview }">
-									        	<button class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }" name="unreviewed">후기 작성</button>
-							        		</c:when>
-							        		<c:otherwise>
-									        	<button class="btn btn-secondary btn-sm"  data-bs-toggle="modal" data-bs-target="#reviewModal${course.id }">후기 확인</button>
-							        		</c:otherwise>
-							        	</c:choose>
-										<!-- Modal -->
-										<div class="modal fade" id="reviewModal${course.id }" tabindex="-1" aria-labelledby="reviewModalLabel${course.id }" aria-hidden="true">
-										  <div class="modal-dialog modal-dialog-centered">
-										    <div class="modal-content">
-										      <div class="modal-header">
-										        <h5 class="modal-title" id="reviewModalLabel${course.id }"><b>${course.title}</b> 수업 후기</h5>
-										        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-										      </div>
-										      <div class="modal-body">
-										        <div class="mb-3">
-										        	<c:choose>
-										        		<c:when test="${empty course.teacher.courseReview }">
-														  <label for="reviewContent" class="form-label h6">${course.title } 수업은 어땠나요?</label>
-														  <textarea class="form-control" id="reviewContent${course.id }" rows="4"></textarea>
-										        		</c:when>
-										        		<c:otherwise>
-												          <p class="h5" style="white-space: pre-wrap;">${course.teacher.courseReview.content }</p>
-												          <small class="text-secondary float-end h6">작성 날짜 : ${course.teacher.courseReview.createdAt }</small>
-										        		</c:otherwise>
-										        	</c:choose>
+							<div class="card-header p-3 h5">
+								<a href="/student/course-manage/${course.id }"
+									class="fw-bold text-decoration-none align-middle">${course.title }<i
+									class="fas fa-chevron-right ms-1"></i></a>
+								<div class="form-check float-end">
+									<c:choose>
+										<c:when test="${empty course.teacher.courseReview }">
+											<button class="btn btn-success btn-sm" data-bs-toggle="modal"
+												data-bs-target="#reviewModal${course.id }" name="unreviewed">후기
+												작성</button>
+										</c:when>
+										<c:otherwise>
+											<button class="btn btn-secondary btn-sm"
+												data-bs-toggle="modal"
+												data-bs-target="#reviewModal${course.id }">후기 확인</button>
+										</c:otherwise>
+									</c:choose>
+									<!-- Modal -->
+									<div class="modal fade" id="reviewModal${course.id }"
+										tabindex="-1" aria-labelledby="reviewModalLabel${course.id }"
+										aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered">
+											<div class="modal-content">
+												<div class="modal-header">
+													<h5 class="modal-title" id="reviewModalLabel${course.id }">
+														<b>${course.title}</b> 수업 후기
+													</h5>
+													<button type="button" class="btn-close"
+														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
-										      </div>
-							        		  <c:if test="${empty course.teacher.courseReview }">
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-											        <button type="button" class="btn btn-primary writeReviewBtn" value="${course.id}">작성 완료</button>
-											      </div>
-							        		  </c:if>
-										    </div>
-										  </div>
+												<div class="modal-body">
+													<div class="mb-3">
+														<c:choose>
+															<c:when test="${empty course.teacher.courseReview }">
+																<label for="reviewContent" class="form-label h6">${course.title }
+																	수업은 어땠나요?</label>
+																<textarea class="form-control"
+																	id="reviewContent${course.id }" rows="4"></textarea>
+															</c:when>
+															<c:otherwise>
+																<p class="h5" style="white-space: pre-wrap;">${course.teacher.courseReview.content }</p>
+																<small class="text-secondary float-end h6">작성 날짜
+																	: ${course.teacher.courseReview.createdAt }</small>
+															</c:otherwise>
+														</c:choose>
+													</div>
+												</div>
+												<c:if test="${empty course.teacher.courseReview }">
+													<div class="modal-footer">
+														<button type="button" class="btn btn-secondary"
+															data-bs-dismiss="modal">닫기</button>
+														<button type="button"
+															class="btn btn-primary writeReviewBtn"
+															value="${course.id}">작성 완료</button>
+													</div>
+												</c:if>
+											</div>
 										</div>
 									</div>
-						  </div>
-							 
+								</div>
+							</div>
+
 							<div class="card-body">
-						    <p class="card-text"><a href=""><img src="${course.teacher.profileImg}" style="width:80px; height:80px;"/></a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i><a href="">${course.teacher.name } 선생님</a></p>
-						    <p class="card-text"><i class="fas fa-map-marker-alt"></i> ${course.location }</p>
-						    <p class="card-text"><i class="far fa-clock"></i> ${course.studyDay } ${course.studyTime }</p>
-						    <p class="card-text"><i class="far fa-calendar"></i> ${course.startDate } ~ ${course.endDate }</p>
-					  	    </div>
+								<p class="card-text">
+									<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">
+										${course.teacher.name } 선생님</a>
+								</p>
+								<p class="card-text">
+									<c:choose>
+										<c:when test="${course.location == null}">
+											<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;
+									</c:when>
+										<c:otherwise>
+											<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;
+									</c:otherwise>
+									</c:choose>
+								</p>
+								<p class="card-text">
+									<i class="far fa-clock"></i> ${course.studyDay }
+									${course.studyTime }
+								</p>
+								<p class="card-text">
+									<i class="far fa-calendar"></i>
+									<fmt:parseDate value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" />
+									<fmt:parseDate value="${course.endDate}" var="courseend"
+										pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />
+									~
+									<fmt:formatDate value="${courseend }" pattern="yy.MM.dd" />
+								</p>
+							</div>
 						</div>
-				  	</c:forEach>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

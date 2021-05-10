@@ -5,6 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/search.css" />
 <script
@@ -72,7 +73,7 @@
 					<div class="col-md-8">
 						<div class="card-body">
 							<p class="card-title tcard">
-								<a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">${course.teacher.name } 선생님</a>
+								<a href="/teacher/teacherDetail?teacherId=${course.teacher.id}">${course.teacher.name }&nbsp;선생님</a>
 							</p>
 							<h5 class="card-title ccard">
 								<c:choose>
@@ -85,11 +86,23 @@
 									</c:otherwise>
 								</c:choose>
 							</h5>
-							<p class="card-text">${course.location}${course.studyDay}
-								${course.studyTime}</p>
 							<p class="card-text">
-								<small class="text-muted">${course.startDate} ~
-									${course.endDate}</small>
+								<c:choose>
+									<c:when test="${course.location == null}">
+										<i class="fas fa-desktop"></i>&nbsp;온라인&nbsp;&nbsp;<i
+											class="far fa-clock"></i>&nbsp;${course.studyDay}&nbsp;${course.studyTime}</c:when>
+									<c:otherwise>
+										<i class="fas fa-map-marker-alt"></i>&nbsp;${course.location }&nbsp;&nbsp;<i
+											class="far fa-clock"></i>&nbsp;${course.studyDay}&nbsp;${course.studyTime}</c:otherwise>
+								</c:choose>
+							</p>
+							<p class="card-text">
+								<small class="text-muted"><fmt:parseDate
+										value="${course.startDate}" var="coursestart"
+										pattern="yy-MM-dd" /> <fmt:parseDate
+										value="${course.endDate}" var="courseend" pattern="yy-MM-dd" />
+									<fmt:formatDate value="${coursestart}" pattern="yy.MM.dd" />&nbsp;~&nbsp;<fmt:formatDate
+										value="${courseend }" pattern="yy.MM.dd" /></small>
 							</p>
 						</div>
 					</div>
