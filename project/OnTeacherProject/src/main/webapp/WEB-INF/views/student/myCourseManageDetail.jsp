@@ -6,7 +6,7 @@
 <div id="" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
-			<a href="/teacher/course-manage" class="h5 text-decoration-none text-reset">내 수업</a>
+			<a href="/student/course-manage" class="h5 text-decoration-none text-reset">내 수업</a>
 			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
 		
@@ -36,7 +36,7 @@
 		    	<div class="card mb-3 mx-auto" style="max-width: 40vw;">
 				  <div class="row g-0">
 				    <div class="col-md-4">
-   				      <img src="/thprofileupload/${teacher.profileImg}" style="width:200px; height:200px;" />
+   				      <img src="/upload/thprofile/${teacher.profileImg}" style="width:200px; height:200px;" />
 				    </div>
 				    <div class="col-md-8">
 				      <div class="card-body">
@@ -58,29 +58,7 @@
 			  </div>
 			  
 			  <div class="tab-pane fade" id="homework">
-				<h1>Homework List</h1>
-				<table class="table table-hover">
-				  <thead>
-				    <tr>
-				      <th scope="col">No</th>
-				      <th scope="col">Title</th>
-				      <th scope="col">Deadline</th>
-				    </tr>
-				  </thead>
-				  <tbody>
-				  	<c:forEach var="homework" items="${homeworks }" varStatus="status">
-					    <tr>
-					      <th scope="row">${status.count} </th>
-					      <td>
-					      	<div class="position-relative p-0">
-					      		<a href="/homework/${homework.id }" class="text-decoration-none text-reset stretched-link p-3">${homework.title }</a>
-				      		</div>
-			      		  </td>
-					      <td>${homework.deadline }</td>
-					    </tr>
-				  	</c:forEach>
-				  </tbody>
-				</table>
+				<jsp:include page="../common/homeworkList.jsp"></jsp:include>
 			  </div>
 			</div>
 		</div>

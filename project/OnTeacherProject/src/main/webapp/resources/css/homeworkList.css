@@ -1,0 +1,23 @@
+@charset "UTF-8";
+
+a {
+	text-decoration: none;
+}
+
+#cd_wrap {
+	max-width: 800px;
+	margin: 0 auto;
+	margin-top: 50px;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+}
+
+#cd_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+

@@ -206,6 +206,7 @@
 		where c.teacher_id = t.id
 		and high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
 		and target=#{target} and is_online=#{isOnline}
+		and c.status='matching'
 		order by c.id desc
 		]]>
 	</select>

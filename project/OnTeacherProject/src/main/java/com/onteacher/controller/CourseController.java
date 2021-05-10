@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.onteacher.prop.UploadPath;
 import com.onteacher.service.CourseService;
 
 @Controller("courseController")
@@ -24,10 +25,18 @@ public class CourseController {
 	@Autowired
 	CourseService courseService;
 	
+	@Autowired
+	private UploadPath uploadPath;
+	
 	//courseupload 폴더에 있는 파일 다운로드
 	@RequestMapping(value="/filedownload",  method=RequestMethod.GET) 
 	public void filedownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		String saveDir = request.getSession().getServletContext().getRealPath("/courseupload/");
+		
+		
+		String saveDir = uploadPath.getCoursePath();
+		if(!uploadPath.isAws()) {
+			saveDir = request.getServletContext().getRealPath(saveDir); // 파일 저장 경로
+		}
 		File file = new File(saveDir + filename);
 		String sfilename = null;
 		FileInputStream fis = null;

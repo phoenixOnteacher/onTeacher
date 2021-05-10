@@ -10,10 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import com.onteacher.dao.CourseDAO;
 import com.onteacher.dao.HighCategoryDAO;
 import com.onteacher.dao.HomeworkAnswerDAO;
-import com.onteacher.dao.MatchingDAO;
-import com.onteacher.dao.TeacherDAO;
 import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
+import com.onteacher.dao.MatchingDAO;
+import com.onteacher.dao.TeacherDAO;
+import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
@@ -45,6 +46,9 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Autowired
 	TeacherDAO teacherDAO;
+	
+	@Autowired
+	private UploadPath uploadPath;
 
 	@Override
 	public Course queryCourseById(int courseId) throws Exception {
@@ -91,7 +95,11 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	public List<Course> selectCourseForIndex() {
-		return courseDAO.selectCourseForIndex();
+		List<Course> list = courseDAO.selectCourseForIndex();
+		for(Course c : list) {
+			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
+		}
+		return list;
 	}
 
 

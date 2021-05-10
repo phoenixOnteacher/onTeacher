@@ -13,6 +13,7 @@ import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
 import com.onteacher.dao.MatchingDAO;
+import com.onteacher.dao.NotificationDAO;
 import com.onteacher.dao.StudentDAO;
 import com.onteacher.dao.StudentReviewDAO;
 import com.onteacher.vo.Course;
@@ -21,6 +22,7 @@ import com.onteacher.vo.Homework;
 import com.onteacher.vo.HomeworkAnswer;
 import com.onteacher.vo.LowCategory;
 import com.onteacher.vo.Matching;
+import com.onteacher.vo.Notification;
 import com.onteacher.vo.Student;
 import com.onteacher.vo.StudentReview;
 
@@ -52,6 +54,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Autowired
 	private HomeworkAnswerDAO homeworkAnswerDAO;
 	
+	@Autowired
+	private NotificationDAO notificationDAO;
+	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
 		homeworkDAO.insertHomework(hw);
@@ -80,6 +85,13 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public void cancelCourse(Course c) throws Exception {
 		Course course = courseDAO.selectCourseById(c.getId());
 		if (c.getTeacherId()==course.getTeacherId()) {
+			Notification notification = new Notification();
+			notification.setContent("[" + course.getTitle() +"] 수업이 취소되었습니다.");
+			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
+			for (Matching matching : matchings) {
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
+			}
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("해당 수업의 선생님만 취소 가능");
 	}
@@ -88,6 +100,9 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void match(int courseId, List<String> selectedStudents) throws Exception {
 		List<Matching> matchingList = matchingDAO.selectMatchingListByCourseId(courseId);
+		Course course = courseDAO.selectCourseById(courseId);
+		Notification notification = new Notification();
+		notification.setContent("[" + course.getTitle() +"] 수업 매칭이 성사되지 않았습니다.");
 		for (Matching matching : matchingList) {
 			int matchingStudentId = matching.getStudentId();
 			boolean isSelected = false; // 선택된 학생인지 확인하기 위한 변수
@@ -100,9 +115,10 @@ public class CourseManageServiceImpl implements CourseManageService {
 			// 선택되지 않은 학생들의 matching 데이터는 삭제됨
 			if (!isSelected) {
 				matchingDAO.deleteMatching(matching);
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
 			}
 		}
-		Course course = courseDAO.selectCourseById(courseId);
 		course.setStatus("matched");
 		courseDAO.updateCourseStatus(course);
 	}
@@ -111,6 +127,11 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public void cancelMatching(Matching matching) throws Exception {
 		matchingDAO.deleteMatching(matching);
 		int courseId = matching.getCourseId();
+		Course course = courseDAO.selectCourseById(courseId);
+		Notification notification = new Notification();
+		notification.setContent("[" + course.getTitle() +"] 수업 매칭이 취소되었습니다.");
+		notification.setToId(matching.getStudentId());
+		notificationDAO.insertNotification(notification);
 		if (matchingDAO.selectMatchingListByCourseId(courseId).size()==0) {
 			courseDAO.deleteCourse(courseId);
 		}
