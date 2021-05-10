@@ -52,13 +52,13 @@ public class TeacherServiceImpl implements TeacherService {
 
 	@Override
 	public void certApproved(String email) throws Exception {
-		Teacher teacher = teacherDAO.selectTeacher(email);
+		Teacher teacher = teacherDAO.selectTeacherByEmail(email);
 		teacher.setMessage("승인됨");
 		teacher.setStatus("approved");
 		teacherDAO.updateActive(email);
 		teacherDAO.updateCert(teacher);
 		Notification notification = new Notification();
-		notification.setContent("[자격 증명(승인)] 온티처의 서비스를 이용하실 수 있어요.");
+		notification.setContent("[자격 증명(승인)] 지금부터 온티처의 서비스를 이용하실 수 있어요.");
 		notification.setToId(teacher.getId());
 		notificationDAO.insertNotification(notification);
 	}
@@ -66,7 +66,7 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public void certRejected(String email, String message) throws Exception {
 //		teacherDAO.updateActive(email); 반려된 경우 ACTIVE는 0으로 변하지 않음 (수정:김다니엘)
-		Teacher teacher = teacherDAO.selectTeacher(email);
+		Teacher teacher = teacherDAO.selectTeacherByEmail(email);
 		teacher.setMessage(message);
 		teacher.setStatus("rejected");
 		teacherDAO.updateCert(teacher);
@@ -75,8 +75,6 @@ public class TeacherServiceImpl implements TeacherService {
 		notification.setToId(teacher.getId());
 		notificationDAO.insertNotification(notification);
 	}
-
-
 
 	@Override
 	public Teacher teacherInfo(int teacherId) throws Exception {

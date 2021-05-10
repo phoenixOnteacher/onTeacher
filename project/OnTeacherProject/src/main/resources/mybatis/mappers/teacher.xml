@@ -39,8 +39,15 @@
 		where
 		email=#{email}
 		]]>
-
 	</select>	
+
+	<select id="selectTeacherByEmail" resultMap="teacherResult" parameterType="String">
+		<![CDATA[
+		select *
+		from teacher
+		where email=#{email}
+		]]>
+	</select>
 
 	<select id="selectMatchingTeacherByCourseId" resultMap="teacherResult" parameterType="int">
 		<![CDATA[
@@ -87,7 +94,7 @@
 	<update id="updateCert" parameterType="teacher">
 		<![CDATA[
 		update teacher
-		set status=#{status} and message=#{message}
+		set status=#{status}, message=#{message}
 		where id=#{id}
 		]]>
 	</update>

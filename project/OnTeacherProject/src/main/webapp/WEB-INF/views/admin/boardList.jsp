@@ -30,7 +30,7 @@
 					<td>${t.email}</td>
 					<td>${t.phoneNumber}</td>
 					<td><a href="${path}/upload/thcerti/${t.fileName}"
-						target="_blank" title="증빙서류 보기">${t.fileName}</a></td>
+						target="_blank" title="증빙서류 보기">${t.description}</a></td>
 					<td>
 						<form action="/admin/certApproved" method="POST">
 							<input type="hidden" value="${t.email}" name="email">
@@ -53,11 +53,8 @@
 							      </div>
 							      <div class="modal-body">
 							        <div class="mb-3">
-									  <label for="exampleFormControlTextarea1" class="form-label float-start">
-									  	어떤 점이 부족한지 적어주세요!
-									  	<small class="text-secondary">해당 내용은 선생님에게 전달됩니다.</small>
-									  </label>
-									  <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="message" required></textarea>
+									  <label for="exampleFormControlTextarea1" class="form-label float-start h6">어떤 점이 부족한지 적어주세요!<small class="text-secondary ms-2">(해당 내용은 선생님에게 전달됩니다.)</small></label>
+									  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="message" required></textarea>
 									</div>
 							      </div>
 							      <div class="modal-footer">
