@@ -50,7 +50,6 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 
 
 
-
 <div id="tc_wrap">
 	<div id="tc_title_wrap">
 		<div id="tc_title">글목록창</div>
@@ -59,6 +58,8 @@ x값은 아무거나 넣어서 확인. listArticle에서 글 눌러서 확인도
 	</div>	<c:if test="${sessionScope.id>=200000 && sessionScope.id<300000}">
 	<a class="cls1" href="articleForm"><button type="button" class="btn btn-danger">글쓰기</button></a>
 	</c:if>
+
+	<br>
 	<br>
 	<table class="table table-hover">
 		<thead class="table-warning">
