@@ -7,14 +7,14 @@ CREATE TABLE Teacher (
 	phone_number	varchar2(20)		NOT NULL,
 	address	varchar2(100)		NOT NULL,
 	birthday	date    NOT NULL,
-	gender	varchar2(4) CONSTRAINT teacher_gender_CK CHECK(gender IN ('³²','¿©'))		NOT NULL,
+	gender	varchar2(4) CONSTRAINT teacher_gender_CK CHECK(gender IN ('ë‚¨','ì—¬'))		NOT NULL,
 	profile_img	varchar2(100),
 	introduction	varchar2(1000),
 	active	char(1)	DEFAULT 0   CONSTRAINT teacher_active_CK CHECK(active IN ('0','1'))	NOT NULL,
 	filename	varchar2(100)		NOT NULL,
 	description	varchar2(100)		NOT NULL,
 	status	varchar2(10)	DEFAULT 'submitted' CONSTRAINT teacher_status_CK CHECK(status IN ('submitted','approved','rejected'))	NOT NULL,
-	message	varchar2(100)	DEFAULT '½ÂÀÎ ´ë±â'
+	message	varchar2(100)	DEFAULT 'ìŠ¹ì¸ ëŒ€ê¸°'
 );
 
 CREATE TABLE Student (
@@ -26,7 +26,7 @@ CREATE TABLE Student (
 	grade	varchar2(10),
 	address	varchar2(100),
 	birthday	date    NOT NULL,
-	gender	varchar2(4) CONSTRAINT student_gender_CK CHECK(gender IN ('³²','¿©'))		NOT NULL,
+	gender	varchar2(4) CONSTRAINT student_gender_CK CHECK(gender IN ('ë‚¨','ì—¬'))		NOT NULL,
 	profile_img	varchar2(100),
 	introduction	varchar2(1000)
 );
@@ -169,30 +169,34 @@ create sequence NotificationIdSeq start with 1;
 create sequence ArticleIdSeq start with 1;
 create sequence ReplyIdSeq start with 1;
 
+-- Delete category data
+truncate table HighCategory
+truncate table LowCategory
+
 
 -- Insert category data
-insert into HighCategory values (HighCategoryIdSeq.nextval, 'ÁÖ¿ä°ú¸ñ');
-insert into HighCategory values (HighCategoryIdSeq.nextval, '¿¹Ã¼´É');
-insert into HighCategory values (HighCategoryIdSeq.nextval, '»ó´ã');
-insert into HighCategory values (HighCategoryIdSeq.nextval, '¾îÇĞ');
-insert into HighCategory values (HighCategoryIdSeq.nextval, '´ëÈ¸ ¹× ÀÚ°İÁõ');
+insert into HighCategory values (1, 'ì£¼ìš”ê³¼ëª©');
+insert into HighCategory values (2, 'ì˜ˆì²´ëŠ¥');
+insert into HighCategory values (3, 'ìƒë‹´');
+insert into HighCategory values (4, 'ì–´í•™');
+insert into HighCategory values (5, 'ëŒ€íšŒ ë° ìê²©ì¦');
 
-insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '±¹¾î');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '¿µ¾î');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '¼öÇĞ');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '»çÈ¸');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 1, '°úÇĞ');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 2, 'À½¾Ç');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 2, 'Ã¼À°');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 2, '¹Ì¼ú');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 2, '¹«¿ë');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 3, 'Áø·Î »ó´ã');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 3, 'ÀÔ½Ã »ó´ã');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 4, 'TEPS/TOEFL/TOEIC');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 4, 'JPT/JLPT');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 4, 'HSK');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 4, '±âÅ¸Á¦2¿Ü±¹¾î');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 5, '¿Ã¸²ÇÇ¾Æµå');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 5, 'IT/ÄÄÇ»ÅÍ');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 5, 'ÇÑ±¹»ç´É·Â°ËÁ¤½ÃÇè');
-insert into LowCategory values (LowCategoryIdSeq.nextval, 5, '±âÅ¸ ´ëÈ¸ ¹× ÀÚ°İÁõ');
+insert into LowCategory values (1, 1, 'êµ­ì–´');
+insert into LowCategory values (2, 1, 'ì˜ì–´');
+insert into LowCategory values (3, 1, 'ìˆ˜í•™');
+insert into LowCategory values (4, 1, 'ì‚¬íšŒ');
+insert into LowCategory values (5, 1, 'ê³¼í•™');
+insert into LowCategory values (6, 2, 'ìŒì•…');
+insert into LowCategory values (7, 2, 'ì²´ìœ¡');
+insert into LowCategory values (8, 2, 'ë¯¸ìˆ ');
+insert into LowCategory values (9, 2, 'ë¬´ìš©');
+insert into LowCategory values (10, 3, 'ì§„ë¡œ ìƒë‹´');
+insert into LowCategory values (11, 3, 'ì…ì‹œ ìƒë‹´');
+insert into LowCategory values (12, 4, 'TEPS/TOEFL/TOEIC');
+insert into LowCategory values (13, 4, 'JPT/JLPT');
+insert into LowCategory values (14, 4, 'HSK');
+insert into LowCategory values (15, 4, 'ê¸°íƒ€ì œ2ì™¸êµ­ì–´');
+insert into LowCategory values (16, 5, 'ì˜¬ë¦¼í”¼ì•„ë“œ');
+insert into LowCategory values (17, 5, 'IT/ì»´í“¨í„°');
+insert into LowCategory values (18, 5, 'í•œêµ­ì‚¬ëŠ¥ë ¥ê²€ì •ì‹œí—˜');
+insert into LowCategory values (19, 5, 'ê¸°íƒ€ ëŒ€íšŒ ë° ìê²©ì¦');
