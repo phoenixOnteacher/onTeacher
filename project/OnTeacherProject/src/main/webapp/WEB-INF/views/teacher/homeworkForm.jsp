@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
-<div class="m-5 px-5">
+<link rel="stylesheet" href="${path}/resources/css/course_manage.css" />
+<div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary">
 			<a href=".." class="text-secondary h5 text-decoration-none">수업 관리</a>

@@ -23,7 +23,7 @@ $(function(){
 			jQuery.ajaxSettings.traditional = true;
 			$.ajax({
 				type: "POST",
-				url: "http://localhost:8090/teacher/"+$(this).val()+"/matching",
+				url: "http://${ipaddress}:${port}/teacher/"+$(this).val()+"/matching",
 				dataType: "json",
 				data: JSON.stringify({
 					"selectedStudents": selectedStudents
@@ -47,7 +47,6 @@ $(function(){
 			}
 			if (con2!=false) {
 				var course_id = $("h2[class='course-title']").attr('id').substring(7);
-				console.log(course_id);
 				cancelMatching(course_id,$(this).val(),con2)
 			}
 		}
@@ -56,7 +55,7 @@ $(function(){
 	function cancelMatching(course_id,student_id,con2) {
 		$.ajax({
 			type: "DELETE",
-			url: "http://localhost:8090/teacher/"+course_id+"/matching",
+			url: "http://${ipaddress}:${port}/teacher/"+course_id+"/matching",
 			dataType: "json",
 			data: JSON.stringify({
 				"studentId": student_id

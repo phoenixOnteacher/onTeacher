@@ -12,4 +12,5 @@ import com.onteacher.vo.Notification;
 public interface NotificationDAO {
 	public void insertNotification(Notification notification) throws Exception;
 	public List<Notification> selectNotificationList(int userId) throws Exception;
+	public void deleteNotification(int id) throws Exception;
 }
