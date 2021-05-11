@@ -71,7 +71,7 @@
 					<p id="endday">종료일</p>
 					<br>
 				<input type="date" id="studyDate" name="startDate"
-					max="2999-12-31" required pattern="\d{2}-\d{2}-\d{2}"
+					max="2999-12-31" required pattern="\d{2}-\d{2}-\d{2}" min="2000-01-01"
 					class="form-control" required="required"> <input
 					type="date" id="studyDate" name="endDate" min="2000-01-01"
 					max="2999-12-31" required pattern="\d{2}-\d{2}-\d{2}"
