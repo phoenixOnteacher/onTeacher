@@ -53,6 +53,7 @@
 		from course c
 		left outer join teacher t
 		on c.teacher_id = t.id
+		where c.status='matching'
 		order by c.id desc)
 		]]>
 	</select>
