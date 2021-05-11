@@ -35,7 +35,7 @@
 			    	<div class="card mb-3 mx-auto st-prof-card">
 					  <div class="row g-0">
 					    <div class="col-lg-4">
-					      <img src="${student.profileImg}" alt="${student.name } 학생 프로필 사진" class="st-profImg card-img-top">
+					      <img src="/fileview/stprofile/${student.profileImg}" alt="${student.name } 학생 프로필 사진" class="st-profImg card-img-top">
 					    </div>
 					    <div class="col-lg-8">
 					      <div class="card-body">
