@@ -353,8 +353,9 @@ public class CommonController {
 	}
 	
 	/* 날짜에 맞춰 수업 자동 시작 및 종료 처리 */
-	@Scheduled(cron = "0 0 0 * * *") // 매년 매달 매일 0시 0분 0초에 실행 (자정)
+//	@Scheduled(cron = "0 0 0 * * *") // 매년 매달 매일 0시 0분 0초에 실행 (자정)
 //	@Scheduled(cron = "0/5 * * * * *") // 매년 매달 매일 매시 매분 5초 마다 실행 
+	@Scheduled(cron = "0 0/10 * * * *")
     public void updateCourseStatus () {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String today = df.format(new Date(System.currentTimeMillis()));
