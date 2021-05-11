@@ -193,7 +193,7 @@
 				</div>
 				<div class="tab-pane fade" id="end">
 					<c:choose>
-						<c:when test="${empty matchingList && empty matchedList }">
+						<c:when test="${empty endList }">
 							<p class="text-center empty-text text-secondary">종료된 수업이 없어요!</p>
 						</c:when>
 						<c:otherwise>

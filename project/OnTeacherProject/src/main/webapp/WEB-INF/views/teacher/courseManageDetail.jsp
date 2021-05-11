@@ -110,7 +110,7 @@
 		    	<c:if test="${course.status=='matching' }">
 		    		<c:choose>
 		    			<c:when test="${empty students }">
-		    				<p class="text-center mt-5">아직 신청한 학생이 없어요!</p>
+		    				<p class="text-center mt-5 empty-text text-secondary">아직 신청한 학생이 없어요!</p>
 		    			</c:when>
 		    			<c:otherwise>
 				    		<div class="d-flex justify-content-center"><button id="matchingBtn" class="btn btn-primary" value="${course.id }">매칭하기</button></div>
