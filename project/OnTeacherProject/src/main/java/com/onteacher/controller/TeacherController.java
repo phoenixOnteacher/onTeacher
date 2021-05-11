@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -562,6 +563,7 @@ public class TeacherController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			teacher.setStatus("submitted");
 			teacher.setDescription(description);
 			// fileName, description, status="submitted"로 update
 			teacherService.updateTeacherCert(teacher);
@@ -571,5 +573,4 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
-
 }
