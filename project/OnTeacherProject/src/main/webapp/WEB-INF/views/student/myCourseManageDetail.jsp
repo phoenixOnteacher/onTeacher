@@ -5,14 +5,14 @@
 <script src="${path }/resources/js/course_tab.js"></script>
 <div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
-		<div class="d-flex justify-content-start align-items-center text-secondary">
+		<div class="d-flex justify-content-start align-items-center text-secondary course-manage-menu">
 			<a href="/student/course-manage" class="h5 text-decoration-none text-reset">내 수업</a>
 			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
 		
-		<h2 id="course-${course.id }" class="course-title">${course.title }</h2>
+		<h2 id="course-${course.id }" class="course-title course-manage-menu">${course.title }</h2>
 		<div class="row mt-3">
-			<nav class="nav flex-column col-2" id="manageNav">
+			<nav class="nav flex-column col-2 course-manage-menu" id="manageNav">
 			  <a class="nav-link active in text-reset" aria-current="page" href="#detail" data-toggle="tab" data-load="true">수업 상세</a>
 			  <c:choose>
 			  	<c:when test="${course.status=='studying'}">
