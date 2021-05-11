@@ -16,7 +16,7 @@ request.setCharacterEncoding("UTF-8");
 		<div id="viewArticle_title">질문게시판</div>
 	</div>
 
-	<form name="formArticle" method="post" action="modArticle">
+	<form name="formArticle" method="post" action="modArticle" id="form1">
 		<input type="hidden" value="${pageNo}" name="pageNo">
 		<table class="table table-borderless">
 			<tr>
@@ -39,28 +39,24 @@ request.setCharacterEncoding("UTF-8");
 				</td>
 			</tr>
 		</table>
-		<div class="btn-group" role="group"
-			aria-label="Basic mixed styles example">
-			<c:if test="${sessionScope.id == article.user_id }">
-				<button type="submit" class="btn btn-danger">수정하기</button>
-
-				<a href="deleteArticle?no=${article.id}" type="submit"
-					class="btn btn-warning">삭제하기</a>
-
-			</c:if>
-			<a href="listArticle?page=${pageNo}"></a>
-			<button type="submit" class="btn btn-light">목록</button>
+		<div id="btn_group_wrap">
+			<div class="btn-group" role="group"
+				aria-label="Basic mixed styles example">
+				<c:if test="${sessionScope.id == article.user_id }">
+					<button type="submit" class="btn btn-warning">수정하기</button>
+					<a href="deleteArticle?no=${article.id}" type="submit"
+						class="btn btn-secondary">삭제하기</a>
+				</c:if>
+				<a href="listArticle?page=${pageNo}"></a>
+				<button type="submit" class="btn btn-light">목록</button>
+			</div>
 		</div>
 	</form>
 
 
-	<table align="center" border="1" width="100%">
-		<tr height="10" align="center" bgcolor="#FBAD38">
-
-			<div class="p-3 mb-2 bg-warning text-dark">댓글창</div>
-			<!-- 
-				<td>댓글 번호</td> 
-				-->
+	<div id="r_title">댓글</div>
+	<table>
+		<tr>
 			<td>내용</td>
 			<td>작성자</td>
 			<td>작성일</td>

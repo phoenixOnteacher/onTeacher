@@ -95,11 +95,7 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	public List<Course> selectCourseForIndex() {
-		List<Course> list = courseDAO.selectCourseForIndex();
-		for(Course c : list) {
-			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
-		}
-		return list;
+		return courseDAO.selectCourseForIndex();
 	}
 
 

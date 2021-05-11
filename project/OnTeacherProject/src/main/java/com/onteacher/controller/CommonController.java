@@ -22,6 +22,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,64 +48,102 @@ public class CommonController {
 
 	@Autowired
 	CourseService courseService;
-	
+
 	@Autowired
 	UserService userService;
 
 	@Autowired
 	CourseManageService courseManageService;
-	
+
 	@Autowired
 	TeacherService teacherService;
-	
+
 	@Autowired
 	private UploadPath uploadPath;
 	
-	@RequestMapping(value="/main")
+	@GetMapping("/fileview/thprofile/{filename}")
+	public void fileview(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response) {
+		String path = uploadPath.getThprofilePath();
+		if (!uploadPath.isAws()) {
+			path = request.getServletContext().getRealPath(path);
+		}
+		File file = new File(path + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			// if(ie){
+			// 브라우저 정보에 따라 utf-8변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+			} else {
+				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
+			} // end if;
+
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		} // try end;
+	}
+
+	@RequestMapping(value = "/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
 		model.addAttribute("courses", courseService.selectCourseForIndex());
 		model.addAttribute("page", "index");
 		return "template";
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest request, Model model) {
 		model.addAttribute("page", "login_form");
 		return "template";
 	}
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ModelAndView login(
-			@RequestParam(value = "email", required = true) String email,
+	public ModelAndView login(@RequestParam(value = "email", required = true) String email,
 			@RequestParam(value = "password", required = true) String password, HttpServletRequest request) {
 		ModelAndView modelAndView = new ModelAndView();
 		HttpSession session = request.getSession();
 		try {
-			int id = userService.login(email,password);
-			if (id==0) {
+			int id = userService.login(email, password);
+			if (id == 0) {
 				modelAndView.addObject("msg", false);
 				throw new Exception("로그인 실패");
 			}
 			session.setAttribute("id", id);
-			//선생님의 경우
-			//ACTIVE에 따라 제어(수업등록, 질문게시판 답변 => 이용 불가)
-			if(id>=300000 && id<400000) {
+			// 선생님의 경우
+			// ACTIVE에 따라 제어(수업등록, 질문게시판 답변 => 이용 불가)
+			if (id >= 300000 && id < 400000) {
 				Teacher teacher = teacherService.teacherInfo(id);
-				if(teacher.isActive() == true) {
+				if (teacher.isActive() == true) {
 					session.setAttribute("teacherActive", 1);
-				}
-				else{
+				} else {
 					session.setAttribute("teacherActive", 0);
 				}
 			}
-			modelAndView.setViewName("redirect:/main");;
+			modelAndView.setViewName("redirect:/main");
+			;
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelAndView.addObject("page", "login_form");
 			modelAndView.setViewName("template");
-		} 
+		}
 		return modelAndView;
 	}
-		
+
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String thlogout(HttpServletRequest request, Model model) {
 		request.getSession().removeAttribute("id");
@@ -112,16 +151,16 @@ public class CommonController {
 		model.addAttribute("page", "login_form");
 		return "template";
 	}
-	
+
 	/* homework detail page로 이동 */
-	@RequestMapping(value="/homework/{homework_id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/homework/{homework_id}", method = RequestMethod.GET)
 	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
 //		int userId = 399999;
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
-			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId,userId);
+			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId, userId);
 			Homework hw = courseService.queryHomework(homeworkId);
 			int courseId = hw.getCourseId();
 			// model.addAttribute("homeworkAnswerList",);
@@ -129,7 +168,7 @@ public class CommonController {
 			model.addAttribute("students", courseManageService.queryStudentListAndHomeworkAnswer(homeworkId));
 			model.addAttribute("course", courseService.queryCourseById(courseId));
 			model.addAttribute("homework", hw);
-			model.addAttribute("homeworkAnswer",ha);
+			model.addAttribute("homeworkAnswer", ha);
 			model.addAttribute("page", "common/homeworkDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,13 +176,14 @@ public class CommonController {
 		}
 		return "template";
 	}
-	
+
 	/* homework file 다운로드 */
-	@RequestMapping(value="/hwfiledownload",  method=RequestMethod.GET) 
-	public void homeworkfiledownload(@RequestParam(value="filename") String filename, HttpServletRequest request, HttpServletResponse response) {
-		
+	@RequestMapping(value = "/hwfiledownload", method = RequestMethod.GET)
+	public void homeworkfiledownload(@RequestParam(value = "filename") String filename, HttpServletRequest request,
+			HttpServletResponse response) {
+
 		String saveDir = uploadPath.getHomeworkPath();
-		if(!uploadPath.isAws()) {
+		if (!uploadPath.isAws()) {
 			saveDir = request.getServletContext().getRealPath(saveDir); // 파일 저장 경로
 		}
 		File file = new File(saveDir + filename);
@@ -175,33 +215,31 @@ public class CommonController {
 				} catch (Exception e) {
 				}
 			}
-		}	
+		}
 	}
-	
-	@RequestMapping(value="/searchCourse", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
 	public ModelAndView searchCourseDefault() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<HighCategory> highCategory = userService.highcategoryList();
 		List<Course> courses = courseService.selectCourseForSearch();
 		modelAndView.addObject("courses", courses);
 		modelAndView.addObject("highCategory", highCategory);
-		modelAndView.addObject("page","search");
+		modelAndView.addObject("page", "search");
 		modelAndView.setViewName("template");
 		return modelAndView;
 	}
 
-	@RequestMapping(value="/searchCourse", method = RequestMethod.POST)
-	public ModelAndView searchCourseDefault(
-			@RequestParam(value="highcategory") int highcategory_id,
-			@RequestParam(value="lowcategory") int lowcategory_id,
-			@RequestParam(value="target") String target,
-			@RequestParam(value="isonline") char isonline) {		
+	@RequestMapping(value = "/searchCourse", method = RequestMethod.POST)
+	public ModelAndView searchCourseDefault(@RequestParam(value = "highcategory") int highcategory_id,
+			@RequestParam(value = "lowcategory") int lowcategory_id, @RequestParam(value = "target") String target,
+			@RequestParam(value = "isonline") char isonline) {
 		Course course = new Course();
 		course.setHighCategoryId(highcategory_id);
 		course.setLowCategoryId(lowcategory_id);
 		course.setTarget(target);
 		course.setIsOnline(isonline);
-		
+
 		ModelAndView modelAndView = new ModelAndView();
 		List<Course> courses = userService.queryCourseForSearch(course);
 		List<HighCategory> highCategory = userService.highcategoryList();
@@ -209,16 +247,16 @@ public class CommonController {
 		modelAndView.addObject("highcategory_id", highcategory_id);
 		modelAndView.addObject("lowcategory_id", lowcategory_id);
 		modelAndView.addObject("target", target);
-		modelAndView.addObject("isonline", isonline);		
-		modelAndView.addObject("courses",courses);
-		modelAndView.addObject("page","search");
+		modelAndView.addObject("isonline", isonline);
+		modelAndView.addObject("courses", courses);
+		modelAndView.addObject("page", "search");
 		modelAndView.setViewName("template");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/searchCourse/detail", method = RequestMethod.GET)
-	public ModelAndView searchCourseDetail(@RequestParam(value="courseId", required = true) int courseId) {
-		ModelAndView modelAndView= new ModelAndView();
+
+	@RequestMapping(value = "/searchCourse/detail", method = RequestMethod.GET)
+	public ModelAndView searchCourseDetail(@RequestParam(value = "courseId", required = true) int courseId) {
+		ModelAndView modelAndView = new ModelAndView();
 		Course course;
 		try {
 			course = courseService.queryCourseById(courseId);
@@ -231,19 +269,16 @@ public class CommonController {
 			modelAndView.addObject("course", course);
 			modelAndView.addObject("highCategory", highCategory);
 			modelAndView.addObject("lowCategory", lowCategory);
-			modelAndView.addObject("teacher", teacher); 
-			modelAndView.addObject("page","common/courseDetail");
+			modelAndView.addObject("teacher", teacher);
+			modelAndView.addObject("page", "common/courseDetail");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		modelAndView.setViewName("template");
 		return modelAndView;
-		
-	}
-	
 
-	
-	
+	}
+
 //	@RequestMapping(value = "/searchCourse/list", method = RequestMethod.GET)
 //	public String CourseList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
 //			Model model) {
@@ -265,10 +300,9 @@ public class CommonController {
 //		return "template";
 //	}
 
-
 	/* 알림 조회 */
 	@ResponseBody
-	@RequestMapping(value="/notification", method = RequestMethod.POST)
+	@RequestMapping(value = "/notification", method = RequestMethod.POST)
 	public ResponseEntity<Map<String, Object>> viewNotification(HttpServletRequest request) {
 		Integer userId = (Integer) request.getSession().getAttribute("id");
 		Map<String, Object> resultMap = new HashMap<String, Object>();
