@@ -200,6 +200,28 @@ $(function(){
 	// 매칭하기
 	$('#matchingBtn').click(function () {
 		var course_id = $(this).val();
+		var minStudent = $(".course-title").data("minStudent");
+		if (minStudent == 0) {
+			minStudent = 1;
+		}
+		var maxStudent = $(".course-title").data("maxStudent");
+		if (maxStudent == 0) {
+			maxStudent = 1;
+		}
+		var checked = $("input[name='selectedStudent']:checked").length;
+		if (checked < minStudent) {
+			swal({
+			  text: "선택한 학생 인원이 최소 인원보다 적습니다.",
+			  icon: "warning",
+			})
+			return false;
+		} else if (checked > maxStudent) {
+			swal({
+			  text: "선택한 학생 인원이 최대 인원보다 많습니다.",
+			  icon: "warning",
+			})
+			return false;
+		}
 		swal({
 		  text: "매칭이 완료되면 더 이상 학생을 받을 수 없습니다.\n매칭을 진행하시겠습니까?",
 		  icon: "warning",
