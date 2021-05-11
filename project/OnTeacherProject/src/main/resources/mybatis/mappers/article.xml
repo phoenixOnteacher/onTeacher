@@ -50,9 +50,8 @@
 	<update id="updateArticle" parameterType="article">
 		<![CDATA[
 		update article
-		set title=#{title},
-            content=#{content}
-          
+		set title=#{title,jdbcType=VARCHAR},
+            content=#{content,jdbcType=VARCHAR}
 		where id=#{id}
 		]]>
 	</update>
