@@ -29,8 +29,8 @@
 					<td>${t.name}</td>
 					<td>${t.email}</td>
 					<td>${t.phoneNumber}</td>
-					<td><a href="${path}/upload/thcerti/${t.fileName}"
-						target="_blank" title="증빙서류 보기">${t.description}</a></td>
+					<td><a href="certiDownload?fileName=${t.fileName}"
+						title="증빙서류 보기">${t.description}</a></td>
 					<td>
 						<form action="/admin/certApproved" method="POST">
 							<input type="hidden" value="${t.email}" name="email">
@@ -39,30 +39,38 @@
 						</form>
 						<form action="/admin/certRejected" method="POST">
 							<input type="hidden" value="${t.email}" name="email">
-							<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rejectModal">
-							  반려
-							</button>
-							
+							<button type="button" class="btn btn-danger"
+								data-bs-toggle="modal" data-bs-target="#rejectModal">
+								반려</button>
+
 							<!-- Modal -->
-							<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
-							  <div class="modal-dialog">
-							    <div class="modal-content">
-							      <div class="modal-header">
-							        <h5 class="modal-title" id="rejectModalLabel">반려 사유 작성</h5>
-							        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							      </div>
-							      <div class="modal-body">
-							        <div class="mb-3">
-									  <label for="exampleFormControlTextarea1" class="form-label float-start h6">어떤 점이 부족한지 적어주세요!<small class="text-secondary ms-2">(해당 내용은 선생님에게 전달됩니다.)</small></label>
-									  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="message" required></textarea>
+							<div class="modal fade" id="rejectModal" tabindex="-1"
+								aria-labelledby="rejectModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="rejectModalLabel">반려 사유 작성</h5>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<div class="mb-3">
+												<label for="exampleFormControlTextarea1"
+													class="form-label float-start h6">어떤 점이 부족한지 적어주세요!<small
+													class="text-secondary ms-2">(해당 내용은 선생님에게 전달됩니다.)</small></label>
+												<textarea class="form-control"
+													id="exampleFormControlTextarea1" rows="2" name="message"
+													required></textarea>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">닫기</button>
+											<button type="submit" onClick="javascript:reject()"
+												value="반려" class="btn btn-primary">확인</button>
+										</div>
 									</div>
-							      </div>
-							      <div class="modal-footer">
-							        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-							        <button type="submit" onClick="javascript:reject()" value="반려" class="btn btn-primary">확인</button>
-							      </div>
-							    </div>
-							  </div>
+								</div>
 							</div>
 						</form>
 					</td>
