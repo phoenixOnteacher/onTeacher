@@ -59,7 +59,7 @@
 		]]>
 	</select>
 	
-		<select id="selectStudentName" resultType="String" parameterType="int">
+	<select id="selectStudentName" resultType="String" parameterType="int">
 		<![CDATA[
 		select name
 		from student
