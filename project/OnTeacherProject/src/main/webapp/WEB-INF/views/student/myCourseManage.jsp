@@ -72,16 +72,16 @@ $(function(){
 </script>
 <div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
-		<h1>내 수업</h1>
+		<h1 class="course-manage-menu">내 수업</h1>
 		<div class="row mt-3">
 		
-			<nav class="nav flex-column col-3" id="classNav">
+			<nav class="nav flex-column col-3 course-manage-menu" id="classNav">
 				<a class="nav-link active in text-reset" aria-current="page" href="#studying" data-toggle="tab" data-load="true">진행 중인 수업</a>
 				<a class="nav-link text-reset" href="#match" data-toggle="tab" data-load="false">대기 중인 수업</a>
 				<a class="nav-link text-reset" href="#end" data-toggle="tab" data-load="false">종료된 수업</a>
 			</nav>
 			
-			<div class="tab-content col-9">
+			<div class="tab-content col-9 d-flex align-items-center justify-content-center">
 				<div class="tab-pane fade show active" id="studying"> <!-- 진행 중인 수업 리스트 조회 -->
 					<c:choose>
 						<c:when test="${empty studyingList }">
@@ -135,7 +135,7 @@ $(function(){
 					<c:choose>
 						<c:when test="${empty matchingList && empty matchedList }">
 							<p class="text-center empty-text text-secondary">현재 대기 중인 수업이 없어요!</p>
-							<a href="/teacher/courseregister" class="text-decoration-none">수업 등록하러 가기<i class="fas fa-chevron-right mx-2"></i></a>
+							<a href="/searchCourse" class="text-decoration-none">수업 신청하러 가기<i class="fas fa-chevron-right mx-2"></i></a>
 						</c:when>
 						<c:otherwise>
 							<c:forEach var="course" items="${matchingList }"> <!-- 매칭대기 조회 -->
