@@ -14,7 +14,7 @@
 							<img src="${path}/resources/img/logo.png" class="profImg">
 						</c:when>
 						<c:otherwise>
-							<img src="${teacher.profileImg}" class="profImg">
+							<img src="/fileview/thprofile/${teacher.profileImg}" class="profImg">
 						</c:otherwise>
 					</c:choose>
 				</div>

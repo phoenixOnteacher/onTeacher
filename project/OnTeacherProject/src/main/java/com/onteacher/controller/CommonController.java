@@ -98,6 +98,41 @@ public class CommonController {
 			}
 		} // try end;
 	}
+	
+
+	@GetMapping("/fileview/stprofile/{filename}")
+	public void fileviewStProfile(@PathVariable String filename, HttpServletRequest request, HttpServletResponse response) {
+		String path = uploadPath.getThprofilePath();
+		if (!uploadPath.isAws()) {
+			path = request.getServletContext().getRealPath(path);
+		}
+		File file = new File(path + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(file.getName(), "utf-8");
+			} else {
+				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
+			}
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			OutputStream out = response.getOutputStream();
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
 
 	@RequestMapping(value = "/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
