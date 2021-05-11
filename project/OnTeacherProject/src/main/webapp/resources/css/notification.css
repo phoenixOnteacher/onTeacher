@@ -26,3 +26,7 @@
 	background-color: #FF6165;
 	border-color: #FF6165;
 }
+
+#notificationBell {
+	cursor: pointer;
+}
