@@ -562,8 +562,9 @@ public class TeacherController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			teacher.setDescription(description);
 			// fileName, description, status="submitted"로 update
+			teacher.setDescription(description);
+			teacher.setStatus("submitted");
 			teacherService.updateTeacherCert(teacher);
 			// 해당 Notification 삭제
 			userService.deleteNotification(notificationId);
@@ -571,5 +572,4 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
-
 }
