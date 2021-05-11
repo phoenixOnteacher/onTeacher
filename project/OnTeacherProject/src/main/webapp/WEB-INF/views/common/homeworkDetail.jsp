@@ -69,13 +69,16 @@
 				      <c:if test="${!empty student.homeworkAnswer }">
 					      <div id="flush-collapseOne-${student.id }" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
 					        <div class="accordion-body">
-					      	  <p class="h6" style="white-space: pre-wrap;">${student.homeworkAnswer.content }</p>
-					      	  <a href="/student/hwfiledownload?filename=${homeworkAnswer.filename }">
-					      	  	<c:if test="${!empty homeworkAnswer.filename }">
-										<i class="fas fa-paperclip"></i> ${student.homeworkAnswer.filename } ${homeworkAnswer.filename }
-					      	  	</c:if>
-				      	  	  </a>
-					      	  <small class="text-secondary float-end">${student.homeworkAnswer.createdAt } 제출</small>
+				        	  <p class="h6" style="white-space: pre-wrap;">${student.homeworkAnswer.content }</p>
+				      	  	  <c:choose>
+				      	  	  	  <c:when test="${!empty student.homeworkAnswer.filename }">
+									<i class="fas fa-paperclip"></i> <a href="/hafiledownload?filename=${student.homeworkAnswer.filename }">${student.homeworkAnswer.filename }</a>
+					      	      </c:when>
+					      	      <c:otherwise>
+					      	      	파일 없음
+					      	      </c:otherwise>
+				      	  	  </c:choose>
+						      <small class="text-secondary float-end">${fn:substring(student.homeworkAnswer.createdAt, 0, 10) } 제출</small>
 				      	    </div>
 					      </div>
 			      	  </c:if>

@@ -38,7 +38,7 @@
 									</h5>
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link"> ${course.teacher.name } 선생님</a>
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none"> ${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">
 											<c:choose>
@@ -124,7 +124,7 @@
 								  </h5>
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link">
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none">
 												${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">

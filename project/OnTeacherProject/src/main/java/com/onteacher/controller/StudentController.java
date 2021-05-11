@@ -202,7 +202,6 @@ public class StudentController {
 	@RequestMapping(value="/applyCancel", method=RequestMethod.DELETE)
 	public void applyCancel(@RequestParam(value = "courseId",required = true)int courseId,
 									HttpServletRequest request) {
-		ModelAndView modelAndView= new ModelAndView();
 		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
 		HttpSession session = request.getSession();
 		int studentId = (int) session.getAttribute("id");

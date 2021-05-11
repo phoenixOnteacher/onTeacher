@@ -19,7 +19,7 @@
 						</tr>
 						<tr>
 							<th colspan="1" class="px-3">과제 업로드</th>
-							<td colspan="3" class="text-center px-3"><a href="/student/hwfiledownload?filename=${homeworkAnswer.filename }">${homeworkAnswer.filename }</a></td>
+							<td colspan="3" class="text-center px-3"><a href="/hafiledownload?filename=${homeworkAnswer.filename }">${homeworkAnswer.filename }</a></td>
 						</tr>
 					</tbody>
 				</table>
