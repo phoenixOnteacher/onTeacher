@@ -74,8 +74,19 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void startCourse(int courseId) throws Exception {
 		Course course = courseDAO.selectCourseById(courseId);
-		course.setStatus("studying");
-		courseDAO.updateCourseStatus(course);
+		if (course.getStatus()=="matched") {
+			course.setStatus("studying");
+			Notification notification = new Notification();
+			notification.setContent("[" + course.getTitle() +"] 수업이 시작되었습니다.");
+			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
+			for (Matching matching : matchings) {
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
+			}
+			notification.setToId(course.getTeacherId());
+			notificationDAO.insertNotification(notification);
+			courseDAO.updateCourseStatus(course);
+		}
 	}
 	
 	@Override
@@ -98,6 +109,24 @@ public class CourseManageServiceImpl implements CourseManageService {
 			}
 			courseDAO.deleteCourse(c.getId());
 		} else throw new Exception("해당 수업의 선생님만 취소 가능");
+	}
+	
+	@Override
+	public void finishCourse(int courseId) throws Exception {
+		Course course = courseDAO.selectCourseById(courseId);
+		if (course.getStatus()!="end") {
+			course.setStatus("end");
+			Notification notification = new Notification();
+			notification.setContent("[" + course.getTitle() +"] 수업이 종료되었습니다. 고생 많으셨어요!");
+			List<Matching> matchings = matchingDAO.selectMatchingListByCourseId(course.getId());
+			for (Matching matching : matchings) {
+				notification.setToId(matching.getStudentId());
+				notificationDAO.insertNotification(notification);
+			}
+			notification.setToId(course.getTeacherId());
+			notificationDAO.insertNotification(notification);
+			courseDAO.updateCourseStatus(course);
+		}
 	}
 	
 	// 매칭하기

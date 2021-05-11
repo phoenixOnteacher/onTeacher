@@ -138,5 +138,14 @@ public class Teacher {
 	public void setCourseReviewList(List<CourseReview> courseReviewList) {
 		this.courseReviewList = courseReviewList;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", email=" + email + ", name=" + name + ", phoneNumber="
+				+ phoneNumber + ", address=" + address + ", birthday=" + birthday + ", gender=" + gender
+				+ ", profileImg=" + profileImg + ", introduction=" + introduction + ", active=" + active + ", fileName="
+				+ fileName + ", description=" + description + ", status=" + status + ", message=" + message + ", file="
+				+ file + ", courseReview=" + courseReview + ", courseReviewList=" + courseReviewList + "]";
+	}
+	
 }

@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -312,4 +316,29 @@ public class CommonController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
 	}
+	
+	/* 날짜에 맞춰 수업 자동 시작 및 종료 처리 */
+	@Scheduled(cron = "0 0 0 * * *") // 매년 매달 매일 0시 0분 0초에 실행 (자정)
+//	@Scheduled(cron = "0/5 * * * * *") // 매년 매달 매일 매시 매분 5초 마다 실행 
+    public void updateCourseStatus () {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String today = df.format(new Date(System.currentTimeMillis()));
+        System.out.println(today);
+        try {
+        	// 수업 시작
+        	List<Course> startCourseList = courseService.queryCourseListByStartDate(today);
+        	for (Course course : startCourseList) {
+        		courseManageService.startCourse(course.getId());
+        	}
+        	// 수업 종료
+        	List<Course> finishCourseList = courseService.queryCourseListByEndDate(today);
+        	for (Course course : finishCourseList) {
+        		courseManageService.finishCourse(course.getId());
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 }

@@ -113,4 +113,14 @@ public class CourseServiceImpl implements CourseService {
 	public List<Course> selectCourseForSearch() {
 		return courseDAO.selectCourseForSearch();
 	}
+	
+	@Override
+	public List<Course> queryCourseListByStartDate(String today) throws Exception {
+		return courseDAO.selectCourseListByStartDate(today);
+	}
+	
+	@Override
+	public List<Course> queryCourseListByEndDate(String today) throws Exception {
+		return courseDAO.selectCourseListByEndDate(today);
+	}
 }

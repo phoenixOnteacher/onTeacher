@@ -9,17 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.onteacher.dao.ArticleDAO;
 import com.onteacher.dao.CommentDAO;
+import com.onteacher.dao.NotificationDAO;
 import com.onteacher.vo.Article;
 import com.onteacher.vo.Comment;
+import com.onteacher.vo.Notification;
 
 @Service("boardService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class BoardServiceImpl implements BoardService {
 	@Autowired
-	ArticleDAO articleDAO;
+	private ArticleDAO articleDAO;
 
 	@Autowired
-	CommentDAO commentDAO;
+	private CommentDAO commentDAO;
+	
+	@Autowired
+	private NotificationDAO notificationDAO;
 
 	@Override
 	public List<Article> listArticles(Article article) throws Exception {
@@ -59,7 +64,12 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public void addComment(Comment comment) throws Exception {
 		commentDAO.insertComment(comment);
-
+		// 게시글 작성자에게 알림 보냄
+		Article article = articleDAO.selectArticle(comment.getArticle_id());
+		Notification notification = new Notification();
+		notification.setContent("[" + article.getTitle() +"] 게시글에 댓글이 달렸습니다.");
+		notification.setToId(article.getUser_id());
+		notificationDAO.insertNotification(notification);
 	}
 
 	@Override
