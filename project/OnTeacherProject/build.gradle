@@ -26,6 +26,7 @@ dependencies {
 	
 	// AWS 배포용 ojdbc10 설정 
 	// implementation group: 'com.oracle.ojdbc', name: 'ojdbc10', version: '19.3.0.0'
+	// 로컬일때는 주석 처리
 	
 	//jsp
 	implementation('org.apache.tomcat.embed:tomcat-embed-jasper')  
