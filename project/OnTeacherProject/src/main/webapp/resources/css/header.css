@@ -115,8 +115,20 @@ nav.navbareffect {
 }
 
 /* 반응형 */
-@media screen and (max-width: 1023px) {
+@media screen and (max-width: 1124px) {
 	nav.navbar {
 		padding: 0 130px;
+	}
+}
+
+@media screen and (max-width: 924px) {
+	nav.navbar {
+		padding: 0 70px;
+	}
+}
+
+@media screen and (max-width: 804px) {
+	nav.navbar {
+		padding: 0 25px;
 	}
 }
