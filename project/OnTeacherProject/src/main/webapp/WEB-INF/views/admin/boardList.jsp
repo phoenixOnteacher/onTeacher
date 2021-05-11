@@ -26,7 +26,7 @@
 			<c:forEach var="t" items="${tea}">
 				<tr class="tbody_row">
 					<td>${t.id}</td>
-					<td id="teacher-name">${t.name}</td>
+					<td>${t.name}</td>
 					<td>${t.email}</td>
 					<td>${t.phoneNumber}</td>
 					<td><a href="certiDownload?fileName=${t.fileName}"
