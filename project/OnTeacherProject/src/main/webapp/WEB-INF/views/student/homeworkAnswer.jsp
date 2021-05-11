@@ -25,7 +25,7 @@
 				</table>
 			</c:when>
 			<c:when test="${empty homeworkAnswer && nowDate>homework.deadline }">
-				<h5 class="text-center">제출 기한이 지났습니다.</h5>
+				<h5 class="text-center text-secondary">제출 기한이 지났습니다.</h5>
 			</c:when>
 			<c:otherwise>
 				<h2 class="hw-title">과제 작성</h2>
