@@ -74,7 +74,7 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Override
 	public void startCourse(int courseId) throws Exception {
 		Course course = courseDAO.selectCourseById(courseId);
-		if (course.getStatus()=="matched") {
+		if (course.getStatus().equals("matched")) {
 			course.setStatus("studying");
 			Notification notification = new Notification();
 			notification.setContent("[" + course.getTitle() +"] 수업이 시작되었습니다.");
