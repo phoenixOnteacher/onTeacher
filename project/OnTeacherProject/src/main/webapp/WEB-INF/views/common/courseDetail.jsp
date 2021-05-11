@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
 
 <!-- 이 jsp를 include 하기위해 Controller에 추가해야할 코드 -->
@@ -79,7 +80,16 @@ modelAndView.addObject("teacher", teacher);
 		<table class="table table-borderless" id="table2">
 			<tr>
 				<td class="left2">선생님</td>
-				<td class="right2"><a href="/teacher/teacherDetail?teacherId=${teacher.id }" id="th_name">${teacher.name }</a></td>
+				<td class="right2">
+					<c:choose>
+						<c:when test="${fn:substring(sessionScope.id,0,1)=='1' || fn:substring(sessionScope.id,0,1)=='2'}">
+							<a href="/teacher/teacherDetail?teacherId=${teacher.id }" id="th_name">${teacher.name }</a>
+						</c:when>
+						<c:otherwise>
+							${teacher.name }
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</tr>
 			<tr>
 				<td class="left2">수업 소개</td>

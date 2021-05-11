@@ -359,7 +359,7 @@ public class CommonController {
     public void updateCourseStatus () {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String today = df.format(new Date(System.currentTimeMillis()));
-        System.out.println(today);
+        System.out.println(today + "수업 자동 시작/종료 처리");
         try {
         	// 수업 시작
         	List<Course> startCourseList = courseService.queryCourseListByStartDate(today);

@@ -7,9 +7,8 @@
 
 <div class="">
 	<div id="" class="">
-	<br>
+		<br>
 		<c:choose>
-			
 			<c:when test="${!empty homeworkAnswer }">	
 				<h2>제출된 과제</h2>
 				<table class="table table-bordered">
@@ -25,7 +24,6 @@
 					</tbody>
 				</table>
 			</c:when>
-			
 			<c:when test="${empty homeworkAnswer && nowDate>homework.deadline }">
 				<h2>과제 작성</h2>
 				<table class="table table-bordered">
@@ -45,7 +43,6 @@
 					</tbody>
 				</table>
 			</c:when>
-			
 			<c:otherwise>
 				<h2>과제 작성</h2>
 				<form action="/student/${homework.id}/homeworkanswer" method="post" enctype="multipart/form-data">
@@ -67,7 +64,6 @@
 					</table>
 				</form>
 			</c:otherwise>
-			
 		</c:choose>
 	</div>
 </div>

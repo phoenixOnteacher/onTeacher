@@ -70,7 +70,7 @@
 				<td class="tbody"><p id="startday">시작일</p>
 					<p id="endday">종료일</p>
 					<br>
-				<input type="date" id="studyDate" name="startDate" min="2000-01-01"
+				<input type="date" id="studyDate" name="startDate"
 					max="2999-12-31" required pattern="\d{2}-\d{2}-\d{2}"
 					class="form-control" required="required"> <input
 					type="date" id="studyDate" name="endDate" min="2000-01-01"
@@ -155,35 +155,35 @@
 </div>
 <script>
 	$(function() {
-	var select = '<option value="">하위 분류 선택</option>';
-
-	/* 수업 카테고리 선택 */
-	$("#highcategory").change(function() {
-		$("#lowcategory").empty().append(select);
-		if ($("#hightcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
-			$("#lowcategory").append(select);
-		} else {
-			comboChange($(this).val());
-		}
-	});
-
-	function comboChange(highcategoryid) {
-		$.ajax({
-			type: "GET",
-			url: "http://${ipaddress}:${port}/teacher/highcategory",
-			dataType: "json",
-			data: { high_category_id: highcategoryid },
-			contentType: "application/json; charset=UTF-8",
-			success: function(data) {
-				if (data.length == 0) {
-					$("#lowcategory").append('<option value="">하위 분류 선택</option>');
-				} else {
-					$(data).each(function(i, item) {
-						$("#lowcategory").append("<option value='" + item.id + "'>" + item.name + "</option>");
-					});
-				}
+		var select = '<option value="">하위 분류 선택</option>';
+	
+		/* 수업 카테고리 선택 */
+		$("#highcategory").change(function() {
+			$("#lowcategory").empty().append(select);
+			if ($("#hightcategory").val() == "") { //select의 value가 ""이면 "선택해주세요"만 보여주도록
+				$("#lowcategory").append(select);
+			} else {
+				comboChange($(this).val());
 			}
 		});
-	}
+	
+		function comboChange(highcategoryid) {
+			$.ajax({
+				type: "GET",
+				url: "http://${ipaddress}:${port}/teacher/highcategory",
+				dataType: "json",
+				data: { high_category_id: highcategoryid },
+				contentType: "application/json; charset=UTF-8",
+				success: function(data) {
+					if (data.length == 0) {
+						$("#lowcategory").append('<option value="">하위 분류 선택</option>');
+					} else {
+						$(data).each(function(i, item) {
+							$("#lowcategory").append("<option value='" + item.id + "'>" + item.name + "</option>");
+						});
+					}
+				}
+			});
+		}
 	});
 </script>

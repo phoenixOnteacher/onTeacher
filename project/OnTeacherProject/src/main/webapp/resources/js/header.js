@@ -16,12 +16,20 @@ $(function() {
 	});
 	
 	$('.teacherReject').click(function(){
-		alert('자격 승인 후 이용할 수 있습니다.');
+		swal({
+		  text: "자격 승인 후 이용할 수 있습니다.",
+		  icon: "error",
+		})
 	});
 	
 	$('.nonmemberReject').click(function(){
-		alert('로그인 후 이용해 주세요.');
-		location.href="/login";
+		swal({
+		  text: "로그인 후 이용해 주세요.",
+		  icon: "error",
+		})
+		.then (() => {
+			location.href="/login";
+		})
 		return false;
 	});
 });

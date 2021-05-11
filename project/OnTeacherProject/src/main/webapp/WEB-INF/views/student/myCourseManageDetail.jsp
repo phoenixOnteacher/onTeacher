@@ -29,9 +29,7 @@
 			  </c:choose>
 			</nav>
 			
-			
 			<div class="tab-content col-10">
-			  
 			  <div class="tab-pane fade" id="myTeacher"> <!-- 내 선생님 클릭시 -->
 		    	<div class="card mb-3 mx-auto" style="max-width: 40vw;">
 				  <div class="row g-0">
@@ -51,12 +49,9 @@
 				  </div>
 				</div>
 		  	  </div>
-			  
-			  
 			  <div class="tab-pane fade show active" id="detail"> <!-- 수업 상세페이지 -->
 				<jsp:include page="../common/courseDetail.jsp"></jsp:include>
 			  </div>
-			  
 			  <div class="tab-pane fade" id="homework">
 				<jsp:include page="../common/homeworkList.jsp"></jsp:include>
 			  </div>
