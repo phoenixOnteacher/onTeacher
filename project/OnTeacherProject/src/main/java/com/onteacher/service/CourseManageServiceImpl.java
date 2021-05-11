@@ -224,7 +224,6 @@ public class CourseManageServiceImpl implements CourseManageService {
 	public List<Student> queryMatchingStudentList(int courseId, int teacherId) throws Exception {
 		List<Student> studentList = studentDAO.selectMatchingStudentByCourseId(courseId);
 		for (Student student : studentList) {
-			student.setProfileImg(uploadPath.getStprofilePath()+student.getProfileImg());
 			student.setBirthday(student.getBirthday().substring(0,10));
 			StudentReview sr = new StudentReview();
 			sr.setCourseId(courseId);
