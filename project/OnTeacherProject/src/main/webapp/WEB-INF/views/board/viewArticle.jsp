@@ -16,7 +16,7 @@ request.setCharacterEncoding("UTF-8");
 		<div id="viewArticle_title">질문게시판</div>
 	</div>
 
-	<input type="hidden" value="${pageNo}" name="pageNo" id="form1">
+	<input type="hidden" value="${pageNo}" name="pageNo">
 	<table class="table table-borderless">
 		<tr>
 			<td colspan="4" id="a_title">${article.title }</td>
@@ -41,7 +41,7 @@ request.setCharacterEncoding("UTF-8");
 		<div class="btn-group" role="group"
 			aria-label="Basic mixed styles example">
 			<c:if test="${sessionScope.id == article.user_id }">
-				<a href="modArticle?no=${article.id }"><button type="submit"
+				<a href="modArticle?no=${article.id }&pageNo=${pageNo}"><button type="submit"
 						class="btn btn-warning">수정하기</button></a>
 				<a href="deleteArticle?no=${article.id}" type="submit"
 					class="btn btn-secondary">삭제하기</a>

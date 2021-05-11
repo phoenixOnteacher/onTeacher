@@ -192,18 +192,32 @@ public class BoardController {
 			}
 		} // try end;		
 	}
-
-	
-	
-	
-	
-	
-	
 	
 	//글 수정
+	@RequestMapping(value="/modArticle", method=RequestMethod.GET)
+	public String modArticle(@RequestParam(value = "no") int no, @RequestParam(value = "pageNo", required = false) int pageNo, Model model, HttpServletRequest request, HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setCharacterEncoding("utf-8");
+			Article article = boardService.viewArticle(no);
+			
+			model.addAttribute("article", article);
+			model.addAttribute("pageNo", pageNo);
+			model.addAttribute("page", "board/modifyArticle");
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+
+		return "template";
+			}
+	
 	@RequestMapping(value = "/modArticle", method = RequestMethod.POST)
 	public String modArticle(@ModelAttribute Article article,
 			@RequestParam(value = "pageNo") int pageNo) {
+		System.out.println(article.getTitle());
 		try {
 			boardService.modArticle(article);
 			
