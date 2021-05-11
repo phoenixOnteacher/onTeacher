@@ -13,7 +13,7 @@
 	<insert id="insertHomework" parameterType="homework">
 		<![CDATA[
 		insert into homework(id,title,content,filename,deadline,course_id)
-		values(HomeworkIdSeq.nextval,#{title},#{content},#{filename},#{deadline},#{courseId})
+		values(HomeworkIdSeq.nextval,#{title},#{content},#{filename},to_date(#{deadline},'YYYY-MM-DD'),#{courseId})
 		]]>
 	</insert>
 	<select id="selectHomeworkById" resultMap="homeworkResult" parameterType="int">
