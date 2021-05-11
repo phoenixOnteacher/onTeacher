@@ -26,7 +26,7 @@
 			<c:forEach var="t" items="${tea}">
 				<tr class="tbody_row">
 					<td>${t.id}</td>
-					<td>${t.name}</td>
+					<td id="teacher-name">${t.name}</td>
 					<td>${t.email}</td>
 					<td>${t.phoneNumber}</td>
 					<td><a href="certiDownload?fileName=${t.fileName}"
@@ -40,16 +40,16 @@
 						<form action="/admin/certRejected" method="POST">
 							<input type="hidden" value="${t.email}" name="email">
 							<button type="button" class="btn btn-danger"
-								data-bs-toggle="modal" data-bs-target="#rejectModal">
+								data-bs-toggle="modal" data-bs-target="#rejectModal${t.id}">
 								반려</button>
 
 							<!-- Modal -->
-							<div class="modal fade" id="rejectModal" tabindex="-1"
-								aria-labelledby="rejectModalLabel" aria-hidden="true">
+							<div class="modal fade" id="rejectModal${t.id}" tabindex="-1"
+								aria-labelledby="rejectModalLabel${t.id}" aria-hidden="true">
 								<div class="modal-dialog">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="rejectModalLabel">반려 사유 작성</h5>
+											<h5 class="modal-title" id="rejectModalLabel${t.id}">반려 사유 작성</h5>
 											<button type="button" class="btn-close"
 												data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
