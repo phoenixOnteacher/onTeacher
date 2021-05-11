@@ -27,6 +27,11 @@
 	color: #555555;
 }
 
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
 .btn-outline-primary {
 	border-color: #FF8184;
 	color: #FF8184;

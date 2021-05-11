@@ -8,6 +8,14 @@
 
 .course-title {
 	font-family: 'S-CoreDream-5Medium';
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+
+.hw-title {
+	font-family: 'S-CoreDream-5Medium';
 	font-size: 25px;
 	font-weight: 700;
 	text-align: center;

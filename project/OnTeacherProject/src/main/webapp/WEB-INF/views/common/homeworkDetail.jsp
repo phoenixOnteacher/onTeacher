@@ -22,7 +22,7 @@
 			<i class="fas fa-chevron-right h5 secondary mx-2"></i>
 		</c:if>
 		</div>
-		<h2 id="course-${course.id }" class="course-title">${homework.title }</h2>
+		<h2 id="course-${course.id }" class="course-title mt-3">${homework.title }</h2>
 		<table class="table table-bordered">
 		  <tbody>
 		    <!-- <tr>
