@@ -1,0 +1,11 @@
+실행 순서
+
+1. createTable2.sql 실행
+  - 테이블 생성 안 하셨던 분들은 파일에서 DROP문 제외하고 실행시켜주세요
+2. createSequence.sql 실행
+3. insertCategoryData.sql 실행
+4. alterTalbe 실행
+5. addFK 실행
+
+
+createTable은 NO
