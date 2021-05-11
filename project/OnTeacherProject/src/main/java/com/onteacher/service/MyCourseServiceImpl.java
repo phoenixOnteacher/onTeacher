@@ -48,31 +48,19 @@ public class MyCourseServiceImpl implements MyCourseService {
 
 	@Override
 	public List<Course> queryMatchingcourseListByStudentId(int studentId) {
-		List<Course> list = courseDAO.selectCourseMatchingListByStudentId(studentId);
-		for(Course c : list) {
-			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
-		}
-		return list;
+		return courseDAO.selectCourseMatchingListByStudentId(studentId);
 	}
 
 
 	@Override
 	public List<Course> queryMatchedcourseListByStudentId(int studentId) {
-		List<Course> list = courseDAO.selectCourseMatchedListByStudentId(studentId);
-		for(Course c : list) {
-			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
-		}
-		return list;
+		return courseDAO.selectCourseMatchedListByStudentId(studentId);
 	}
 
 
 	@Override
 	public List<Course> queryStudyingcourseListByStudentId(int studentId) {
-		List<Course> list = courseDAO.selectCourseStudyingListByStudentId(studentId);
-		for(Course c : list) {
-			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
-		}
-		return list;
+		return courseDAO.selectCourseStudyingListByStudentId(studentId);
 	}
 
 
@@ -86,7 +74,6 @@ public class MyCourseServiceImpl implements MyCourseService {
 			cr.setStudentId(studentId);
 			cr.setTeacherId(teacher.getId());
 			teacher.setCourseReview(courseReviewDAO.selectCourseReview(cr));
-			course.getTeacher().setProfileImg(uploadPath.getThprofilePath()+course.getTeacher().getProfileImg());
 		}
 		return courseList;
 	}
