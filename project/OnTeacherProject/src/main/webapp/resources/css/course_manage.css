@@ -45,6 +45,15 @@ a:hover {
 	color: #FF6165
 }
 
+.empty-text {
+	font-size: 25px;
+}
+
+h1.course-manage-menu {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 45px;
+	font-weight: 500;
+}
 .course-manage-menu {
 	font-family: 'S-CoreDream-5Medium';
 }
@@ -58,6 +67,10 @@ a:hover {
 .st-prof-card {
 	max-width: 780px;
 	min-width: 260px;
+}
+
+.card {
+	min-width: 50vw;
 }
 
 

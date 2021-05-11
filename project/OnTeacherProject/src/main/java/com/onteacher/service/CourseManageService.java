@@ -17,6 +17,7 @@ public interface CourseManageService {
 	public void startCourse(int courseId) throws Exception;
 	public void extendCourse(int courseId, String date) throws Exception;
 	public void cancelCourse(Course c) throws Exception;
+	public void finishCourse(int courseId) throws Exception;
 	public void match(int courseId, List<String> students) throws Exception;
 	public void cancelMatching(Matching matching) throws Exception;
 	public List<Course> queryStudyingCourseList(int teacherId) throws Exception;

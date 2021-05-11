@@ -34,6 +34,7 @@ public interface CourseDAO {
 
 	public List<Course> CourseList(Course courseList);
 	public List<Course> selectCourseForIndex();
-
-
+	
+	public List<Course> selectCourseListByStartDate(String today) throws Exception;
+	public List<Course> selectCourseListByEndDate(String today) throws Exception;
 }
