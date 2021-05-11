@@ -49,7 +49,7 @@
 	<!-- 수업검색 화면 GET방식일 때 보여줄 전체 수업목록 -->
 	<select id="selectCourseForSearch" resultMap="courseMap">
 		<![CDATA[
-		select * from (select c.id as course_id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name
+		select * from (select c.id as course_id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name, t.id as teacher_id
 		from course c
 		left outer join teacher t
 		on c.teacher_id = t.id
