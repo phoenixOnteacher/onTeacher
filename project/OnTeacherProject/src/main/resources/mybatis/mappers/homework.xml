@@ -27,6 +27,5 @@
 		from homework
 		where course_id=#{courseId}
 		order by id
-	</select>
-	
+	</select>	
 </mapper>
