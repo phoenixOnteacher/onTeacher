@@ -28,7 +28,7 @@
 	<insert id="insertTeacher" parameterType="teacher">
 		<![CDATA[
 		insert into teacher(id,email,name,password,phone_number,address,birthday,gender,profile_img,introduction,filename,description)
-		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},#{birthday},#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
+		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address}, to_date(#{birthday},'YYYY-MM-DD') ,#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
 		]]>
 	</insert>
 	

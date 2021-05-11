@@ -331,19 +331,18 @@
       FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
-      
       ENV TZ=Asia/Seoul
       RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
       
       ENTRYPOINT ["java","-jar","app.war"]
       ```
-
-      > linux vi 에디터 데이터 저장은 Esc 키 누른 후 :wq를 입력하면 됩니다. 
+      
+      > linux vi 에디터 데이터 저장은 Esc 키 누른 di후 :wq를 입력하면 됩니다. 
       >
       > linux vi 에디터 사용법은 관련 도서, 웹 사이트를 참고하시면 됩니다.
       >
       > ARG JAR_FILE=./**OnTeacherProject-0.0.1-SNAPSHOT.war** "실제  war  파일 이름 입력"
-   
+      
    5. Docker 파일을 빌드합니다. 
    
       ``` bash 
