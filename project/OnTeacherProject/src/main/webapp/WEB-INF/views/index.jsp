@@ -45,18 +45,33 @@
 			<div id="loginblock">
 				<div id="loginbtndiv">
 					<div id="logintext">나에게 알맞은 수업을 검색 / 신청하려면?</div>
-					<a id="loginbtn" class="btn btn-primary" href="/searchCourse">수업검색 하기</a>
+					<a id="loginbtn" class="btn btn-primary" href="/searchCourse">수업검색
+						하기</a>
 				</div>
 			</div>
 		</c:if>
-		<c:if test="${fn:substring(sessionScope.id,0,1)=='3' }">
-			<div id="loginblock">
-				<div id="loginbtndiv">
-					<div id="logintext">수업을 개설하고 학생과 매칭하려면?</div>
-					<a id="loginbtn" class="btn btn-primary" href="/teacher/courseregister">수업등록 하기</a>
+		<c:choose>
+			<c:when
+				test="${fn:substring(sessionScope.id,0,1)=='3' && sessionScope.teacherActive==1}">
+				<div id="loginblock">
+					<div id="loginbtndiv">
+						<div id="logintext">수업을 개설하고 학생과 매칭하려면?</div>
+						<a id="loginbtn" class="btn btn-primary"
+							href="/teacher/courseregister">수업등록 하기</a>
+					</div>
 				</div>
-			</div>
-		</c:if>
+			</c:when>
+			<c:when
+				test="${fn:substring(sessionScope.id,0,1)=='3' && sessionScope.teacherActive==0}">
+				<div id="loginblock">
+					<div id="loginbtndiv">
+						<div id="logintext">수업을 개설하고 학생과 매칭하려면?</div>
+						<a id="loginbtn" class="btn btn-primary teacherReject"
+							href="javascript:void(0);">수업등록 하기</a>
+					</div>
+				</div>
+			</c:when>
+		</c:choose>
 		<div id="mainthumbblock">
 			<div id="mainthumbtext">
 				<p>현재 신청 가능한 수업</p>
@@ -68,8 +83,9 @@
 				<div class="col">
 					<div class="card">
 						<c:choose>
-							<c:when test="${course.teacher.profileImg == null}"><img src="/resources/img/logo.png"
-									class="card-img-top"></c:when>
+							<c:when test="${course.teacher.profileImg == null}">
+								<img src="/resources/img/logo.png" class="card-img-top">
+							</c:when>
 							<c:otherwise>
 								<img src="/fileview/thprofile/${course.teacher.profileImg}"
 									class="card-img-top">
