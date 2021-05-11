@@ -95,11 +95,7 @@ public class CourseServiceImpl implements CourseService {
 	
 	@Override
 	public List<Course> selectCourseForIndex() {
-		List<Course> list = courseDAO.selectCourseForIndex();
-		for(Course c : list) {
-			c.getTeacher().setProfileImg(uploadPath.getThprofilePath()+c.getTeacher().getProfileImg());
-		}
-		return list;
+		return courseDAO.selectCourseForIndex();
 	}
 
 
@@ -116,5 +112,15 @@ public class CourseServiceImpl implements CourseService {
 	@Override
 	public List<Course> selectCourseForSearch() {
 		return courseDAO.selectCourseForSearch();
+	}
+	
+	@Override
+	public List<Course> queryCourseListByStartDate(String today) throws Exception {
+		return courseDAO.selectCourseListByStartDate(today);
+	}
+	
+	@Override
+	public List<Course> queryCourseListByEndDate(String today) throws Exception {
+		return courseDAO.selectCourseListByEndDate(today);
 	}
 }
