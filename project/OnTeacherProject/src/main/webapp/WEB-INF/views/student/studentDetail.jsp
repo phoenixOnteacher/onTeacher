@@ -30,7 +30,7 @@
 			<div class="review-list-title">후기</div>
 			<c:choose>
 				<c:when test="${empty student.studentReviewList }">
-					<p class="text-center">아직 후기가 없어요!</p>
+					<p class="text-center text-secondary">아직 후기가 없어요!</p>
 				</c:when>
 				<c:otherwise>
 					<c:forEach items="${student.studentReviewList }" var="studentReview">

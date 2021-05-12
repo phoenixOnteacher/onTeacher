@@ -10,66 +10,7 @@
 <%-- <script src="${path }/resources/js/course_review_write.js"></script> --%>
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
-<style type="text/css"> 
-a { text-decoration:none } 
-</style> 
-<script>
-$(function(){
-	// 수업 신청 취소
-    $('.cancelApplyBtn').click(function () {
-	  	var con = confirm("취소하면 복구할 수 없습니다.\n수업 신청을 취소하시겠습니까?");
-	  	if (con == true) {
-			cancelCourse($(this).val())
-		}
-    })
-	
-	function cancelCourse(course_id) {
-		$.ajax({
-			type: "DELETE",
-			url: "http://${ipaddress}:${port}/student/applyCancel?courseId="+course_id,
-			success: function() {
-				location.reload();
-			}
-		})
-	}
-});
-</script>
-<script>
-$(function(){
-	if ($("button[name='unreviewed']").length==0) {
-		$("#unreviewedAlert").hide();
-	}
-	
-	
-	// 학생 리뷰 작성
-    $('.writeReviewBtn').click(function () {
-	  	var con = confirm("후기 작성을 완료하시겠습니까?");
-		var course_id = $(this).val();
-		var content = $("textarea[id='reviewContent"+course_id+"']").val();
-	  	if (con == true) {
-			console.log(course_id);
-			console.log(content);
-			writeReview(course_id, content);
-		}
-    })
-	
-	function writeReview(course_id, content) {
-		$.ajax({
-			type: "POST",
-			url: "http://${ipaddress}:${port}/student/"+course_id+"/review",
-			dataType: "json",
-			data: JSON.stringify({
-				"content": content
-			}),
-			contentType: "application/json; charset=UTF-8",
-			complete: function() {
-				alert("후기 작성이 완료되었습니다.");
-				location.reload();
-			}
-		})
-	}
-});
-</script>
+
 <div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
 		<h1 class="course-manage-menu">내 수업</h1>
@@ -97,7 +38,7 @@ $(function(){
 									</h5>
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link"> ${course.teacher.name } 선생님</a>
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none"> ${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">
 											<c:choose>
@@ -129,8 +70,6 @@ $(function(){
 						</c:otherwise>
 					</c:choose>
 				</div>
-				
-				
 				<div class="tab-pane fade" id="match"> <!-- 대기중인 수업 목록 조회 -->
 					<c:choose>
 						<c:when test="${empty matchingList && empty matchedList }">
@@ -147,7 +86,7 @@ $(function(){
 							  	  </h5>
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link">
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none">
 												${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">
@@ -177,7 +116,6 @@ $(function(){
 									</div>
 								</div>
 						  	</c:forEach>
-						  	
 						  	<c:forEach var="course" items="${matchedList }">  <!-- 매칭완료 조회 -->
 								<div class="card m-2">
 								  <h5 class="card-header p-3">
@@ -186,7 +124,7 @@ $(function(){
 								  </h5>
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link">
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none">
 												${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">
@@ -219,8 +157,6 @@ $(function(){
 					  	</c:otherwise>
 				  	</c:choose>
 				</div>
-				
-				
 				<div class="tab-pane fade" id="end"> <!-- 종료된 수업 목록 조회 -->
 					<c:choose>
 						<c:when test="${empty endList }">
@@ -236,7 +172,7 @@ $(function(){
 										<div class="form-check float-end">
 											<c:choose>
 												<c:when test="${empty course.teacher.courseReview }">
-													<button class="btn btn-success btn-sm" data-bs-toggle="modal"
+													<button class="btn btn-warning btn-sm" data-bs-toggle="modal"
 														data-bs-target="#reviewModal${course.id }" name="unreviewed">후기
 														작성</button>
 												</c:when>
@@ -290,10 +226,9 @@ $(function(){
 											</div>
 										</div>
 									</div>
-		
 									<div class="card-body">
 										<p class="card-text">
-											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link">
+											<i class="fas fa-user-alt"></i><a href="/teacher/teacherDetail?teacherId=${course.teacher.id}" class="user-detail-link text-decoration-none">
 												${course.teacher.name } 선생님</a>
 										</p>
 										<p class="card-text">
@@ -330,3 +265,91 @@ $(function(){
 		</div>
 	</div>
 </div>
+<script>
+$(function(){
+	// 수업 신청 취소
+    $('.cancelApplyBtn').click(function () {
+	  	swal({
+		  title: "수업 신청 취소",
+		  text: "취소하면 복구할 수 없습니다.\n수업을 취소하시겠습니까?",
+		  icon: "warning",
+		  buttons: true,
+		  dangerMode: true,
+		})
+		.then((willDelete) => {
+		  if (willDelete) {
+		    cancelCourse($(this).val());
+		  }
+		});
+    })
+	
+	function cancelCourse(course_id) {
+		$.ajax({
+			type: "DELETE",
+			url: "http://${ipaddress}:${port}/student/applyCancel?courseId="+course_id,
+			success: function() {
+				swal({
+				  title: "수업 신청 취소 완료",
+				  text: "수업이 정상적으로 취소 되었습니다.",
+				  icon: "success",
+				})
+			    .then() => {
+					location.reload();
+				});
+			},
+			error: function() {
+				swal({
+				  title: "에러 발생",
+				  text: "페이지를 다시 로드합니다.",
+				  icon: "error",
+				})
+			    .then(() => {
+					location.reload();
+				});
+			}
+		})
+	}
+	
+	if ($("button[name='unreviewed']").length==0) {
+		$("#unreviewedAlert").hide();
+	}
+	
+	// 학생 리뷰 작성
+    $('.writeReviewBtn').click(function () {
+		var course_id = $(this).val();
+		var content = $("textarea[id='reviewContent"+course_id+"']").val();
+		swal({
+		  text: "후기 작성을 완료하시겠습니까?",
+		  buttons: true,
+		})
+		.then((res) => {
+		  if (res) {
+		    writeReview(course_id, content);
+		  }
+		});
+    })
+	
+	function writeReview(course_id, content) {
+		$.ajax({
+			type: "POST",
+			url: "http://${ipaddress}:${port}/student/"+course_id+"/review",
+			dataType: "json",
+			data: JSON.stringify({
+				"content": content
+			}),
+			contentType: "application/json; charset=UTF-8",
+			complete: function() {
+				swal({
+				  title: "후기 작성 완료",
+				  text: "다른 학생들에게 큰 도움이 될 거예요!\n감사합니다 :)",
+				  icon: "success",
+				  button: "OK!",
+				})
+				.then((value) => {
+					location.reload();
+				})
+			}
+		})
+	}
+});
+</script>

@@ -22,7 +22,7 @@
 			</div>
 			<div class="mb-3">
 			  <label for="homeworkDeadline" class="form-label">제출 기간</label>
-			  <input class="form-control" type="date" id="homeworkDeadline" name="deadline" required>
+			  <input class="form-control" type="date" id="homeworkDeadline" name="deadline" required max="${course.endDate }">
 			</div>
 			<div class="mb-3">
 			  <label for="homeworkFile" class="form-label">첨부 파일</label>
@@ -33,5 +33,7 @@
 	</div>
 </div>
 <script>
-	$('#homeworkDeadline').min = new Date().toISOString().substring(0, 10);
+	$(function() {
+		$('#homeworkDeadline').min = new Date().toISOString().substring(0, 10);
+	})
 </script>

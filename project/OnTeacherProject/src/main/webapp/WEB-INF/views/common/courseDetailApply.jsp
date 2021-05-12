@@ -4,36 +4,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <link rel="stylesheet" href="${path}/resources/css/courseDetail.css" />
-<script src="${path }/resources/js/course_list.js"></script>
-<link rel="stylesheet" href="${path}/resources/css/courseManage.css" />
+<link rel="stylesheet" href="${path}/resources/css/sweet_alert.css" />
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
 <%-- <script src="${path }/resources/js/course_apply.js"></script> --%>
-<!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
-<script> 
-$(function(){
-	// 수업 신청
-    $('.courseApplyBtn').click(function () {
-	  	var con = confirm("수업을 신청하시겠습니까?");
-	  	if (con == true) {
-			courseApply($(this).val())
-		}
-    })
-	
-	function courseApply(course_id) {
-		$.ajax({
-			type: "POST",
-			url: "http://${ipaddress}:${port}/student/courseApply?courseId="+course_id,
-			success: function(data,status) {
-				alert(data);
-			},
-			error: function(request, status, error){
-				alert(request.responseText);
-			}
-		})
-	}
-});
-</script>
 
 <!-- 이 jsp를 include 하기위해 Controller에 추가해야할 코드 -->
 <!-- 
@@ -129,3 +103,47 @@ modelAndView.addObject("teacher", teacher);
 		<button type='button' class="btn btn-primary courseApplyBtn" value="${course.id }">수강신청</button>
 	</div>
 </div>
+<!-- 내부 js 사용 : ajax처리가 원활하지 않아 내부에서 선언하니 제대로 됨-->
+<script> 
+$(function(){
+	// 수업 신청
+    $('.courseApplyBtn').click(function () {
+    	var courseTitle = $("#cd_title").text();
+		swal({
+		  title: "수업 신청",
+		  text: courseTitle + " 수업을 신청하시겠습니까?",
+		  buttons: true,
+		})
+		.then((res) => {
+		  if (res) {
+		    courseApply($(this).val());
+		  }
+		});
+    })
+	
+	function courseApply(course_id) {
+		$.ajax({
+			type: "POST",
+			url: "http://${ipaddress}:${port}/student/courseApply?courseId="+course_id,
+			success: function(data,status) {
+				swal({
+				  text: data,
+				  icon: "success",
+				})
+			    .then(() => {
+					location.reload();
+				});
+			},
+			error: function(request, status, error){
+				swal({
+				  text: request.responseText,
+				  icon: "error",
+				})
+			    .then(() => {
+					location.reload();
+				});
+			}
+		})
+	}
+});
+</script>

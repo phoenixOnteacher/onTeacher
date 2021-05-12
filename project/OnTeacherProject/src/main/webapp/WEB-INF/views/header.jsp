@@ -8,6 +8,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 <link rel="stylesheet" href="${path}/resources/css/header.css" />
 <link rel="stylesheet" href="${path}/resources/css/notification.css" />
+<link rel="stylesheet" href="${path}/resources/css/sweet_alert.css" />
 <spring:eval expression="@environment.getProperty('ipaddress')" var="ipaddress" />
 <spring:eval expression="@environment.getProperty('server.port')" var="port" />
 

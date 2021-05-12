@@ -252,6 +252,46 @@ public class CommonController {
 			}
 		}
 	}
+	
+	/* homework answer file 다운로드 */
+	@RequestMapping(value = "/hafiledownload", method = RequestMethod.GET)
+	public void homeworkanswerfiledownload(@RequestParam(value = "filename") String filename, HttpServletRequest request,
+			HttpServletResponse response) {
+		String saveDir = uploadPath.getHomeworkanswerPath();
+		if (!uploadPath.isAws()) {
+			saveDir = request.getServletContext().getRealPath(saveDir); // 파일 저장 경로
+		}
+		File file = new File(saveDir + filename);
+		String sfilename = null;
+		FileInputStream fis = null;
+		try {
+			String downloadFileName = file.getName();
+			// 브라우저 정보에 따라 utf-8 변경
+			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
+				sfilename = URLEncoder.encode(downloadFileName, "utf-8");
+			} else {
+				sfilename = new String(downloadFileName.getBytes("utf-8"), "ISO-8859-1");
+			}
+			response.setCharacterEncoding("utf-8");
+			response.setContentType("application/octet-stream;charset=utf-8");
+			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out = response.getOutputStream();
+			// 파일 카피 후 마무리
+			fis = new FileInputStream(file);
+			FileCopyUtils.copy(fis, out);
+			out.flush();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (fis != null) {
+				try {
+					fis.close();
+				} catch (Exception e) {
+				}
+			}
+		}
+	}
 
 	@RequestMapping(value = "/searchCourse", method = RequestMethod.GET)
 	public ModelAndView searchCourseDefault() {
@@ -359,7 +399,7 @@ public class CommonController {
     public void updateCourseStatus () {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String today = df.format(new Date(System.currentTimeMillis()));
-        System.out.println(today);
+        System.out.println(today + "수업 자동 시작/종료 처리");
         try {
         	// 수업 시작
         	List<Course> startCourseList = courseService.queryCourseListByStartDate(today);

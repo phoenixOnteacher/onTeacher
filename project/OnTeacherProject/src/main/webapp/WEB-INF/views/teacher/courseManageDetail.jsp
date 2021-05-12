@@ -11,7 +11,7 @@
 <div id="cm-wrap" class="m-5 px-5">
 	<div id="" class="container">
 		<div class="d-flex justify-content-start align-items-center text-secondary course-manage-menu">
-			<a href="/teacher/course-manage" class="h5 text-decoration-none text-reset">수업 관리</a>
+			<a href="/teacher/course-manage" class="h5 text-decoration-none text-reset course-manage-menu">수업 관리</a>
 			<i class="fas fa-chevron-right h5 mx-2"></i>
 		</div>
 		<h2 id="course-${course.id }" class="course-title" class="course-manage-menu" data-min-student="${course.minStudent }" data-max-student="${course.maxStudent }">${course.title }</h2>
@@ -39,7 +39,7 @@
 					    </div>
 					    <div class="col-lg-8">
 					      <div class="card-body">
-					        <div class="card-title h4 mb-3">${student.name } 학생
+					        <div class="card-title h4 mb-3"><a href="/student/studentDetail?studentId=${student.id}" class="user-detail-link">${student.name } 학생</a>
 					        	<c:choose>
 					        		<c:when test="${course.status=='matching' }">
 								        <div class="form-check float-end">
@@ -200,6 +200,28 @@ $(function(){
 	// 매칭하기
 	$('#matchingBtn').click(function () {
 		var course_id = $(this).val();
+		var minStudent = $(".course-title").data("minStudent");
+		if (minStudent == 0) {
+			minStudent = 1;
+		}
+		var maxStudent = $(".course-title").data("maxStudent");
+		if (maxStudent == 0) {
+			maxStudent = 1;
+		}
+		var checked = $("input[name='selectedStudent']:checked").length;
+		if (checked < minStudent) {
+			swal({
+			  text: "선택한 학생 인원이 최소 인원보다 적습니다.",
+			  icon: "warning",
+			})
+			return false;
+		} else if (checked > maxStudent) {
+			swal({
+			  text: "선택한 학생 인원이 최대 인원보다 많습니다.",
+			  icon: "warning",
+			})
+			return false;
+		}
 		swal({
 		  text: "매칭이 완료되면 더 이상 학생을 받을 수 없습니다.\n매칭을 진행하시겠습니까?",
 		  icon: "warning",
