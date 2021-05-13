@@ -1,36 +1,39 @@
--- Teacher, Student : gender ±æÀÌ º¯°æ
+-- Teacher, Student : gender ê¸¸ì´ ë³€ê²½
 alter table teacher modify gender varchar2(4);
 alter table student modify gender varchar2(4);
 
--- Teacher : message ±æÀÌ º¯°æ
+-- Teacher : message ê¸¸ì´ ë³€ê²½
 alter table teacher modify message varchar2(100);
 
--- Course : classinfo Ãß°¡
+-- Course : classinfo ì¶”ê°€
 alter table course add classinfo varchar2(1000);
 
--- 4/28 Student,Teacher,Course : address/location ±æÀÌ º¯°æ
+-- 4/28 Student,Teacher,Course : address/location ê¸¸ì´ ë³€ê²½
 alter table student modify address varchar2(100);
 alter table teacher modify address varchar2(100);
 alter table course modify location varchar2(100);
 
--- 4/29 Homeworkanswer : content Ãß°¡
+-- 4/29 Homeworkanswer : content ì¶”ê°€
 alter table homeworkanswer add content varchar2(1000);
 
 -- 5/3
--- Homeworkanswer : filename constraint(not null) »èÁ¦
--- homeworkanswer Å×ÀÌºíÀÇ Á¦¾àÁ¶°Ç Áß¿¡¼­, filename ÇÊµå not null Á¦¾àÁ¶°ÇÀÇ ÀÌ¸§À» ³Ö°í ½ÇÇà
-alter table homeworkanswer drop constraint Á¦¾àÁ¶°ÇÀÌ¸§;
--- alter notification : from_id »èÁ¦
+-- Homeworkanswer : filename constraint(not null) ì‚­ì œ
+-- homeworkanswer í…Œì´ë¸”ì˜ ì œì•½ì¡°ê±´ ì¤‘ì—ì„œ, filename í•„ë“œ not null ì œì•½ì¡°ê±´ì˜ ì´ë¦„ì„ ë„£ê³  ì‹¤í–‰
+alter table homeworkanswer drop constraint ì œì•½ì¡°ê±´ì´ë¦„;
+-- alter notification : from_id ì‚­ì œ
 alter table notification drop column from_id;
 
 -- 5/4
--- Notification : is_checked Ãß°¡
+-- Notification : is_checked ì¶”ê°€
 alter table notification add is_checked char(1) default 0 not null;
--- Homework : filename ±æÀÌ º¯°æ
+-- Homework : filename ê¸¸ì´ ë³€ê²½
 alter table homework modify filename varchar2(1000);
 
--- 5/6 Reply : Sequence Ãß°¡
+-- 5/6 Reply : Sequence ì¶”ê°€
 create sequence ReplyIdSeq start with 1;
 
--- 5/7 Reply : user_id FK »èÁ¦
+-- 5/7 Reply : user_id FK ì‚­ì œ
 alter table reply drop constraint FK_TEACHER_TO_REPLY;
+
+-- 5/11
+alter table course modify classinfo varchar2(4000);

@@ -149,7 +149,7 @@
 	<update id="updateCourseEndDate" parameterType="course">
 		<![CDATA[
 		update course
-		set end_date=#{endDate}
+		set end_date=to_date(#{endDate},'YYYY-MM-DD')
 		where id=#{id}
 		]]>
 	</update>
