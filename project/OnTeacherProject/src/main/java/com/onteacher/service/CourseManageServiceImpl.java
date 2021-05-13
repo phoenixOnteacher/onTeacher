@@ -16,7 +16,6 @@ import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.NotificationDAO;
 import com.onteacher.dao.StudentDAO;
 import com.onteacher.dao.StudentReviewDAO;
-import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
@@ -58,9 +57,6 @@ public class CourseManageServiceImpl implements CourseManageService {
 	@Autowired
 	private NotificationDAO notificationDAO;
 
-	@Autowired
-	private UploadPath uploadPath;
-	
 	@Override
 	public void setHomework(Homework hw) throws Exception {
 		homeworkDAO.insertHomework(hw);

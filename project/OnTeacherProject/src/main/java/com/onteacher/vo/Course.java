@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Component("course")
 public class Course {
+	
 	private int id; //PK
 	private String target;
 	private char isOneday;
@@ -208,6 +209,5 @@ public class Course {
 				+ highCategoryId + ", lowCategoryId=" + lowCategoryId + ", studentList=" + studentList + ", startPage=" + startPage
 				+ ", endPage=" + endPage + ", s_row=" + s_row + ", e_row=" + e_row + "]";
 	}
-
 	
 }

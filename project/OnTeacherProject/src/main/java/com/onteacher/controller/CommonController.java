@@ -71,13 +71,12 @@ public class CommonController {
 		String sfilename = null;
 		FileInputStream fis = null;
 		try {
-			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
 				sfilename = URLEncoder.encode(file.getName(), "utf-8");
 			} else {
 				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
+			}
 
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/octet-stream;charset=utf-8");
@@ -96,7 +95,7 @@ public class CommonController {
 				} catch (Exception e) {
 				}
 			}
-		} // try end;
+		}
 	}
 	
 
@@ -192,13 +191,11 @@ public class CommonController {
 	public String homeworkDetail(HttpServletRequest request, Model model, @PathVariable String homework_id) {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("id");
-//		int userId = 399999;
 		int homeworkId = Integer.parseInt(homework_id);
 		try {
 			HomeworkAnswer ha = courseService.queryHomeworkAnswer(homeworkId, userId);
 			Homework hw = courseService.queryHomework(homeworkId);
 			int courseId = hw.getCourseId();
-			// model.addAttribute("homeworkAnswerList",);
 			model.addAttribute("user_id", userId);
 			model.addAttribute("students", courseManageService.queryStudentListAndHomeworkAnswer(homeworkId));
 			model.addAttribute("course", courseService.queryCourseById(courseId));
@@ -354,27 +351,6 @@ public class CommonController {
 
 	}
 
-//	@RequestMapping(value = "/searchCourse/list", method = RequestMethod.GET)
-//	public String CourseList(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
-//			Model model) {
-//
-//		try {
-//			Course courseList = new Course();
-//			courseList.setS_row((page - 1) * 10 + 1);
-//			courseList.setE_row(page * 10);
-//			List<Course> listCourse = userService.CourseList(courseList);
-//			//                        = boardService.updatehits(id)
-//			model.addAttribute("coursesList", listCourse);
-//			model.addAttribute("currentPage", page);
-//			model.addAttribute("pageCnt", userService.Course() / 10 + 1);
-//			model.addAttribute("page", "course/listCourse");
-//
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "template";
-//	}
-
 	/* 알림 조회 */
 	@ResponseBody
 	@RequestMapping(value = "/notification", method = RequestMethod.POST)
@@ -393,9 +369,9 @@ public class CommonController {
 	}
 	
 	/* 날짜에 맞춰 수업 자동 시작 및 종료 처리 */
-//	@Scheduled(cron = "0 0 0 * * *") // 매년 매달 매일 0시 0분 0초에 실행 (자정)
+	@Scheduled(cron = "0 0 0 * * *") // 매년 매달 매일 0시 0분 0초에 실행 (자정)
 //	@Scheduled(cron = "0/5 * * * * *") // 매년 매달 매일 매시 매분 5초 마다 실행 
-	@Scheduled(cron = "0 0/10 * * * *")
+//	@Scheduled(cron = "0 0/10 * * * *")
     public void updateCourseStatus () {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         String today = df.format(new Date(System.currentTimeMillis()));

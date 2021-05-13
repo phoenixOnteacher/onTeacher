@@ -11,6 +11,5 @@ import com.onteacher.vo.LowCategory;
 @Repository("lowCategoryDAO")
 public interface LowCategoryDAO {
 	public List<LowCategory> selectLowCategory(int high_category_id) throws Exception;
-
 	public LowCategory selectLowCategoryById(int lowCategoryId);
 }

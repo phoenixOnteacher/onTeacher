@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.StudentDAO">
-	
 	<resultMap id="studentMap" type="student">
 		<id column="id" property="id" />
 		<result column="email" property="email" />
@@ -25,7 +24,6 @@
 		where email = #{email}
 		]]>
 	</select>
-
 	<select id="selectMatchingStudentByCourseId" resultMap="studentMap" parameterType="int">
 		<![CDATA[
 		select s.*
@@ -34,7 +32,6 @@
 		where m.course_id=#{courseId}
 		]]>
 	</select>
-	
 	<insert id="insertStudent" parameterType="student">
 		<![CDATA[
 		insert into student(id,email,name,password,phone_number,grade,address,birthday,gender,profile_img,introduction)
@@ -48,9 +45,8 @@
 		where
 		email=#{email}
 		]]>
-		</select>
-		
-		<select id="selectStudentByStudentId" resultMap="studentMap" parameterType="int">
+	</select>
+	<select id="selectStudentByStudentId" resultMap="studentMap" parameterType="int">
 		<![CDATA[
 		select * 
 		from student
@@ -58,8 +54,7 @@
 		id=#{studentId}
 		]]>
 	</select>
-	
-		<select id="selectStudentName" resultType="String" parameterType="int">
+	<select id="selectStudentName" resultType="String" parameterType="int">
 		<![CDATA[
 		select name
 		from student

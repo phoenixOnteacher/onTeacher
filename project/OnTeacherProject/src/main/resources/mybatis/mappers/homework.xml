@@ -10,6 +10,7 @@
 		<result column="deadline" property="deadline" />
 		<result column="course_id" property="courseId" />
 	</resultMap>
+	
 	<insert id="insertHomework" parameterType="homework">
 		<![CDATA[
 		insert into homework(id,title,content,filename,deadline,course_id)

@@ -22,12 +22,10 @@
 			<result column="profile_img" property="profileImg" />
 		</association>
 	</resultMap>
-	
 	<resultMap type="teacher" id="indexTeacherMap">
 		<id column="id" property="id" />
 		<result column="profile_img" property="profileImg" />
 	</resultMap>
-	
 	<resultMap type="course" id="indexCourseMap">
 		<id column="id" property="id" />
 		<result column="teacher_id" property="teacherId" />
@@ -36,29 +34,6 @@
 		<!-- teacher table join -->
 		<collection property="teacher" resultMap="indexTeacherMap" />
 	</resultMap>
-	
-	<!-- index에 넣을 최신 수업 8개 -->
-	<select id="selectCourseForIndex" resultMap="indexCourseMap">
-		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
-		from course c
-		left outer join teacher t
-		on c.teacher_id = t.id
-		where c.status='matching'
-		order by c.id desc)
-		where rownum <= 8]]> 
-	</select>
-	<!-- 수업검색 화면 GET방식일 때 보여줄 전체 수업목록 -->
-	<select id="selectCourseForSearch" resultMap="courseMap">
-		<![CDATA[
-		select * from (select c.id as course_id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name, t.id as teacher_id
-		from course c
-		left outer join teacher t
-		on c.teacher_id = t.id
-		where c.status='matching'
-		order by c.id desc)
-		]]>
-	</select>
-
 	<resultMap id="courseResult" type="course">
 		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
 		<id column="id" property="id" />
@@ -82,7 +57,28 @@
 		<result column="status" property="status" />
 		<result column="low_category_name" property="lowCategoryName" />
 	</resultMap>
-
+	
+	<!-- index에 넣을 최신 수업 8개 -->
+	<select id="selectCourseForIndex" resultMap="indexCourseMap">
+		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		where c.status='matching'
+		order by c.id desc)
+		where rownum <= 8]]> 
+	</select>
+	<!-- 수업검색 화면 GET방식일 때 보여줄 전체 수업목록 -->
+	<select id="selectCourseForSearch" resultMap="courseMap">
+		<![CDATA[
+		select * from (select c.id as course_id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name, t.id as teacher_id
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		where c.status='matching'
+		order by c.id desc)
+		]]>
+	</select>
 	<select id="selectCourseMatchingListByStudentId" parameterType="int"
 		resultMap="courseMap">
 		<![CDATA[
@@ -131,7 +127,6 @@
 		and c.status='end'
 		]]>
 	</select>
-
 	<update id="updateCourseStatus" parameterType="course">
 		<![CDATA[
 		update course

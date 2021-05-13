@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<HighCategory> highcategoryList() {
-		
 		return courseDAO.highcategoryList();
 	}
 	
@@ -62,28 +61,17 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<Course> selectMaxCourseNO() {
-		// TODO Auto-generated method stub
 		return courseDAO.selectMaxCourseNO();
 	}
 
 	@Override
 	public List<Course> selectAllCourseList() {
-		// TODO Auto-generated method stub
 		return courseDAO.selectAllCourseList();
 	}
 
 	@Override
 	public List<Course> CourseList(Course courseList) {
-		// TODO Auto-generated method stub
 		return courseDAO.CourseList(courseList);
 	}
 
-	@Override
-	public int Course() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }
-
-

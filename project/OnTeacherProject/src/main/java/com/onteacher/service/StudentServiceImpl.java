@@ -22,10 +22,10 @@ public class StudentServiceImpl implements StudentService {
 	@Autowired
 	StudentReviewDAO studentReviewDAO;
 
-	@Override
-	public Student queryStudentByEmail(String email) {
-		return studentDAO.selectStudentByEmail(email);
-	}
+//	@Override
+//	public Student queryStudentByEmail(String email) {
+//		return studentDAO.selectStudentByEmail(email);
+//	}
 	
 	@Override
 	public void stjoin(Student student) throws Exception {
@@ -57,7 +57,6 @@ public class StudentServiceImpl implements StudentService {
 
 	@Override
 	public String studentName(int id) throws Exception {
-		// TODO Auto-generated method stub
 		return studentDAO.selectStudentName(id);
 	}
 	

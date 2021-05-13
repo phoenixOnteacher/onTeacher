@@ -1,7 +1,5 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 

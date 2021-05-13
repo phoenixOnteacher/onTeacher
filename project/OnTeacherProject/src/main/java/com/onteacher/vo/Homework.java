@@ -48,11 +48,11 @@ public class Homework {
 	public void setCourseId(int courseId) {
 		this.courseId = courseId;
 	}
+	
 	@Override
 	public String toString() {
 		return "Homework [id=" + id + ", title=" + title + ", content=" + content + ", filename=" + filename
 				+ ", deadline=" + deadline + ", courseId=" + courseId + "]";
 	}
-	
 	
 }

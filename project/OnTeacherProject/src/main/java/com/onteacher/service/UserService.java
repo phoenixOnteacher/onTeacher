@@ -15,5 +15,4 @@ public interface UserService {
 	public List<Course> selectMaxCourseNO();
 	public List<Course> selectAllCourseList();
 	public List<Course> CourseList(Course courseList);
-	public int Course();	
 }

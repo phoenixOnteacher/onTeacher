@@ -12,7 +12,6 @@ import com.onteacher.dao.CourseReviewDAO;
 import com.onteacher.dao.HomeworkAnswerDAO;
 import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.TeacherDAO;
-import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.CourseReview;
 import com.onteacher.vo.HomeworkAnswer;
@@ -36,33 +35,26 @@ public class MyCourseServiceImpl implements MyCourseService {
 	
 	@Autowired
 	HomeworkAnswerDAO homeworkAnswerDAO;
-	
-	@Autowired
-	private UploadPath uploadPath;
 
 	@Override
 	public void cancelMatching(int studentId, int courseId) {
 		matchingDAO.deleteMatchingData(studentId,courseId);
 	}
 
-
 	@Override
 	public List<Course> queryMatchingcourseListByStudentId(int studentId) {
 		return courseDAO.selectCourseMatchingListByStudentId(studentId);
 	}
-
 
 	@Override
 	public List<Course> queryMatchedcourseListByStudentId(int studentId) {
 		return courseDAO.selectCourseMatchedListByStudentId(studentId);
 	}
 
-
 	@Override
 	public List<Course> queryStudyingcourseListByStudentId(int studentId) {
 		return courseDAO.selectCourseStudyingListByStudentId(studentId);
 	}
-
 
 	@Override
 	public List<Course> queryEndcourseListByStudentId(int studentId) {
@@ -78,7 +70,6 @@ public class MyCourseServiceImpl implements MyCourseService {
 		return courseList;
 	}
 
-
 	@Override
 	public Teacher queryMatchingTeacher(int courseId) {
 		Teacher teacher = teacherDAO.selectMatchingTeacherByCourseId(courseId);
@@ -86,16 +77,13 @@ public class MyCourseServiceImpl implements MyCourseService {
 		return teacher;
 	}
 
-
 	@Override
 	public void writeCourseReview(CourseReview cr) {
 		courseReviewDAO.insertCourseReview(cr);
 	}
 
-
 	@Override
 	public void createHomeworkAnswer(HomeworkAnswer ha) throws Exception {
 		homeworkAnswerDAO.insertHomeworkAnswer(ha);
 	}
-
 }

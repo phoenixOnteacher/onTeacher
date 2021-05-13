@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.HomeworkAnswerDAO">
-
 	<resultMap id="homeworkAnswerResult" type="homeworkAnswer">
 		<result column="content" property="content" />
 		<result column="filename" property="filename" />
@@ -25,7 +24,6 @@
 		and homework_id=#{homework_id}
 		]]>
 	</select>
-	
 	<select id="selectHomeworkAnswer" resultMap="homeworkAnswerResult" parameterType="homeworkAnswer">
 		<![CDATA[
 		select *

@@ -44,7 +44,6 @@ import com.onteacher.vo.Matching;
 import com.onteacher.vo.Student;
 import com.onteacher.vo.Teacher;
 
-//@Controller
 @Controller("studentController")
 @RequestMapping("/student")
 public class StudentController {
@@ -63,7 +62,6 @@ public class StudentController {
 	
 	@Autowired
 	private UploadPath uploadPath;
-	
 	
 	@RequestMapping(value = "/join", method = RequestMethod.GET)
 	public String stjoin(Model model) {
@@ -134,13 +132,12 @@ public class StudentController {
 		String sfilename = null;
 		FileInputStream fis = null;
 		try {
-			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
 				sfilename = URLEncoder.encode(file.getName(), "utf-8");
 			} else {
 				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
+			}
 
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/octet-stream;charset=utf-8");
@@ -160,16 +157,12 @@ public class StudentController {
 				} catch (Exception e) {
 				}
 			}
-		} // try end;
+		}
 	}
-
-
 	
 	/* 수업 관리 디테일 페이지 - 수업 관리 페이지에서 특정 수업을 클릭 했을 때 */
 	@RequestMapping(value="/course-manage/{course_id}", method=RequestMethod.GET)
 	public String courseDetail(HttpServletRequest request, Model model, @PathVariable String course_id) {
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("id");
 		int courseId = Integer.parseInt(course_id);
 		Course course = null;
 		try {
@@ -179,7 +172,6 @@ public class StudentController {
 		}
 		int highCategoryId = course.getHighCategoryId();
 		int lowCategoryId = course.getLowCategoryId();
-		int teacherId = course.getTeacherId();
 		HighCategory highCategory = courseService.queryHighCategoryById(highCategoryId);
 		LowCategory lowCategory = courseService.queryLowCategoryById(lowCategoryId);
 		try {
@@ -200,8 +192,7 @@ public class StudentController {
 	/* 신청 취소 - (대기중인 수업) */
 	@ResponseBody
 	@RequestMapping(value="/applyCancel", method=RequestMethod.DELETE)
-	public void applyCancel(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
+	public void applyCancel(@RequestParam(value = "courseId",required = true)int courseId, HttpServletRequest request) {
 		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
 		HttpSession session = request.getSession();
 		int studentId = (int) session.getAttribute("id");
@@ -302,13 +293,11 @@ public class StudentController {
 		}
 		modelAndView.setViewName("template");
 		return modelAndView;
-		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/courseApply", method=RequestMethod.POST)
-	public ResponseEntity<String> courseApply(@RequestParam(value = "courseId",required = true)int courseId,
-									HttpServletRequest request) {
+	public ResponseEntity<String> courseApply(@RequestParam(value = "courseId",required = true)int courseId, HttpServletRequest request) {
 		//1. 매개변수 받아오기. courseId는 쿼리스트링으로.
 		HttpSession session = request.getSession();
 		int studentId = (int) session.getAttribute("id");

@@ -11,6 +11,5 @@ import com.onteacher.vo.HighCategory;
 @Repository("highCategoryDAO")
 public interface HighCategoryDAO {
 	public List<HighCategory> selectHighCategory() throws Exception;
-
 	public HighCategory selectHighCategoryById(int highCategoryId);
 }

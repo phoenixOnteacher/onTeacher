@@ -2,8 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.onteacher.dao.CommentDAO">
-
-
 	<select id="selectCommentList" resultType="comment"
 		parameterType="int">
 		 <![CDATA[
@@ -13,13 +11,10 @@
 		ORDER BY id
 		]]>
 	</select>
-
 	<insert id="insertComment" parameterType="comment">
         <![CDATA[
 		 INSERT INTO reply(id,content,created_at,user_id,article_id)
-         VALUES (REPLYIDSEQ.NEXTVAL, #{content}, sysdate,  #{user_id}, #{article_id} )
+         VALUES (REPLYIDSEQ.NEXTVAL, #{content}, sysdate, #{user_id}, #{article_id} )
 		]]>
 	</insert>
-
-	
 </mapper>

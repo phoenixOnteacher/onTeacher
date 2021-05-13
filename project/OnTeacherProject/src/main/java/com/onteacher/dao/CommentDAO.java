@@ -10,10 +10,6 @@ import com.onteacher.vo.Comment;
 @Mapper
 @Repository("commentDAO")
 public interface CommentDAO {
-
 	public List<Comment> selectCommentList(int article_id) throws Exception;
-
 	public void insertComment(Comment comment) throws Exception;
-
-	
 }

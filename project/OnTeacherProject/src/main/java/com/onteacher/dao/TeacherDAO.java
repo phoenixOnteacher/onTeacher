@@ -10,7 +10,6 @@ import com.onteacher.vo.Teacher;
 @Mapper
 @Repository("teacherDAO")
 public interface TeacherDAO {
-
 	public Teacher selectTeacherById(int teacherId);
 	public void insertTeacher(Teacher tea) throws Exception;
 	public Teacher selectTeacher(String email) throws Exception;

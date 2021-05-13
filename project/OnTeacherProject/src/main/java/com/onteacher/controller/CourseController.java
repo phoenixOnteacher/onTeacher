@@ -41,13 +41,12 @@ public class CourseController {
 		String sfilename = null;
 		FileInputStream fis = null;
 		try {
-			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
 				sfilename = URLEncoder.encode(file.getName(), "utf-8");
 			} else {
 				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
+			}
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/octet-stream;charset=utf-8");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
@@ -66,9 +65,6 @@ public class CourseController {
 				} catch (Exception e) {
 				}
 			}
-		} // try end;
-		
+		}
 	}
-	
-	
 }

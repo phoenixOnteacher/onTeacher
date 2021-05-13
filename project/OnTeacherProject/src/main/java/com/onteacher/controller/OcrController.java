@@ -26,6 +26,7 @@ import com.onteacher.service.OcrService;
 @Controller("Controller")
 @RequestMapping("/ocr")
 public class OcrController {
+	
 	@Autowired
 	private UploadPath uploadPath;
 	
@@ -56,8 +57,8 @@ public class OcrController {
 				File destFile = new File(path + orgfile.getOriginalFilename());
 
 				orgfile.transferTo(destFile);
-				String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename());
 				// OcrService의 ImageRecognize 메소드를 처리한 후 res 변수에 저장한다.
+				String res = OcrService.ImageRecognize(path + orgfile.getOriginalFilename());
 				model.addAttribute("text", res);
 			}
 		} catch (Exception e) {
@@ -83,17 +84,15 @@ public class OcrController {
 		FileInputStream fis = null;
 
 		try {
-
 			FileWriter writer = new FileWriter(file);
 			writer.write(txtSave);
 			writer.close();
-			// if(ie){
 			// 브라우저 정보에 따라 utf-8변경
 			if (request.getHeader("User-Agent").indexOf("MSIE") > -1) {
 				sfilename = URLEncoder.encode(file.getName(), "utf-8");
 			} else {
 				sfilename = new String(file.getName().getBytes("utf-8"), "ISO-8859-1");
-			} // end if;
+			}
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("application/octet-stream;charset=utf-8");
 			response.setHeader("Content-Disposition", "attachment; filename=\"" + sfilename + "\";");
@@ -103,7 +102,6 @@ public class OcrController {
 			fis = new FileInputStream(file);
 			FileCopyUtils.copy(fis, out);
 			out.flush();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

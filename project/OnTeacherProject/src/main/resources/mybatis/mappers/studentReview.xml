@@ -21,7 +21,6 @@
 		from studentReview
 		where course_id=#{courseId} and teacher_id=#{teacherId} and student_id=#{studentId}
 	</select>
-	
 	<select id="selectStudentReviewByStudent" parameterType="int"
 		resultType="studentReview">
 		<![CDATA[

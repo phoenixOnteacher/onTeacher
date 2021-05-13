@@ -1,7 +1,5 @@
 package com.onteacher.vo;
 
-import java.sql.Date;
-
 import org.springframework.stereotype.Component;
 
 @Component("courseReview")
@@ -57,7 +55,5 @@ public class CourseReview {
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-
-	
 	
 }

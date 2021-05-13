@@ -28,13 +28,10 @@ public interface CourseDAO {
 	public List<Course> selectCourseForSearch();
 	public List<Course> selectCourseForSearchFilter(Course course);
 	public List<HighCategory> highcategoryList();
-	
 	public List<Course> selectMaxCourseNO();
 	public List<Course> selectAllCourseList();
-
 	public List<Course> CourseList(Course courseList);
 	public List<Course> selectCourseForIndex();
-	
 	public List<Course> selectCourseListByStartDate(String today) throws Exception;
 	public List<Course> selectCourseListByEndDate(String today) throws Exception;
 }

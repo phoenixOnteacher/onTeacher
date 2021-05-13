@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
-@EnableScheduling
+@EnableScheduling // scheduler를 사용하기 위해 추가
 public class OnTeacherProjectApplication {
 
 	public static void main(String[] args) {

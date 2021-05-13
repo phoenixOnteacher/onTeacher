@@ -10,13 +10,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.UUID;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class OcrService {
 
 	public static String ImageRecognize(String imageFile) {
-				
+		
 		String apiURL = "https://71d215e8c41a403d87510748a25daa51.apigw.ntruss.com/custom/v1/6492/cb74be10737afe8cdc992beb83a3e67e3ae317cc0ca43f809606345088150cc9/general";
 		String secretKey = "cFJMRFRKSUZTZWZVaWl0VXlvYU5lYlpISmF6aEtpYVI=";
 		String resultString = "";
@@ -47,7 +48,7 @@ public class OcrService {
 
 			con.connect();
 			DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-			long start = System.currentTimeMillis();
+//			long start = System.currentTimeMillis();
 			File file = new File(imageFile);
 			writeMultiPart(wr, postParams, file, boundary);
 			wr.close();
@@ -66,10 +67,8 @@ public class OcrService {
 			}
 			br.close();
 		
-			resultString=jsonParse(response.toString());
 			// resultString에 Jason으로 변환한 스트링을 저장한다. 
-			
-			System.out.println(response.toString());			
+			resultString=jsonParse(response.toString());
 			
 		} catch (Exception e) {
 			System.out.println(e);

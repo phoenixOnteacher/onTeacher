@@ -17,6 +17,7 @@ import com.onteacher.vo.Notification;
 @Service("boardService")
 @Transactional(propagation = Propagation.REQUIRED)
 public class BoardServiceImpl implements BoardService {
+	
 	@Autowired
 	private ArticleDAO articleDAO;
 
@@ -28,7 +29,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public List<Article> listArticles(Article article) throws Exception {
-
 		return articleDAO.selectAllArticlesList(article);
 	}
 
@@ -42,19 +42,15 @@ public class BoardServiceImpl implements BoardService {
 		return articleDAO.selectArticle(id);
 	}
 	
-	
-	  @Override 
-	  public void modArticle(Article article) throws Exception {
-	  articleDAO.updateArticle(article);
+	@Override 
+	public void modArticle(Article article) throws Exception {
+		articleDAO.updateArticle(article);
+	}
 	  
-	  }
-	  
-	  @Override 
-	  public void deleteArticle(int id) throws Exception { 
-	  articleDAO.deleteArticle(id);
-	  
-	  }
-	 
+	@Override 
+	public void deleteArticle(int id) throws Exception { 
+		articleDAO.deleteArticle(id);
+	}
 
 	@Override
 	public int articleCount() throws Exception {
@@ -75,20 +71,11 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<Comment> commentList(int article_id) throws Exception {
 		List<Comment> list= commentDAO.selectCommentList(article_id);
-
 		return list;
 	}
 
 	@Override
 	public void plusHits(int id) throws Exception {
-		// TODO Auto-generated method stub
 		articleDAO.updateHits(id);
 	}
-
-	
-	
-
-	
-	
-
 }

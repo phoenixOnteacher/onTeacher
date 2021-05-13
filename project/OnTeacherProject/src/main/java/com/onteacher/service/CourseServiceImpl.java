@@ -14,7 +14,6 @@ import com.onteacher.dao.HomeworkDAO;
 import com.onteacher.dao.LowCategoryDAO;
 import com.onteacher.dao.MatchingDAO;
 import com.onteacher.dao.TeacherDAO;
-import com.onteacher.prop.UploadPath;
 import com.onteacher.vo.Course;
 import com.onteacher.vo.HighCategory;
 import com.onteacher.vo.Homework;
@@ -47,9 +46,6 @@ public class CourseServiceImpl implements CourseService {
 	@Autowired
 	TeacherDAO teacherDAO;
 	
-	@Autowired
-	private UploadPath uploadPath;
-
 	@Override
 	public Course queryCourseById(int courseId) throws Exception {
 		Course course = courseDAO.selectCourseById(courseId);
@@ -63,7 +59,6 @@ public class CourseServiceImpl implements CourseService {
 		Homework homework = homeworkDAO.selectHomeworkById(id);
 		homework.setDeadline(homework.getDeadline().substring(0,10));
 		return homework;
-		
 	}
 
 	@Override
@@ -80,28 +75,19 @@ public class CourseServiceImpl implements CourseService {
 		return highCategoryDAO.selectHighCategoryById(highCategoryId);
 	}
 
-
 	@Override
 	public LowCategory queryLowCategoryById(int lowCategoryId) {
 		return lowCategoryDAO.selectLowCategoryById(lowCategoryId);
 	}
 
-
 	@Override
 	public Teacher queryTeacherById(int teacherId) {
-		// TODO Auto-generated method stub
 		return teacherDAO.selectTeacherById(teacherId);
 	}
 	
 	@Override
 	public List<Course> selectCourseForIndex() {
 		return courseDAO.selectCourseForIndex();
-	}
-
-
-	@Override
-	public List<Course> courseMatchingList(int studentId) {
-		return null;
 	}
 
 	@Override

@@ -10,6 +10,7 @@
 		<result column="teacher_id" property="teacherId" />
 		<result column="student_id" property="studentId" />
 	</resultMap>
+	
 	<insert id="insertCourseReview" parameterType="courseReview">
 		<![CDATA[
 		insert into courseReview(id, content, course_id, teacher_id, student_id)
@@ -21,8 +22,7 @@
 		from courseReview
 		where course_id=#{courseId} and teacher_id=#{teacherId} and student_id=#{studentId}
 	</select>
-	<select id="selectCourseReviewByTeacher" parameterType="int"
-		resultType="courseReview">
+	<select id="selectCourseReviewByTeacher" parameterType="int" resultType="courseReview">
 		<![CDATA[
 		SELECT r.id as id,r.content as content, r.created_at as createdAt, r.course_id as courseId,
 		c.title as courseName, r.teacher_id as teacherId, r.student_id as studentId 
