@@ -33,19 +33,19 @@
    3. [설계도](#clipboard-설계도)
 3. [주요 화면](#bulb-주요-화면)
 
-
+<br>
 
 ## :bird: 불사조 팀
 
-| 팀원                    | 역할                                               |
-| ----------------------- | -------------------------------------------------- |
-| 강면수 :muscle:         | Back-end, 배포                                     |
-| 김다니엘 :zzz:          | **팀장**(Project manager), Full-stack, 발표        |
-| 백승빈 :headphones:     | Back-end                                           |
-| 안지우 :woman_cook:     | Full-stack, 발표                                   |
-| 이경민 :hatching_chick: | Full-stack, Git 관리, DB 관리                      |
-| 이범기 :turtle:         | Full-stack, 발표                                   |
-| 정민아 :cat:            | Full-stack (Front-end 총괄), Git 관리, 회의록 작성 |
+| 팀원                | 역할                                               |
+| ------------------- | -------------------------------------------------- |
+| 강면수 :muscle:     | Back-end, 배포                                     |
+| 김다니엘 :zzz:      | **팀장**(Project manager), Full-stack, 발표        |
+| 백승빈 :headphones: | Back-end                                           |
+| 안지우 :woman_cook: | Full-stack, 발표                                   |
+| 이경민 :chipmunk:   | Full-stack, Git 관리, DB 관리                      |
+| 이범기 :turtle:     | Full-stack, 발표                                   |
+| 정민아 :cat:        | Full-stack (Front-end 총괄), Git 관리, 회의록 작성 |
 
 ### :alarm_clock: 미팅
 
@@ -80,7 +80,7 @@ body
 feature/기능이름
 ```
 
-
+<br>
 
 ## :mag: 주요 기능
 
@@ -114,6 +114,13 @@ feature/기능이름
 
 ### Wireframe
 
+> Kakao Oven을 활용하여 UI/UX 설계 (통합 예정)
+
+- 유저 공통 (메인 페이지, 회원가입/로그인, 수업 매칭 페이지, 수업 상세 페이지) [링크](https://ovenapp.io/view/TgxP46wQzNBAShJ9d40gbPGV2w37r4uo#PWKbH)
+- 선생님 유저 [링크](https://ovenapp.io/view/harEro1gMgGRlQL8AwDIfnkJ6bNXM1ss/)
+- 학생 유저 [링크](https://ovenapp.io/view/TgxP46wQzNBAShJ9d40gbPGV2w37r4uo#PWKbH)
+- 관리자 유저 [링크1](https://ovenapp.io/view/aP51cRrxe0t0YGiAMfFdW4J6F3I8NWiW/) [링크2](https://ovenapp.io/view/jxW86HtkX6GodBPsriXktL4o8vqKGGtm)
+
 ### ERD
 
 ![image-20210413151408124](docs/readme_img/ERD_v3.png)
@@ -122,9 +129,7 @@ feature/기능이름
 
 ![image-20210413152657736](docs/readme_img/ClassDiagram_v1.png)
 
-### System Architecture
-
-
+<br>
 
 ## :bulb: 주요 화면
 
