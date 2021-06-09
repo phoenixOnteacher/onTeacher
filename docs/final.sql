@@ -170,8 +170,8 @@ create sequence ArticleIdSeq start with 1;
 create sequence ReplyIdSeq start with 1;
 
 -- Delete category data
-truncate table HighCategory
-truncate table LowCategory
+truncate table HighCategory;
+truncate table LowCategory;
 
 
 -- Insert category data
