@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+ <mappers>
+   <mapper resource="mybatis/mappers/admin.xml"/> 
+   <mapper resource="mybatis/mappers/article.xml"/> 
+   <mapper resource="mybatis/mappers/comment.xml"/>
+   <mapper resource="mybatis/mappers/course.xml"/>
+   <mapper resource="mybatis/mappers/courseReview.xml"/>
+   <mapper resource="mybatis/mappers/highCategory.xml"/>
+   <mapper resource="mybatis/mappers/homework.xml"/>
+   <mapper resource="mybatis/mappers/homeworkAnswer.xml"/>
+   <mapper resource="mybatis/mappers/lowCategory.xml"/>
+   <mapper resource="mybatis/mappers/matching.xml"/>
+   <mapper resource="mybatis/mappers/student.xml"/>
+   <mapper resource="mybatis/mappers/studentReview.xml"/>
+   <mapper resource="mybatis/mappers/teacher.xml"/>
+   <mapper resource="mybatis/mappers/user.xml"/>
+   <mapper resource="mybatis/mappers/notification.xml"/>
+
+ </mappers>
+</configuration>

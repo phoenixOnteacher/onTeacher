@@ -1,0 +1,158 @@
+@charset "UTF-8";
+
+a {
+	text-decoration: none;
+}
+
+#viewArticle_wrap {
+	margin: 0 auto;
+	margin-top: 80px;
+	max-width: 800px;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+}
+
+#viewArticle_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: left;
+	margin-bottom: 2.5rem;
+}
+
+table {
+	margin: 0 auto;
+}
+
+#a_title {
+	font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+	height: 70px;
+}
+
+td.left1, td.left2 {
+	width: 10%;
+	font-weight: 600;
+}
+
+td.right1 {
+	width: 50%;
+}
+
+td.right2 {
+	width: 100%;
+}
+
+.cdate {
+	width: 20%;
+	text-align: center;
+	align-items: center;
+	font-size: 10px;
+	color: #818181;
+}
+
+td.right2 {
+	height: 400px;
+}
+
+#list_article {
+	text-align:left;
+	height:10px;
+	background-color: #FBAD38;
+	
+}
+
+#btn_group_wrap {
+	text-align: center;
+	margin-bottom: 40px;
+}
+
+.btn-group {
+	text-align: center;
+}
+
+button.btn-primary, .btn-warning, .btn-light, .btn-secondary {
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 130px;
+	font-size: 15px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
+button.btn-warning:hover {
+	background-color: #FBF6D6;
+}
+
+button.btn-light:hover {
+	border-color: #CED4DA;
+	color: #000000;
+}
+
+a.btn-secondary:hover {
+	background-color: #FBCBCC;
+	border-color: #dc3545;
+	color: #000000;
+}
+
+#c_title {
+	font-weight: 600;
+	font-size: 16px;
+}
+
+#c_table {
+	margin-top: 18px;
+}
+
+#c1 {
+	width: 12%;
+	font-weight: 600;
+}
+
+#c2 {
+	width: 70%;
+}
+
+#c3 {
+	text-align: center;
+	font-size: 10px;
+	color: #818181;
+}
+
+#comment_line {
+	margin: 2rem 0;
+}
+
+input.form-control {
+	height: 35px;
+	padding: 6px 10px;
+	font-size: 14px;
+}
+
+input.form-control, textarea.form-control {
+	height: 50px;
+    padding: 4px 10px;
+	font-size: 14px;
+}
+
+textarea#content {
+	margin-top: 14px;
+	resize: none;
+	height: 230px;
+}
+
+#c_btn_wrap {
+	text-align: right;
+	margin-top: 14px;
+}
+
+#comment_btn {
+	text-align: center;
+}
+

@@ -1,0 +1,39 @@
+@charset "UTF-8";
+
+#ud-wrap {
+	font-family: 'S-CoreDream-4Regular';
+}
+
+a {
+	color: #FF8184;
+}
+
+a:hover {
+	color: #FF6165
+}
+
+.profImg {
+	width: 300px;
+	height: 300px;
+	object-fit: contain;
+}
+
+.user-name {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 40px;
+	font-weight: 700;
+	margin-bottom: 2.5rem;
+}
+
+.user-introduction {
+	font-size: 20px;
+}
+
+
+.review-list-title {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 30px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}

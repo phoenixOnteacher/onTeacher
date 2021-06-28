@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.TeacherDAO">
+	<resultMap id="teacherResult" type="teacher">
+		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
+		<id column="id" property="id" />
+		<result column="email" property="email" />
+		<result column="name" property="name" />
+		<result column="password" property="password" />
+		<result column="phone_number" property="phoneNumber" />
+		<result column="address" property="address" />
+		<result column="birthday" property="birthday" />
+		<result column="gender" property="gender" />
+		<result column="profile_img" property="profileImg" />
+		<result column="introduction" property="introduction" />
+		<result column="active" property="active" />
+		<result column="filename" property="fileName" />
+		<result column="description" property="description" />
+		<result column="status" property="status" />
+		<result column="message" property="message" />
+	</resultMap>
+	
+	<select id="selectTeacherById" resultType="teacher" parameterType="int">
+		<![CDATA[select * from teacher where id=#{teacherId}]]>
+	</select>
+	<insert id="insertTeacher" parameterType="teacher">
+		<![CDATA[
+		insert into teacher(id,email,name,password,phone_number,address,birthday,gender,profile_img,introduction,filename,description)
+		values(TeacherIdSeq.nextval,#{email},#{name},#{password},#{phoneNumber},#{address},to_date(#{birthday},'YYYY-MM-DD'),#{gender},#{profileImg,jdbcType=VARCHAR},#{introduction},#{fileName},#{description})
+		]]>
+	</insert>
+	<select id="selectTeacher" resultType="teacher" parameterType="String">
+		<![CDATA[
+		select * 
+		from ((select email from student) union (select email from teacher) union (select email from admin))
+		where
+		email=#{email}
+		]]>
+	</select>	
+	<select id="selectTeacherByEmail" resultMap="teacherResult" parameterType="String">
+		<![CDATA[
+		select *
+		from teacher
+		where email=#{email}
+		]]>
+	</select>
+	<select id="selectMatchingTeacherByCourseId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select t.*
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id = #{courseId}
+		]]>
+	</select>
+	<select id="baseCertTeacher" resultMap="teacherResult" >
+		<![CDATA[
+		select name, id, email, phone_number, fileName, description
+		from teacher
+		where STATUS='submitted' 
+		order by id
+		]]>
+	</select>
+	<update id="updateActive" parameterType="String">
+		<![CDATA[
+		update teacher
+		set ACTIVE='1'
+		where email=#{email}
+		]]>
+	</update>
+	<update id="updateApproved" parameterType="String">
+		<![CDATA[
+		update teacher
+		set STATUS='approved'
+		where email=#{email}
+		]]>
+	</update>
+	<update id="updateRejected" parameterType="String">
+		<![CDATA[
+		update teacher
+		set STATUS='rejected'
+		where email=#{email}
+		]]>
+	</update>
+	<update id="updateCert" parameterType="teacher">
+		<![CDATA[
+		update teacher
+		set status=#{status}, message=#{message}
+		where id=#{id}
+		]]>
+	</update>
+	<select id="selectTeacherByTeacherId" resultMap="teacherResult" parameterType="int">
+		<![CDATA[
+		select * 
+		from teacher
+		where
+		id=#{teacherId}
+		]]>
+	</select>
+	<update id="updateTeacherCert" parameterType="teacher">
+		<![CDATA[
+		update teacher 
+		set filename=#{fileName}, description=#{description}, status='submitted' 
+		where id=#{id}
+		]]>
+	</update>
+</mapper>

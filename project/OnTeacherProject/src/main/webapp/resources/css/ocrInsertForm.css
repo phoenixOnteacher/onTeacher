@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+#ocr_wrap {
+	margin: 0 auto;
+	margin-top: 80px;
+	max-width: 700px;
+	padding: 50px;
+	border: 1px solid #ededed;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+}
+
+#ocr_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+
+input.form-control {
+	height: 35px;
+	padding: 6px 10px;
+	font-size: 14px;
+}
+
+#ocr_btn {
+	text-align: center;
+}
+
+button.btn-primary {
+	margin-top: 18px;
+	background-color: #E9ECEF;
+	border-color: #CED4DA;
+	color: #555555;
+	width: 160px;
+	height: 35px;
+}
+
+button.btn-primary:hover {
+	background-color: #FF8184;
+	border-color: #FF8184;
+}
+
+/* sweetalert */
+:root {
+	--swal-btn-confirm: #FF8184;
+	--swal-btn-confirm-hover: #FF8184;
+}
+
+.swal-text, .swal-title, .swal-footer {
+	font-family: 'S-CoreDream-4Regular';
+}
+
+.swal-footer {
+	text-align: center;
+}
+
+.swal-button, .swal-button--confirm {
+	background-color: #E9ECEF;
+	border: 1px solid #CED4DA;
+	color: #555555;
+}
+
+.swal-button:not([disabled]):hover, .swal-button--confirm:not([disabled]):hover {
+	background-color: var(--swal-btn-confirm-hover);
+	border-color: #FF8184;
+	color: #FFFFFF;
+}

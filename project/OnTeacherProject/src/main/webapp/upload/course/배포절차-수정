@@ -1,0 +1,123 @@
+-------------------------------------------------------------------------
+0. 배포할 WAR 파일 만들어 git에 올리기
+1. MobaXterm 설치
+   https://mobaxterm.mobatek.net/download-home-edition.html
+2. docker 설치
+3. git 설치
+4. oracle 설치
+5. 웹앱 설치
+-------------------------------------------------------------------------
+
+[0. 배포할 WAR 파일 만들어 git에 올리기]
+1) spring boot에서 배포할 프로젝트 수정
+   * gradle에 ojdbc10 추가
+   * application.properties : datasource의 ip, username, password 변경
+2) GitHub Desktop 다운로드(https://desktop.github.com/) 실행
+ * https://boheeee.tistory.com/27 참조
+
+[1. MobaXterm 설치]
+(https://mobaxterm.mobatek.net/download.html)
+1) AWS 가입 및 인스턴스 생성
+2) pem 키 다운
+ai02.pem 사용
+
+[2. docker 설치]
+1) sudo apt update
+
+2) 필요한 util 설치
+sudo apt install apt-transport-https
+sudo apt install ca-certificates
+sudo apt install curl
+sudo apt install software-properties-common
+
+3) curl을 이용해서 docker를 설치
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+4) 안정적 저장소를 설정 (bionic: ubuntu 배포판 이름)
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+5) sudo apt update
+
+#이제 apt list에 도커를 다운로드 받을 수 있는 경로가 추가가 되었습니다.
+
+6)  도커를 다운로드
+apt-cache policy docker-ce
+
+7) 도커 설치
+sudo apt install docker-ce
+
+*도커는 설치가 되면 자동으로 system service에 등록이 되기때문에 항상 실행할 수 있습니다.
+
+sudo docker version
+
+[3. git 설치]
+1) git 설치
+sudo apt install git
+
+2) version 확인
+git --version
+
+[4. oracle 설치]
+1) 이미지 다운 및 설치
+sudo docker run -d --name oracle -p 1521:1521 -p 48080:8080 -v ~/0jes/oracle_db:/opt/oracle/oradata deepdiver/docker-oracle-xe-11g
+# 옵션 -i(interactive), -t(Pseudo-tty) -> Bash Shell에 입력 및 출력을 할 수 있습니다.
+# 옵션 --name -> 컨테이너의 이름을 지정해 줍니다.
+# 옵션 -d -> daemonized (background 실행)
+# 옵션 -p -> 포트포워딩
+** docker pull limit  해결 : https://subicura.com/k8s/2021/01/02/docker-hub-pull-limit/
+** ip주소 바꾼후 재접속
+
+2) 실행 확인
+docker ps -a  #container id 확인
+
+3) 실행 시킴
+docker start {1b4cbf35380f}  #{} : container idㄷ턋
+
+4) oracle container 셸에 연결
+# it 옵션을 사용하면 해당 컨테이너의 쉘(shell)과 작접 상호작용하면서 연속으로 명령어를 실행할 수 있습니다.
+# exec -it : 실행 중인 컨테이너에 터미널로 들어간다.
+docker exec -it {1b4cbf35380f} /bin/bash
+sqlplus
+user-name : system
+password : oracle
+
+5) table 생성
+
+[5. 웹앱 설치]
+1) 다운로드 받을 디렉토리 생성
+mkdir ~/app && mkdir ~/app/step1
+cd ~/app/step1
+
+2) git에서 내려받기
+git clone https://github.com/oxywom/bootweb.git
+
+3) Dockerfile 생성 위치로 이동
+cd myweb
+
+4) Dockerfile 생성, 작성, 저장
+vi Dockerfile  (BankBoot-0.0.1-SNAPSHOT.war 와 같은 폴더에)
+*주요 명령: FROM, RUN, ENV, COPY, ENTRYPOINT
+*FROM : 이미지를 생성할 때 사용할 기반 이미지를 지정
+*RUN : 이미지를 생성할 때 실행할 코드를 지정
+*WORKDIR : 작업 디렉토리를 지정
+*COPY : 파일이나 폴더를 이미지에 복사
+*ENV : 이미지에서 사용할 환경 변수 값을 지정
+*ENTRYPOINT : 컨테이너를 시작할 때 실행할 명령어를 입력
+------------------------------------------------------------
+FROM openjdk:11-jdk as builder
+ARG JAR_FILE=./BankBoot-0.0.1-SNAPSHOT.war
+COPY ${JAR_FILE} app.war
+
+ENV TZ=Asia/Seoul
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+ENTRYPOINT ["java","-jar","app.war"]
+------------------------------------------------------------
+esc -> wq!
+
+5) 이미지 빌드(Dockerfile 순서로 이미지 생성, Dockerfile 이 있는 위치에서 실행)
+# (.)Dickerfile 위치,  -t(--tag): 이미지 이름 지정
+sudo docker build -t mulcam/bank .   
+
+6) 이미지 실행
+sudo docker run -p 8090:8090 mulcam/bank

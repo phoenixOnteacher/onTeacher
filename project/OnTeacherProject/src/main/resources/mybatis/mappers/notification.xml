@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.NotificationDAO">
+	<resultMap id="notificationResult" type="notification">
+		<id column="id" property="id"/>
+		<result column="to_id" property="toId"/>
+		<result column="content" property="content"/>
+		<result column="created_at" property="createdAt"/>
+		<result column="is_checked" property="isChecked"/>
+	</resultMap>
+	<insert id="insertNotification" parameterType="notification">
+		<![CDATA[
+		insert into notification(id, to_id, content)
+		values(NotificationIdSeq.nextval, #{toId}, #{content})
+		]]>
+	</insert>
+	<select id="selectNotificationList" resultMap="notificationResult" parameterType="int">
+		<![CDATA[
+		select *
+		from notification
+		where to_id=#{userId}
+		order by created_at desc
+		]]>
+	</select>
+	<delete id="deleteNotification" parameterType="int">
+		<![CDATA[
+		delete from notification
+		where id=#{id}
+		]]>
+	</delete>
+</mapper>

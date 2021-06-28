@@ -1,0 +1,134 @@
+@charset "UTF-8";
+/* 공통 */
+#h_wrap {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+/* 글로벌 네비게이션바 */
+nav.navbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	padding: 0 230px;
+	margin: 0;
+	border: 0;
+	border-bottom: 1px solid #ededed;
+	font-family: 'S-CoreDream-5Medium';
+	transition: background-color 0.5s ease 0s;
+	font-size: 16px;
+	font-family: 'S-CoreDream-5Medium';
+}
+
+nav.fixed-top {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1030;
+}
+
+#logo img {
+	width: 130px;
+	height: auto;
+}
+
+#navbar_menu {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+}
+
+#navbar_menu li {
+	list-style-type: none;
+	display: inline;
+}
+
+#navbar_menu li a {
+	color: black;
+	text-decoration: none;
+}
+
+#navbar_menu li:not(:last-child) {
+	padding-right: 12px;
+}
+
+nav.navbar:before, nav.navbar:after {
+	display: table;
+	content: none;
+}
+
+nav.navbar:after {
+	clear: both;
+}
+
+/* 회원가입버튼 */
+#btnJoin {
+	cursor: pointer;
+}
+
+#up {
+	display: none;
+}
+
+#down {
+	display: inline-block;
+}
+
+/* 회원가입 서브메뉴 시작 */
+#joinsub {
+	display: none;
+	position: relative;
+}
+
+#submenu {
+	position: absolute;
+	right: 0;
+	padding: 0;
+	margin-top: 6px;
+	width: 80px;
+	height: 60px;
+	background-color: #ffffff;
+	line-height: 0.6rem;
+	border: 2px solid #fedec3;
+}
+
+#submenu li a {
+	display: block;
+	text-align: right;
+	font-size: 14.4px;
+	padding-right: 3px;
+	padding-bottom: 10px;
+}
+
+/* 학생가입버튼만 적용 */
+#submenu li:first-child a {
+	padding-top: 10px;
+	border-bottom: 2px solid #fedec3;
+}
+
+/* 글로벌 네비게이션바 효과 */
+nav.navbareffect {
+	background-color: #FBFAF1;
+	border-bottom: 0.2px solid #FEDEC3;
+}
+
+/* 반응형 */
+@media screen and (max-width: 1124px) {
+	nav.navbar {
+		padding: 0 130px;
+	}
+}
+
+@media screen and (max-width: 924px) {
+	nav.navbar {
+		padding: 0 70px;
+	}
+}
+
+@media screen and (max-width: 804px) {
+	nav.navbar {
+		padding: 0 25px;
+	}
+}

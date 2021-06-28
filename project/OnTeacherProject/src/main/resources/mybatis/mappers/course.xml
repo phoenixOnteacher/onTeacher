@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.CourseDAO">
+	<!-- 2. CourseVO안에 TeacherVO를 넣어서 JOIN한 형태 -->
+	<!--column : DB에 들어가있는 column의 형태 property : VO에 들어가있는 변수 그 둘을 매핑 시켜주는 것 -->
+	<!-- 2-1. Course(VO)를 매핑해주고 2-2. Course안에있는 Teacher(VO)를 매핑 -->
+	<!-- 2-1. -->
+	<resultMap type="course" id="courseMap">
+		<id column="course_id" property="id" />
+		<result column="title" property="title" />
+		<result column="status" property="status" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="location" property="location" />
+		<result column="studyday" property="studyDay" />
+		<result column="studytime" property="studyTime" />
+		<!-- 2-2. -->
+		<association javaType="teacher" property="teacher">
+			<id column="teacher_id" property="id" />
+			<result column="name" property="name" />
+			<result column="profile_img" property="profileImg" />
+		</association>
+	</resultMap>
+	<resultMap type="teacher" id="indexTeacherMap">
+		<id column="id" property="id" />
+		<result column="profile_img" property="profileImg" />
+	</resultMap>
+	<resultMap type="course" id="indexCourseMap">
+		<id column="id" property="id" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="title" property="title" />
+		<result column="classinfo" property="curriculum" />
+		<!-- teacher table join -->
+		<collection property="teacher" resultMap="indexTeacherMap" />
+	</resultMap>
+	<resultMap id="courseResult" type="course">
+		<!-- 기본컬럼은 id, 일반 컬럼은 result -->
+		<id column="id" property="id" />
+		<result column="teacher_id" property="teacherId" />
+		<result column="high_category_id" property="highCategoryId" />
+		<result column="low_category_id" property="lowCategoryId" />
+		<result column="target" property="target" />
+		<result column="is_oneday" property="isOneday" />
+		<result column="start_date" property="startDate" />
+		<result column="end_date" property="endDate" />
+		<result column="studyday" property="studyDay" />
+		<result column="studytime" property="studyTime" />
+		<result column="is_online" property="isOnline" />
+		<result column="location" property="location" />
+		<result column="is_group" property="isGroup" />
+		<result column="min_student" property="minStudent" />
+		<result column="max_student" property="maxStudent" />
+		<result column="title" property="title" />
+		<result column="classinfo" property="curriculum" />
+		<result column="classinfo_file" property="curriculumFile" />
+		<result column="status" property="status" />
+		<result column="low_category_name" property="lowCategoryName" />
+	</resultMap>
+	
+	<!-- index에 넣을 최신 수업 8개 -->
+	<select id="selectCourseForIndex" resultMap="indexCourseMap">
+		<![CDATA[select * from (select c.id, c.title, c.classinfo, t.profile_img
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		where c.status='matching'
+		order by c.id desc)
+		where rownum <= 8]]> 
+	</select>
+	<!-- 수업검색 화면 GET방식일 때 보여줄 전체 수업목록 -->
+	<select id="selectCourseForSearch" resultMap="courseMap">
+		<![CDATA[
+		select * from (select c.id as course_id, c.title, c.start_date, c.end_date, c.location, c.studyday, c.studytime, t.profile_img, t.name, t.id as teacher_id
+		from course c
+		left outer join teacher t
+		on c.teacher_id = t.id
+		where c.status='matching'
+		order by c.id desc)
+		]]>
+	</select>
+	<select id="selectCourseMatchingListByStudentId" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, c.location, c.studyday, c.studytime, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='matching'
+		]]>
+	</select>
+	<select id="selectCourseMatchedListByStudentId" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, c.location, c.studyday, c.studytime, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='matched'
+		]]>
+	</select>
+	<select id="selectCourseStudyingListByStudentId" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, c.location, c.studyday, c.studytime, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status ='studying'
+		]]>
+	</select>
+	<select id="selectCourseEndListByStudentId" parameterType="int"
+		resultMap="courseMap">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, c.location, c.studyday, c.studytime, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and c.id in (select course_id 
+		             from matching 
+		             where student_id = #{studentId})
+		and c.status='end'
+		]]>
+	</select>
+	<update id="updateCourseStatus" parameterType="course">
+		<![CDATA[
+		update course
+		set status=#{status}
+		where id=#{id}
+		]]>
+	</update>
+	<select id="selectCourseById" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select * from course
+		where id=#{id}
+		]]>
+	</select>
+	<update id="updateCourseEndDate" parameterType="course">
+		<![CDATA[
+		update course
+		set end_date=to_date(#{endDate},'YYYY-MM-DD')
+		where id=#{id}
+		]]>
+	</update>
+	<delete id="deleteCourse" parameterType="int">
+		<![CDATA[
+		delete from course
+		where id=#{id}
+		]]>
+	</delete>
+	<select id="selectStudyingCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
+		where teacher_id=#{teacherId} and status='studying'
+		]]>
+	</select>
+	<select id="selectEndCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
+		where teacher_id=#{teacherId} and status='end'
+		]]>
+	</select>
+	<select id="selectMatchingCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
+		where teacher_id=#{teacherId} and status='matching'
+		]]>
+	</select>
+	<select id="selectMatchedCourseList" resultMap="courseResult"
+		parameterType="int">
+		<![CDATA[
+		select c.*, l.name as low_category_name
+		from course c join lowcategory l
+		on c.low_category_id = l.id
+		where teacher_id=#{teacherId} and status='matched'
+		]]>
+	</select>
+	<!-- 수업등록 -->
+	<insert id="insertCourse" parameterType="course">
+		<![CDATA[insert into course(id, teacher_id, high_category_id, low_category_id, target, is_oneday, start_date, end_date, studyday, studytime, is_online, location, is_group, min_student, max_student, title, classinfo_file, status, classinfo)
+		values((SELECT NVL(MAX(id)+1,1) FROM course), #{teacherId}, #{highCategoryId}, #{lowCategoryId}, #{target, jdbcType=VARCHAR}, #{isOneday}, to_date(#{startDate, jdbcType=VARCHAR},'YYYY-MM-DD'), to_date(#{endDate, jdbcType=VARCHAR}, 'YYYY-MM-DD'), #{studyDay, jdbcType=VARCHAR}, #{studyTime, jdbcType=VARCHAR}, #{isOnline}, replace(#{location, jdbcType=VARCHAR}, ',', ' '), #{isGroup}, #{minStudent}, #{maxStudent}, #{title}, #{curriculumFile}, #{status, jdbcType=VARCHAR}, #{curriculum})]]>
+	</insert>
+	<!-- 카테고리 필터 -->
+	<select id="selectCourseForSearchFilter" resultMap="courseMap" parameterType="course">
+		<![CDATA[
+		select c.id as course_id, c.title, c.status, to_char(c.start_date,'YYYY-MM-DD') as start_date, to_char(c.end_date,'YYYY-MM-DD') as end_date, c.location, c.studyday, c.studytime, t.id as teacher_id, t.name, t.profile_img
+		from course c, teacher t
+		where c.teacher_id = t.id
+		and high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline}
+		and c.status='matching'
+		order by c.id desc
+		]]>
+	</select>
+	<select id="highcategoryList" resultType="highCategory">
+		<![CDATA[
+		select * from highcategory
+		]]>
+	</select>
+	<!-- 페이징 처리 후 게시글 조회 
+	<select id="selectBoard" resultMap="courseResult" parameterType="course">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+			FROM (
+				SELECT * 
+				FROM BOARD 
+				ORDER BY SEQ DESC 
+				) A
+			)
+		WHERE RN BETWEEN #{start} AND #{end}
+	</select> -->
+	<select id="selectAllCourseList" resultType="course">
+		<![CDATA[
+		select * from
+		(select row_number() over (order by id desc) num, c.*
+		from course c
+		where high_category_id=#{highCategoryId} and low_category_id=#{lowCategoryId} 
+		and target=#{target} and is_online=#{isOnline} order by id)
+		where num between #{s_row} and #{e_row}
+		]]>
+	</select>
+	<select id="selectCourseListByStartDate" resultMap="courseResult" parameterType="String">
+		<![CDATA[
+		select * from course
+		where start_date<=#{today}
+		]]>
+	</select>
+	<select id="selectCourseListByEndDate" resultMap="courseResult" parameterType="String">
+		<![CDATA[
+		select * from course
+		where end_date<=#{today}
+		]]>
+	</select>
+</mapper>

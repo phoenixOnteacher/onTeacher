@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.offcanvas .bg-general {
+	background-color: #fbf7c6
+}
+
+.offcanvas .bg-rejected {
+	background-color: #ffdbdc
+}
+
+.offcanvas a {
+	color: #FF8184;
+}
+
+.offcanvas a:hover {
+	color: #FF6165
+}
+
+.offcanvas .btn {
+	background-color: #FF8184;
+	border-color: #FF8184;
+	color: white;
+}
+
+.offcanvas .btn:hover{
+	background-color: #FF6165;
+	border-color: #FF6165;
+}
+
+#notificationBell {
+	cursor: pointer;
+}

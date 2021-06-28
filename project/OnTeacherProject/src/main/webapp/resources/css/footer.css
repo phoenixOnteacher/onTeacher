@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/* 공통 */
+#f_wrap {
+	margin: 0;
+	height: 150px;
+	background-color: #FBAD38;
+}
+
+/* 글자 */
+#copyright {
+	text-align: center;
+	line-height: 150px;
+	color: #ffffff;
+	font-size: 0.825rem;
+	font-family: 'S-CoreDream-4Regular';
+}
+
+#copyright p {
+	margin: 0;
+}

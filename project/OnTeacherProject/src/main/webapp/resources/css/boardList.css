@@ -1,0 +1,62 @@
+#tc_wrap {
+    max-width: 900px;
+	margin:0 auto;
+	margin-top: 60px;
+	align-items: center;
+	font-family: 'S-CoreDream-4Regular';
+	font-size: 14px;
+}
+
+#tc_title_wrap {
+	font-family: 'S-CoreDream-5Medium';
+	font-size: 25px;
+	font-weight: 700;
+	text-align: center;
+	margin-bottom: 2.5rem;
+}
+
+table {
+	text-align: center;
+	align-items: center;
+}
+
+tr.tbody_row {
+	height: 50px;
+	line-height: 50px;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+form {
+	display: inline-block;
+	font-size: 14px;
+}
+
+button.btn-success {
+	height: 35px;
+	background-color: transparent;
+	color: #198754;
+}
+
+button.btn-danger {
+	height: 35px;
+	background-color: transparent;
+	color: #dc3545;
+}
+
+.btn-primary {
+	background-color: #FF8184;
+	border-color: #FF8184;
+	color: white;
+}
+
+.btn-primary:hover, .btn-check:active+.btn-primary, .btn-check:checked+.btn-primary, .btn-primary.active, .btn-primary.dropdown-toggle.show, .btn-primary:active {
+	background-color: #FF6165;
+	border-color: #FF6165;
+}

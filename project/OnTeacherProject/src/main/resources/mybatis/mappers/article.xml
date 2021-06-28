@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.ArticleDAO">
+	<select id="selectAllArticlesList" resultType="article">
+		<![CDATA[
+		select *
+		from(select row_number() over (order by a.id desc) num, a.*, s.name as user_name
+        from article a, student s 
+        where a.user_id=s.id order by a.id desc)
+        where num between #{s_row} and #{e_row} 
+		]]>
+	</select>
+	<select id="selectMaxArticleNO" resultType="int"> 
+		<![CDATA[
+		select max(id) from article
+		]]>
+	</select>
+	<update id="updateHits" parameterType="int">
+		<![CDATA[
+		update article
+		set hits = hits + 1
+		where id=#{id}
+		]]>
+	</update> 
+	<insert id="insertArticle" parameterType="article">
+		<![CDATA[
+		INSERT INTO article(id,title,content,filename,created_at,hits,user_id)
+        VALUES (ArticleIdSeq.nextval, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, sysdate, 0, #{user_id} )
+		]]>
+	</insert>
+	<select id="selectArticle" resultType="article" parameterType="int">
+		<![CDATA[
+		select a.*, s.name as user_name
+ 		from article a, student s
+        where a.user_id = s.id and a.id = #{id}	
+		]]>
+	</select>
+	<update id="updateArticle" parameterType="article">
+		<![CDATA[
+		update article
+		set title=#{title,jdbcType=VARCHAR},
+            content=#{content,jdbcType=VARCHAR}
+		where id=#{id}
+		]]>
+	</update>
+	<delete id="deleteArticle" parameterType="int">
+		<![CDATA[
+		delete from article
+		where id=#{id}
+		]]>
+	</delete>
+	<select id="selectArticleCount" resultType="int">
+		<![CDATA[
+		select count(*)
+		from article	
+		]]>
+	</select>
+</mapper>

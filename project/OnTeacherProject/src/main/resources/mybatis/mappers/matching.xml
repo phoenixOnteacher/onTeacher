@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+							"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.onteacher.dao.MatchingDAO">
+	<delete id="deleteMatchingData" parameterType="int">
+		<![CDATA[
+		delete from matching
+		where student_id = #{studentId}
+		and course_id = #{courseId}
+		]]>
+	</delete>
+	<resultMap id="matchingResult" type="matching">
+		<result column="student_id" property="studentId" />
+		<result column="course_id" property="courseId" />
+	</resultMap>
+	<insert id="insertMatching" parameterType="matching">
+		<![CDATA[
+		insert into matching(student_id,course_id)
+		values(#{studentId},#{courseId})
+		]]>
+	</insert>
+	<select id="selectMatching" resultMap="matchingResult" parameterType="matching">
+		<![CDATA[
+		select *
+		from matching
+		where student_id=#{studentId} and course_id=#{courseId}
+		]]>
+	</select>
+	<select id="selectMatchingListByCourseId" resultMap="matchingResult" parameterType="int">
+		<![CDATA[
+		select *
+		from matching
+		where course_id=#{courseId}
+		]]>
+	</select>
+	<delete id="deleteMatching" parameterType="matching">
+		<![CDATA[
+		delete from matching
+		where student_id=#{studentId} and course_id=#{courseId}
+		]]>
+	</delete>
+</mapper>
