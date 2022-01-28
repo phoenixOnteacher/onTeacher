@@ -1,6 +1,8 @@
 # OnTeacher Deploy Guide  
 
-
+## AWS EC2 생성
+1. 서울 지역으로 생성
+2. 인바운드 규칙 추가 (Oracle RDS - 1521, SSH - 22, 사용자 지정 TCP - 8090)
 
 ## STS 4 bootWar 생성하기
 
@@ -268,6 +270,13 @@
 
    ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
 
+   
+8. sqlplus 실행 종료 
+
+   ```bash
+   # exit
+   ```
+   > + 'ctrl + D' 커맨드를 통해 정상 종료 
    
 
    ## Docker Volume  생성 (파일 업로드/다운로드용)
