@@ -266,6 +266,13 @@
    >
    >  호스트 이름 : AWS 접속 IP를 입력함
 
+6-2. oracle password expire 문제 해결 (7일경과시 계정이 lock되는 것 방지)
+   sqldevelop 워크시트에서
+   ```bash
+   select * from dba_profiles where profile = 'DEFAULT';     -- password life time 확인
+   alter profile default limit password_life_time unlimited; -- 기한을 unlimited로 변경
+   ```
+
 7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. 
 
    ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
