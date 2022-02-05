@@ -1,6 +1,8 @@
 # OnTeacher Deploy Guide  
 
-
+## AWS EC2 생성
+1. 서울 지역으로 생성
+2. 인바운드 규칙 추가 (Oracle RDS - 1521, SSH - 22, 사용자 지정 TCP - 8090)
 
 ## STS 4 bootWar 생성하기
 
@@ -23,11 +25,11 @@
 2. 로컬에서 실습하는 환경이 아닌 실제 호스팅 환경이므로 Application.properties 에서 IP, Username, Password를 변경합니다.
 
    ```java
-   spring.datasource.url=jdbc:oracle:thin:@18.216.45.215:1521:XE "AWS 공인 IP 주소"
+   spring.datasource.url=jdbc:oracle:thin:@(AWS 공인 IP 주소):1521:XE
    spring.datasource.username=system
    spring.datasource.password=oracle
    
-3. 상단 메뉴에서  Window > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
+3. 상단 메뉴에서  Window > Show View > Other > Gradle Tasks를 선택하여,  Project Explorer 옆에 Gradle Tasks 메뉴를 화면에 표시합니다. 
 
 4. Gradle Tasks  메뉴에서 Build할 프로젝트를 선택한 후 build > bootWar를 선택하여 war 파일을 생성합니다. 
 
@@ -264,10 +266,24 @@
    >
    >  호스트 이름 : AWS 접속 IP를 입력함
 
+6-2. oracle password expire 문제 해결 (7일경과시 계정이 lock되는 것 방지)
+   sqldevelop 워크시트에서
+   ```bash
+   select * from dba_profiles where profile = 'DEFAULT';     -- password life time 확인
+   alter profile default limit password_life_time unlimited; -- 기한을 unlimited로 변경
+   ```
+
 7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. 
 
    ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
 
+   
+8. sqlplus 실행 종료 
+
+   ```bash
+   # exit
+   ```
+   > + 'ctrl + D' 커맨드를 통해 정상 종료 
    
 
    ## Docker Volume  생성 (파일 업로드/다운로드용)
@@ -289,7 +305,7 @@
    1. AWS ubuntu에 접속한 후 Web Application을 다운 받을 디렉토리를 생성합니다. 
    
       ```bash 
-      # mkidr ~/app&&mkdir ~/app/step2
+      # mkdir ~/app&&mkdir ~/app/step2
       # cd ~/app/step2
       ```
 
@@ -301,7 +317,8 @@
       # git clone https://github.com/KhanKMS/OnTeacher-Deploy.git
       ```
    
-      > 본 가이드에서는 작성자가 생성한 git  Repository를 사용했습니다만, 자신의 git Repository가 있다면 해당 github URL을 입력합니다. 
+      > 본 가이드에서는 작성자가 생성한 git  Repository를 사용했습니다만, 자신의 git Repository가 있다면 해당 github URL을 입력합니다.
+      > ID, PW 입력에서 PW 입력이 GitToken 입력으로 변경되었습니다. 상세참고(https://amkorousagi-money.tistory.com/entry/Git-personal-access-token) 
    
       ![git clone](md-images/git%20clone.jpg)
    
@@ -318,7 +335,7 @@
       ~~~
    
       ```bash 
-      run FROM openjdk:11-jdk as builder
+      FROM openjdk:11-jdk as builder
       ARG JAR_FILE=./OnTeacherProject-0.0.1-SNAPSHOT.war
       COPY ${JAR_FILE} app.war
       
