@@ -81,7 +81,7 @@
 		<div class="row row-cols-1 row-cols-md-4 g-4">
 			<c:forEach var="course" items="${courses }">
 				<div class="col">
-					<div class="card">
+					<div class="card" style="cursor: pointer;" onclick="location.href='/searchCourse/detail?courseId=${course.id }';">
 						<c:choose>
 							<c:when test="${course.teacher.profileImg == null}">
 								<img src="/resources/img/logo.png" class="card-img-top">
