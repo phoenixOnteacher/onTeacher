@@ -271,6 +271,7 @@
    ```bash
    select * from dba_profiles where profile = 'DEFAULT';     -- password life time 확인
    alter profile default limit password_life_time unlimited; -- 기한을 unlimited로 변경
+   alter user system identified by oracle;                   -- 비밀번호 변경
    ```
 
 7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. 
