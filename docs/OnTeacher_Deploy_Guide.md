@@ -284,7 +284,7 @@
    ```bash
    # exit
    ```
-   > + 'ctrl + D' 커맨드를 통해 정상 종료 
+   > + 'ctrl + D' 커맨드를 통해 docker 종료. 다음 step을 위해 ubuntu로 이동함. 
    
 
    ## Docker Volume  생성 (파일 업로드/다운로드용)
