@@ -271,9 +271,10 @@
    ```bash
    select * from dba_profiles where profile = 'DEFAULT';     -- password life time 확인
    alter profile default limit password_life_time unlimited; -- 기한을 unlimited로 변경
+   alter user system identified by oracle;                   -- 비밀번호 변경
    ```
 
-7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. 
+7. SQL Developer 에서 ORACLE AWS 를 선택한 후 테이블 생성 쿼리를 실행합니다. 프로젝트에 관련된 모든  SQL TABLE 작성 쿼리를 실행해야 합니다. ('final.sql'에 모든 쿼리가 정리 돼 있습니다.)
 
    ![sql developer table create query](md-images/AWS%20SQL%20TABLE%20CREATE.jpg)
 
@@ -283,7 +284,7 @@
    ```bash
    # exit
    ```
-   > + 'ctrl + D' 커맨드를 통해 정상 종료 
+   > + 'ctrl + D' 커맨드를 통해 docker 종료. 다음 step을 위해 ubuntu로 이동함. 
    
 
    ## Docker Volume  생성 (파일 업로드/다운로드용)
