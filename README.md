@@ -133,3 +133,70 @@ feature/기능이름
 
 ## :bulb: 주요 화면
 
+**1. [메인 페이지]**
+
+![main_page](docs/readme_img/main_page.png)
+
+**2. [수업 등록]**
+
+> 자격 심사에 통과한 선생님들의 '수업 등록' 페이지
+
+![course_registration](docs/readme_img/course_registration.png)
+
+**3. [수업 검색]**
+
+> 선생님이 등록한 수업을 검색
+>
+> 이 페이지를 통해 학생들은 수업 신청
+
+![course_search](docs/readme_img/course_search-1644410013261.png)
+
+**4. [수업 관리]**
+
+> 학생과 매칭된 수업을 관리하는 페이지
+>
+> '진행중인 수업, 대기중인 수업, 종료된 수업'으로 수업이 나뉨
+
+![teacher_studyingCourse](docs/readme_img/teacher_studyingCourse.png)
+
+**5. [수업 관리 - 과제]**
+
+> 과제를 통해 학생과 매칭된 수업을 관리
+>
+> 선생님은 과제 작성, 학생은 과제 제출, 댓글을 통해 선생님 피드백 가능
+
+![teacher_studyingCourse_homework](docs/readme_img/teacher_studyingCourse_homework.png)
+
+**6. [후기 작성]**
+
+> 종료된 수업은 후기 작성
+>
+> 선생님, 학생 서로 후기 작성 가능
+>
+> 프로필 클릭 시 후기 확인
+
+![student_endCourse_review](docs/readme_img/student_endCourse_review.png)
+
+**7. [OCR 기능]**
+
+> 이미지를 텍스트로 변환
+>
+> 과제, 질문게시판에 활용 가능
+
+![ocr](docs/readme_img/ocr.png)
+
+**8. [질문 게시판]**
+
+> 학생이 질문 등록 (전체 공개)
+>
+> 선생님이 댓글로 답변
+
+![question_board](docs/readme_img/question_board.png)
+
+![question_board_detail](docs/readme_img/question_board_detail.png)
+
+**9. [알림 기능]**
+
+> 선생님 자격 심사, 수업 매칭 등 다양한 기능을 알림 탭을 통해 공지
+
+![notification](docs/readme_img/notification.png)
